@@ -1,0 +1,26 @@
+{
+  "name": "fastify-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lmammino/fastify-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lmammino/fastify-website/issues"
+  },
+  "homepage": "https://github.com/lmammino/fastify-website#readme",
+  "dependencies": {
+    "async": "^2.5.0",
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.4",
+    "unzip-stream": "^0.1.2"
+  }
+}
