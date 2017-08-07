@@ -75,7 +75,7 @@ fastify.listen(3000, err => {
     <p>and you can test it with:</p>
     <pre><code class="shell">curl http://localhost:3000</code></pre>
 
-    <p>Visit the <a href="/docs/">Documentation</a> to learn more about fastify.</p>
+    <p>Visit the <a href="/docs">Documentation</a> to learn more about fastify.</p>
   </div>
 </section>
 
@@ -151,9 +151,9 @@ fastify.listen(3000, err => {
         <div class="column content">
           <h2>{{ member.name }}</h2>
           <ul>
-            {% for link in member.links %}
+            {% for label, link in member.links %}
               <li>
-                <a href="{{ link[1] }}" target="_blank">{{ link[0] }}</a>
+                <a href="{{ link }}" target="_blank">{{ label }}</a>
               </li>
             {% endfor %}
           </ul>
