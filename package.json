@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:cleanup": "rimraf build-temp",
+    "build:create-temp-folder": "mkdirp build-temp",
+    "build:get-releases": "src/scripts/downloadReleases.js fastify/fastify build-temp/releases v0.11.0",
+    "build": "npm run build:cleanup && npm run build:create-temp-folder && npm run build:get-releases",
+    "test:lint": "eslint src",
+    "test": "npm run test:lint"
   },
   "repository": {
     "type": "git",
@@ -19,8 +24,23 @@
   "homepage": "https://github.com/lmammino/fastify-website#readme",
   "dependencies": {
     "async": "^2.5.0",
+    "metalsmith": "^2.3.0",
+    "metalsmith-collections": "^0.9.0",
+    "metalsmith-layouts": "^1.8.1",
+    "metalsmith-markdown": "^0.2.1",
+    "metalsmith-permalinks": "^0.5.0",
+    "mkdirp": "^0.5.1",
     "request": "^2.81.0",
     "request-promise-native": "^1.0.4",
+    "rimraf": "^2.6.1",
     "unzip-stream": "^0.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^4.4.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
   }
 }

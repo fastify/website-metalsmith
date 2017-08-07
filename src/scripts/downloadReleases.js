@@ -12,14 +12,14 @@ const minRelease = process.argv[4] || 'v0.11.0'
 
 console.log(`downloading releases into ${dest}`)
 
-const headers = { 'User-Agent': 'fastify-website-builder-v1' } 
+const headers = { 'User-Agent': 'fastify-website-builder-v1' }
 
 request({
   url: `https://api.github.com/repos/${repository}/releases`,
   json: true,
   headers
 })
-  .then( (releases) => {
+  .then((releases) => {
     const selectedReleases = releases
       // creates version map and label per every release
       .map((release) => {
@@ -48,31 +48,33 @@ request({
 
         return acc
       }, {})
-      
+
     // Adds current master
     selectedReleases.master = {
       label: 'master',
       name: 'master',
       url: `https://github.com/${repository}/archive/master.zip`
-    }  
+    }
 
     // downloads the releases
     mapLimit(Object.keys(selectedReleases), cpus().length * 2, (name, done) => {
-      const release = selectedReleases[name] 
+      const release = selectedReleases[name]
       request({
         url: release.url,
         headers
       })
-         .pipe(unzip.Extract({ path: join(dest, name) }))
-         .on('finish', () => {
-           console.log(` - ${name}`)
-           done()
-         })
-    }, (err, data) => {})
+        .pipe(unzip.Extract({ path: join(dest, name) }))
+        .on('finish', () => {
+          console.log(` - ${name}`)
+          done()
+        })
+    }, (err, data) => {
+      if (err) throw err
+
+      console.log('All release downloaded')
+    })
   })
   .catch((err) => {
     console.error(err, err.stack)
     process.exit(1)
   })
-
-

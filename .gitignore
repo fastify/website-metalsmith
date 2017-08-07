@@ -59,3 +59,4 @@ typings/
 
 .tern-port
 releases/
+build-temp/
