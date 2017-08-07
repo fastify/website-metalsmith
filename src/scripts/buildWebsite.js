@@ -8,6 +8,7 @@ const nunjucks = require('nunjucks')
 const markdown = require('metalsmith-markdown')
 const permalinks = require('metalsmith-permalinks')
 const writemetadata = require('metalsmith-writemetadata')
+const markdownFilter = require('nunjucks-markdown-filter')
 const metadataDir = require('../plugins/metalsmith-metadata-dir')
 
 const source = path.resolve(process.argv[2] || path.join(__dirname, '..', 'website'))
@@ -15,7 +16,8 @@ const dest = path.resolve(process.argv[3] || path.join(__dirname, '..', '..', 'b
 
 console.log(`Building website from ${source} into ${dest}`)
 
-nunjucks.configure(path.join(source, 'layouts'), {watch: false, noCache: true})
+const env = nunjucks.configure(path.join(source, 'layouts'), {watch: false, noCache: true})
+env.addFilter('md', markdownFilter)
 
 Metalsmith(source)
   .source(path.join(source, 'content'))

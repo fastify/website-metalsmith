@@ -1,11 +1,11 @@
----
-layout: default.html
----
+{% extends "default.html" %}
+
+{% block content %}
 <section class="hero is-primary">
   <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          {{ page.title }}
+          {{ title }}
         </h1>
       </div>
   </div>
@@ -13,9 +13,9 @@ layout: default.html
 <div class="container">
   <section class="section">
     <div class="content">
-      <h2>Currently, there are <strong>{{ site.data.ecosystem.plugins | size }}</strong> officially recognized plugins</h2>
+      <h2>Currently, there are <strong>{{ data.ecosystem.plugins | length }}</strong> officially recognized plugins</h2>
 
-      <p>Can't you find the plugin you are looking for? No problem, <a href="{{ "/docs/plugins" | relative_url }}">it's very easy to write one</a>!</p>
+      <p>Can't you find the plugin you are looking for? No problem, <a href="/docs/master/plugins">it's very easy to write one</a>!</p>
 
       {{ content }}
 
@@ -27,10 +27,10 @@ layout: default.html
           </tr>
         </thead>
         <tbody>
-        {% for plugin in site.data.ecosystem.plugins %}
+        {% for plugin in data.ecosystem.plugins %}
           <tr>
             <td><a href="{{ plugin.url }}" target="_blank">{{ plugin.name }}</a></td>
-            <td>{{ plugin.description | markdownify }}</td>
+            <td>{{ plugin.description | md | safe }}</td>
           </tr>
         {% endfor %}
         </tbody>
@@ -40,3 +40,4 @@ layout: default.html
     </div>
   </section>
 </div>
+{% endblock %}

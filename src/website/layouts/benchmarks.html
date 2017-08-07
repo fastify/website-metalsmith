@@ -1,11 +1,11 @@
----
-layout: default.html
----
+{% extends "default.html" %}
+
+{% block content %}
 <section class="hero is-primary">
   <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          {{ page.title }}
+          {{ title }}
         </h1>
       </div>
   </div>
@@ -21,7 +21,7 @@ layout: default.html
 
       <div class="columns">
         <div class="column is-8">
-          {% for framework in site.data.benchmarks.frameworks %}
+          {% for framework in data.benchmarks.frameworks %}
             <div class="box">
               <div class="content">
                 <div class="level">
@@ -48,3 +48,4 @@ layout: default.html
     </div>
   </section>
 </div>
+{% endblock %}
