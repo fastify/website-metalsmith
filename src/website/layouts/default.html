@@ -5,14 +5,15 @@
 
   <body>
 
-    {# include header.html #}
+    {% include 'partials/header.html' %}
 
     <main class="page-content" aria-label="Content">
-      <h1>{{ title }}</h1>
-      {{ contents | safe }}
+      {% block content %}
+        {{ contents | safe }}
+      {% endblock %}
     </main>
 
-    {# include footer.html #}
+    {% include 'partials/footer.html' %}
 
     <script src="/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>

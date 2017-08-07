@@ -1,10 +1,10 @@
----
-layout: default.html
----
-<div class="hero" style="background-image: url('{{ "/images/use_your_illusion.png" | relative_url }}')">
+{% extends "default.html" %}
+
+{% block content %}
+<div class="hero" style="background-image: url('/images/use_your_illusion.png')">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title"><img class="logo" src="{{ "/images/fastify-logo-inverted.png" | relative_url }}" alt="Fastify"/></h1>
+      <h1 class="title"><img class="logo" src="/images/fastify-logo-inverted.png" alt="Fastify"/></h1>
       <h2 class="subtitle">Fast and low overhead web framework, for Node.js</h2>
       <div class="github-buttons">
         <a class="github-button" href="https://github.com/fastify/fastify" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star fastify/fastify on GitHub">Star</a>
@@ -75,7 +75,7 @@ fastify.listen(3000, err => {
     <p>and you can test it with:</p>
     <pre><code class="shell">curl http://localhost:3000</code></pre>
 
-    <p>Visit the <a href="{{ "/docs/" | relative_url }}">Documentation</a> to learn more about fastify.</p>
+    <p>Visit the <a href="/docs/">Documentation</a> to learn more about fastify.</p>
   </div>
 </section>
 
@@ -101,7 +101,7 @@ fastify.listen(3000, err => {
     <h1 class="title">A faster web framework</h1>
     <div class="columns">
       <div class="column is-6">
-        <p>Leveraging our experience with Node.js performance, Fastify has been built from the ground up to be <strong>faster than the currently well-known web frameworks such as Express or Hapi</strong>. Have  a look at our <a href="{{ "/benchmarks" | relative_url }}">benchmarks section</a> to compare fastify performance to other common web frameworks.</p>
+        <p>Leveraging our experience with Node.js performance, Fastify has been built from the ground up to be <strong>faster than the currently well-known web frameworks such as Express or Hapi</strong>. Have  a look at our <a href=/benchmarks">benchmarks section</a> to compare fastify performance to other common web frameworks.</p>
       </div>
       <div class="column is-3">
         <div class="box">
@@ -115,7 +115,7 @@ fastify.listen(3000, err => {
       </div>
     </div>
     <div class="block">
-      <a class="button is-primary is-large is-flex-mobile" href="{{ "/benchmarks" | relative_url }}">Checkout our benchmarks</a>
+      <a class="button is-primary is-large is-flex-mobile" href="/benchmarks">Checkout our benchmarks</a>
     </div>
   </div>
 </section>
@@ -127,18 +127,18 @@ fastify.listen(3000, err => {
       <div class="column is-9">
         <p>
           Fastify has an ever-growing ecosystem of plugins. Probably there is already a plugin for your favourite database or template language.
-          Have a look at the <a href="{{ "/ecosystem" | relative_url }}">Ecosystem page</a> to navigate through the currently available plugins.
-          Can't you find the plugin you are looking for? No problem, <a href="{{ "/docs/plugins" | relative_url }}">it's very easy to write one</a>!
+          Have a look at the <a href="/ecosystem">Ecosystem page</a> to navigate through the currently available plugins.
+          Can't you find the plugin you are looking for? No problem, <a href="/docs/master/plugins">it's very easy to write one</a>!
         </p>
       </div>
       <div class="column is-3">
         <div class="box">
-          <p class="has-text-centered"><span class="content is-large">{{ site.data.ecosystem.plugins | size }}</span><br/> Plugins</p>
+          <p class="has-text-centered"><span class="content is-large">{{ data.ecosystem.plugins | length }}</span><br/> Plugins</p>
         </div>
       </div>
     </div>
     <div class="block">
-      <a class="button is-primary is-large is-flex-mobile" href="{{ "/ecosystem" | relative_url }}">Explore plugins</a>
+      <a class="button is-primary is-large is-flex-mobile" href="/ecosystem">Explore plugins</a>
     </div>
   </div>
 </section>
@@ -147,7 +147,7 @@ fastify.listen(3000, err => {
   <div class="container content">
     <h1 class="title">The team</h1>
     <div class="columns">
-      {% for member in site.data.team %}
+      {% for member in data.team %}
         <div class="column content">
           <h2>{{ member.name }}</h2>
           <ul>
@@ -168,7 +168,7 @@ fastify.listen(3000, err => {
     <h1 class="title">Acknowlegments</h1>
     <p>This project is kindly <strong>sponsored by</strong>:</p>
     <ul>
-      {% for link in site.data.acknowledgements.sponsors %}
+      {% for link in data.acknowledgements.sponsors %}
         <li>
           <a href="{{ link.url }}" target="_blank">{{ link.name }}</a>
         </li>
@@ -176,7 +176,7 @@ fastify.listen(3000, err => {
     </ul>
     <p>Also thanks to:</p>
     <ul>
-      {% for link in site.data.acknowledgements.others %}
+      {% for link in data.acknowledgements.others %}
         <li>
           <a href="{{ link.url }}" target="_blank">{{ link.name }}</a>{% if link.reason %} ({{ link.reason }}){% endif %}
         </li>
@@ -184,5 +184,4 @@ fastify.listen(3000, err => {
     </ul>
   </div>
 </section>
-
-{{ content }}
+{% endblock %}
