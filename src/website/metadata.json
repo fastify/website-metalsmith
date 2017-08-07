@@ -1,7 +1,8 @@
 {
-  "title": "My Static Site & Blog",
-  "description": "It's about saying »Hello« to the World.",
+  "title": "Fastify",
+  "description": "Fast and low overhead web framework, for Node.js",
   "generator": "Metalsmith",
-  "url": "http://www.metalsmith.io/",
-  "lang": "en"
+  "url": "https://github.com/fastify/fastify",
+  "lang": "en",
+  "google_analytics": null
 }
