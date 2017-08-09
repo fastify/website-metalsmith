@@ -38,7 +38,7 @@ const getTOCForVersion = (version, cb) => {
 
     const subfolder = files.find(file => file.match(/^fastify-/))
 
-    const indexFile = join(versionFolder, subfolder, 'index.md')
+    const indexFile = join(versionFolder, subfolder, 'README.md')
 
     return extractTOCFromFile(indexFile, cb)
   })

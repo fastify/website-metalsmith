@@ -1,7 +1,7 @@
 {% extends "default.html" %}
 
 {% block content %}
-<section class="hero is-primary" style="background-image: url('/images/bg-pattern-bright.png')">
+<section class="hero is-primary">
   <div class="hero-body">
       <div class="container">
         <h1 class="title">
@@ -35,8 +35,8 @@
 
                 <p>{{ framework.requests_sec }} req/sec {% if framework.test %}(<a href="{{ framework.test }}" target="_blank">Check the code</a>){% endif %}</p>
                 <progress class="progress {% if framework.best %}is-primary{% else %}is-info{% endif %}"
-                          value="{{ framework.requests_sec / data.benchmarks.reference | round(3) }}" max="1">
-                  {{ framework.requests_sec / data.benchmarks.reference * 100 | round(3) }}%
+                          value="{{ framework.requests_sec | divided_by: site.data.benchmarks.reference | round: 3 }}" max="1">
+                  {{ framework.requests_sec | divided_by: site.data.benchmarks.reference | times: 100 | round: 3 }}%
                 </progress>
               </div>
             </div>
