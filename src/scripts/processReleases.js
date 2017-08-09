@@ -2,6 +2,7 @@
 
 const { readdir } = require('fs')
 const { join } = require('path')
+const { readFile } = require('fs')
 const mapLimit = require('async/mapLimit')
 const { cpus } = require('os')
 
@@ -29,6 +30,24 @@ const sortVersionTags = (a, b) => {
 
 const extractTOCFromFile = (file, cb) => {
   // TODO
+  readFile(file, 'utf8', (err, data) => {
+    if (err) return cb(err)
+
+    const content = data.toString()
+
+    const lines = content.split('## Documentation')[1].split('\n\n')[0].split('\n').filter(Boolean)
+    console.log(lines)
+    const re = /master\/docs\/([a-zA-Z-]+\.md)"><code><b>(.+)<\/b>/ig
+    const toc = lines.map((line) => {
+      const match = re.exec(line)
+      console.log(line, re, match)
+      return { file: match[1], name: match[2] }
+    })
+
+    console.log(toc)
+
+    cb(null, toc)
+  })
 }
 
 const getTOCForVersion = (version, cb) => {
