@@ -2,6 +2,7 @@
 
 const path = require('path')
 const Metalsmith = require('metalsmith')
+const debug = require('metalsmith-debug')
 const collections = require('metalsmith-collections')
 const layouts = require('metalsmith-layouts')
 const nunjucks = require('nunjucks')
@@ -24,6 +25,7 @@ Metalsmith(source)
   .destination(dest)
   .clean(true)
   .metadata(require(path.join(source, 'metadata.json')))
+  .use(debug())
   .use(writemetadata({
     childIgnorekeys: ['next', 'previous', 'content']
   }))

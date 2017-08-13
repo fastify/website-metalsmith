@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 
-const { readdir, lstatSync, writeFile } = require('fs')
 const { join, dirname, basename } = require('path')
-const { readFile } = require('fs')
+const { readdir, lstatSync, writeFile, readFile, existsSync, mkdirSync } = require('fs')
 const mapLimit = require('async/mapLimit')
 const { cpus } = require('os')
 const { safeDump } = require('js-yaml')
@@ -17,8 +16,8 @@ if (!sourceFolder || !destFolder) {
 
 const sortVersionTags = (a, b) => {
   if (a === b) return 0
-  if (a === 'master') return -1
-  if (b === 'master') return 1
+  if (a === 'master') return 1
+  if (b === 'master') return -1
 
   const [majorA, minorA, patchA] = a.substr(1).split('.').map(Number)
   const [majorB, minorB, patchB] = b.substr(1).split('.').map(Number)
@@ -28,10 +27,10 @@ const sortVersionTags = (a, b) => {
     (majorA === majorB && minorA > minorB) ||
     (majorA === majorB && minorA === minorB && patchA > patchB)
   ) {
-    return -1
+    return 1
   }
 
-  return 1
+  return -1
 }
 
 const extractTOCFromFile = (file, version, cb) => {
@@ -91,13 +90,50 @@ const createDocsDataFile = (destination, docsInfo, cb) => {
 }
 
 const processDocFiles = (docs, cb) => {
-  // TODO create directories (if they don't exists)
-  // TODO copy files content from source to dest applying filters
-  // TODO add frontmatter filter
-  // TODO remap links filter
+  // merge all docs into a single array adding the version as a key in every object
+  const docsArray = Object.keys(docs).reduce((acc, version) => {
+    const curr = docs[version]
+    return acc.concat(curr.map((item) => {
+      item.version = version
+      return item
+    }))
+  }, [])
 
-  console.log(docs)
-  cb()
+  mapLimit(
+    docsArray,
+    cpus().length * 2,
+    (item, done) => {
+      const dir = dirname(item.destinationFile)
+      if (!existsSync(dir)) {
+        mkdirSync(dir)
+      }
+
+      readFile(item.sourceFile, 'utf8', (err, buffer) => {
+        if (err) return done(err)
+
+        let content = buffer.toString()
+        // removes doc header from github
+        content = content.replace(/<h1 align="center">Fastify<\/h1>\n/, '')
+
+        // remap links
+        content = content.replace(/https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/g, `/docs/${item.version}`)
+
+        // adds frontmatter
+        content =
+`---
+title: ${item.name}
+layout: docs_page.html
+path: ${item.link}
+version: ${item.version}
+${item.version === 'master' ? `github_url: https://github.com/fastify/fastify/blob/master/docs/${item.fileName}` : ''}
+---
+${content}`
+
+        writeFile(item.destinationFile, content, 'utf8', done)
+      })
+    },
+    cb
+  )
 }
 
 const createDocSources = () => new Promise((resolve, reject) => {
@@ -110,7 +146,7 @@ const createDocSources = () => new Promise((resolve, reject) => {
     })
 
     const data = {}
-    data.versions = dirs.sort(sortVersionTags)
+    data.versions = dirs.sort(sortVersionTags).reverse()
 
     mapLimit(
       data.versions,
