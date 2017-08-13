@@ -61,3 +61,7 @@ typings/
 releases/
 build-temp/
 build/
+
+# excludes dynamically generated content
+src/website/data/docs.yml
+src/website/content/docs/*/*.md

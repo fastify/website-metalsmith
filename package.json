@@ -32,6 +32,7 @@
   "homepage": "https://github.com/lmammino/fastify-website#readme",
   "dependencies": {
     "async": "^2.5.0",
+    "clone": "^2.1.1",
     "debug": "^2.6.8",
     "js-yaml": "^3.9.1",
     "metalsmith": "^2.3.0",
