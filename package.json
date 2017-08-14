@@ -9,7 +9,7 @@
     "build:process-releases": "src/scripts/processReleases.js build-temp/releases src/website",
     "build:website": "src/scripts/buildWebsite.js",
     "build": "npm run build:cleanup && npm run build:create-temp-folder && npm run build:get-releases && npm run build:process-releases && npm run build:website",
-    "test:lint": "eslint src",
+    "test:lint": "eslint src --ignore-pattern 'src/website/content/'",
     "test": "npm run test:lint",
     "start:server": "live-server build",
     "start": "npm run build && npm run start:server"
