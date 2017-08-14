@@ -34,6 +34,12 @@ jobs:
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              pip install --upgrade --user awscli
+              sudo apt-get install -y python python-dev python-virtualenv
+              mkdir aws
+              virtualenv aws/env
+              source aws/env/bin/activate
+              aws/env/bin/pip install awscli
               npm run publish
+            else
+              echo "Not master branch so not deploying"
             fi
