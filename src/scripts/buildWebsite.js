@@ -42,7 +42,8 @@ Metalsmith(source)
   .use(layouts({
     engine: 'nunjucks',
     pattern: '**/*.html',
-    directory: 'layouts'
+    directory: 'layouts',
+    rename: true
   }))
   .build((err) => {
     if (err) throw err

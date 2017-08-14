@@ -1,0 +1,23 @@
+{% extends "default.html" %}
+
+{% block content %}
+<div class="hero" style="background-image: url('/images/bg-pattern-dark.png')">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title"><img class="logo" src="/images/fastify-logo-inverted.png" alt="Fastify"/></h1>
+      <h2 class="subtitle">Fast and low overhead web framework, for Node.js</h2>
+      <div class="github-buttons">
+        <a class="github-button" href="https://github.com/fastify/fastify" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star fastify/fastify on GitHub">Star</a>
+        <a class="github-button" href="https://github.com/fastify/fastify/fork" data-icon="octicon-repo-forked" data-size="large" aria-label="Fork fastify/fastify on GitHub">Fork</a>
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container content">
+    {{ contents | safe }}
+  </div>
+</section>
+{% endblock %}
