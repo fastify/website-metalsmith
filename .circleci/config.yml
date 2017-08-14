@@ -34,5 +34,6 @@ jobs:
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              pip install --upgrade --user awscli
               npm run publish
             fi
