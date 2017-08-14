@@ -30,3 +30,9 @@ jobs:
       - run:
           name: Build
           command: npm run build
+
+      - deploy:
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              npm run publish
+            fi
