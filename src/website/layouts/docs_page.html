@@ -1,7 +1,7 @@
 {% extends "default.html" %}
 
 {% block content %}
-<section class="hero is-primary">
+<section class="hero is-primary" style="background-image: url('/images/bg-pattern-bright.png')">
   <div class="hero-body">
       <div class="container">
         <h1 class="title">
@@ -21,27 +21,22 @@
             Table of contents
           </p>
           <ul class="menu-list">
-            {#
-            {% for post in site.data.docs %}
-              {% assign itemUrl = "/docs/" | append: post.id | append: "/" %}
-              <li {% if itemUrl == page.url %}id="doc-menu-section"{% endif %}>
-                <a {% if itemUrl == page.url %}class="is-active"{% endif %} href="{{ itemUrl | relative_url }}">{{ post.title | escape }}</a>
+            {% for item in data.docs.toc[version] %}
+              <li {% if item.link == '/' + path %}id="doc-menu-section"{% endif %}>
+                <a {% if item.link == '/' + path %}class="is-active"{% endif %} href="{{ item.link }}">{{ item.name }}</a>
               </li>
             {% endfor %}
-            #}
           </ul>
-          <div class="box">
-            <div class="content">
-              Docs version
-              <div class="field">
-                <div class="control">
-                  <div class="select is-primary">
-                    <select onchange="if (this.value) window.location.href=this.value">
-                      {% for v in data.docs.versions %}
-                      <option {% if version == v %}selected="selected"{% endif %} value="/docs/{{ v }}">{{ v }}</option>
-                      {% endfor %}
-                    </select>
-                  </div>
+          <div class="content" style="margin: .8em; border-top: 1px solid #ccc; padding: .8em 0 0 0">
+            Docs version
+            <div class="field">
+              <div class="control">
+                <div class="select">
+                  <select onchange="if (this.value) window.location.href=this.value">
+                    {% for v in data.docs.versions %}
+                    <option {% if version == v %}selected="selected"{% endif %} value="/docs/{{ v }}">{{ v }}</option>
+                    {% endfor %}
+                  </select>
                 </div>
               </div>
             </div>
@@ -54,6 +49,19 @@
           <ul>
             <li><a href="/" style="padding-left: 0">Fastify</a></li>
             <li><a href="/docs/">Documentation</a></li>
+            <li>
+              <div class="field">
+                <div class="control">
+                  <div class="select">
+                    <select onchange="if (this.value) window.location.href=this.value" style="border: none;">
+                      {% for v in data.docs.versions %}
+                        <option {% if version == v %}selected="selected"{% endif %} value="/docs/{{ v }}">{{ v }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </li>
             <li class="is-active"><a>{{ title }}</a></li>
           </ul>
         </nav>
@@ -64,37 +72,33 @@
 
         <hr/>
         <nav class="level">
-        {#
-        {% for post in site.data.docs %}
-          {% assign itemUrl = "/docs/" | append: post.id | append: "/" %}
-          {% if itemUrl == page.url %}
+        {% for item in data.docs.toc[version] %}
+          {% if item.link == '/' + path %}
             <div class="level-left">
               <div class="level-item">
-                {% if forloop.first %}
+                {% if loop.first %}
                   &nbsp;
                 {% else %}
-                  {% assign previous = forloop.index0 | minus: 1 %}
-                  {% assign previous_page = site.data.docs[previous].id | prepend:"/docs/" | append:"/" %}
-                  <a href="{{ previous_page }}" class="button prev">≪ {{ site.data.docs[previous].title }}</a>
+                  {% set previous = loop.index0 - 1 %}
+                  {% set previous_page = data.docs.toc[version][previous] %}
+                  <a href="{{ previous_page.link }}" class="button prev">≪ {{ previous_page.name }}</a>
                 {% endif %}
               </div>
             </div>
             <div class="level-right">
               <div class="level-item">
-                {% if forloop.last %}
+                {% if loop.last %}
                   &nbsp;
                 {% else %}
-                  {% assign next = forloop.index0 | plus: 1 %}
-                  {% assign next_page = site.data.docs[next].id | prepend:"/docs/" | append:"/" %}
-                  <a href="{{ next_page }}" class="button next">{{ site.data.docs[next].title }} ≫</a>
+                  {% set next = loop.index0 + 1 %}
+                  {% set next_page = data.docs.toc[version][next] %}
+                  <a href="{{ next_page.link }}" class="button next">{{ next_page.name }} ≫</a>
                 {% endif %}
               </div>
             </div>
           {% endif %}
         {% endfor %}
-        #}
         </nav>
-
       </div>
     </div>
   </section>
