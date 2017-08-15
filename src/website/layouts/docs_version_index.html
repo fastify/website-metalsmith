@@ -1,0 +1,48 @@
+{% extends "default.html" %}
+
+{% block content %}
+<section class="hero is-primary" style="background-image: url('/images/bg-pattern-bright.png')">
+  <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Documentation ({{ version }})
+        </h1>
+      </div>
+  </div>
+</section>
+
+<div class="container">
+  <section class="section">
+    <nav class="breadcrumb">
+      <ul>
+        <li><a href="/" style="padding-left: 0">Fastify</a></li>
+        <li><a href="/docs/">Documentation</a></li>
+        <li>
+          <div class="field">
+            <div class="control">
+              <div class="select">
+                <select onchange="if (this.value) window.location.href=this.value" style="border: none;">
+                  {% for v in data.docs.versions %}
+                    <option {% if version == v %}selected="selected"{% endif %} value="/docs/{{ v }}">{{ v }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="is-active"><a>Table of contents</a></li>
+      </ul>
+    </nav>
+    <div class="content">
+      <h2>Table of contents</h2>
+      <ul>
+        {% for item in data.docs.toc[version] %}
+          <li>
+            <a href="{{ item.link }}">{{ item.name }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+</div>
+{% endblock %}

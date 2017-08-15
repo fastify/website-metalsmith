@@ -136,6 +136,44 @@ ${content}`
   )
 }
 
+const createVersionIndexFile = (version, cb) => {
+  const content = `---
+title: Documentation - ${version}
+layout: docs_version_index.html
+path: /docs/${version}
+version: ${version}
+github_url: "https://github.com/lmammino/fastify-website/blob/master/src/website/layouts/docs_version_index.html"
+---`
+
+  const dest = join(destFolder, 'content', 'docs', version, 'index.md')
+  console.log(`Creating ${dest}`)
+  writeFile(dest, content, 'utf8', cb)
+}
+
+const createIndexFiles = (versions, cb) => {
+  // create docs index
+
+  const docsIndexContent = `---
+title: Documentation
+layout: docs_index.html
+path: /docs
+github_url: "https://github.com/lmammino/fastify-website/blob/master/src/website/layouts/docs_index.html"
+---`
+
+  const dest = join(destFolder, 'content', 'docs', 'index.md')
+  console.log(`Creating ${dest}`)
+  writeFile(dest, docsIndexContent, 'utf8', (err) => {
+    if (err) throw err
+
+    mapLimit(
+      versions,
+      cpus().length * 2,
+      createVersionIndexFile,
+      cb
+    )
+  })
+}
+
 const createDocSources = () => new Promise((resolve, reject) => {
   readdir(sourceFolder, (err, files) => {
     if (err) return reject(err)
@@ -165,6 +203,10 @@ const createDocSources = () => new Promise((resolve, reject) => {
 
           processDocFiles(indexedToc, (err) => {
             if (err) throw err
+
+            createIndexFiles(data.versions, (err) => {
+              if (err) throw err
+            })
           })
         })
       }
