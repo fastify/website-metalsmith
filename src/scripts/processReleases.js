@@ -142,7 +142,7 @@ title: Documentation - ${version}
 layout: docs_version_index.html
 path: /docs/${version}
 version: ${version}
-github_url: "https://github.com/lmammino/fastify-website/blob/master/src/website/layouts/docs_version_index.html"
+github_url: "https://github.com/fastify/website/blob/master/src/website/layouts/docs_version_index.html"
 ---`
 
   const dest = join(destFolder, 'content', 'docs', version, 'index.md')
@@ -157,7 +157,7 @@ const createIndexFiles = (versions, cb) => {
 title: Documentation
 layout: docs_index.html
 path: /docs
-github_url: "https://github.com/lmammino/fastify-website/blob/master/src/website/layouts/docs_index.html"
+github_url: "https://github.com/fastify/website/blob/master/src/website/layouts/docs_index.html"
 ---`
 
   const dest = join(destFolder, 'content', 'docs', 'index.md')
