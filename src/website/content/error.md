@@ -2,7 +2,7 @@
 title: "Fastify - Error 404: Content not found"
 layout: error.html
 permalink: false
-github_url: https://github.com/lmammino/fastify-website/blob/master/src/website/content/error.md
+github_url: https://github.com/fastify/website/blob/master/src/website/content/error.md
 ---
 
 ## Error 404

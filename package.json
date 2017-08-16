@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lmammino/fastify-website.git"
+    "url": "git+https://github.com/fastify/website.git"
   },
   "keywords": [
     "Builder",
@@ -30,9 +30,9 @@
   "author": "Luciano Mammino",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lmammino/fastify-website/issues"
+    "url": "https://github.com/fastify/website/issues"
   },
-  "homepage": "https://github.com/lmammino/fastify-website#readme",
+  "homepage": "https://github.com/fastify/website#readme",
   "dependencies": {
     "async": "^2.5.0",
     "clone": "^2.1.1",
