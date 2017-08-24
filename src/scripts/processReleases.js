@@ -191,7 +191,7 @@ const createDocSources = () => new Promise((resolve, reject) => {
       cpus().length * 2,
       getTOCForVersion,
       (err, toc) => {
-        if (err) throw err
+        if (err) return reject(err)
 
         const indexedToc = data.versions.reduce((acc, curr, i) => {
           acc[curr] = toc[i]
@@ -199,13 +199,15 @@ const createDocSources = () => new Promise((resolve, reject) => {
         }, {})
 
         createDocsDataFile(join(destFolder, 'data', 'docs.yml'), {versions: data.versions, toc: indexedToc}, (err) => {
-          if (err) throw err
+          if (err) return reject(err)
 
           processDocFiles(indexedToc, (err) => {
-            if (err) throw err
+            if (err) return reject(err)
 
             createIndexFiles(data.versions, (err) => {
-              if (err) throw err
+              if (err) return reject(err)
+
+              return resolve()
             })
           })
         })
@@ -214,4 +216,64 @@ const createDocSources = () => new Promise((resolve, reject) => {
   })
 })
 
-createDocSources()
+const extractEcosystemFromFile = (file, cb) => {
+  readFile(file, 'utf8', (err, data) => {
+    if (err) return cb(err)
+
+    const content = data.toString()
+    const lines = content.split('## Ecosystem')[1].split('- *More coming soon*')[0].split('\n').filter(Boolean)
+    // if a line doesn't start with "-" merge it back with the previous item
+    const mergedLines = lines.reduce((acc, curr) => {
+      if (curr[0] === '-') {
+        acc.push(curr)
+      } else {
+        acc[acc.length - 1] += ' ' + curr
+      }
+      return acc
+    }, [])
+    const re = /\[`([a-z-]+)`\]\(([^)]+)\) (.+)/
+    const plugins = mergedLines.map((line) => {
+      const match = re.exec(line)
+      const name = match[1]
+      const url = match[2]
+      const description = match[3]
+
+      return {name, url, description}
+    })
+
+    cb(null, { plugins })
+  })
+}
+
+const createEcosystemDataFile = () => new Promise((resolve, reject) => {
+  const versionFolder = join(sourceFolder, 'master')
+  const destination = join(destFolder, 'data', 'ecosystem.yml')
+  readdir(versionFolder, (err, files) => {
+    if (err) return reject(err)
+
+    const subfolder = files.find(file => file.match(/^fastify-/))
+    const indexFile = join(versionFolder, subfolder, 'README.md')
+
+    return extractEcosystemFromFile(indexFile, (err, ecosystem) => {
+      if (err) return reject(err)
+
+      writeFile(destination, safeDump(ecosystem), 'utf8', (err) => {
+        if (err) return reject(err)
+
+        console.log(`Ecosystem file dumped in ${destination}`)
+
+        return resolve()
+      })
+    })
+  })
+})
+
+Promise.all([
+  createDocSources(),
+  createEcosystemDataFile()
+])
+  .then(() => console.log('Releases processed correctly'))
+  .catch((err) => {
+    console.error('Releases processing failed', err)
+    process.exit(1)
+  })
