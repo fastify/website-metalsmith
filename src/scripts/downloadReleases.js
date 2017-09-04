@@ -5,6 +5,7 @@ const mapLimit = require('async/mapLimit')
 const { resolve, join } = require('path')
 const unzip = require('unzip-stream')
 const { cpus } = require('os')
+const sortVersionTags = require('./utils/sortVersionTags')
 
 const repository = process.argv[2] || 'fastify/fastify'
 const dest = resolve(process.argv[3] || 'releases')
@@ -48,6 +49,10 @@ request({
 
         return acc
       }, {})
+
+    // Create an alias of the latest release as `latest`
+    const latestReleaseKey = Object.keys(selectedReleases).sort(sortVersionTags).reverse()[0]
+    selectedReleases.latest = selectedReleases[latestReleaseKey]
 
     // Adds current master
     selectedReleases.master = {
