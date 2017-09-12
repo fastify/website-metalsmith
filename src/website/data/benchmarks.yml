@@ -1,4 +1,4 @@
-reference: 21287.0
+reference: 29304
 frameworks:
   - name: Fastify
     requests_sec: 29304
