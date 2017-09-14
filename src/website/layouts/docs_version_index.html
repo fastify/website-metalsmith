@@ -5,7 +5,11 @@
   <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          Documentation ({{ version }})
+          {% set versionTitle = version %}
+            {% if version == 'latest' or version == data.docs.versions[1] %}
+              {% set versionTitle = data.docs.versions[1] + ' — latest' %}
+            {% endif %}
+          Documentation ({{ versionTitle }})
         </h1>
       </div>
   </div>
@@ -23,7 +27,10 @@
               <div class="select">
                 <select onchange="if (this.value) window.location.href=this.value" style="border: none;">
                   {% for v in data.docs.versions %}
-                    <option {% if version == v %}selected="selected"{% endif %} value="/docs/{{ v }}">{{ v }}</option>
+                    {% if v !== 'latest' %}
+                      {% set versionName = v %}
+                      <option {% if version == v or (version == 'latest' and v == data.docs.versions[1]) %}selected="selected"{% endif %} value="/docs/{{ v }}">{{ versionName }}</option>
+                    {% endif %}
                   {% endfor %}
                 </select>
               </div>
