@@ -6,31 +6,13 @@ const mapLimit = require('async/mapLimit')
 const { cpus } = require('os')
 const { safeDump } = require('js-yaml')
 const clone = require('clone')
+const sortVersionTags = require('./utils/sortVersionTags')
 
 const sourceFolder = process.argv[2]
 const destFolder = process.argv[3]
 
 if (!sourceFolder || !destFolder) {
   throw new Error(`Missing parameters sourceFolder and destFolder.\n\nExpected command:\n\t${process.argv[0]} ${process.argv[1]} <sourceFolder> <destFolder>\n`)
-}
-
-const sortVersionTags = (a, b) => {
-  if (a === b) return 0
-  if (a === 'master') return 1
-  if (b === 'master') return -1
-
-  const [majorA, minorA, patchA] = a.substr(1).split('.').map(Number)
-  const [majorB, minorB, patchB] = b.substr(1).split('.').map(Number)
-
-  if (
-    majorA > majorB ||
-    (majorA === majorB && minorA > minorB) ||
-    (majorA === majorB && minorA === minorB && patchA > patchB)
-  ) {
-    return 1
-  }
-
-  return -1
 }
 
 const extractTOCFromFile = (file, version, cb) => {
@@ -89,7 +71,7 @@ const createDocsDataFile = (destination, docsInfo, cb) => {
   writeFile(destination, safeDump(toDump), 'utf8', cb)
 }
 
-const processDocFiles = (docs, cb) => {
+const processDocFiles = (docs, latestVersion, cb) => {
   // merge all docs into a single array adding the version as a key in every object
   const docsArray = Object.keys(docs).reduce((acc, version) => {
     const curr = docs[version]
@@ -125,6 +107,7 @@ title: ${item.name}
 layout: docs_page.html
 path: ${item.link}
 version: ${item.version}
+${item.version === 'latest' ? `canonical: "${item.link.replace(/latest/, latestVersion)}"` : ''}
 ${item.version === 'master' ? `github_url: https://github.com/fastify/fastify/blob/master/docs/${item.fileName}` : ''}
 ---
 ${content}`
@@ -136,12 +119,13 @@ ${content}`
   )
 }
 
-const createVersionIndexFile = (version, cb) => {
+const createVersionIndexFile = (latestVersion) => (version, cb) => {
   const content = `---
 title: Documentation - ${version}
 layout: docs_version_index.html
 path: /docs/${version}
 version: ${version}
+${version === 'latest' ? `canonical: "/docs/${latestVersion}"` : ''}
 github_url: "https://github.com/fastify/website/blob/master/src/website/layouts/docs_version_index.html"
 ---`
 
@@ -165,10 +149,12 @@ github_url: "https://github.com/fastify/website/blob/master/src/website/layouts/
   writeFile(dest, docsIndexContent, 'utf8', (err) => {
     if (err) throw err
 
+    const latestVersion = versions[1]
+
     mapLimit(
       versions,
       cpus().length * 2,
-      createVersionIndexFile,
+      createVersionIndexFile(latestVersion),
       cb
     )
   })
@@ -201,7 +187,9 @@ const createDocSources = () => new Promise((resolve, reject) => {
         createDocsDataFile(join(destFolder, 'data', 'docs.yml'), {versions: data.versions, toc: indexedToc}, (err) => {
           if (err) return reject(err)
 
-          processDocFiles(indexedToc, (err) => {
+          const latestVersion = data.versions[1]
+
+          processDocFiles(indexedToc, latestVersion, (err) => {
             if (err) return reject(err)
 
             createIndexFiles(data.versions, (err) => {
