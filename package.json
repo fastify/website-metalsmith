@@ -1,7 +1,7 @@
 {
   "name": "fastify-website",
   "version": "1.0.0",
-  "description": "A static website builder for metalsmith",
+  "description": "A static website builder for Fastify using metalsmith",
   "scripts": {
     "build:cleanup": "rimraf build-temp",
     "build:create-temp-folder": "mkdirp build-temp",
@@ -10,6 +10,7 @@
     "build:website": "src/scripts/buildWebsite.js",
     "build": "npm run build:cleanup && npm run build:create-temp-folder && npm run build:get-releases && npm run build:process-releases && npm run build:website",
     "publish": "aws s3 sync --delete build s3://$BUCKET_NAME",
+    "deploy": "gh-pages -d build",
     "test:lint": "eslint src --ignore-pattern 'src/website/content/'",
     "test": "npm run test:lint",
     "start:server": "live-server build",
@@ -60,6 +61,7 @@
     "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
+    "gh-pages": "^1.0.0",
     "live-server": "^1.2.0"
   }
 }
