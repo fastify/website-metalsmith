@@ -39,10 +39,10 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo "$DOMAIN" > build/CNAME
-              cp -rf .circleci build/
+              cp -r .circleci build/.circleci
               git config --global user.email "$GH_EMAIL"
               git config --global user.name "$GH_NAME"
-              NODE_DEBUG=gh-pages npm run deploy
+              NODE_DEBUG=gh-pages npm run deploy -- -m 'automated build'
 
               # This part here will be removed once the switch to gh pages is done
               # -- start part to be remove -- #
