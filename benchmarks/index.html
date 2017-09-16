@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Benchmarks</title>
+  <meta name="description" content="Fast and low overhead web framework, for Node.js">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/images/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.1/css/bulma.min.css" integrity="sha256-CDVQJfU+jJGU/oyDzvnzuGXbv0rz+SyBsPQwyn7x/jQ=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
+
+  
+
+  
+</head>
+
+
+  <body>
+    <nav id="main-navbar" class="navbar">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="/images/fastify-logo-menu.png" alt="Fastify: Fast and low overhead web framework, for Node.js" height="28">
+    </a>
+
+    <a class="navbar-item is-hidden-desktop" href="https://github.com/fastify/fastify" target="_blank">
+      <span class="icon" style="color: #333;">
+        <i class="fa fa-github"></i>
+      </span>
+    </a>
+
+    <div class="navbar-burger burger" data-target="mobileMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div class="navbar-menu" id="mobileMenu">
+    <div class="navbar-start">
+      <a class="navbar-item " href="/">Home</a>
+      <a class="navbar-item " href="/docs/latest">Docs</a>
+      <a class="navbar-item " href="/ecosystem">Ecosystem</a>
+      <a class="navbar-item " href="/benchmarks">Benchmarks</a>
+    </div>
+
+    <div class="navbar-end">
+      <a class="navbar-item" href="https://github.com/fastify/fastify" target="_blank">
+        <span class="fa fa-github"> </span>&nbsp;Github
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+    <main class="page-content" aria-label="Content">
+      
+<section class="hero is-primary" style="background-image: url('/images/bg-pattern-bright.png')">
+  <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Benchmarks
+        </h1>
+      </div>
+  </div>
+</section>
+<div class="container">
+  <section class="section">
+    <div class="content">
+      <p>Leveraging our experience with Node.js performance, Fastify has been built from the ground up to be <strong>faster than the currently well-known web frameworks such as Express or Hapi</strong></p>
+
+      <p>All the code used for our benchmarks is <a href="https://github.com/fastify/benchmarks/">available on GitHub</a>. Here's a brief summary on how fastify performed against the most well known Node.js web frameworks:</p>
+
+      
+
+      <div class="columns">
+        <div class="column is-8">
+          
+            <div class="box">
+              <div class="content">
+                <div class="level">
+                  <div class="level-left">
+                    <h2>Fastify</h2>
+                  </div>
+                  <div class="level-right">
+                    <a href="https://github.com/fastify/fastify" target="_blank"><span class="fa fa-github">&nbsp;</span></a>
+                  </div>
+                </div>
+
+                <p>29304 req/sec (<a href="https://github.com/fastify/benchmarks/blob/master/benchmarks/fastify.js" target="_blank">Check the code</a>)</p>
+                <progress class="progress is-primary"
+                          value="1" max="1">
+                  100%
+                </progress>
+              </div>
+            </div>
+          
+            <div class="box">
+              <div class="content">
+                <div class="level">
+                  <div class="level-left">
+                    <h2>Koa</h2>
+                  </div>
+                  <div class="level-right">
+                    <a href="https://github.com/koajs/koa" target="_blank"><span class="fa fa-github">&nbsp;</span></a>
+                  </div>
+                </div>
+
+                <p>26228 req/sec (<a href="https://github.com/fastify/benchmarks/blob/master/benchmarks/koa.js" target="_blank">Check the code</a>)</p>
+                <progress class="progress is-info"
+                          value="0.8950313950313951" max="1">
+                  89.50313950313951%
+                </progress>
+              </div>
+            </div>
+          
+            <div class="box">
+              <div class="content">
+                <div class="level">
+                  <div class="level-left">
+                    <h2>Express</h2>
+                  </div>
+                  <div class="level-right">
+                    <a href="https://github.com/expressjs/express" target="_blank"><span class="fa fa-github">&nbsp;</span></a>
+                  </div>
+                </div>
+
+                <p>18740 req/sec (<a href="https://github.com/fastify/benchmarks/blob/master/benchmarks/express.js" target="_blank">Check the code</a>)</p>
+                <progress class="progress is-info"
+                          value="0.6395031395031395" max="1">
+                  63.950313950313955%
+                </progress>
+              </div>
+            </div>
+          
+            <div class="box">
+              <div class="content">
+                <div class="level">
+                  <div class="level-left">
+                    <h2>Restify</h2>
+                  </div>
+                  <div class="level-right">
+                    <a href="https://github.com/restify/node-restify" target="_blank"><span class="fa fa-github">&nbsp;</span></a>
+                  </div>
+                </div>
+
+                <p>16395 req/sec (<a href="https://github.com/fastify/benchmarks/blob/master/benchmarks/restify.js" target="_blank">Check the code</a>)</p>
+                <progress class="progress is-info"
+                          value="0.5594799344799345" max="1">
+                  55.94799344799345%
+                </progress>
+              </div>
+            </div>
+          
+            <div class="box">
+              <div class="content">
+                <div class="level">
+                  <div class="level-left">
+                    <h2>Hapi</h2>
+                  </div>
+                  <div class="level-right">
+                    <a href="https://github.com/hapijs/hapi" target="_blank"><span class="fa fa-github">&nbsp;</span></a>
+                  </div>
+                </div>
+
+                <p>4226 req/sec (<a href="https://github.com/fastify/benchmarks/blob/master/benchmarks/hapi.js" target="_blank">Check the code</a>)</p>
+                <progress class="progress is-info"
+                          value="0.1442123942123942" max="1">
+                  14.42123942123942%
+                </progress>
+              </div>
+            </div>
+          
+        </div>
+      </div>
+
+      <p>Do you want to provide feedback on our benchmarks? <a href="https://github.com/fastify/benchmarks/issues">Open an issue on GitHub</a> and we will get back to you!</p>
+    </div>
+  </section>
+</div>
+
+    </main>
+
+    <footer class="grey is-primary footer">
+  <div class="container">
+    <div class="content has-text-centered">
+    
+      <p><em>Found a typo or want to improve this page?</em> <a href="https://github.com/fastify/website/blob/master/src/website/layouts/benchmarks.html">Submit a PR on GitHub</a></p>
+    
+      <p>Fastify, Copyright &copy; 2016-2017 Matteo Collina and the <a href="https://github.com/fastify/fastify#team" target="_blank">Fastify team</a>, Licensed under <a href="https://github.com/fastify/fastify/blob/master/LICENSE" target="_blank">MIT</a></p>
+    </div>
+  </div>
+</footer>
+
+
+    <script src="/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+
+</html>

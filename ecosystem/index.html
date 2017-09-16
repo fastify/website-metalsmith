@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Ecosystem</title>
+  <meta name="description" content="Fast and low overhead web framework, for Node.js">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/images/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.1/css/bulma.min.css" integrity="sha256-CDVQJfU+jJGU/oyDzvnzuGXbv0rz+SyBsPQwyn7x/jQ=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
+
+  
+
+  
+</head>
+
+
+  <body>
+    <nav id="main-navbar" class="navbar">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="/images/fastify-logo-menu.png" alt="Fastify: Fast and low overhead web framework, for Node.js" height="28">
+    </a>
+
+    <a class="navbar-item is-hidden-desktop" href="https://github.com/fastify/fastify" target="_blank">
+      <span class="icon" style="color: #333;">
+        <i class="fa fa-github"></i>
+      </span>
+    </a>
+
+    <div class="navbar-burger burger" data-target="mobileMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div class="navbar-menu" id="mobileMenu">
+    <div class="navbar-start">
+      <a class="navbar-item " href="/">Home</a>
+      <a class="navbar-item " href="/docs/latest">Docs</a>
+      <a class="navbar-item " href="/ecosystem">Ecosystem</a>
+      <a class="navbar-item " href="/benchmarks">Benchmarks</a>
+    </div>
+
+    <div class="navbar-end">
+      <a class="navbar-item" href="https://github.com/fastify/fastify" target="_blank">
+        <span class="fa fa-github"> </span>&nbsp;Github
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+    <main class="page-content" aria-label="Content">
+      
+<section class="hero is-primary" style="background-image: url('/images/bg-pattern-bright.png')">
+  <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Ecosystem
+        </h1>
+      </div>
+  </div>
+</section>
+<div class="container">
+  <section class="section">
+    <div class="content">
+      <h2>Currently, there are <strong>21</strong> officially recognized plugins</h2>
+
+      <p>Can't you find the plugin you are looking for? No problem, <a href="/docs/master/Plugins">it's very easy to write one</a>!</p>
+
+      
+
+      <table class="table is-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+        
+          <tr>
+            <td><a href="https://github.com/fastify/fastify-accepts" target="_blank">fastify-accepts</a></td>
+            <td>to have <a href="https://www.npmjs.com/package/accepts">accepts</a> in your request object.</td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/fastify/fastify-accepts-serializer" target="_blank">fastify-accepts-serializer</a></td>
+            <td>to serialize to output according to <code>Accept</code> header</td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/coopnd/fastify-apollo" target="_blank">fastify-apollo</a></td>
+            <td>Run an <a href="https://github.com/apollographql/apollo-server">Apollo Server</a> with Fastify.</td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/fastify/fastify-auth" target="_blank">fastify-auth</a></td>
+            <td>Run multiple auth functions in Fastify</td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/fastify/fastify-bearer-auth" target="_blank">fastify-bearer-auth</a></td>
+            <td>Bearer auth plugin for Fastify</td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/fastify/fastify-cookie" target="_blank">fastify-cookie</a></td>
+            <td>Parse and set cookie headers</td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/fastify/fastify-env" target="_blank">fastify-env</a></td>
+            <td>Load and check configuration</td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/fastify/fastify-formbody" target="_blank">fastify-formbody</a></td>
+            <td>Plugin to parse x-www-form-urlencoded bodies</td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/fastify/fastify-helmet" target="_blank">fastify-helmet</a></td>
+            <td>Important security headers for Fastify</td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/fastify/fastify-jwt" target="_blank">fastify-jwt</a></td>
+            <td>JWT utils for Fastify, internally uses <a href="https://github.com/auth0/node-jsonwebtoken">jsonwebtoken</a></td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/fastify/fastify-leveldb" target="_blank">fastify-leveldb</a></td>
+            <td>Plugin to share a common LevelDB connection across Fastify.</td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/fastify/fastify-mongodb" target="_blank">fastify-mongodb</a></td>
+            <td>Fastify MongoDB connection plugin, with this you can share the same MongoDb connection pool in every part of your server.</td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/fastify/fastify-multipart" target="_blank">fastify-multipart</a></td>
+            <td>Multipart support for Fastify</td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/fastify/fastify-pigeon" target="_blank">fastify-pigeon</a></td>
+            <td><a href="https://github.com/yoshuawuyts/bankai">Bankai</a> assets compiler for Fastify</td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/fastify/fastify-react" target="_blank">fastify-react</a></td>
+            <td>React server side rendering support for Fastify with <a href="https://github.com/zeit/next.js/">Next</a></td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/fastify/fastify-redis" target="_blank">fastify-redis</a></td>
+            <td>Fastify Redis connection plugin, with this you can share the same Redis connection in every part of your server.</td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/lolo32/fastify-sse" target="_blank">fastify-sse</a></td>
+            <td>to provide Server-Sent Events with <code>reply.sse( … )</code> to Fastify</td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/fastify/fastify-swagger" target="_blank">fastify-swagger</a></td>
+            <td>Swagger documentation generator for Fastify</td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/fastify/fastify-websocket" target="_blank">fastify-websocket</a></td>
+            <td>WebSocket support for Fastify. Built upon <a href="https://github.com/maxogden/websocket-stream">websocket-stream</a></td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/fastify/point-of-view" target="_blank">point-of-view</a></td>
+            <td>Templates rendering (<em>ejs, pug, handlebars, marko</em>) plugin support for Fastify.</td>
+          </tr>
+        
+          <tr>
+            <td><a href="https://github.com/mahmed8003/fastify-orientdb" target="_blank">fastify-orientdb</a></td>
+            <td>Fastify OrientDB connection plugin, with this you can share the orientdb connection in every part of your server.</td>
+          </tr>
+        
+        </tbody>
+      </table>
+
+      <p>Did you create a fastify plugin and want to list it here? <a href="https://github.com/fastify/fastify/docs/_data/ecosystem.yml">Submit a PR</a> and we will check it out!</p>
+    </div>
+  </section>
+</div>
+
+    </main>
+
+    <footer class="grey is-primary footer">
+  <div class="container">
+    <div class="content has-text-centered">
+    
+      <p><em>Found a typo or want to improve this page?</em> <a href="https://github.com/fastify/website/blob/master/src/website/layouts/ecosystem.html">Submit a PR on GitHub</a></p>
+    
+      <p>Fastify, Copyright &copy; 2016-2017 Matteo Collina and the <a href="https://github.com/fastify/fastify#team" target="_blank">Fastify team</a>, Licensed under <a href="https://github.com/fastify/fastify/blob/master/LICENSE" target="_blank">MIT</a></p>
+    </div>
+  </div>
+</footer>
+
+
+    <script src="/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+
+</html>
