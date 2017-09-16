@@ -39,7 +39,7 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo "$DOMAIN" > build/CNAME
-              cp -rf .circleci build
+              cp -rf .circleci build/
               git config --global user.email "$GH_EMAIL"
               git config --global user.name "$GH_NAME"
               NODE_DEBUG=gh-pages npm run deploy
