@@ -37,19 +37,24 @@ jobs:
 
       - deploy:
           command: |
-            # this part will be moved inside the if (master) block before the merge
-            echo "$DOMAIN" > build/CNAME
-            cp -rf .circleci build
-            git config --global user.email "$GH_EMAIL"
-            git config --global user.name "$GH_NAME"
-            NODE_DEBUG=gh-pages npm run deploy
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo "$DOMAIN" > build/CNAME
+              cp -rf .circleci build
+              git config --global user.email "$GH_EMAIL"
+              git config --global user.name "$GH_NAME"
+              NODE_DEBUG=gh-pages npm run deploy
+
+              # This part here will be removed once the switch to gh pages is done
+              # -- start part to be remove -- #
+
               sudo apt-get install -y python python-dev python-virtualenv
               mkdir aws
               virtualenv aws/env
               source aws/env/bin/activate
               aws/env/bin/pip install awscli
               npm run publish
+
+              # -- end part to be removed -- #
             else
               echo "Not master branch so not deploying"
             fi
