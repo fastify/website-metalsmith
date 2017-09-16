@@ -1,6 +1,10 @@
 version: 2
 jobs:
   build:
+    branches:
+      ignore:
+        - gh-pages
+
     docker:
       - image: circleci/node:8.3
 
@@ -34,7 +38,7 @@ jobs:
       - deploy:
           command: |
             # this part will be moved inside the if (master) block before the merge
-            echo "$DOMAIN" > CNAME
+            echo "$DOMAIN" > build/CNAME
             cp -rf .circleci build
             git config --global user.email "$GH_EMAIL"
             git config --global user.name "$GH_NAME"
