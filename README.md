@@ -64,7 +64,7 @@ In order for this to work, Circle CI will need to be configured correctly provid
 
 The website is published automatically Circle CI using GitHub pages (branch `gh-pages`).
 
-Every time there's a change on master, if the build was created successfully, then it is automatically published on an S3 Bucket.
+Every time there's a change on master, if the build was created successfully, then it is automatically published on GitHub Pages.
 
 In order for this to work, Circle CI will need to be configured correctly providing all the necessary environment variables:
 
