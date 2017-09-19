@@ -473,6 +473,7 @@ fastify.get(&#39;/async-await&#39;, options, async function (request, reply) {
   return res
 })
 </code></pre>
+<p>If you want to know more please review <a href="/docs/master/Routes.md#async-await">Routes#async-await</a>!</p>
 <p><a name="send-streams"></a></p>
 <h4 id="streams">Streams</h4>
 <p><em>send</em> can also handle strems out of the box, internally uses <a href="https://www.npmjs.com/package/pump">pump</a> to avoid leaks of file descriptors. If you are sending a stream and you have not setted a <code>&#39;Content-Type&#39;</code> header, <em>send</em> will set it at <code>&#39;application/octet-stream&#39;</code>.</p>
