@@ -409,6 +409,7 @@ Validate the input is very easy, just add the fields that you need inside the ro
 <li><code>body</code>: validates the body of the request if it is a POST or a PUT.</li>
 <li><code>querystring</code>: validates the querystring. This can be a complete JSON Schema object, with the property type of object and properties object of parameters, or simply the values of what would be contained in the properties object as shown below.</li>
 <li><code>params</code>: validates the route params.</li>
+<li><code>headers</code>: validates the request headers.</li>
 </ul>
 <p>Example:</p>
 <pre><code class="lang-js">  const schema = {
@@ -431,13 +432,21 @@ Validate the input is very easy, just add the fields that you need inside the ro
         par1: { type: &#39;string&#39; },
         par2: { type: &#39;number&#39; }
       }
+    },
+
+    headers: {
+      type: &#39;object&#39;,
+      properties: {
+        &#39;x-foo&#39;: { type: &#39;string&#39; }
+      },
+      required: [&#39;x-foo&#39;]
     }
   }
 </code></pre>
 <p><em>Note that Ajv will try to <a href="https://github.com/epoberezkin/ajv#coercing-data-types">coerce</a> the values to the types specified in your schema type keywords, both to pass the validation and to use the correctly typed data afterwards.</em></p>
 <p><a name="schema-compiler"></a></p>
 <h4 id="schema-compiler">Schema Compiler</h4>
-<p>The <code>schemaCompiler</code> is a function that returns a function that validates the body, url parameters and the query string.</p>
+<p>The <code>schemaCompiler</code> is a function that returns a function that validates the body, url parameters, headers and the query string.</p>
 <p>The default <code>schemaCompiler</code> returns a function that implements the <code>ajv</code> validation interface.
 <code>fastify</code> use it internally to speed the validation up.</p>
 <p>But maybe you want to change the validation library. Perhaps you like <code>Joi</code>.

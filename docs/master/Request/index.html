@@ -405,6 +405,7 @@
 <li><code>query</code> - the parsed querystring</li>
 <li><code>body</code> - the body</li>
 <li><code>params</code> - the params matching the URL</li>
+<li><code>headers</code> - the headers</li>
 <li><code>req</code> - the incoming HTTP request from Node core</li>
 <li><code>log</code> - the logger instance of the incoming request</li>
 </ul>
@@ -412,6 +413,7 @@
   console.log(request.body)
   console.log(request.query)
   console.log(request.params)
+  console.log(request.headers)
   console.log(request.req)
   request.log.info(&#39;some info&#39;)
 })

@@ -437,8 +437,8 @@ As above, this api is needed if you want to add new methods to the <code>Request
 </code></pre>
 <p>Note: using an arrow function will break the binding of <code>this</code> to the Fastify <code>request</code> instance.</p>
 <p><a name="extend-server-error"></a>
-<strong>extendServerError</strong><br>If you need to extend the standard <a href="/docs/master/Reply.md#errors">server error</a>, this api is what you need.<br>You <em>must</em> pass a function that returns an object, Fastify will extend the server error with the returned object of your function.</p>
-<pre><code class="lang-js">fastify.extendServerError(() =&gt; {
+<strong>extendServerError</strong><br>If you need to extend the standard <a href="/docs/master/Reply.md#errors">server error</a>, this api is what you need.<br>You <em>must</em> pass a function that returns an object, Fastify will extend the server error with the returned object of your function. The function will receive the original error object.</p>
+<pre><code class="lang-js">fastify.extendServerError((err) =&gt; {
   return {
     timestamp: new Date()
   }
