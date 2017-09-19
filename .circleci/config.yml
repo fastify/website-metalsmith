@@ -1,6 +1,10 @@
 version: 2
 jobs:
   build:
+    branches:
+      ignore:
+        - gh-pages
+
     docker:
       - image: circleci/node:8.3
 
@@ -34,12 +38,23 @@ jobs:
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo "$DOMAIN" > build/CNAME
+              cp -r .circleci build/.circleci
+              git config --global user.email "$GH_EMAIL"
+              git config --global user.name "$GH_NAME"
+              NODE_DEBUG=gh-pages npm run deploy -- -m 'automated build'
+
+              # This part here will be removed once the switch to gh pages is done
+              # -- start part to be remove -- #
+
               sudo apt-get install -y python python-dev python-virtualenv
               mkdir aws
               virtualenv aws/env
               source aws/env/bin/activate
               aws/env/bin/pip install awscli
               npm run publish
+
+              # -- end part to be removed -- #
             else
               echo "Not master branch so not deploying"
             fi
