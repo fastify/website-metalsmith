@@ -45,21 +45,6 @@ In case you are interested in knowing more about how the build process works, he
 Checkout the [Package scripts](package.json) to understand which files trigger these actions in case you want to have a look at the code for any of the steps described above.
 
 
-## Publishing on S3 (Legacy)
-
-The publishing of the website is performed automatically through Circle CI (in a Continuous Delivery fashion).
-
-Every time there's a change on master, if the build was created successfully, then it is automatically published on an S3 Bucket.
-
-In order for this to work, Circle CI will need to be configured correctly providing all the necessary environment variables:
-
- - `BUCKET_NAME`: the name of the S3 bucket that hosts the website (the bucket needs to be already configured to serve static files)
- - `AWS_ACCESS_KEY_ID`: AWS access key of the machine user that has the rights to write files in the previously defined S3 bucket
- - `AWS_SECRET_ACCESS_KEY`: Secret access key for the key specified above
-
-*This publishing process will be removed once the switch to GitHub pages is completed.*
-
-
 ## Publishing as GitHub pages
 
 The website is published automatically Circle CI using GitHub pages (branch `gh-pages`).
