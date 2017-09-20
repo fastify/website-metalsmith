@@ -449,6 +449,16 @@ Validate the input is very easy, just add the fields that you need inside the ro
 <p>The <code>schemaCompiler</code> is a function that returns a function that validates the body, url parameters, headers and the query string.</p>
 <p>The default <code>schemaCompiler</code> returns a function that implements the <code>ajv</code> validation interface.
 <code>fastify</code> use it internally to speed the validation up.</p>
+<p>If you want to change the default options of the <code>ajv</code> instance you can pass the ajv option to Fastify.
+You can find all the options in the <a href="https://github.com/epoberezkin/ajv#options">Ajv documentation</a>.</p>
+<pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)({
+  ajv: {
+    removeAdditional: true,
+    useDefaults:      true,
+    coerceTypes:      true
+  }
+})
+</code></pre>
 <p>But maybe you want to change the validation library. Perhaps you like <code>Joi</code>.
 In this case you can use it to validate the url parameters, the body and the querystring!</p>
 <pre><code class="lang-js">const Joi = require(&#39;joi&#39;)
