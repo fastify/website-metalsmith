@@ -44,6 +44,12 @@ jobs:
               git config --global user.name "$GH_NAME"
               NODE_DEBUG=gh-pages npm run deploy -- -m 'automated build'
 
+              curl -X DELETE "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/purge_cache" \
+                 -H "X-Auth-Email: $CLOUDFLARE_EMAIL" \
+                 -H "X-Auth-Key: $CLOUDFLARE_AUTH_KEY" \
+                 -H "Content-Type: application/json" \
+                 --data '{"purge_everything":true}'
+
               # This part here will be removed once the switch to gh pages is done
               # -- start part to be remove -- #
 

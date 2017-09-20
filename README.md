@@ -71,7 +71,9 @@ In order for this to work, Circle CI will need to be configured correctly provid
  - `DOMAIN`: the custom domain to be used in GitHub pages (`www.fastify.io`)
  - `GH_EMAIL`: the email of the GitHub user authorized in CircleCi to push to the `gh-pages` branch
  - `GH_NAME`: the username of the GitHub user authorized in CircleCi to push to the `gh-pages` branch
-
+ - `CLOUDFLARE_EMAIL`: the email of the CloudFlare account
+ - `CLOUDFLARE_AUTH_KEY`: the authorization key to perform API calls on CLoudFlare APIs
+ - `CLOUDFLARE_ZONE`: the ID of the CloudFlare Zone associated to the current domain
 
 ## Contributing
 
