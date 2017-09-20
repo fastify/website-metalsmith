@@ -49,18 +49,6 @@ jobs:
                  -H "X-Auth-Key: $CLOUDFLARE_AUTH_KEY" \
                  -H "Content-Type: application/json" \
                  --data '{"purge_everything":true}'
-
-              # This part here will be removed once the switch to gh pages is done
-              # -- start part to be remove -- #
-
-              sudo apt-get install -y python python-dev python-virtualenv
-              mkdir aws
-              virtualenv aws/env
-              source aws/env/bin/activate
-              aws/env/bin/pip install awscli
-              npm run publish
-
-              # -- end part to be removed -- #
             else
               echo "Not master branch so not deploying"
             fi
