@@ -400,10 +400,10 @@
 
         <div id="doc-content" class="content">
           <h2 id="validation-and-serialize">Validation and Serialize</h2>
-<p>Fastify uses a schema based approach, and even if it is not mandatory we recommend to use <a href="http://json-schema.org/">JSON Schema</a> to validate you routes and serialize your outputs, internally Fastify compiles the schema in an highly performant function.</p>
+<p>Fastify uses a schema based approach, and even if it is not mandatory we recommend to use <a href="http://json-schema.org/">JSON Schema</a> to validate you routes and serialize your outputs, internally Fastify compiles the schema in a highly performant function.</p>
 <p><a name="validation"></a></p>
 <h3 id="validation">Validation</h3>
-<p>The route validation internally uses <a href="https://www.npmjs.com/package/ajv">Ajv</a>, which is an highly performant JSON schema validator.
+<p>The route validation internally uses <a href="https://www.npmjs.com/package/ajv">Ajv</a>, which is a highly performant JSON schema validator.
 Validate the input is very easy, just add the fields that you need inside the route schema and you are done!<br>The supported validations are:</p>
 <ul>
 <li><code>body</code>: validates the body of the request if it is a POST or a PUT.</li>
