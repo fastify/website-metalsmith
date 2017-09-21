@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.27.x/Plugins">
+    <link ref="canonical" href="/docs/v0.28.x/Plugins">
   
 
   
@@ -179,7 +179,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.27.x">v0.27.x</option>
+                          <option selected="selected" value="/docs/v0.28.x">v0.28.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.27.x">v0.27.x</option>
                       
                     
                       
@@ -306,7 +312,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.27.x">v0.27.x</option>
+                          <option selected="selected" value="/docs/v0.28.x">v0.28.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.27.x">v0.27.x</option>
                         
                       
                         
@@ -417,7 +428,7 @@ A plugin can be a set of routes, a server <a href="/docs/latest/Decorators.md">d
 </code></pre>
 <p><a name="route-prefixing-option"></a></p>
 <h4 id="route-prefixing-option">Route Prefixing option</h4>
-<p>If you pass an option with the key <code>prefix</code> with a <code>string</code> value, Fastify will use it to prefix all the routes inside the register, for more info check <a href="/docs/latest/Routes.md#route-prefixing">here</a>.</p>
+<p>If you pass an option with the key <code>prefix</code> with a <code>string</code> value, Fastify will use it to prefix all the routes inside the register, for more info check <a href="/docs/latest/Routes.md#route-prefixing">here</a>.<br>Be aware that if you use <a href="https://github.com/fastify/fastify-plugin"><code>fastify-plugin</code></a> this option won&#39;t work.</p>
 <p><a name="error-handling"></a></p>
 <h4 id="error-handling">Error handling</h4>
 <p>The error handling is done by <a href="https://github.com/mcollina/avvio#error-handling">avvio</a>.<br>As general rule is highly recommended that you handle your errors in the <code>register</code>&#39;s callback, otherwise the server will not start, and you will find the unhandled error in the <code>listen</code> callback.</p>

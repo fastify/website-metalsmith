@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.27.x/Reply">
+    <link ref="canonical" href="/docs/v0.28.x/Reply">
   
 
   
@@ -179,7 +179,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.27.x">v0.27.x</option>
+                          <option selected="selected" value="/docs/v0.28.x">v0.28.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.27.x">v0.27.x</option>
                       
                     
                       
@@ -306,7 +312,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.27.x">v0.27.x</option>
+                          <option selected="selected" value="/docs/v0.28.x">v0.28.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.27.x">v0.27.x</option>
                         
                       
                         
@@ -422,7 +433,7 @@
 </code></pre>
 <p><a name="code"></a></p>
 <h3 id="code">Code</h3>
-<p>If not setted via <code>reply.code</code>, the resulting <code>statusCode</code> will be <code>200</code> or <code>204</code> if there is not content to send.</p>
+<p>If not set via <code>reply.code</code>, the resulting <code>statusCode</code> will be <code>200</code>.</p>
 <p><a name="header"></a></p>
 <h3 id="header">Header</h3>
 <p>Sets a custom header to the response.<br>If you not set a <code>&#39;Content-Type&#39;</code> header, Fastify assumes that you are using <code>&#39;application/json&#39;</code>, unless you are send a stream, in that cases Fastify recognize it and sets the <code>&#39;Content-Type&#39;</code> at <code>&#39;application/octet-stream&#39;</code>.</p>
@@ -475,6 +486,7 @@ fastify.get(&#39;/async-await&#39;, options, async function (request, reply) {
   return res
 })
 </code></pre>
+<p>If you want to know more please review <a href="/docs/latest/Routes.md#async-await">Routes#async-await</a>!</p>
 <p><a name="send-streams"></a></p>
 <h4 id="streams">Streams</h4>
 <p><em>send</em> can also handle strems out of the box, internally uses <a href="https://www.npmjs.com/package/pump">pump</a> to avoid leaks of file descriptors. If you are sending a stream and you have not setted a <code>&#39;Content-Type&#39;</code> header, <em>send</em> will set it at <code>&#39;application/octet-stream&#39;</code>.</p>

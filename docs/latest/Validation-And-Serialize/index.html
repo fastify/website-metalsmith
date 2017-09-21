@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.27.x/Validation-And-Serialize">
+    <link ref="canonical" href="/docs/v0.28.x/Validation-And-Serialize">
   
 
   
@@ -179,7 +179,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.27.x">v0.27.x</option>
+                          <option selected="selected" value="/docs/v0.28.x">v0.28.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.27.x">v0.27.x</option>
                       
                     
                       
@@ -306,7 +312,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.27.x">v0.27.x</option>
+                          <option selected="selected" value="/docs/v0.28.x">v0.28.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.27.x">v0.27.x</option>
                         
                       
                         
@@ -411,6 +422,7 @@ Validate the input is very easy, just add the fields that you need inside the ro
 <li><code>body</code>: validates the body of the request if it is a POST or a PUT.</li>
 <li><code>querystring</code>: validates the querystring. This can be a complete JSON Schema object, with the property type of object and properties object of parameters, or simply the values of what would be contained in the properties object as shown below.</li>
 <li><code>params</code>: validates the route params.</li>
+<li><code>headers</code>: validates the request headers.</li>
 </ul>
 <p>Example:</p>
 <pre><code class="lang-js">  const schema = {
@@ -433,10 +445,53 @@ Validate the input is very easy, just add the fields that you need inside the ro
         par1: { type: &#39;string&#39; },
         par2: { type: &#39;number&#39; }
       }
+    },
+
+    headers: {
+      type: &#39;object&#39;,
+      properties: {
+        &#39;x-foo&#39;: { type: &#39;string&#39; }
+      },
+      required: [&#39;x-foo&#39;]
     }
   }
 </code></pre>
 <p><em>Note that Ajv will try to <a href="https://github.com/epoberezkin/ajv#coercing-data-types">coerce</a> the values to the types specified in your schema type keywords, both to pass the validation and to use the correctly typed data afterwards.</em></p>
+<p><a name="schema-compiler"></a></p>
+<h4 id="schema-compiler">Schema Compiler</h4>
+<p>The <code>schemaCompiler</code> is a function that returns a function that validates the body, url parameters, headers and the query string.</p>
+<p>The default <code>schemaCompiler</code> returns a function that implements the <code>ajv</code> validation interface.
+<code>fastify</code> use it internally to speed the validation up.</p>
+<p>If you want to change the default options of the <code>ajv</code> instance you can pass the ajv option to Fastify.
+You can find all the options in the <a href="https://github.com/epoberezkin/ajv#options">Ajv documentation</a>.</p>
+<pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)({
+  ajv: {
+    removeAdditional: true,
+    useDefaults:      true,
+    coerceTypes:      true
+  }
+})
+</code></pre>
+<p>But maybe you want to change the validation library. Perhaps you like <code>Joi</code>.
+In this case you can use it to validate the url parameters, the body and the querystring!</p>
+<pre><code class="lang-js">const Joi = require(&#39;joi&#39;)
+
+fastify.post(&#39;/the/url&#39;, {
+  schema: {
+    body: Joi.object().keys({
+      hello: Joi.string().required()
+    }).required()
+  },
+  schemaCompiler: function (schema) {
+    return schema.validate.bind(validate)
+  }
+})
+</code></pre>
+<p>In that case the function retuned by schemaCompiler returns an object like:</p>
+<ul>
+<li><code>error</code>: filled with an instance of <code>Error</code> or a string that describes the validation error</li>
+<li><code>value</code>: the coerced value that passes the validation</li>
+</ul>
 <p><a name="serialize"></a></p>
 <h3 id="serialize">Serialize</h3>
 <p>Usually you will send your data to the clients via JSON, and Fastify has a powerful tools to help you: <a href="https://www.npmjs.com/package/fast-json-stringify">fast-json-stringify</a>, which is used if you have provided an output schema in the route options. We encourage you to use an output schema, as it will increase your throughput by x1-4 depending on your payload, and it will prevent accidental disclosure of sensitive information.</p>

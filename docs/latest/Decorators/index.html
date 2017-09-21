@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.27.x/Decorators">
+    <link ref="canonical" href="/docs/v0.28.x/Decorators">
   
 
   
@@ -179,7 +179,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.27.x">v0.27.x</option>
+                          <option selected="selected" value="/docs/v0.28.x">v0.28.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.27.x">v0.27.x</option>
                       
                     
                       
@@ -306,7 +312,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.27.x">v0.27.x</option>
+                          <option selected="selected" value="/docs/v0.28.x">v0.28.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.27.x">v0.27.x</option>
                         
                       
                         
@@ -429,20 +440,18 @@ console.log(fastify.conf.db)
 <pre><code class="lang-js">fastify.decorateReply(&#39;utility&#39;, function () {
   // something very useful
 })
-
-Note: using an arrow function will break the binding of `this` to the Fastify `reply` instance.
 </code></pre>
+<p>Note: using an arrow function will break the binding of <code>this</code> to the Fastify <code>reply</code> instance.</p>
 <p><a name="decorate-request"></a><br><strong>decorateRequest</strong>
 As above, this api is needed if you want to add new methods to the <code>Request</code> core object.<br>Just call the <code>decorateRequest</code> api and pass the name of the new property and its value.</p>
 <pre><code class="lang-js">fastify.decorateRequest(&#39;utility&#39;, function () {
   // something very useful
 })
-
-Note: using an arrow function will break the binding of `this` to the Fastify `request` instance.
 </code></pre>
+<p>Note: using an arrow function will break the binding of <code>this</code> to the Fastify <code>request</code> instance.</p>
 <p><a name="extend-server-error"></a>
-<strong>extendServerError</strong><br>If you need to extend the standard <a href="/docs/latest/Reply.md#errors">server error</a>, this api is what you need.<br>You <em>must</em> pass a function that returns an object, Fastify will extend the server error with the returned object of your function.</p>
-<pre><code class="lang-js">fastify.extendServerError(() =&gt; {
+<strong>extendServerError</strong><br>If you need to extend the standard <a href="/docs/latest/Reply.md#errors">server error</a>, this api is what you need.<br>You <em>must</em> pass a function that returns an object, Fastify will extend the server error with the returned object of your function. The function will receive the original error object.</p>
+<pre><code class="lang-js">fastify.extendServerError((err) =&gt; {
   return {
     timestamp: new Date()
   }
