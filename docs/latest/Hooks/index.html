@@ -273,12 +273,6 @@
                       
                     
                       
-                        
-                        
-                          <option  value="/docs/v0.12.x">v0.12.x</option>
-                      
-                    
-                      
                     
                   </select>
                 </div>
@@ -385,11 +379,6 @@
                         
                       
                         
-                          
-                          <option  value="/docs/v0.12.x">v0.12.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
@@ -435,7 +424,7 @@ fastify.addHook(&#39;onResponse&#39;, (res, next) =&gt; {
 })
 </code></pre>
 <p><em>The error will be handled by <a href="/docs/latest/Reply.md#errors"><code>Reply</code></a>.</em></p>
-<p>Note that in the <code>&#39;preHandler&#39;</code> hook the request and rply objects are different from <code>&#39;onRequest&#39;</code>, because the two arguments are <a href="/docs/latest/Request.md"><code>request</code></a> and <a href="/docs/latest/Reply.md"><code>reply</code></a> core Fastify objects.</p>
+<p>Note that in the <code>&#39;preHandler&#39;</code> hook the request and reply objects are different from <code>&#39;onRequest&#39;</code>, because the two arguments are <a href="/docs/latest/Request.md"><code>request</code></a> and <a href="/docs/latest/Reply.md"><code>reply</code></a> core Fastify objects.</p>
 <p><a name="on-close"></a>
 <strong>&#39;onClose&#39;</strong><br>The unique hook that is not inside the lifecycle is <code>&#39;onClose&#39;</code>, this one is triggered when you call <code>fastify.close()</code> to stop the server, and it is useful if you have some <a href="/docs/latest/Plugins.md">plugins</a> that need a &quot;shutdown&quot; part, such as a connection to a database.<br>Only for this hook, the parameters of the function changes, the first one is the Fastify instance, the second one the <code>done</code> callback.</p>
 <pre><code class="lang-js">fastify.addHook(&#39;onClose&#39;, (instance, done) =&gt; {
