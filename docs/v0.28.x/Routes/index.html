@@ -277,12 +277,6 @@
                       
                     
                       
-                        
-                        
-                          <option  value="/docs/v0.11.x">v0.11.x</option>
-                      
-                    
-                      
                     
                   </select>
                 </div>
@@ -391,11 +385,6 @@
                         
                           
                           <option  value="/docs/v0.12.x">v0.12.x</option>
-                        
-                      
-                        
-                          
-                          <option  value="/docs/v0.11.x">v0.11.x</option>
                         
                       
                         
@@ -508,7 +497,8 @@ fastify.get(&#39;/&#39;, opts, (req, reply) =&gt; {
   return processed
 })
 </code></pre>
-<p>As you can see we are not calling <code>reply.send</code> to send back the data to the user. You just need to return the body and you are done!<br>If you need it you can also send back the data to the user with <code>reply.send</code>.</p>
+<p>As you can see we are not calling <code>reply.send</code> to send back the data to the user. You just need to return the body and you are done!
+If you need it you can also send back the data to the user with <code>reply.send</code>.</p>
 <pre><code class="lang-js">fastify.get(&#39;/&#39;, options, async function (request, reply) {
   var data = await getData()
   var processed = await processData(data)
