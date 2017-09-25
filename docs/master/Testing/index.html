@@ -489,6 +489,18 @@ To support this method, you should list <code>shot</code> library in your packag
   // your tests
 })
 </code></pre>
+<p>or in the promisified version</p>
+<pre><code class="lang-js">const injectOption = {
+  method: String,
+  url: String,
+  payload: Object,
+  headers: Object
+}
+fastify.inject(injectOption)
+  .then(response =&gt; {
+    // your tests
+  })
+</code></pre>
 <p>Example:</p>
 <pre><code class="lang-js">// server.js
 const minimist = require(&#39;minimist&#39;)
