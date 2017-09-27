@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.28.x/Testing">
+    <link ref="canonical" href="/docs/v0.29.x/Testing">
   
 
   
@@ -179,7 +179,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.28.x">v0.28.x</option>
+                          <option selected="selected" value="/docs/v0.29.x">v0.29.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.28.x">v0.28.x</option>
                       
                     
                       
@@ -300,7 +306,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.28.x">v0.28.x</option>
+                          <option selected="selected" value="/docs/v0.29.x">v0.29.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.28.x">v0.28.x</option>
                         
                       
                         
@@ -391,10 +402,11 @@
 
         <div id="doc-content" class="content">
           <h2 id="testing">Testing</h2>
-<p>Testing is one of the most important part when you are developing an application.<br>Fastify does not offer a testing framework out of the box, but we can recommend you an handy and nice way to build your unit testing environment.</p>
+<p>Testing is one of the most important part when you are developing an application.
+Fastify does not offer a testing framework out of the box, but we can recommend you an handy and nice way to build your unit testing environment.</p>
 <p>The modules you&#39;ll need:</p>
 <ul>
-<li><a href="https://www.npmjs.com/package/tap">Tap</a>: an excellent testing framework, it will give you out of the box a very good assertion library and a lot utilities.  </li>
+<li><a href="https://www.npmjs.com/package/tap">Tap</a>: an excellent testing framework, it will give you out of the box a very good assertion library and a lot utilities.</li>
 <li><a href="https://www.npmjs.com/package/request">Request</a>: a complete library to perform request of any kind.</li>
 <li><a href="https://www.npmjs.com/package/minimist">Minimist</a>: a CLI parser, that you will use to run server from the command line.</li>
 </ul>
@@ -477,8 +489,9 @@ server.start({ port: 0 }, (err, fastify) =&gt; {
 </code></pre>
 <p><a name="inject"></a></p>
 <h3 id="testing-with-http-injection">Testing with http injection</h3>
-<p>Fastify supports fake http injection thanks to <a href="https://github.com/hapijs/shot">shot</a>.<br>To support this method, you should list <code>shot</code> library in your package as dev dependency using</p>
-<pre><code>npm install shot --save-dev
+<p>Fastify supports fake http injection thanks to <a href="https://github.com/hapijs/shot">shot</a>.
+To support this method, you should list <code>shot</code> library in your package as dev dependency using</p>
+<pre><code>npm install shot@3 --save-dev
 </code></pre><p>You just need to use the api <code>inject</code>:</p>
 <pre><code class="lang-js">fastify.inject({
   method: String,
@@ -488,6 +501,18 @@ server.start({ port: 0 }, (err, fastify) =&gt; {
 }, response =&gt; {
   // your tests
 })
+</code></pre>
+<p>or in the promisified version</p>
+<pre><code class="lang-js">const injectOption = {
+  method: String,
+  url: String,
+  payload: Object,
+  headers: Object
+}
+fastify.inject(injectOption)
+  .then(response =&gt; {
+    // your tests
+  })
 </code></pre>
 <p>Example:</p>
 <pre><code class="lang-js">// server.js
