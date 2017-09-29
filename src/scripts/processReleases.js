@@ -100,6 +100,8 @@ const processDocFiles = (docs, latestVersion, cb) => {
         // remap links
         content = content.replace(/https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/g, `/docs/${item.version}`)
 
+        content = fixInternalLink(content)
+
         // adds frontmatter
         content =
 `---
@@ -117,6 +119,11 @@ ${content}`
     },
     cb
   )
+}
+
+const fixInternalLink = (content) => {
+  const docInternalLinkRx = /\(\/docs\/[\w\d.-]+\/[\w\d-]+(.md)/gi
+  return content.replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
 }
 
 const createVersionIndexFile = (latestVersion) => (version, cb) => {
