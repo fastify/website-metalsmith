@@ -412,8 +412,8 @@ fastify.listen(3000, function (err) {
 <li><code>fastify.server</code>: The Node core server object</li>
 <li><code>fastify.ready(callback)</code>: Function called when all the plugins has been loaded.</li>
 <li><code>fastify.listen(callback)</code>: Starts the server on the given port after all the plugins are loaded, internally waits for the <code>.ready()</code> event. The callback is the same as the Node core.</li>
-<li><code>fastify.route(options)</code>: check <a href="/docs/v0.13.x/Routes.md">here</a>.</li>
-<li><code>fastify.close(callback)</code>: call this function to close the server instance and run the <a href="/docs/v0.13.x/Hooks.md#on-close"><code>&#39;onClose&#39;</code></a> hook.</li>
+<li><code>fastify.route(options)</code>: check <a href="/docs/v0.13.x/Routes">here</a>.</li>
+<li><code>fastify.close(callback)</code>: call this function to close the server instance and run the <a href="/docs/v0.13.x/Hooks#on-close"><code>&#39;onClose&#39;</code></a> hook.</li>
 </ul>
 <p><a name="schema"></a></p>
 <h3 id="schema-serialization">Schema serialization</h3>
@@ -439,7 +439,7 @@ fastify.listen(3000, function (err) {
   console.log(`server listening on ${fastify.server.address().port}`)
 })
 </code></pre>
-<p><em>If you want to know more about the serialization and validation, check <a href="/docs/v0.13.x/Validation-And-Serialize.md">here</a>!</em></p>
+<p><em>If you want to know more about the serialization and validation, check <a href="/docs/v0.13.x/Validation-And-Serialize">here</a>!</em></p>
 <p><a name="register"></a></p>
 <h3 id="register">Register</h3>
 <p>As you can see use Fastify is very easy and handy.

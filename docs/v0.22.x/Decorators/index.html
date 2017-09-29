@@ -431,7 +431,7 @@ console.log(fastify.conf.db)
 })
 </code></pre>
 <p><a name="extend-server-error"></a>
-<strong>extendServerError</strong><br>If you need to extend the standard <a href="/docs/v0.22.x/Reply.md#errors">server error</a>, this api is what you need.<br>You <em>must</em> pass a function that returns an object, Fastify will extend the server error with the returned object of your function.</p>
+<strong>extendServerError</strong><br>If you need to extend the standard <a href="/docs/v0.22.x/Reply#errors">server error</a>, this api is what you need.<br>You <em>must</em> pass a function that returns an object, Fastify will extend the server error with the returned object of your function.</p>
 <pre><code class="lang-js">fastify.extendServerError(() =&gt; {
   return {
     timestamp: new Date()
@@ -450,7 +450,7 @@ console.log(fastify.conf.db)
 </code></pre>
 <p><a name="sync-async"></a></p>
 <h4 id="sync-and-async">Sync and Async</h4>
-<p><code>decorate</code> is a <em>synchronous</em> API, if you need to add a decorator that has an <em>asynchronous</em> bootstrap, could happen that Fastify boots up before that your decorator is ready. To avoid this issue you must use <code>register</code> api in combination with <code>fastify-plugin</code>, to know more check out the <a href="/docs/v0.22.x/Plugins.md">Plugins</a> documentation as well.</p>
+<p><code>decorate</code> is a <em>synchronous</em> API, if you need to add a decorator that has an <em>asynchronous</em> bootstrap, could happen that Fastify boots up before that your decorator is ready. To avoid this issue you must use <code>register</code> api in combination with <code>fastify-plugin</code>, to know more check out the <a href="/docs/v0.22.x/Plugins">Plugins</a> documentation as well.</p>
 <p><a name="dependencies"></a></p>
 <h4 id="dependencies">Dependencies</h4>
 <p>If your decorator depends on another decorator, you can also declare the dependencies of your function, it pretty easy. You just need to add an array of strings (representing the names of the decorators you are depending on) as third parameter.</p>

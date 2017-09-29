@@ -398,7 +398,7 @@
 <li><p><code>url</code>: the path of the url to match this route.</p>
 </li>
 <li><p><code>schema</code>: an object containing the schemas for the request and response.<br>They need to be in
-<a href="http://json-schema.org/">JSON Schema</a> format, check <a href="/docs/v0.13.x/Validation-And-Serialize.md">here</a> for more info.</p>
+<a href="http://json-schema.org/">JSON Schema</a> format, check <a href="/docs/v0.13.x/Validation-And-Serialize">here</a> for more info.</p>
 <ul>
 <li><code>payload</code>: validates the body of the request if it is a POST or a
 PUT.</li>
@@ -411,8 +411,8 @@ schema allows us to have 10-20% more throughput.</li>
 </ul>
 </li>
 <li><p><code>handler(request, reply)</code>: the function that will handle this request.</p>
-<p><code>request</code> is defined in <a href="/docs/v0.13.x/Request.md">Request</a>.</p>
-<p><code>reply</code> is defined in <a href="/docs/v0.13.x/Reply.md">Reply</a>.</p>
+<p><code>request</code> is defined in <a href="/docs/v0.13.x/Request">Request</a>.</p>
+<p><code>reply</code> is defined in <a href="/docs/v0.13.x/Reply">Reply</a>.</p>
 </li>
 </ul>
 <p>The routing is handled by <a href="https://github.com/yoshuawuyts/wayfarer">wayfarer</a>, so you can refer its documentation for the url building.</p>

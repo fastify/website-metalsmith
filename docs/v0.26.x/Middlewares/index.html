@@ -401,7 +401,7 @@
         <div id="doc-content" class="content">
           <h2 id="middlewares">Middlewares</h2>
 <p>Fastify provides out of the box an asynchronous <a href="https://github.com/fastify/middie">middleware engine</a> compatible with <a href="https://expressjs.com/">Express</a> and <a href="http://restify.com/">Restify</a> middlewares.</p>
-<p><em>If you need a visual feedback to understand when the middlewares are executed take a look to the <a href="/docs/v0.26.x/Lifecycle.md">lifecycle</a> page.</em></p>
+<p><em>If you need a visual feedback to understand when the middlewares are executed take a look to the <a href="/docs/v0.26.x/Lifecycle">lifecycle</a> page.</em></p>
 <p>Fastify middlewares don&#39;t support the full syntax <code>middleware(err, req, res, next)</code>, because error handling is done inside Fastify.</p>
 <p>Also, if you are using Middlewares that bundles different small middlewares, such as <a href="https://helmetjs.github.io/"><em>helmet</em></a>, we recommend to use the single modules to get better performances.</p>
 <pre><code class="lang-js">fastify.use(require(&#39;cors&#39;)())

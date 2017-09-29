@@ -409,7 +409,7 @@
   next()
 })
 </code></pre>
-<p>Is pretty easy understand where each hook is executed, if you need a visual feedback take a look to the <a href="/docs/v0.24.x/Lifecycle.md">lifecycle</a> page.</p>
+<p>Is pretty easy understand where each hook is executed, if you need a visual feedback take a look to the <a href="/docs/v0.24.x/Lifecycle">lifecycle</a> page.</p>
 <p>If you get an error during the execution of you hook, just pass it to <code>next()</code> and Fastify will automatically close the request and send the appropriate error code to the user.</p>
 <p>If you want to pass a custom error code to the user, just pass it as second parameter to <code>next()</code>:</p>
 <pre><code class="lang-js">fastify.addHook(&#39;onRequest&#39;, (req, res, next) =&gt; {
@@ -417,10 +417,10 @@
   next(new Error(&#39;some error&#39;), 400)
 })
 </code></pre>
-<p><em>The error will be handled by <a href="/docs/v0.24.x/Reply.md#errors"><code>Reply</code></a>.</em></p>
-<p>The function signature is always the same, <code>request</code>, <code>response</code>, <code>next</code>, it changes a little bit only in the <code>&#39;preHandler&#39;</code> hook, where the first two arguments are <a href="/docs/v0.24.x/Request.md"><code>request</code></a> and <a href="/docs/v0.24.x/Reply.md"><code>reply</code></a> core Fastify objects.</p>
+<p><em>The error will be handled by <a href="/docs/v0.24.x/Reply#errors"><code>Reply</code></a>.</em></p>
+<p>The function signature is always the same, <code>request</code>, <code>response</code>, <code>next</code>, it changes a little bit only in the <code>&#39;preHandler&#39;</code> hook, where the first two arguments are <a href="/docs/v0.24.x/Request"><code>request</code></a> and <a href="/docs/v0.24.x/Reply"><code>reply</code></a> core Fastify objects.</p>
 <p><a name="on-close"></a>
-<strong>&#39;onClose&#39;</strong><br>The unique hook that is not inside the lifecycle is <code>&#39;onClose&#39;</code>, this one is triggered when you call <code>fastify.close()</code> to stop the server, and it is useful if you have some <a href="/docs/v0.24.x/Plugins.md">plugins</a> that need a &quot;shutdown&quot; part, such as a connection to a database.<br>Only for this hook, the parameters of the function changes, the first one is the Fastify instance, the second one the <code>done</code> callback.</p>
+<strong>&#39;onClose&#39;</strong><br>The unique hook that is not inside the lifecycle is <code>&#39;onClose&#39;</code>, this one is triggered when you call <code>fastify.close()</code> to stop the server, and it is useful if you have some <a href="/docs/v0.24.x/Plugins">plugins</a> that need a &quot;shutdown&quot; part, such as a connection to a database.<br>Only for this hook, the parameters of the function changes, the first one is the Fastify instance, the second one the <code>done</code> callback.</p>
 <pre><code class="lang-js">fastify.addHook(&#39;onClose&#39;, (instance, done) =&gt; {
   // some code
   done()

@@ -426,7 +426,7 @@
   .header(&#39;Content-Type&#39;, &#39;application/x-protobuf&#39;)
   .serializer(protoBuf.serialize)
 </code></pre>
-<p><em>Take a look <a href="/docs/v0.23.x/Validation-And-Serialize.md#serialize">here</a> to understand how serialize is done.</em></p>
+<p><em>Take a look <a href="/docs/v0.23.x/Validation-And-Serialize#serialize">here</a> to understand how serialize is done.</em></p>
 <p><a name="send"></a></p>
 <h3 id="send">Send</h3>
 <p> As the name suggests, <code>.send()</code> is the function that sends the payload to the end user.</p>
@@ -474,7 +474,7 @@ fastify.get(&#39;/async-await&#39;, schema, async function (request, reply) {
   statusCode: Number   // the http status code
 }
 </code></pre>
-<p>If you want it extend this error, check out <a href="/docs/v0.23.x/Decorators.md#extend-server-error"><code>extendServerError</code></a>.  </p>
+<p>If you want it extend this error, check out <a href="/docs/v0.23.x/Decorators#extend-server-error"><code>extendServerError</code></a>.  </p>
 <p><em>If you are passing an error to send and the statusCode is less than 400, Fastify will automatically set it at 500.</em></p>
 <p><a name="payload-type"></a></p>
 <h4 id="type-of-the-final-payload">Type of the final payload</h4>

@@ -413,7 +413,7 @@
 </ul>
 <p><a name="register"></a></p>
 <h2 id="register">Register</h2>
-<p>As in JavaScript everything is an object, in Fastify everything is a plugin.<br>Your routes, your utilities and so on are all plugins. And to add a new plugin, whatever its functionality is, in Fastify you have a nice and unique api to use: <a href="/docs/v0.29.x/Plugins.md"><code>register</code></a>.</p>
+<p>As in JavaScript everything is an object, in Fastify everything is a plugin.<br>Your routes, your utilities and so on are all plugins. And to add a new plugin, whatever its functionality is, in Fastify you have a nice and unique api to use: <a href="/docs/v0.29.x/Plugins"><code>register</code></a>.</p>
 <pre><code class="lang-js">fastify.register(
   require(&#39;./my-plugin&#39;),
   { options },
@@ -450,7 +450,7 @@ console.log(util(&#39;that is &#39;, &#39; awesome&#39;))
 </code></pre>
 <p>And now you will import your utility in every file you need it. (and don&#39;t forget that probably you will need it also in your test).</p>
 <p>Fastify offers you a way nicer and elegant way to do this, <em>decorators</em>.
-Create a decorator is extremely easy, just use the <a href="/docs/v0.29.x/Decorators.md"><code>decorate</code></a> api:</p>
+Create a decorator is extremely easy, just use the <a href="/docs/v0.29.x/Decorators"><code>decorate</code></a> api:</p>
 <pre><code class="lang-js">fastify.decorate(&#39;util&#39;, (a, b) =&gt; a + b)
 </code></pre>
 <p>Now you can access your utility just by doing <code>fastify.util</code> whenever you need it, even inside your test.<br>And here&#39;s starts the magic; do you remember that few lines above we talked about encapsulation? Well, use <code>register</code> and <code>decorate</code> in conjunction enable exactly that, let me show you an example to clarify this:</p>
@@ -537,7 +537,7 @@ fastify.get(&#39;/happiness&#39;, (req, reply) =&gt; {
   reply.send({ happy: req.isHappy })
 })
 </code></pre>
-<p>We&#39;ve seen how extend server functionalities and how handle the encapsulation system, but what if you need to add a function that must be executed every time that the server &quot;<a href="/docs/v0.29.x/Lifecycle.md">emits</a>&quot; an event?</p>
+<p>We&#39;ve seen how extend server functionalities and how handle the encapsulation system, but what if you need to add a function that must be executed every time that the server &quot;<a href="/docs/v0.29.x/Lifecycle">emits</a>&quot; an event?</p>
 <p><a name="hooks"></a></p>
 <h2 id="hooks">Hooks</h2>
 <p>You just built an amazing utility, but now you need to execute that for every request, this is what you will likely do:</p>
@@ -554,7 +554,7 @@ fastify.get(&#39;/plugin2&#39;, (req, reply) =&gt; {
 })
 </code></pre>
 <p>I think we all agree that this is terrible. Code repeat, awful readability and it cannot scale.</p>
-<p>So what can you do to avoid this annoying issue? Yes, you are right, use an <a href="/docs/v0.29.x/Hooks.md">hook</a>!  </p>
+<p>So what can you do to avoid this annoying issue? Yes, you are right, use an <a href="/docs/v0.29.x/Hooks">hook</a>!  </p>
 <pre><code class="lang-js">fastify.decorate(&#39;util&#39;, (req, key, value) =&gt; { req.key = value })
 
 fastify.addHook(&#39;preHandler&#39;, (req, reply, done) =&gt; {
@@ -594,7 +594,7 @@ fastify.get(&#39;/plugin2&#39;, (req, reply) =&gt; {
 <p>As you probably noticed at this time, <code>request</code> and <code>reply</code> are not the standard Nodejs <em>request</em> and <em>response</em> objects, but Fastify&#39;s objects.<br>Let&#39;s say that you are arriving from a framework like Express or Restify, and you already have some Middleware that do exactly what you need, and you don&#39;t want to redo al the work.</p>
 <p><a name="middlewares"></a></p>
 <h2 id="middlewares">Middlewares</h2>
-<p>Fastify <a href="/docs/v0.29.x/Middlewares.md">supports</a> out of the box Express/Restify/Connect middlewares, this means that you can just drop-in your old code and it will work! <em>(faster, by the way)</em><br>How we can do that? Checkout our middlewares engine, <a href="https://github.com/fastify/middie">middie</a>.</p>
+<p>Fastify <a href="/docs/v0.29.x/Middlewares">supports</a> out of the box Express/Restify/Connect middlewares, this means that you can just drop-in your old code and it will work! <em>(faster, by the way)</em><br>How we can do that? Checkout our middlewares engine, <a href="https://github.com/fastify/middie">middie</a>.</p>
 <pre><code class="lang-js">const yourMiddleware = require(&#39;your-middleware&#39;)
 fastify.use(yourMiddleware)
 </code></pre>
