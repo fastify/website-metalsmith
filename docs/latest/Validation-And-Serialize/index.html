@@ -273,12 +273,6 @@
                       
                     
                       
-                        
-                        
-                          <option  value="/docs/v0.13.x">v0.13.x</option>
-                      
-                    
-                      
                     
                   </select>
                 </div>
@@ -385,11 +379,6 @@
                         
                       
                         
-                          
-                          <option  value="/docs/v0.13.x">v0.13.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
@@ -471,9 +460,7 @@ fastify.post(&#39;/the/url&#39;, {
       hello: Joi.string().required()
     }).required()
   },
-  schemaCompiler: function (schema) {
-    return schema.validate.bind(validate)
-  }
+  schemaCompiler: schema =&gt; data =&gt; Joi.validate(data, schema)
 })
 </code></pre>
 <p>In that case the function retuned by schemaCompiler returns an object like:</p>

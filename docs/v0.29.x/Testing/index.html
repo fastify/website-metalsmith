@@ -271,12 +271,6 @@
                       
                     
                       
-                        
-                        
-                          <option  value="/docs/v0.13.x">v0.13.x</option>
-                      
-                    
-                      
                     
                   </select>
                 </div>
@@ -383,11 +377,6 @@
                         
                       
                         
-                          
-                          <option  value="/docs/v0.13.x">v0.13.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
@@ -487,10 +476,8 @@ server.start({ port: 0 }, (err, fastify) =&gt; {
 </code></pre>
 <p><a name="inject"></a></p>
 <h3 id="testing-with-http-injection">Testing with http injection</h3>
-<p>Fastify supports fake http injection thanks to <a href="https://github.com/hapijs/shot">shot</a>.
-To support this method, you should list <code>shot</code> library in your package as dev dependency using</p>
-<pre><code>npm install shot@3 --save-dev
-</code></pre><p>You just need to use the api <code>inject</code>:</p>
+<p>Fastify supports fake http injection thanks to <a href="https://github.com/fastify/light-my-request">light-my-request</a>.</p>
+<p>You just need to use the api <code>inject</code>:</p>
 <pre><code class="lang-js">fastify.inject({
   method: String,
   url: String,
@@ -501,16 +488,19 @@ To support this method, you should list <code>shot</code> library in your packag
 })
 </code></pre>
 <p>or in the promisified version</p>
-<pre><code class="lang-js">const injectOption = {
-  method: String,
-  url: String,
-  payload: Object,
-  headers: Object
-}
-fastify.inject(injectOption)
+<pre><code class="lang-js">fastify
+  .inject({
+    method: String,
+    url: String,
+    payload: Object,
+    headers: Object
+  })
   .then(response =&gt; {
     // your tests
   })
+</code></pre>
+<p>Async await is supported as well!</p>
+<pre><code class="lang-js">const res = await fastify.inject({ method: String, url: String, payload: Object, headers: Object })
 </code></pre>
 <p>Example:</p>
 <pre><code class="lang-js">// server.js
