@@ -143,23 +143,37 @@ fastify.listen(3000, err => {
   </div>
 </section>
 
-<section class="section alternate">
-  <div class="container content">
-    <h1 class="title">The team</h1>
-    <div class="columns">
-      {% for member in data.team %}
-        <div class="column content">
-          <h2>{{ member.name }}</h2>
-          <ul>
-            {% for label, link in member.links %}
-              <li>
-                <a href="{{ link }}" target="_blank">{{ label }}</a>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% endfor %}
+<section class="section alternate team">
+  <div class="container">
+    <div class="content">
+      <h1 class="title">The team</h1>
     </div>
+    {% for section in data.team %}
+      <div class="content">
+        <h2>{{ section.name }}</h2>
+      </div>
+      <div class="columns is-multiline">
+        {% for member in section.people %}
+          <div class="column is-one-third">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-48x48">
+                  <img src="{{ member.picture }}" alt="{{ member.name }}'s profile picture">
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-5">{{ member.name }}</p>
+                <p class="subtitle is-6">
+                  {% for label, link in member.links %}
+                    <a href="{{ link }}" target="_blank">{{ label }}</a>
+                  {% endfor %}
+                </p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
   </div>
 </section>
 
