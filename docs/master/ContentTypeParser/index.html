@@ -399,6 +399,18 @@
 })
 </code></pre>
 <p>You can also use the api <code>hasContentTypeParser</code> to find if a specific content-type parser already exist.</p>
+<h5 id="catch-all">Catch All</h5>
+<p>There are some cases where you need to catch all the request regardless their <code>content-type</code>, with Fastify you just need to do add the <code>&#39;*&#39;</code> content type.</p>
+<pre><code class="lang-js">fastify.addContentTypeParser(&#39;*&#39;, function (req, done) {
+  var data = &#39;&#39;
+  req.on(&#39;data&#39;, chunk =&gt; { data += chunk })
+  req.on(&#39;end&#39;, () =&gt; {
+    done(data)
+  })
+})
+</code></pre>
+<p>In this way all of the requests that do not have a corresponding content type parser will be handled by the specified function.
+<em>Remember that <code>&#39;application/json&#39;</code> is always handled by Fastify.</em></p>
 
         </div>
 
