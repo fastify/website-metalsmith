@@ -1,12 +1,53 @@
-- name: Matteo Collina
-  picture: ""
-  links:
-    github: https://github.com/mcollina
-    npm: https://www.npmjs.com/~matteo.collina
-    twitter: https://twitter.com/matteocollina
-- name: Tomas Della Vedova
-  picture: ""
-  links:
-    github: https://github.com/delvedor
-    npm: https://www.npmjs.com/~delvedor
-    twitter: https://twitter.com/delvedor
+- name: Lead Maintainers
+  people:
+  - name: Matteo Collina
+    picture: "https://avatars1.githubusercontent.com/u/52195?v=4&s=460"
+    links:
+      github: https://github.com/mcollina
+      npm: https://www.npmjs.com/~matteo.collina
+      twitter: https://twitter.com/matteocollina
+  - name: Tomas Della Vedova
+    picture: "https://avatars0.githubusercontent.com/u/4865608?v=4&s=460"
+    links:
+      github: https://github.com/delvedor
+      npm: https://www.npmjs.com/~delvedor
+      twitter: https://twitter.com/delvedor
+
+- name: Collaborators
+  people:
+  - name: Çağatay Çalı
+    picture: "https://avatars1.githubusercontent.com/u/9213230?v=4&s=460"
+    links:
+      github: https://github.com/cagataycali
+      npm: https://www.npmjs.com/~cagataycali
+      twitter: https://twitter.com/cagataycali
+  - name: Dustin Deus
+    picture: "https://avatars3.githubusercontent.com/u/1764424?v=4&s=460"
+    links:
+      github: https://github.com/StarpTech
+      npm: https://www.npmjs.com/~starptech
+      twitter: https://twitter.com/dustindeus
+  - name: Evan Shortiss
+    picture: "https://avatars3.githubusercontent.com/u/1303687?v=4&s=400"
+    links:
+      github: https://github.com/evanshortiss
+      npm: https://www.npmjs.com/~evanshortiss
+      twitter: https://twitter.com/evanshortiss
+  - name: James Sumners
+    picture: "https://avatars0.githubusercontent.com/u/321201?v=4&s=460"
+    links:
+      github: https://github.com/jsumners
+      npm: https://www.npmjs.com/~jsumners
+      twitter: https://twitter.com/jsumners79
+  - name: Luciano Mammino
+    picture: "https://avatars3.githubusercontent.com/u/205629?v=4&s=460"
+    links:
+      github: https://github.com/lmammino
+      npm: https://www.npmjs.com/~lmammino
+      twitter: https://twitter.com/loige
+  - name: Tommaso Allevi
+    picture: "https://avatars0.githubusercontent.com/u/1054125?v=4&s=460"
+    links:
+      github: https://github.com/allevo
+      npm: https://www.npmjs.com/~allevo
+      twitter: https://twitter.com/allevitommaso

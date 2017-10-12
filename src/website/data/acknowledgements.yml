@@ -4,6 +4,5 @@ sponsors:
   - name: LetzDoIt
     url: http://www.letzdoitapp.com
 others:
-  - name: Luciano Mammino
-    url: https://loige.co
-    reason: Website design & automation
+  - name: The amazing Fastify community
+    url: https://github.com/fastify/fastify/graphs/contributors

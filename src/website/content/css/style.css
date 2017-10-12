@@ -27,6 +27,10 @@
   margin: .8em 0;
 }
 
+.section.team .container p {
+  margin: 0;
+}
+
 .content .hljs {
   background: transparent
 }
