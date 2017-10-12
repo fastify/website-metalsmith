@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Logging</title>
+  <title>Server Methods</title>
   <meta name="description" content="Fast and low overhead web framework, for Node.js">
 
   <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
@@ -99,55 +99,63 @@
           <ul class="menu-list">
             
               <li >
-                <a  href="/docs/v0.14.x/Getting-Started">Getting Started</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/v0.14.x/Server-Methods">Server Methods</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/v0.14.x/Routes">Routes</a>
+                <a  href="/docs/v0.30.x/Getting-Started">Getting Started</a>
               </li>
             
               <li id="doc-menu-section">
-                <a class="is-active" href="/docs/v0.14.x/Logging">Logging</a>
+                <a class="is-active" href="/docs/v0.30.x/Server-Methods">Server Methods</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Middlewares">Middlewares</a>
+                <a  href="/docs/v0.30.x/Routes">Routes</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Hooks">Hooks</a>
+                <a  href="/docs/v0.30.x/Logging">Logging</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Decorators">Decorators</a>
+                <a  href="/docs/v0.30.x/Middlewares">Middlewares</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Validation-And-Serialize">Validation and Serialize</a>
+                <a  href="/docs/v0.30.x/Hooks">Hooks</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Lifecycle">Lifecycle</a>
+                <a  href="/docs/v0.30.x/Decorators">Decorators</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Reply">Reply</a>
+                <a  href="/docs/v0.30.x/Validation-And-Serialize">Validation and Serialize</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Request">Request</a>
+                <a  href="/docs/v0.30.x/Lifecycle">Lifecycle</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Plugins">Plugins</a>
+                <a  href="/docs/v0.30.x/Reply">Reply</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Testing">Testing</a>
+                <a  href="/docs/v0.30.x/Request">Request</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/ContentTypeParser">Content Type Parser</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Plugins">Plugins</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Testing">Testing</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Plugins-Guide">Plugins Guide</a>
               </li>
             
           </ul>
@@ -168,6 +176,12 @@
                         
                         
                           
+                        
+                          <option selected="selected" value="/docs/v0.30.x">v0.30.x</option>
+                      
+                    
+                      
+                        
                         
                           <option  value="/docs/v0.29.x">v0.29.x</option>
                       
@@ -254,12 +268,6 @@
                         
                         
                           <option  value="/docs/v0.15.x">v0.15.x</option>
-                      
-                    
-                      
-                        
-                        
-                          <option selected="selected" value="/docs/v0.14.x">v0.14.x</option>
                       
                     
                       
@@ -290,6 +298,11 @@
                       
                         
                           
+                          <option selected="selected" value="/docs/v0.30.x">v0.30.x</option>
+                        
+                      
+                        
+                          
                           <option  value="/docs/v0.29.x">v0.29.x</option>
                         
                       
@@ -364,57 +377,106 @@
                         
                       
                         
-                          
-                          <option selected="selected" value="/docs/v0.14.x">v0.14.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
                 </div>
               </div>
             </li>
-            <li class="is-active"><a>Logging</a></li>
+            <li class="is-active"><a>Server Methods</a></li>
           </ul>
         </nav>
 
         <div id="doc-content" class="content">
-          <h2 id="logging">Logging</h2>
-<p>Since Fastify is really focused on performances, we choose the best logger to achieve the goal. <strong><a href="https://github.com/pinojs/pino">Pino</a></strong>!</p>
-<p>By default Fastify uses <a href="https://github.com/pinojs/pino-http">pino-http</a> as the logger, with the log level set to <code>&#39;fatal&#39;</code>.</p>
-<p>If you want to pass some options to the logger, just pass the logger option to Fastify.
-You can find all the options in the <a href="https://github.com/pinojs/pino/blob/master/docs/API.md#pinooptions-stream">Pino documentation</a>. If you want to pass a custom stream to the Pino instance, just add the stream field to the logger object.</p>
-<pre><code class="lang-js">const split = require(&#39;split2&#39;)
-const stream = split(JSON.parse)
+          <h2 id="server-methods">Server Methods</h2>
+<p><a name="server"></a></p>
+<h4 id="server">server</h4>
+<p><code>fastify.server</code>: The Node core <a href="https://nodejs.org/api/http.html#http_class_http_server">server</a> object</p>
+<p><a name="ready"></a></p>
+<h4 id="ready">ready</h4>
+<p>Function called when all the plugins has been loaded.
+It takes an error parameter if something went wrong.</p>
+<pre><code class="lang-js">fastify.ready(err =&gt; {
+  if (err) throw err
+})
+</code></pre>
+<p><a name="listen"></a></p>
+<h4 id="listen">listen</h4>
+<p>Starts the server on the given port after all the plugins are loaded, internally waits for the <code>.ready()</code> event. The callback is the same as the Node core.</p>
+<pre><code class="lang-js">fastify.listen(3000, err =&gt; {
+  if (err) throw err
+})
+</code></pre>
+<p>Specifying an address is also supported:</p>
+<pre><code class="lang-js">fastify.listen(3000, &#39;127.0.0.1&#39;, err =&gt; {
+  if (err) throw err
+})
+</code></pre>
+<p><a name="route"></a></p>
+<h4 id="route">route</h4>
+<p>Method to add routes to the server, it also have shorthands functions, check <a href="/docs/v0.30.x/Routes">here</a>.</p>
+<p><a name="routes-iterator"></a></p>
+<h4 id="routes-iterator">routes iterator</h4>
+<p>The Fastify instance is an Iterable object with all the registered routes.
+The route properties are the same the developer has declared <a href="/docs/v0.30.x/Routes">here</a>.</p>
+<pre><code class="lang-js">fastify.get(&#39;/route&#39;, opts, handler)
 
-const fastify = require(&#39;fastify&#39;)({
-  logger: {
-    level: &#39;info&#39;,
-    stream: stream
+fastify.ready(() =&gt; {
+  for (var route of fastify) {
+    console.log(route)
+    /* will output:
+    {
+      &#39;/route&#39;: {
+        get: {
+          method: String,
+          ulr: String,
+          schema: Object,
+          handler: Function,
+          Request: Function,
+          Reply: Function
+        }
+      }
+    }
+    */
   }
 })
-
-fastify.get(&#39;/&#39;, schema, function (req, reply) {
-  req.log.info(&#39;Some info about the current request&#39;)
-  reply.send({ hello: &#39;world&#39; })
-})
 </code></pre>
-<p>You can also supply your own logger instance. Instead of passing configuration options, simply pass the instance.
-The logger you supply must conform to the Pino interface; that is, it must have the following methods:
-<code>info</code>, <code>error</code>, <code>debug</code>, <code>fatal</code>, <code>warn</code>, <code>trace</code>, <code>child</code>.</p>
-<p>Example:</p>
-<pre><code class="lang-js">const log = require(&#39;pino&#39;)({ level: &#39;info&#39; })
-const fastify = require(&#39;fastify&#39;)({ logger: log })
-
-log.info(&#39;does not have request information&#39;)
-
-fastify.get(&#39;/&#39;, function (req, reply) {
-  req.log.info(&#39;includes request information, but is the same logger instance as `log`&#39;)
-  reply.send({ hello: &#39;world&#39; })
-})
-</code></pre>
-<p><em>The logger instance for the current request is available in every part of the <a href="/docs/v0.14.x/Lifecycle">lifecycle</a>.</em></p>
+<p><a name="close"></a></p>
+<h4 id="close">close</h4>
+<p><code>fastify.close(callback)</code>: call this function to close the server instance and run the <a href="/docs/v0.30.x/Hooks#on-close"><code>&#39;onClose&#39;</code></a> hook.</p>
+<p><a name="decorate"></a></p>
+<h4 id="decorate-">decorate*</h4>
+<p>Function useful if you need to decorate the fastify instance, Reply or Request, check <a href="/docs/v0.30.x/Decorators">here</a>.</p>
+<p><a name="register"></a></p>
+<h4 id="register">register</h4>
+<p>Fastify allows the user to extend its functionalities with plugins.
+A plugin can be a set of routes, a server decorator or whatever, check <a href="/docs/v0.30.x/Plugins">here</a>.</p>
+<p><a name="use"></a></p>
+<h4 id="use">use</h4>
+<p>Function to add middlewares to Fastify, check  <a href="/docs/v0.30.x/Middlewares">here</a>.</p>
+<p><a name="addHook"></a></p>
+<h4 id="addhook">addHook</h4>
+<p>Function to add a specific hook in the lifecycle of Fastify, check  <a href="/docs/v0.30.x/Hooks">here</a>.</p>
+<p><a name="logger"></a></p>
+<h4 id="logger">logger</h4>
+<p>The logger instance, check  <a href="/docs/v0.30.x/Logging">here</a>.</p>
+<p><a name="inject"></a></p>
+<h4 id="inject">inject</h4>
+<p>Fake http injection (for testing purposes)  <a href="/docs/v0.30.x/Testing#inject">here</a>.</p>
+<p><a name="set-schema-compiler"></a></p>
+<h4 id="setschemacompiler">setSchemaCompiler</h4>
+<p>Set the schema compiler for all routes  <a href="/docs/v0.30.x/Validation-And-Serialize#schema-compiler">here</a>.</p>
+<p><a name="set-not-found-handler"></a></p>
+<h4 id="setnotfoundhandler">setNotFoundHandler</h4>
+<p><code>fastify.setNotFoundHandler(handler(request, reply))</code>: set the 404 handler.
+This call is fully encapsulated, so different plugins can set different
+not found handlers.</p>
+<p><a name="set-error-handler"></a></p>
+<h4 id="seterrorhandler">setErrorHandler</h4>
+<p><code>fastify.setErrorHandler(handler(error, reply))</code>: set a function that
+will be called whenever an error happens. The handler is fully
+encapsulated, so different plugins can set different
+error handlers.</p>
 
         </div>
 
@@ -424,16 +486,12 @@ fastify.get(&#39;/&#39;, function (req, reply) {
           
         
           
-        
-          
-        
-          
             <div class="level-left">
               <div class="level-item">
                 
                   
                   
-                  <a href="/docs/v0.14.x/Routes" class="button prev">≪ Routes</a>
+                  <a href="/docs/v0.30.x/Getting-Started" class="button prev">≪ Getting Started</a>
                 
               </div>
             </div>
@@ -442,10 +500,18 @@ fastify.get(&#39;/&#39;, function (req, reply) {
                 
                   
                   
-                  <a href="/docs/v0.14.x/Middlewares" class="button next">Middlewares ≫</a>
+                  <a href="/docs/v0.30.x/Routes" class="button next">Routes ≫</a>
                 
               </div>
             </div>
+          
+        
+          
+        
+          
+        
+          
+        
           
         
           

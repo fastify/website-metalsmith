@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Decorators</title>
+  <title>Hooks</title>
   <meta name="description" content="Fast and low overhead web framework, for Node.js">
 
   <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
@@ -99,55 +99,63 @@
           <ul class="menu-list">
             
               <li >
-                <a  href="/docs/v0.14.x/Getting-Started">Getting Started</a>
+                <a  href="/docs/v0.30.x/Getting-Started">Getting Started</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Server-Methods">Server Methods</a>
+                <a  href="/docs/v0.30.x/Server-Methods">Server Methods</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Routes">Routes</a>
+                <a  href="/docs/v0.30.x/Routes">Routes</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Logging">Logging</a>
+                <a  href="/docs/v0.30.x/Logging">Logging</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Middlewares">Middlewares</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/v0.14.x/Hooks">Hooks</a>
+                <a  href="/docs/v0.30.x/Middlewares">Middlewares</a>
               </li>
             
               <li id="doc-menu-section">
-                <a class="is-active" href="/docs/v0.14.x/Decorators">Decorators</a>
+                <a class="is-active" href="/docs/v0.30.x/Hooks">Hooks</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Validation-And-Serialize">Validation and Serialize</a>
+                <a  href="/docs/v0.30.x/Decorators">Decorators</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Lifecycle">Lifecycle</a>
+                <a  href="/docs/v0.30.x/Validation-And-Serialize">Validation and Serialize</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Reply">Reply</a>
+                <a  href="/docs/v0.30.x/Lifecycle">Lifecycle</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Request">Request</a>
+                <a  href="/docs/v0.30.x/Reply">Reply</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Plugins">Plugins</a>
+                <a  href="/docs/v0.30.x/Request">Request</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Testing">Testing</a>
+                <a  href="/docs/v0.30.x/ContentTypeParser">Content Type Parser</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Plugins">Plugins</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Testing">Testing</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Plugins-Guide">Plugins Guide</a>
               </li>
             
           </ul>
@@ -168,6 +176,12 @@
                         
                         
                           
+                        
+                          <option selected="selected" value="/docs/v0.30.x">v0.30.x</option>
+                      
+                    
+                      
+                        
                         
                           <option  value="/docs/v0.29.x">v0.29.x</option>
                       
@@ -254,12 +268,6 @@
                         
                         
                           <option  value="/docs/v0.15.x">v0.15.x</option>
-                      
-                    
-                      
-                        
-                        
-                          <option selected="selected" value="/docs/v0.14.x">v0.14.x</option>
                       
                     
                       
@@ -290,6 +298,11 @@
                       
                         
                           
+                          <option selected="selected" value="/docs/v0.30.x">v0.30.x</option>
+                        
+                      
+                        
+                          
                           <option  value="/docs/v0.29.x">v0.29.x</option>
                         
                       
@@ -364,70 +377,101 @@
                         
                       
                         
-                          
-                          <option selected="selected" value="/docs/v0.14.x">v0.14.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
                 </div>
               </div>
             </li>
-            <li class="is-active"><a>Decorators</a></li>
+            <li class="is-active"><a>Hooks</a></li>
           </ul>
         </nav>
 
         <div id="doc-content" class="content">
-          <h2 id="decorators">Decorators</h2>
-<p>If you need to add functionalities to the Fastify instance, the <code>decorate</code> api is what you need.</p>
-<p>This api allows you to add new properties to the Fastify instance, a property value is not restricted to be a function, could also be an object or a string for example.</p>
-<p><a name="usage"></a></p>
-<h3 id="usage">Usage</h3>
-<p><a name="decorate"></a>
-<strong>decorate</strong><br>Just call the <code>decorate</code> api and pass the name of the new property and its value.</p>
-<pre><code class="lang-js">fastify.decorate(&#39;utility&#39;, () =&gt; {
-  // something very useful
+          <h2 id="hooks">Hooks</h2>
+<p>By using the hooks you can interact directly inside the lifecycle of Fastify, there are three different Hooks that you can use <em>(in order of execution)</em>:</p>
+<ul>
+<li><code>&#39;onRequest&#39;</code></li>
+<li><code>&#39;preHandler&#39;</code></li>
+<li><code>&#39;onResponse&#39;</code></li>
+<li><code>&#39;onClose&#39;</code></li>
+</ul>
+<p>Example:</p>
+<pre><code class="lang-js">fastify.addHook(&#39;onRequest&#39;, (req, res, next) =&gt; {
+  // some code
+  next()
 })
-</code></pre>
-<p>As said above, you can decorate the instance with other values and not only functions:</p>
-<pre><code class="lang-js">fastify.decorate(&#39;conf&#39;, {
-  db: &#39;some.db&#39;,
-  port: 3000
-})
-</code></pre>
-<p>Once you decorate the instance you can access the value every time you need by using the name you passed as parameter:</p>
-<pre><code class="lang-js">fastify.utility()
 
-console.log(fastify.conf.db)
-</code></pre>
-<p>Decorators are not <em>overwritable</em>, if you try to declare a decorator already declared <em>(in other words, use the same name)</em>, <code>decorate</code> will throw an exception.</p>
-<p><a name="decorate-reply"></a>
-<strong>decorateReply</strong><br>As the name suggest, this api is needed if you want to add new methods to the <code>Reply</code> core object.<br>Just call the <code>decorateReply</code> api and pass the name of the new property and its value.</p>
-<pre><code class="lang-js">fastify.decorateReply(&#39;utility&#39;, () =&gt; {
-  // something very useful
+fastify.addHook(&#39;preHandler&#39;, (req, reply, next) =&gt; {
+  // some code
+  next()
+})
+
+fastify.addHook(&#39;onResponse&#39;, (res, next) =&gt; {
+  // some code
+  next()
 })
 </code></pre>
-<p><a name="decorate-request"></a>
-<strong>decorateRequest</strong><br>As above, this api is needed if you want to add new methods to the <code>Request</code> core object.<br>Just call the <code>decorateRequest</code> api and pass the name of the new property and its value.</p>
-<pre><code class="lang-js">fastify.decorateRequest(&#39;utility&#39;, () =&gt; {
-  // something very useful
+<p>Is pretty easy understand where each hook is executed, if you need a visual feedback take a look to the <a href="/docs/v0.30.x/Lifecycle">lifecycle</a> page.</p>
+<p>If you get an error during the execution of you hook, just pass it to <code>next()</code> and Fastify will automatically close the request and send the appropriate error code to the user.</p>
+<p>If you want to pass a custom error code to the user, just use <code>reply.code()</code>:</p>
+<pre><code class="lang-js">fastify.addHook(&#39;onRequest&#39;, (req, res, next) =&gt; {
+  // some code
+  reply.code(400)
+  next(new Error(&#39;some error&#39;))
 })
 </code></pre>
-<p><a name="sync-async"></a></p>
-<h4 id="sync-and-async">Sync and Async</h4>
-<p><code>decorate</code> is a <em>synchronous</em> API, if you need to add a decorator that has an <em>asynchronous</em> bootstrap, could happen that Fastify boots up before that your decorator is ready. To avoid this issue you must use <code>register</code> api in combination with <code>fastify-plugin</code>, to know more check out the <a href="/docs/v0.14.x/Plugins">Plugins</a> documentation as well.</p>
-<p><a name="dependencies"></a></p>
-<h4 id="dependencies">Dependencies</h4>
-<p>If your decorator depends on another decorator, you can also declare the dependencies of your function, it pretty easy. You just need to add an array of strings (representing the names of the decorators you are depending on) as third parameter.</p>
-<pre><code class="lang-js">fastify.decorate(&#39;utility&#39;, fn, [&#39;greet&#39;, &#39;log&#39;])
+<p><em>The error will be handled by <a href="/docs/v0.30.x/Reply#errors"><code>Reply</code></a>.</em></p>
+<p>Note that in the <code>&#39;preHandler&#39;</code> hook the request and reply objects are different from <code>&#39;onRequest&#39;</code>, because the two arguments are <a href="/docs/v0.30.x/Request"><code>request</code></a> and <a href="/docs/v0.30.x/Reply"><code>reply</code></a> core Fastify objects.</p>
+<p><a name="on-close"></a>
+<strong>&#39;onClose&#39;</strong><br>The unique hook that is not inside the lifecycle is <code>&#39;onClose&#39;</code>, this one is triggered when you call <code>fastify.close()</code> to stop the server, and it is useful if you have some <a href="/docs/v0.30.x/Plugins">plugins</a> that need a &quot;shutdown&quot; part, such as a connection to a database.<br>Only for this hook, the parameters of the function changes, the first one is the Fastify instance, the second one the <code>done</code> callback.</p>
+<pre><code class="lang-js">fastify.addHook(&#39;onClose&#39;, (instance, done) =&gt; {
+  // some code
+  done()
+})
 </code></pre>
-<p>If a dependency is not satisfied, <code>decorate</code> will throw an exception, but don&#39;t worry, the dependency check is done before the server boot up, so it will never happen at runtime.</p>
-<p><a name="has-decorator"></a></p>
-<h4 id="hasdecorator">hasDecorator</h4>
-<p>You can check the presence of a decorator by using the <code>hasDecorator</code> api:</p>
-<pre><code class="lang-js">fastify.hasDecorator(&#39;utility&#39;)
+<p><a name="scope"></a></p>
+<h3 id="scope">Scope</h3>
+<p>Except for <code>&#39;onClose&#39;</code> all the hooks are encapsulated this means that you can decide where your hooks should run by using <code>register</code> as explained in the <a href="/docs/v0.30.x/Plugins-Guide">plugins guide</a>.</p>
+<p><a name="before-handler"></a></p>
+<h3 id="beforehandler">beforeHandler</h3>
+<p>Despite the name, <code>beforeHandler</code> is not a standard hook like <code>preHandler</code>, but is a function that your register right in the route option that will be executed only in the specified route. Can be useful if you need to handle the authentication at route level instead of at hook level (<code>preHandler</code> for example.), it could also be an array of functions.<br><strong><code>beforeHandler</code> is executed always after the <code>preHandler</code> hook.</strong></p>
+<pre><code class="lang-js">fastify.addHook(&#39;preHandler&#39;, (request, reply, done) =&gt; {
+  // your code
+  done()
+})
+
+fastify.route({
+  method: &#39;GET&#39;,
+  url: &#39;/&#39;,
+  schema: { ... },
+  beforeHandler: function (request, reply, done) {
+    // your code
+    done()
+  },
+  handler: function (request, reply) {
+    reply.send({ hello: &#39;world&#39; })
+  }
+})
+
+fastify.route({
+  method: &#39;GET&#39;,
+  url: &#39;/&#39;,
+  schema: { ... },
+  beforeHandler: [
+    function first (request, reply, done) {
+      // your code
+      done()
+    },
+    function second (request, reply, done) {
+      // your code
+      done()
+    }
+  ],
+  handler: function (request, reply) {
+    reply.send({ hello: &#39;world&#39; })
+  }
+})
 </code></pre>
 
         </div>
@@ -446,14 +490,12 @@ console.log(fastify.conf.db)
           
         
           
-        
-          
             <div class="level-left">
               <div class="level-item">
                 
                   
                   
-                  <a href="/docs/v0.14.x/Hooks" class="button prev">≪ Hooks</a>
+                  <a href="/docs/v0.30.x/Middlewares" class="button prev">≪ Middlewares</a>
                 
               </div>
             </div>
@@ -462,10 +504,16 @@ console.log(fastify.conf.db)
                 
                   
                   
-                  <a href="/docs/v0.14.x/Validation-And-Serialize" class="button next">Validation and Serialize ≫</a>
+                  <a href="/docs/v0.30.x/Decorators" class="button next">Decorators ≫</a>
                 
               </div>
             </div>
+          
+        
+          
+        
+          
+        
           
         
           

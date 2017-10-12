@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.29.x/Plugins">
+    <link ref="canonical" href="/docs/v0.30.x/Plugins">
   
 
   
@@ -179,7 +179,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.29.x">v0.29.x</option>
+                          <option selected="selected" value="/docs/v0.30.x">v0.30.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.29.x">v0.29.x</option>
                       
                     
                       
@@ -264,12 +270,6 @@
                         
                         
                           <option  value="/docs/v0.15.x">v0.15.x</option>
-                      
-                    
-                      
-                        
-                        
-                          <option  value="/docs/v0.14.x">v0.14.x</option>
                       
                     
                       
@@ -300,7 +300,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.29.x">v0.29.x</option>
+                          <option selected="selected" value="/docs/v0.30.x">v0.30.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.29.x">v0.29.x</option>
                         
                       
                         
@@ -374,11 +379,6 @@
                         
                       
                         
-                          
-                          <option  value="/docs/v0.14.x">v0.14.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
@@ -395,14 +395,12 @@
 A plugin can be a set of routes, a server <a href="/docs/latest/Decorators">decorator</a> or whatever. The API that you will need to use one or more plugins, is <code>register</code>.  </p>
 <p>By default, <code>register</code> creates a <em>new scope</em>, this means that if you do some changes to the Fastify instance (via <code>decorate</code>), this change will not be reflected to the current context ancestors, but only to its sons. This feature allows us to achieve plugin <em>encapsulation</em> and <em>inheritance</em>, in this way we create a <em>direct acyclic graph</em> (DAG) and we will not have issues caused by cross dependencies.</p>
 <p>You already see in the <a href="/docs/latest/Getting-Started#register">getting started</a> section how use this API, is pretty straightforward.</p>
-<pre><code>fastify.register(plugin, [options], [callback])
+<pre><code>fastify.register(plugin, [options])
 </code></pre><p>Example:</p>
 <pre><code class="lang-js">fastify.register([
   require(&#39;./another-route&#39;),
   require(&#39;./yet-another-route&#39;)
-], opts, function (err) {
-  if (err) throw err
-})
+], opts)
 </code></pre>
 <p><a name="route-prefixing-option"></a></p>
 <h4 id="route-prefixing-option">Route Prefixing option</h4>

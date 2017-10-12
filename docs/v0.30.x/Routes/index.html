@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Reply</title>
+  <title>Routes</title>
   <meta name="description" content="Fast and low overhead web framework, for Node.js">
 
   <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
@@ -99,55 +99,63 @@
           <ul class="menu-list">
             
               <li >
-                <a  href="/docs/v0.14.x/Getting-Started">Getting Started</a>
+                <a  href="/docs/v0.30.x/Getting-Started">Getting Started</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Server-Methods">Server Methods</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/v0.14.x/Routes">Routes</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/v0.14.x/Logging">Logging</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/v0.14.x/Middlewares">Middlewares</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/v0.14.x/Hooks">Hooks</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/v0.14.x/Decorators">Decorators</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/v0.14.x/Validation-And-Serialize">Validation and Serialize</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/v0.14.x/Lifecycle">Lifecycle</a>
+                <a  href="/docs/v0.30.x/Server-Methods">Server Methods</a>
               </li>
             
               <li id="doc-menu-section">
-                <a class="is-active" href="/docs/v0.14.x/Reply">Reply</a>
+                <a class="is-active" href="/docs/v0.30.x/Routes">Routes</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Request">Request</a>
+                <a  href="/docs/v0.30.x/Logging">Logging</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Plugins">Plugins</a>
+                <a  href="/docs/v0.30.x/Middlewares">Middlewares</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Testing">Testing</a>
+                <a  href="/docs/v0.30.x/Hooks">Hooks</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Decorators">Decorators</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Validation-And-Serialize">Validation and Serialize</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Lifecycle">Lifecycle</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Reply">Reply</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Request">Request</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/ContentTypeParser">Content Type Parser</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Plugins">Plugins</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Testing">Testing</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Plugins-Guide">Plugins Guide</a>
               </li>
             
           </ul>
@@ -168,6 +176,12 @@
                         
                         
                           
+                        
+                          <option selected="selected" value="/docs/v0.30.x">v0.30.x</option>
+                      
+                    
+                      
+                        
                         
                           <option  value="/docs/v0.29.x">v0.29.x</option>
                       
@@ -254,12 +268,6 @@
                         
                         
                           <option  value="/docs/v0.15.x">v0.15.x</option>
-                      
-                    
-                      
-                        
-                        
-                          <option selected="selected" value="/docs/v0.14.x">v0.14.x</option>
                       
                     
                       
@@ -290,6 +298,11 @@
                       
                         
                           
+                          <option selected="selected" value="/docs/v0.30.x">v0.30.x</option>
+                        
+                      
+                        
+                          
                           <option  value="/docs/v0.29.x">v0.29.x</option>
                         
                       
@@ -364,98 +377,154 @@
                         
                       
                         
-                          
-                          <option selected="selected" value="/docs/v0.14.x">v0.14.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
                 </div>
               </div>
             </li>
-            <li class="is-active"><a>Reply</a></li>
+            <li class="is-active"><a>Routes</a></li>
           </ul>
         </nav>
 
         <div id="doc-content" class="content">
-          <h2 id="reply">Reply</h2>
-<p>The second parameter of the handler function is <code>Reply</code>.<br>Reply is a core Fastify object that exposes the following functions:</p>
+          <h2 id="routes">Routes</h2>
+<p><a name="full-declaration"></a></p>
+<h3 id="full-declaration">Full declaration</h3>
+<pre><code class="lang-js">fastify.route(options)
+</code></pre>
 <ul>
-<li><code>.code(statusCode)</code> - Sets the status code.</li>
-<li><code>.header(name, value)</code> - Sets the headers.</li>
-<li><code>.serializer(function)</code> - Sets a custom serializer for the payload.</li>
-<li><code>.send(payload)</code> - Sends the payload to the user, could be a plain text, JSON, stream, or an Error object.</li>
+<li><p><code>method</code>: currently it supports <code>&#39;DELETE&#39;</code>, <code>&#39;GET&#39;</code>, <code>&#39;HEAD&#39;</code>, <code>&#39;PATCH&#39;</code>, <code>&#39;POST&#39;</code>, <code>&#39;PUT&#39;</code> and <code>&#39;OPTIONS&#39;</code>. It could also be an array of methods.</p>
+</li>
+<li><p><code>url</code>: the path of the url to match this route (alias: <code>path</code>).</p>
+</li>
+<li><p><code>schema</code>: an object containing the schemas for the request and response.
+They need to be in
+<a href="http://json-schema.org/">JSON Schema</a> format, check <a href="/docs/v0.30.x/Validation-And-Serialize">here</a> for more info.</p>
+<ul>
+<li><code>body</code>: validates the body of the request if it is a POST or a
+PUT.</li>
+<li><code>querystring</code>: validates the querystring. This can be a complete JSON
+Schema object, with the property <code>type</code> of <code>object</code> and <code>properties</code> object of parameters, or
+simply the values of what would be contained in the <code>properties</code> object as shown below.</li>
+<li><code>params</code>: validates the params.</li>
+<li><code>response</code>: filter and generate a schema for the response, setting a
+schema allows us to have 10-20% more throughput.</li>
 </ul>
-<pre><code class="lang-js">fastify.get(&#39;/&#39;, schema, function (request, reply) {
-  // You code
-  reply
-    .code(200)
-    .header(&#39;Content-Type&#39;, &#39;application/json&#39;)
-    .send({ hello: &#39;world&#39; })
+</li>
+<li><code>beforeHandler(request, reply, done)</code>: a <a href="/docs/v0.30.x/Hooks#before-handler">function</a> called just before the request handler, useful if you need to perform authentication at route level for example, it could also be and array of functions.</li>
+<li><code>handler(request, reply)</code>: the function that will handle this request.</li>
+<li><p><code>schemaCompiler(schema)</code>: the function that build the schema for the validations. See <a href="/docs/v0.30.x/Validation-And-Serialize#schema-compiler">here</a></p>
+<p><code>request</code> is defined in <a href="/docs/v0.30.x/Request">Request</a>.</p>
+<p><code>reply</code> is defined in <a href="/docs/v0.30.x/Reply">Reply</a>.</p>
+</li>
+</ul>
+<p>The routing is handled by <a href="https://github.com/delvedor/find-my-way">find-my-way</a>, so you can refer its documentation for the url building.</p>
+<p>Example:</p>
+<pre><code class="lang-js">fastify.route({
+  method: &#39;GET&#39;,
+  url: &#39;/&#39;,
+  schema: {
+    querystring: {
+      name: { type: &#39;string&#39; },
+      excitement: { type: &#39;integer&#39; }
+    },
+    response: {
+      200: {
+        type: &#39;object&#39;,
+        properties: {
+          hello: { type: &#39;string&#39; }
+        }
+      }
+    }
+  },
+  handler: function (request, reply) {
+    reply.send({ hello: &#39;world&#39; })
+  }
 })
 </code></pre>
-<p><a name="code"></a></p>
-<h3 id="code">Code</h3>
-<p>If not setted via <code>reply.code</code>, the resulting <code>statusCode</code> will be <code>200</code> or <code>204</code> if there is not content to send.</p>
-<p><a name="header"></a></p>
-<h3 id="header">Header</h3>
-<p>Sets a custom header to the response.<br>If you not set a <code>&#39;Content-Type&#39;</code> header, Fastify assumes that you are using <code>&#39;application/json&#39;</code>, unless you are send a stream, in that cases Fastify recognize it and sets the <code>&#39;Content-Type&#39;</code> at <code>&#39;application/octet-stream&#39;</code>.</p>
-<p><em>Note that if you are using a custom serializer that does not serialize to JSON, you must set a custom <code>&#39;Content-Type&#39;</code> header.</em></p>
-<p><a name="serializer"></a></p>
-<h3 id="serializer">Serializer</h3>
-<p>Fastify was born as a full JSON compatible server, so out of the box will serialize your payload that you put in the <code>.send()</code> function using the internal serializers, <a href="https://www.npmjs.com/package/fast-json-stringify">fast-json-stringify</a> if you setted an output schema, otherwise <a href="https://www.npmjs.com/package/fast-safe-stringify">fast-safe-stringify</a>.</p>
-<p>If you need to use a custom serializer, such as <a href="https://github.com/mcollina/msgpack5">msgpack5</a> or <a href="https://github.com/dcodeIO/ProtoBuf.js/">protobuf</a>, you can use the <code>.serializer()</code> utility. As noted above, if you are using a custom serializer that does not serialize to JSON, you must set a custom <code>&#39;Content-Type&#39;</code> header.  </p>
-<pre><code class="lang-js">reply
-  .header(&#39;Content-Type&#39;, &#39;application/x-protobuf&#39;)
-  .serializer(protoBuf.serialize)
+<pre><code class="lang-js">fastify.route({
+  method: &#39;GET&#39;,
+  url: &#39;/&#39;,
+  schema: { ... },
+  beforeHandler: function (request, reply, done) {
+    // your authentication logic
+    done()
+  },
+  handler: function (request, reply) {
+    reply.send({ hello: &#39;world&#39; })
+  }
+})
 </code></pre>
-<p><em>Take a look <a href="/docs/v0.14.x/Validation-And-Serialize#serialize">here</a> to understand how serialize is done.</em></p>
-<p><a name="send"></a></p>
-<h3 id="send">Send</h3>
-<p> As the name suggests, <code>.send()</code> is the function that sends the payload to the end user.</p>
-<p><a name="send-object"></a></p>
-<h4 id="objects">Objects</h4>
-<p>As writed above, if you are sending JSON objects, <em>send</em> will serialize the object with <a href="https://www.npmjs.com/package/fast-json-stringify">fast-json-stringify</a> if you setted an output schema, otherwise <a href="https://www.npmjs.com/package/fast-safe-stringify">fast-safe-stringify</a>.</p>
-<pre><code class="lang-js">fastify.get(&#39;/json&#39;, schema, function (request, reply) {
+<p><a name="shorthand-declaration"></a></p>
+<h3 id="shorthand-declaration">Shorthand declaration</h3>
+<p>The above route declaration is more <em>Hapi</em>-like, but if you prefer an <em>Express/Restify</em> approach, we support it as well:<br><code>fastify.get(path, [options], handler)</code><br><code>fastify.head(path, [options], handler)</code><br><code>fastify.post(path, [options], handler)</code><br><code>fastify.put(path, [options], handler)</code><br><code>fastify.delete(path, [options], handler)</code><br><code>fastify.options(path, [options], handler)</code><br><code>fastify.patch(path, [options], handler)</code>  </p>
+<p>Example:</p>
+<pre><code class="lang-js">const opts = {
+  schema: {
+    response: {
+      200: {
+        type: &#39;object&#39;,
+        properties: {
+          hello: { type: &#39;string&#39; }
+        }
+      }
+    }
+  }
+}
+fastify.get(&#39;/&#39;, opts, (req, reply) =&gt; {
   reply.send({ hello: &#39;world&#39; })
 })
 </code></pre>
-<p><a name="send-promise"></a></p>
-<h4 id="promises">Promises</h4>
-<p><em>send</em> handle natively the <em>promises</em> and supports out of the box <em>async-await</em>.</p>
-<pre><code class="lang-js">fastify.get(&#39;/promises&#39;, schema, function (request, reply) {
-  const promise = new Promise(...)
-  reply
-    .code(200)
-    .header(&#39;Content-Type&#39;, &#39;application/json&#39;)
-    .send(promise)
+<p><code>fastify.all(path, [options], handler)</code> will add the same handler to all the supported methods.</p>
+<p><a name="async-await"></a></p>
+<h3 id="async-await">Async Await</h3>
+<p>Are you an <code>async/await</code> user? We have you covered!</p>
+<pre><code class="lang-js">fastify.get(&#39;/&#39;, options, async function (request, reply) {
+  var data = await getData()
+  var processed = await processData(data)
+  return processed
 })
+</code></pre>
+<p>As you can see we are not calling <code>reply.send</code> to send back the data to the user. You just need to return the body and you are done!
+If you need it you can also send back the data to the user with <code>reply.send</code>.</p>
+<pre><code class="lang-js">fastify.get(&#39;/&#39;, options, async function (request, reply) {
+  var data = await getData()
+  var processed = await processData(data)
+  reply.send(processed)
+})
+</code></pre>
+<p><strong>Warning:</strong> If you use <code>return</code> and <code>reply.send</code> at the same time, the first one that happens takes precedence, the second value will be discarded, a <em>warn</em> log will also be emitted if the value is not <code>undefined</code>.</p>
+<p><a name="route-prefixing"></a></p>
+<h3 id="route-prefixing">Route Prefixing</h3>
+<p>Sometimes you need to maintain two or more different versions of the same api, a classic approach is to prefix all the routes with the api version number, <code>/v1/user</code> for example.<br>Fastify offers you a fast and smart way to create different version of the same api without changing all the route names by hand, <em>route prefixing</em>. Let&#39;s see how it works:</p>
+<pre><code class="lang-js">// server.js
+const fastify = require(&#39;fastify&#39;)()
 
-fastify.get(&#39;/async-await&#39;, schema, async function (request, reply) {
-  var res = await new Promise(function (resolve) {
-    setTimeout(resolve, 200, { hello: &#39;world&#39; })
-  })
-  // note that we are returning the promise without using &#39;.send()&#39;
-  return res
-})
+fastify.register(require(&#39;./routes/v1/users&#39;), { prefix: &#39;/v1&#39; })
+fastify.register(require(&#39;./routes/v2/users&#39;), { prefix: &#39;/v2&#39; })
+
+fastify.listen(3000)
 </code></pre>
-<p><a name="send-streams"></a></p>
-<h4 id="streams">Streams</h4>
-<p><em>send</em> can also handle strems out of the box, internally uses <a href="https://www.npmjs.com/package/pump">pump</a> to avoid leaks of file descriptors. If you are sending a stream and you have not setted a <code>&#39;Content-Type&#39;</code> header, <em>send</em> will set it at <code>&#39;application/octet-stream&#39;</code>.</p>
-<pre><code class="lang-js">fastify.get(&#39;/streams&#39;, function (request, reply) {
-  const fs = require(&#39;fs&#39;)
-  const stream = fs.createReadStream(&#39;some-file&#39;, &#39;utf8&#39;)
-  reply.send(stream)
-})
+<pre><code class="lang-js">// routes/v1/users.js
+module.exports = function (fastify, opts, next) {
+  fastify.get(&#39;/user&#39;, handler_v1)
+  next()
+}
 </code></pre>
-<p><a name="errors"></a></p>
-<h4 id="errors">Errors</h4>
-<p>If you pass to <em>send</em> an object that is an instance of <em>Error</em>, Fastify will automatically set the error code to 500 if is not setted or if the <em>statusCode</em> is lower than 500.</p>
-<p><a name="payload-type"></a></p>
-<h4 id="type-of-the-final-payload">Type of the final payload</h4>
-<p>It is crucial that the sent payload is a <code>string</code> or a <code>Buffer</code>, otherwise <em>send</em> will throw at runtime.</p>
+<pre><code class="lang-js">// routes/v2/users.js
+module.exports = function (fastify, opts, next) {
+  fastify.get(&#39;/user&#39;, handler_v2)
+  next()
+}
+</code></pre>
+<p>Fastify will not complain because your are using the same name for two different routes, because at compilation time it will handle the prefix automatically <em>(this also means that the performances will not be affected at all!)</em>.</p>
+<p>Now your clients will have access to the following routes:</p>
+<ul>
+<li><code>/v1/user</code></li>
+<li><code>/v2/user</code></li>
+</ul>
+<p>You can to this as many time as you want, it works also for nested <code>register</code> and routes parameter are supported as well.<br>Be aware that if you use <a href="https://github.com/fastify/fastify-plugin"><code>fastify-plugin</code></a> this option won&#39;t work.</p>
 
         </div>
 
@@ -467,26 +536,12 @@ fastify.get(&#39;/async-await&#39;, schema, async function (request, reply) {
           
         
           
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
             <div class="level-left">
               <div class="level-item">
                 
                   
                   
-                  <a href="/docs/v0.14.x/Lifecycle" class="button prev">≪ Lifecycle</a>
+                  <a href="/docs/v0.30.x/Server-Methods" class="button prev">≪ Server Methods</a>
                 
               </div>
             </div>
@@ -495,10 +550,28 @@ fastify.get(&#39;/async-await&#39;, schema, async function (request, reply) {
                 
                   
                   
-                  <a href="/docs/v0.14.x/Request" class="button next">Request ≫</a>
+                  <a href="/docs/v0.30.x/Logging" class="button next">Logging ≫</a>
                 
               </div>
             </div>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
           
         
           

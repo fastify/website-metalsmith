@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Request</title>
+  <title>Middlewares</title>
   <meta name="description" content="Fast and low overhead web framework, for Node.js">
 
   <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
@@ -99,55 +99,63 @@
           <ul class="menu-list">
             
               <li >
-                <a  href="/docs/v0.14.x/Getting-Started">Getting Started</a>
+                <a  href="/docs/v0.30.x/Getting-Started">Getting Started</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Server-Methods">Server Methods</a>
+                <a  href="/docs/v0.30.x/Server-Methods">Server Methods</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Routes">Routes</a>
+                <a  href="/docs/v0.30.x/Routes">Routes</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Logging">Logging</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/v0.14.x/Middlewares">Middlewares</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/v0.14.x/Hooks">Hooks</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/v0.14.x/Decorators">Decorators</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/v0.14.x/Validation-And-Serialize">Validation and Serialize</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/v0.14.x/Lifecycle">Lifecycle</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/v0.14.x/Reply">Reply</a>
+                <a  href="/docs/v0.30.x/Logging">Logging</a>
               </li>
             
               <li id="doc-menu-section">
-                <a class="is-active" href="/docs/v0.14.x/Request">Request</a>
+                <a class="is-active" href="/docs/v0.30.x/Middlewares">Middlewares</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Plugins">Plugins</a>
+                <a  href="/docs/v0.30.x/Hooks">Hooks</a>
               </li>
             
               <li >
-                <a  href="/docs/v0.14.x/Testing">Testing</a>
+                <a  href="/docs/v0.30.x/Decorators">Decorators</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Validation-And-Serialize">Validation and Serialize</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Lifecycle">Lifecycle</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Reply">Reply</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Request">Request</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/ContentTypeParser">Content Type Parser</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Plugins">Plugins</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Testing">Testing</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.30.x/Plugins-Guide">Plugins Guide</a>
               </li>
             
           </ul>
@@ -168,6 +176,12 @@
                         
                         
                           
+                        
+                          <option selected="selected" value="/docs/v0.30.x">v0.30.x</option>
+                      
+                    
+                      
+                        
                         
                           <option  value="/docs/v0.29.x">v0.29.x</option>
                       
@@ -254,12 +268,6 @@
                         
                         
                           <option  value="/docs/v0.15.x">v0.15.x</option>
-                      
-                    
-                      
-                        
-                        
-                          <option selected="selected" value="/docs/v0.14.x">v0.14.x</option>
                       
                     
                       
@@ -290,6 +298,11 @@
                       
                         
                           
+                          <option selected="selected" value="/docs/v0.30.x">v0.30.x</option>
+                        
+                      
+                        
+                          
                           <option  value="/docs/v0.29.x">v0.29.x</option>
                         
                       
@@ -364,38 +377,52 @@
                         
                       
                         
-                          
-                          <option selected="selected" value="/docs/v0.14.x">v0.14.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
                 </div>
               </div>
             </li>
-            <li class="is-active"><a>Request</a></li>
+            <li class="is-active"><a>Middlewares</a></li>
           </ul>
         </nav>
 
         <div id="doc-content" class="content">
-          <h2 id="request">Request</h2>
-<p>The first parameter of the handler function is <code>Request</code>.<br>Request is a core Fastify object containing the following fields:</p>
-<ul>
-<li><code>query</code> - the parsed querystring</li>
-<li><code>body</code> - the body</li>
-<li><code>params</code> - the params matching the URL</li>
-<li><code>req</code> - the incoming HTTP request from Node core</li>
-<li><code>log</code> - the logger instance of the incoming request</li>
-</ul>
-<pre><code class="lang-js">fastify.post(&#39;/:params&#39;, schema, function (request, reply) {
-  console.log(request.body)
-  console.log(request.query)
-  console.log(request.params)
-  console.log(request.req)
-  request.log.info(&#39;some info&#39;)
-})
+          <h2 id="middlewares">Middlewares</h2>
+<p>Fastify provides out of the box an asynchronous <a href="https://github.com/fastify/middie">middleware engine</a> compatible with <a href="https://expressjs.com/">Express</a> and <a href="http://restify.com/">Restify</a> middlewares.</p>
+<p><em>If you need a visual feedback to understand when the middlewares are executed take a look to the <a href="/docs/v0.30.x/Lifecycle">lifecycle</a> page.</em></p>
+<p>Fastify middlewares don&#39;t support the full syntax <code>middleware(err, req, res, next)</code>, because error handling is done inside Fastify.</p>
+<p>Also, if you are using a middleware that bundles different, smaller middlewares, such as <a href="https://helmetjs.github.io/"><em>helmet</em></a>, we recommend to use the single modules to get better performances.</p>
+<pre><code class="lang-js">fastify.use(require(&#39;cors&#39;)())
+fastify.use(require(&#39;dns-prefetch-control&#39;)())
+fastify.use(require(&#39;frameguard&#39;)())
+fastify.use(require(&#39;hide-powered-by&#39;)())
+fastify.use(require(&#39;hsts&#39;)())
+fastify.use(require(&#39;ienoopen&#39;)())
+fastify.use(require(&#39;x-xss-protection&#39;)())
+</code></pre>
+<p>or, in the specific case of <em>helmet</em>, you can use the <a href="https://github.com/fastify/fastify-helmet"><em>fastify-helmet</em></a> <a href="Plugins.md">plugin</a>, which is an optimized helmet integration for fastify:</p>
+<pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)()
+const helmet = require(&#39;fastify-helmet&#39;)
+
+fastify.register(helmet)
+</code></pre>
+<p>Remember that middlewares can be encapsulated, this means that you can decide where your middlewares should run by using <code>register</code> as explained in the <a href="/docs/v0.30.x/Plugins-Guide">plugins guide</a>.</p>
+<p>Fastify middlewares also do not expose the <code>send</code> method or other methods specific to the Fastify <a href="&#39;./Reply.md&#39;" title="Reply">Reply</a> instance. This is because Fastify wraps the incoming <code>req</code> and <code>res</code> Node instances using the <a href="./Request.md" title="Request">Request</a> and <a href="./Reply.md" title="Reply">Reply</a> objects internally, but this is done after the middlewares phase. If you need to create a middleware you have to use the Node <code>req</code> and <code>res</code> instances. Otherwise, you can use the <code>preHandler</code> hook that has the <a href="./Request.md" title="Request">Request</a> and <a href="./Reply.md" title="Reply">Reply</a> Fastify instances. For more information, see <a href="./Hooks.md" title="Hooks">Hooks</a>.</p>
+<p><a name="restrict-usage"></a></p>
+<h4 id="restrict-middleware-execution-to-a-certain-path-s-">Restrict middleware execution to a certain path(s)</h4>
+<p>If you need to run a middleware only under certain path(s), just pass the path as first parameter to <code>use</code> and you are done!</p>
+<p><em>Note that this does not support routes with parameters, (eg: <code>/user/:id/comments</code>) and wildcard is not supported in multiple paths.</em></p>
+<pre><code class="lang-js">const serveStatic = require(&#39;serve-static&#39;)
+
+// Single path
+fastify.use(&#39;/css&#39;, serveStatic(&#39;/assets&#39;))
+
+// Wildcard path
+fastify.use(&#39;/css/*&#39;, serveStatic(&#39;/assets&#39;))
+
+// Multiple paths
+fastify.use([&#39;/css&#39;, &#39;/js&#39;], serveStatic(&#39;/assets&#39;))
 </code></pre>
 
         </div>
@@ -412,24 +439,12 @@
           
         
           
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
             <div class="level-left">
               <div class="level-item">
                 
                   
                   
-                  <a href="/docs/v0.14.x/Reply" class="button prev">≪ Reply</a>
+                  <a href="/docs/v0.30.x/Logging" class="button prev">≪ Logging</a>
                 
               </div>
             </div>
@@ -438,10 +453,26 @@
                 
                   
                   
-                  <a href="/docs/v0.14.x/Plugins" class="button next">Plugins ≫</a>
+                  <a href="/docs/v0.30.x/Hooks" class="button next">Hooks ≫</a>
                 
               </div>
             </div>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
           
         
           
