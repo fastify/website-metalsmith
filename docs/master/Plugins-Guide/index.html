@@ -464,7 +464,9 @@ fastify.register((instance, opts, next) =&gt; {
   fastify.register((instance, opts, next) =&gt; {
     console.log(instance.util(&#39;that is &#39;, &#39; awesome&#39;)) // this will not throw an error
     next()
-  }, next)
+  })
+
+  next()
 })
 
 fastify.register((instance, opts, next) =&gt; {

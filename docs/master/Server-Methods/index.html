@@ -394,7 +394,8 @@
 <p><code>fastify.server</code>: The Node core <a href="https://nodejs.org/api/http.html#http_class_http_server">server</a> object</p>
 <p><a name="ready"></a></p>
 <h4 id="ready">ready</h4>
-<p>Function called when all the plugins has been loaded.<br>It takes an error parameter if something went wrong.</p>
+<p>Function called when all the plugins has been loaded.
+It takes an error parameter if something went wrong.</p>
 <pre><code class="lang-js">fastify.ready(err =&gt; {
   if (err) throw err
 })
@@ -416,7 +417,8 @@
 <p>Method to add routes to the server, it also have shorthands functions, check <a href="/docs/master/Routes">here</a>.</p>
 <p><a name="routes-iterator"></a></p>
 <h4 id="routes-iterator">routes iterator</h4>
-<p>The Fastify instance is an Iterable object with all the registered routes.<br>The route properties are the same the developer has declared <a href="/docs/master/Routes">here</a>.</p>
+<p>The Fastify instance is an Iterable object with all the registered routes.
+The route properties are the same the developer has declared <a href="/docs/master/Routes">here</a>.</p>
 <pre><code class="lang-js">fastify.get(&#39;/route&#39;, opts, handler)
 
 fastify.ready(() =&gt; {
