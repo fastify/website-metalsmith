@@ -153,7 +153,7 @@ fastify.listen(3000, err => {
         <h2>{{ section.name }}</h2>
       </div>
       <div class="columns is-multiline">
-        {% for member in section.people %}
+        {% for member in section.people | sort(false, false, 'name') %}
           <div class="column is-one-third">
             <div class="media">
               <div class="media-left">
