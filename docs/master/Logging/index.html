@@ -423,11 +423,12 @@ fastify.get(&#39;/&#39;, options, function (req, reply) {
   reply.send({ hello: &#39;world&#39; })
 })
 </code></pre>
-<p>Additionally, <code>genReqId</code> option can be used for generating the request id by yourself.</p>
+<p>By default fastify adds an id to every request for easier tracking. If the &quot;request-id&quot; header is present its value is used, otherwise a new incremental id is generated.
+Additionally, <code>genReqId</code> option can be used for generating the request id by yourself. It will received the incoming request as a parameter.</p>
 <pre><code class="lang-js">let i = 0
 const fastify = require(&#39;fastify&#39;)({
   logger: {
-    genReqId: function () { return i++ }
+    genReqId: function (req) { return i++ }
   }
 })
 </code></pre>
