@@ -518,13 +518,13 @@ module.exports = function (fastify, opts, next) {
   next()
 }
 </code></pre>
-<p>Fastify will not complain because your are using the same name for two different routes, because at compilation time it will handle the prefix automatically <em>(this also means that the performances will not be affected at all!)</em>.</p>
+<p>Fastify will not complain because you are using the same name for two different routes, because at compilation time it will handle the prefix automatically <em>(this also means that the performance will not be affected at all!)</em>.</p>
 <p>Now your clients will have access to the following routes:</p>
 <ul>
 <li><code>/v1/user</code></li>
 <li><code>/v2/user</code></li>
 </ul>
-<p>You can to this as many time as you want, it works also for nested <code>register</code> and routes parameter are supported as well.<br>Be aware that if you use <a href="https://github.com/fastify/fastify-plugin"><code>fastify-plugin</code></a> this option won&#39;t work.</p>
+<p>You can do this as many times as you want, it works also for nested <code>register</code> and routes parameter are supported as well.<br>Be aware that if you use <a href="https://github.com/fastify/fastify-plugin"><code>fastify-plugin</code></a> this option won&#39;t work.</p>
 
         </div>
 
