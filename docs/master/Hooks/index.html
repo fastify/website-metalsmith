@@ -412,12 +412,41 @@ fastify.addHook(&#39;onResponse&#39;, (res, next) =&gt; {
   next()
 })
 </code></pre>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align:center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>req</td>
+<td style="text-align:center">Node.js <a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage">IncomingMessage</a></td>
+</tr>
+<tr>
+<td>res</td>
+<td style="text-align:center">Node.js <a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">ServerResponse</a></td>
+</tr>
+<tr>
+<td>reply</td>
+<td style="text-align:center">Fastify <a href="/docs/master/Reply">Reply</a> interface</td>
+</tr>
+<tr>
+<td>next</td>
+<td style="text-align:center">Function to continue with the <a href="/docs/master/Lifecycle">lifecycle</a></td>
+</tr>
+</tbody>
+</table>
 <p>Is pretty easy understand where each hook is executed, if you need a visual feedback take a look to the <a href="/docs/master/Lifecycle">lifecycle</a> page.</p>
 <p>If you get an error during the execution of you hook, just pass it to <code>next()</code> and Fastify will automatically close the request and send the appropriate error code to the user.</p>
-<p>If you want to pass a custom error code to the user, just use <code>reply.code()</code>:</p>
 <pre><code class="lang-js">fastify.addHook(&#39;onRequest&#39;, (req, res, next) =&gt; {
-  // some code
-  reply.code(400)
+  next(new Error(&#39;some error&#39;))
+})
+</code></pre>
+<p>If you want to pass a custom error code to the user, just use <code>reply.code()</code>:</p>
+<pre><code class="lang-js">fastify.addHook(&#39;preHandler&#39;, (req, reply, next) =&gt; {
+  reply.code(500)
   next(new Error(&#39;some error&#39;))
 })
 </code></pre>
