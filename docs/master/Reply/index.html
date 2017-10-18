@@ -127,7 +127,7 @@
               </li>
             
               <li >
-                <a  href="/docs/master/Validation-And-Serialize">Validation and Serialize</a>
+                <a  href="/docs/master/Validation-and-Serialization">Validation and Serialization</a>
               </li>
             
               <li >
@@ -389,7 +389,8 @@
 
         <div id="doc-content" class="content">
           <h2 id="reply">Reply</h2>
-<p>The second parameter of the handler function is <code>Reply</code>.<br>Reply is a core Fastify object that exposes the following functions:</p>
+<p>The second parameter of the handler function is <code>Reply</code>.
+Reply is a core Fastify object that exposes the following functions:</p>
 <ul>
 <li><code>.code(statusCode)</code> - Sets the status code.</li>
 <li><code>.header(name, value)</code> - Sets the headers.</li>
@@ -412,27 +413,29 @@
 <p>If not set via <code>reply.code</code>, the resulting <code>statusCode</code> will be <code>200</code>.</p>
 <p><a name="header"></a></p>
 <h3 id="header">Header</h3>
-<p>Sets a custom header to the response.<br>If you not set a <code>&#39;Content-Type&#39;</code> header, Fastify assumes that you are using <code>&#39;application/json&#39;</code>, unless you are send a stream, in that cases Fastify recognize it and sets the <code>&#39;Content-Type&#39;</code> at <code>&#39;application/octet-stream&#39;</code>.</p>
+<p>Sets a custom header to the response.
+If you not set a <code>&#39;Content-Type&#39;</code> header, Fastify assumes that you are using <code>&#39;application/json&#39;</code>, unless you are send a stream, in that cases Fastify recognize it and sets the <code>&#39;Content-Type&#39;</code> at <code>&#39;application/octet-stream&#39;</code>.</p>
 <p><em>Note that if you are using a custom serializer that does not serialize to JSON, you must set a custom <code>&#39;Content-Type&#39;</code> header.</em></p>
 <p><a name="redirect"></a></p>
 <h3 id="redirect">Redirect</h3>
-<p>Redirects a request to the specified url, the status code is optional, default to <code>302</code>.  </p>
+<p>Redirects a request to the specified url, the status code is optional, default to <code>302</code>.</p>
 <pre><code class="lang-js">reply.redirect(&#39;/home&#39;)
 </code></pre>
 <p><a name="type"></a></p>
 <h3 id="type">Type</h3>
-<p>Sets the content type for the response.<br>This is a shortcut for <code>reply.header(&#39;Content-Type&#39;, &#39;the/type&#39;)</code>.</p>
+<p>Sets the content type for the response.
+This is a shortcut for <code>reply.header(&#39;Content-Type&#39;, &#39;the/type&#39;)</code>.</p>
 <pre><code class="lang-js">reply.type(&#39;text/html&#39;)
 </code></pre>
 <p><a name="serializer"></a></p>
 <h3 id="serializer">Serializer</h3>
 <p>Fastify was born as a full JSON compatible server, so out of the box will serialize your payload that you put in the <code>.send()</code> function using the internal serializers, <a href="https://www.npmjs.com/package/fast-json-stringify">fast-json-stringify</a> if you setted an output schema, otherwise <a href="https://www.npmjs.com/package/fast-safe-stringify">fast-safe-stringify</a>.</p>
-<p>If you need to use a custom serializer, such as <a href="https://github.com/mcollina/msgpack5">msgpack5</a> or <a href="https://github.com/dcodeIO/ProtoBuf.js/">protobuf</a>, you can use the <code>.serializer()</code> utility. As noted above, if you are using a custom serializer that does not serialize to JSON, you must set a custom <code>&#39;Content-Type&#39;</code> header.  </p>
+<p>If you need to use a custom serializer, such as <a href="https://github.com/mcollina/msgpack5">msgpack5</a> or <a href="https://github.com/dcodeIO/ProtoBuf.js/">protobuf</a>, you can use the <code>.serializer()</code> utility. As noted above, if you are using a custom serializer that does not serialize to JSON, you must set a custom <code>&#39;Content-Type&#39;</code> header.</p>
 <pre><code class="lang-js">reply
   .header(&#39;Content-Type&#39;, &#39;application/x-protobuf&#39;)
   .serializer(protoBuf.serialize)
 </code></pre>
-<p><em>Take a look <a href="/docs/master/Validation-And-Serialize#serialize">here</a> to understand how serialize is done.</em></p>
+<p><em>Take a look <a href="/docs/master/Validation-and-Serialization#serialization">here</a> to understand how serialization is done.</em></p>
 <p><a name="send"></a></p>
 <h3 id="send">Send</h3>
 <p> As the name suggests, <code>.send()</code> is the function that sends the payload to the end user.</p>
@@ -481,7 +484,7 @@ fastify.get(&#39;/async-await&#39;, options, async function (request, reply) {
   statusCode: Number   // the http status code
 }
 </code></pre>
-<p>If you want it extend this error, check out <a href="/docs/master/Decorators#extend-server-error"><code>extendServerError</code></a>.  </p>
+<p>If you want it extend this error, check out <a href="/docs/master/Decorators#extend-server-error"><code>extendServerError</code></a>.</p>
 <p><em>If you are passing an error to send and the statusCode is less than 400, Fastify will automatically set it at 500.</em></p>
 <p><a name="payload-type"></a></p>
 <h4 id="type-of-the-final-payload">Type of the final payload</h4>

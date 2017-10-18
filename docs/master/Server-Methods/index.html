@@ -127,7 +127,7 @@
               </li>
             
               <li >
-                <a  href="/docs/master/Validation-And-Serialize">Validation and Serialize</a>
+                <a  href="/docs/master/Validation-and-Serialization">Validation and Serialization</a>
               </li>
             
               <li >
@@ -453,30 +453,25 @@ fastify.ready(() =&gt; {
 A plugin can be a set of routes, a server decorator or whatever, check <a href="/docs/master/Plugins">here</a>.</p>
 <p><a name="use"></a></p>
 <h4 id="use">use</h4>
-<p>Function to add middlewares to Fastify, check  <a href="/docs/master/Middlewares">here</a>.</p>
+<p>Function to add middlewares to Fastify, check <a href="/docs/master/Middlewares">here</a>.</p>
 <p><a name="addHook"></a></p>
 <h4 id="addhook">addHook</h4>
-<p>Function to add a specific hook in the lifecycle of Fastify, check  <a href="/docs/master/Hooks">here</a>.</p>
+<p>Function to add a specific hook in the lifecycle of Fastify, check <a href="/docs/master/Hooks">here</a>.</p>
 <p><a name="logger"></a></p>
 <h4 id="logger">logger</h4>
-<p>The logger instance, check  <a href="/docs/master/Logging">here</a>.</p>
+<p>The logger instance, check <a href="/docs/master/Logging">here</a>.</p>
 <p><a name="inject"></a></p>
 <h4 id="inject">inject</h4>
-<p>Fake http injection (for testing purposes)  <a href="/docs/master/Testing#inject">here</a>.</p>
+<p>Fake http injection (for testing purposes) <a href="/docs/master/Testing#inject">here</a>.</p>
 <p><a name="set-schema-compiler"></a></p>
 <h4 id="setschemacompiler">setSchemaCompiler</h4>
-<p>Set the schema compiler for all routes  <a href="/docs/master/Validation-And-Serialize#schema-compiler">here</a>.</p>
+<p>Set the schema compiler for all routes <a href="/docs/master/Validation-and-Serialization#schema-compiler">here</a>.</p>
 <p><a name="set-not-found-handler"></a></p>
 <h4 id="setnotfoundhandler">setNotFoundHandler</h4>
-<p><code>fastify.setNotFoundHandler(handler(request, reply))</code>: set the 404 handler.
-This call is fully encapsulated, so different plugins can set different
-not found handlers.</p>
+<p><code>fastify.setNotFoundHandler(handler(request, reply))</code>: set the 404 handler. This call is fully encapsulated, so different plugins can set different not found handlers.</p>
 <p><a name="set-error-handler"></a></p>
 <h4 id="seterrorhandler">setErrorHandler</h4>
-<p><code>fastify.setErrorHandler(handler(error, reply))</code>: set a function that
-will be called whenever an error happens. The handler is fully
-encapsulated, so different plugins can set different
-error handlers.</p>
+<p><code>fastify.setErrorHandler(handler(error, reply))</code>: set a function that will be called whenever an error happens. The handler is fully encapsulated, so different plugins can set different error handlers.</p>
 
         </div>
 
