@@ -402,7 +402,7 @@
   next()
 })
 
-fastify.addHook(&#39;preHandler&#39;, (req, reply, next) =&gt; {
+fastify.addHook(&#39;preHandler&#39;, (request, reply, next) =&gt; {
   // some code
   next()
 })
@@ -429,6 +429,10 @@ fastify.addHook(&#39;onResponse&#39;, (res, next) =&gt; {
 <td style="text-align:center">Node.js <a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">ServerResponse</a></td>
 </tr>
 <tr>
+<td>request</td>
+<td style="text-align:center">Fastify <a href="/docs/master/Request">Request</a> interface</td>
+</tr>
+<tr>
 <td>reply</td>
 <td style="text-align:center">Fastify <a href="/docs/master/Reply">Reply</a> interface</td>
 </tr>
@@ -445,7 +449,7 @@ fastify.addHook(&#39;onResponse&#39;, (res, next) =&gt; {
 })
 </code></pre>
 <p>If you want to pass a custom error code to the user, just use <code>reply.code()</code>:</p>
-<pre><code class="lang-js">fastify.addHook(&#39;preHandler&#39;, (req, reply, next) =&gt; {
+<pre><code class="lang-js">fastify.addHook(&#39;preHandler&#39;, (request, reply, next) =&gt; {
   reply.code(500)
   next(new Error(&#39;some error&#39;))
 })
