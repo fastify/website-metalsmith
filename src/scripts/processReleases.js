@@ -216,7 +216,12 @@ const extractEcosystemFromFile = (file, cb) => {
     if (err) return cb(err)
 
     const content = data.toString()
-    const lines = content.split('## Ecosystem')[1].split('- *More coming soon*')[0].split('\n').filter(Boolean)
+    const lines = content
+      .split('#### [Core](#core)\n')[1]
+      .split('\n')
+      .filter((line) => !line.match(/^#### \[Community\]/)) // remove header
+      .filter(Boolean) // remove empty lines
+
     // if a line doesn't start with "-" merge it back with the previous item
     const mergedLines = lines.reduce((acc, curr) => {
       if (curr[0] === '-') {
@@ -248,9 +253,9 @@ const createEcosystemDataFile = () => new Promise((resolve, reject) => {
     if (err) return reject(err)
 
     const subfolder = files.find(file => file.match(/^fastify-/))
-    const indexFile = join(versionFolder, subfolder, 'README.md')
+    const ecosystemFile = join(versionFolder, subfolder, 'docs', 'Ecosystem.md')
 
-    return extractEcosystemFromFile(indexFile, (err, ecosystem) => {
+    return extractEcosystemFromFile(ecosystemFile, (err, ecosystem) => {
       if (err) return reject(err)
 
       writeFile(destination, safeDump(ecosystem), 'utf8', (err) => {
