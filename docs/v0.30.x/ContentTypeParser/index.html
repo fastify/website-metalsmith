@@ -127,7 +127,7 @@
               </li>
             
               <li >
-                <a  href="/docs/v0.30.x/Validation-And-Serialize">Validation and Serialize</a>
+                <a  href="/docs/v0.30.x/Validation-and-Serialization">Validation and Serialization</a>
               </li>
             
               <li >
@@ -389,8 +389,8 @@
 
         <div id="doc-content" class="content">
           <h2 id="content-type-parser">Content Type Parser</h2>
-<p>Natively Fastify supports only <code>application/json</code> content-type. If you need to support different content types you can use the <code>addContentTypeParser</code> api.<br><em>Note that you can&#39;t add a custom content type parser for <code>application/json</code> because Fastify has a fast case for it.</em></p>
-<p>As the others api, <code>addContentTypeParser</code> is encapsulated in the scope where you are declaring it, this means that if you declare it in the root scope it will be available every where, while if you declare it inside a register it will be available only in the scope and its sons.</p>
+<p>Natively, Fastify only supports the <code>&#39;application/json&#39;</code> content type. If you need to support different content types, you can use the <code>addContentTypeParser</code> API. <em>Note that you can&#39;t add a custom content type parser for <code>&#39;application/json&#39;</code> because Fastify has a fast case for it.</em></p>
+<p>As with the other APIs, <code>addContentTypeParser</code> is encapsulated in the scope in which it is declared. This means that if you declare it in the root scope it will be available everywhere, while if you declare it inside a register it will be available only in that scope and its children.</p>
 <h4 id="usage">Usage</h4>
 <pre><code class="lang-js">fastify.addContentTypeParser(&#39;application/jsoff&#39;, function (req, done) {
   jsoffParser(req, function (err, body) {
@@ -398,9 +398,9 @@
   })
 })
 </code></pre>
-<p>You can also use the api <code>hasContentTypeParser</code> to find if a specific content-type parser already exist.</p>
+<p>You can also use the <code>hasContentTypeParser</code> API to find if a specific content type parser already exists.</p>
 <h5 id="catch-all">Catch All</h5>
-<p>There are some cases where you need to catch all the request regardless their <code>content-type</code>, with Fastify you just need to do add the <code>&#39;*&#39;</code> content type.</p>
+<p>There are some cases where you need to catch all requests regardless of their content type. With Fastify, you just need to add the <code>&#39;*&#39;</code> content type.</p>
 <pre><code class="lang-js">fastify.addContentTypeParser(&#39;*&#39;, function (req, done) {
   var data = &#39;&#39;
   req.on(&#39;data&#39;, chunk =&gt; { data += chunk })
@@ -409,8 +409,7 @@
   })
 })
 </code></pre>
-<p>In this way all of the requests that do not have a corresponding content type parser will be handled by the specified function.
-<em>Remember that <code>&#39;application/json&#39;</code> is always handled by Fastify.</em></p>
+<p>In this way, all of the requests that do not have a corresponding content type parser will be handled by the specified function. <em>Remember that <code>&#39;application/json&#39;</code> is always handled by Fastify.</em></p>
 
         </div>
 

@@ -129,7 +129,7 @@
               </li>
             
               <li >
-                <a  href="/docs/latest/Validation-And-Serialize">Validation and Serialize</a>
+                <a  href="/docs/latest/Validation-and-Serialization">Validation and Serialization</a>
               </li>
             
               <li >
@@ -412,7 +412,7 @@ fastify.listen(3000, function (err) {
 <p>Do you prefer to use <code>async/await</code>? Please review <a href="/docs/latest/Routes#async-await">Routes#async-await</a>!</p>
 <p><a name="schema"></a></p>
 <h3 id="schema-serialization">Schema serialization</h3>
-<p>How get better performances?<br>Fastify is designed to be very performant, if you want to make it even faster, you can use JSON schema to speed up the serialization of your output.</p>
+<p>Fastify is designed for performance. To truly turbocharge our server, we can serialize responses according to the <a href="http://json-schema.org/">JSON Schema</a> standard:</p>
 <pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)()
 
 const opts = {
@@ -438,11 +438,10 @@ fastify.listen(3000, function (err) {
   console.log(`server listening on ${fastify.server.address().port}`)
 })
 </code></pre>
-<p><em>If you want to know more about the serialization and validation, check <a href="/docs/latest/Validation-And-Serialize">here</a>!</em></p>
+<p><em>To learn more about using serialization and validation, see <a href="/docs/latest/Validation-and-Serialization">Validation and Serialization</a>!</em></p>
 <p><a name="register"></a></p>
 <h3 id="register">Register</h3>
-<p>As you can see use Fastify is very easy and handy.
-Obviously register all the routes in the same file is not a good idea, Fastify offers an utility to solve this problem, <code>register</code>.</p>
+<p>As you can see, using Fastify is very easy and handy. Obviously, registering all of your routes in the same file is not a good idea, so Fastify offers a utility to solve this problem, <code>register</code>:</p>
 <pre><code class="lang-js">/* server.js */
 
 const fastify = require(&#39;fastify&#39;)()
@@ -453,6 +452,7 @@ const opts = {
   hello: &#39;world&#39;,
   something: true
 }
+
 fastify.register([
   require(&#39;./another-route&#39;),
   require(&#39;./yet-another-route&#39;)
@@ -474,7 +474,7 @@ module.exports = function (fastify, options, next) {
   next()
 }
 </code></pre>
-<p>or with async/await:</p>
+<p>or with <code>async/await</code>:</p>
 <pre><code class="lang-js">/* route.js */
 
 module.exports = async function (fastify, options) {
@@ -485,8 +485,8 @@ module.exports = async function (fastify, options) {
 </code></pre>
 <p><a name="cli"></a></p>
 <h3 id="run-from-cli">Run from CLI</h3>
-<p>You can also run Fastify from the CLI thanks to <a href="https://github.com/fastify/fastify-cli">fastify-cli</a>, it&#39;s very easy!<br>Just add the following lines to your <code>package.json</code></p>
-<pre><code class="lang-JSON">{
+<p>You can also run Fastify from the CLI thanks to <a href="https://github.com/fastify/fastify-cli">fastify-cli</a>. It&#39;s very easy! Simply add the following lines to your <code>package.json</code>:</p>
+<pre><code class="lang-json">{
   &quot;scripts&quot;: {
     &quot;start&quot;: &quot;fastify server.js&quot;
   }
@@ -511,20 +511,19 @@ module.exports = function (fastify, opts, next) {
 <ul>
 <li><p>Slides</p>
 <ul>
-<li><a href="https://mcollina.github.io/take-your-http-server-to-ludicrous-speed">Take your http server to ludicrous speed</a> by <a href="https://github.com/mcollina">@mcollina</a></li>
+<li><a href="https://mcollina.github.io/take-your-http-server-to-ludicrous-speed">Take your HTTP server to ludicrous speed</a> by <a href="https://github.com/mcollina">@mcollina</a></li>
 <li><a href="https://delvedor.github.io/What-if-I-told-you-that-HTTP-can-be-fast">What if I told you that HTTP can be fast</a> by <a href="https://github.com/delvedor">@delvedor</a></li>
 </ul>
 </li>
 <li><p>Videos</p>
 <ul>
-<li><a href="https://www.youtube.com/watch?v=5z46jJZNe8k">Take your http server to ludicrous speed</a> by <a href="https://github.com/mcollina">@mcollina</a></li>
+<li><a href="https://www.youtube.com/watch?v=5z46jJZNe8k">Take your HTTP server to ludicrous speed</a> by <a href="https://github.com/mcollina">@mcollina</a></li>
 </ul>
 </li>
 </ul>
 <p><a name="next"></a></p>
 <h3 id="next">Next</h3>
-<p>Do you want to know more?
-Check the documentation folder <a href="/docs/latest/">here</a>!</p>
+<p>Do you want to learn more? Check out the documentation folder located <a href="/docs/latest/">here</a>!</p>
 
         </div>
 
