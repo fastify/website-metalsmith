@@ -413,16 +413,17 @@ fastify.register(helmet)
 <h4 id="restrict-middleware-execution-to-a-certain-path-s-">Restrict middleware execution to a certain path(s)</h4>
 <p>If you need to run a middleware only under certain path(s), just pass the path as first parameter to <code>use</code> and you are done!</p>
 <p><em>Note that this does not support routes with parameters, (eg: <code>/user/:id/comments</code>) and wildcard is not supported in multiple paths.</em></p>
-<pre><code class="lang-js">const serveStatic = require(&#39;serve-static&#39;)
+<pre><code class="lang-js">const path = require(&#39;path&#39;)
+const serveStatic = require(&#39;serve-static&#39;)
 
 // Single path
-fastify.use(&#39;/css&#39;, serveStatic(&#39;/assets&#39;))
+fastify.use(&#39;/css&#39;, serveStatic(path.join(__dirname, &#39;/assets&#39;)))
 
 // Wildcard path
-fastify.use(&#39;/css/*&#39;, serveStatic(&#39;/assets&#39;))
+fastify.use(&#39;/css/*&#39;, serveStatic(path.join(__dirname, &#39;/assets&#39;)))
 
 // Multiple paths
-fastify.use([&#39;/css&#39;, &#39;/js&#39;], serveStatic(&#39;/assets&#39;))
+fastify.use([&#39;/css&#39;, &#39;/js&#39;], serveStatic(path.join(__dirname, &#39;/assets&#39;)))
 </code></pre>
 
         </div>
