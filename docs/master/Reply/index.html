@@ -465,6 +465,14 @@ fastify.get(&#39;/async-await&#39;, options, async function (request, reply) {
   return res
 })
 </code></pre>
+<p>Rejected promises default to a <code>500</code> HTTP status code. Reject the promise, or <code>throw</code> in an <code>async function</code>, with an object that has <code>statusCode</code> and <code>message</code> properties to modify the reply.</p>
+<pre><code class="lang-js">fastify.get(&#39;/teapot&#39;, async function (request, reply) =&gt; {
+  const err = new Error()
+  err.statusCode = 418
+  err.message = &#39;short and stout&#39;
+  throw err
+})
+</code></pre>
 <p>If you want to know more please review <a href="/docs/master/Routes#async-await">Routes#async-await</a>!</p>
 <p><a name="send-streams"></a></p>
 <h4 id="streams">Streams</h4>
