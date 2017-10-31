@@ -22,7 +22,7 @@ const extractTOCFromFile = (file, version, cb) => {
     const content = data.toString()
 
     const lines = content.split('## Documentation')[1].split('\n\n')[0].split('\n').filter(Boolean)
-    const re = /master\/docs\/([a-zA-Z-]+\.md)"><code><b>(.+)<\/b>/
+    const re = /master\/docs\/([a-zA-Z-0-9]+\.md)"><code><b>(.+)<\/b>/
     const toc = lines.map((line) => {
       const match = re.exec(line)
       const fileName = match[1]
