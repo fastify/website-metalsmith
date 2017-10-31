@@ -422,6 +422,47 @@ fastify.addHook(&#39;onResponse&#39;, (res, next) =&gt; {
   next()
 })
 </code></pre>
+<p>Or <code>async/await</code></p>
+<pre><code class="lang-js">fastify.addHook(&#39;onRequest&#39;, async (req, res) =&gt; {
+  // some code
+  await asyncMethod()
+  // error occurred
+  if (err) {
+    throw new Error(&#39;some errors occurred.&#39;)
+  }
+  return
+})
+
+fastify.addHook(&#39;preHandler&#39;, async (request, reply) =&gt; {
+  // some code
+  await asyncMethod()
+  // error occurred
+  if (err) {
+    throw new Error(&#39;some errors occurred.&#39;)
+  }
+  return
+})
+
+fastify.addHook(&#39;onSend&#39;, async (request, reply, payload) =&gt; {
+  // some code
+  await asyncMethod()
+  // error occurred
+  if (err) {
+    throw new Error(&#39;some errors occurred.&#39;)
+  }
+  return
+})
+
+fastify.addHook(&#39;onResponse&#39;, async (res) =&gt; {
+  // some code
+  await asyncMethod()
+  // error occurred
+  if (err) {
+    throw new Error(&#39;some errors occurred.&#39;)
+  }
+  return
+})
+</code></pre>
 <table>
 <thead>
 <tr>
