@@ -469,7 +469,7 @@ fastify.get(&#39;/async-await&#39;, options, async function (request, reply) {
   return res
 })
 </code></pre>
-<p>Rejected promises default to a <code>500</code> HTTP status code. Reject the promise, or <code>throw</code> in an <code>async function</code>, with an object that has <code>statusCode</code> and <code>message</code> properties to modify the reply.</p>
+<p>Rejected promises default to a <code>500</code> HTTP status code. Reject the promise, or <code>throw</code> in an <code>async function</code>, with an object that has <code>statusCode</code> (or <code>status</code>) and <code>message</code> properties to modify the reply.</p>
 <pre><code class="lang-js">fastify.get(&#39;/teapot&#39;, async function (request, reply) =&gt; {
   const err = new Error()
   err.statusCode = 418
