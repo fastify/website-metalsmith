@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.30.x/Middlewares">
+    <link ref="canonical" href="/docs/v0.31.x/Middlewares">
   
 
   
@@ -160,6 +160,10 @@
                 <a  href="/docs/latest/Plugins-Guide">Plugins Guide</a>
               </li>
             
+              <li >
+                <a  href="/docs/latest/HTTP2">HTTP2</a>
+              </li>
+            
           </ul>
           <div class="content" style="margin: .8em; border-top: 1px solid #ccc; padding: .8em 0 0 0">
             Docs version
@@ -179,7 +183,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.30.x">v0.30.x</option>
+                          <option selected="selected" value="/docs/v0.31.x">v0.31.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.30.x">v0.30.x</option>
                       
                     
                       
@@ -264,12 +274,6 @@
                         
                         
                           <option  value="/docs/v0.16.x">v0.16.x</option>
-                      
-                    
-                      
-                        
-                        
-                          <option  value="/docs/v0.15.x">v0.15.x</option>
                       
                     
                       
@@ -300,7 +304,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.30.x">v0.30.x</option>
+                          <option selected="selected" value="/docs/v0.31.x">v0.31.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.30.x">v0.30.x</option>
                         
                       
                         
@@ -374,11 +383,6 @@
                         
                       
                         
-                          
-                          <option  value="/docs/v0.15.x">v0.15.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
@@ -393,7 +397,8 @@
           <h2 id="middlewares">Middlewares</h2>
 <p>Fastify provides out of the box an asynchronous <a href="https://github.com/fastify/middie">middleware engine</a> compatible with <a href="https://expressjs.com/">Express</a> and <a href="http://restify.com/">Restify</a> middlewares.</p>
 <p><em>If you need a visual feedback to understand when the middlewares are executed take a look to the <a href="/docs/latest/Lifecycle">lifecycle</a> page.</em></p>
-<p>Fastify middlewares don&#39;t support the full syntax <code>middleware(err, req, res, next)</code>, because error handling is done inside Fastify.</p>
+<p>Fastify middlewares don&#39;t support the full syntax <code>middleware(err, req, res, next)</code>, because error handling is done inside Fastify.
+Furthermore methods added by Express and Restify to the enhanced versions of <code>req</code> and <code>res</code> are not supported in Fastify middlewares.</p>
 <p>Also, if you are using a middleware that bundles different, smaller middlewares, such as <a href="https://helmetjs.github.io/"><em>helmet</em></a>, we recommend to use the single modules to get better performances.</p>
 <pre><code class="lang-js">fastify.use(require(&#39;cors&#39;)())
 fastify.use(require(&#39;dns-prefetch-control&#39;)())
@@ -415,16 +420,17 @@ fastify.register(helmet)
 <h4 id="restrict-middleware-execution-to-a-certain-path-s-">Restrict middleware execution to a certain path(s)</h4>
 <p>If you need to run a middleware only under certain path(s), just pass the path as first parameter to <code>use</code> and you are done!</p>
 <p><em>Note that this does not support routes with parameters, (eg: <code>/user/:id/comments</code>) and wildcard is not supported in multiple paths.</em></p>
-<pre><code class="lang-js">const serveStatic = require(&#39;serve-static&#39;)
+<pre><code class="lang-js">const path = require(&#39;path&#39;)
+const serveStatic = require(&#39;serve-static&#39;)
 
 // Single path
-fastify.use(&#39;/css&#39;, serveStatic(&#39;/assets&#39;))
+fastify.use(&#39;/css&#39;, serveStatic(path.join(__dirname, &#39;/assets&#39;)))
 
 // Wildcard path
-fastify.use(&#39;/css/*&#39;, serveStatic(&#39;/assets&#39;))
+fastify.use(&#39;/css/*&#39;, serveStatic(path.join(__dirname, &#39;/assets&#39;)))
 
 // Multiple paths
-fastify.use([&#39;/css&#39;, &#39;/js&#39;], serveStatic(&#39;/assets&#39;))
+fastify.use([&#39;/css&#39;, &#39;/js&#39;], serveStatic(path.join(__dirname, &#39;/assets&#39;)))
 </code></pre>
 
         </div>
@@ -459,6 +465,8 @@ fastify.use([&#39;/css&#39;, &#39;/js&#39;], serveStatic(&#39;/assets&#39;))
                 
               </div>
             </div>
+          
+        
           
         
           

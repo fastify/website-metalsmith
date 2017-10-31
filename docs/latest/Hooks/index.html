@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.30.x/Hooks">
+    <link ref="canonical" href="/docs/v0.31.x/Hooks">
   
 
   
@@ -160,6 +160,10 @@
                 <a  href="/docs/latest/Plugins-Guide">Plugins Guide</a>
               </li>
             
+              <li >
+                <a  href="/docs/latest/HTTP2">HTTP2</a>
+              </li>
+            
           </ul>
           <div class="content" style="margin: .8em; border-top: 1px solid #ccc; padding: .8em 0 0 0">
             Docs version
@@ -179,7 +183,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.30.x">v0.30.x</option>
+                          <option selected="selected" value="/docs/v0.31.x">v0.31.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.30.x">v0.30.x</option>
                       
                     
                       
@@ -264,12 +274,6 @@
                         
                         
                           <option  value="/docs/v0.16.x">v0.16.x</option>
-                      
-                    
-                      
-                        
-                        
-                          <option  value="/docs/v0.15.x">v0.15.x</option>
                       
                     
                       
@@ -300,7 +304,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.30.x">v0.30.x</option>
+                          <option selected="selected" value="/docs/v0.31.x">v0.31.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.30.x">v0.30.x</option>
                         
                       
                         
@@ -374,11 +383,6 @@
                         
                       
                         
-                          
-                          <option  value="/docs/v0.15.x">v0.15.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
@@ -395,6 +399,7 @@
 <ul>
 <li><code>&#39;onRequest&#39;</code></li>
 <li><code>&#39;preHandler&#39;</code></li>
+<li><code>&#39;onSend&#39;</code></li>
 <li><code>&#39;onResponse&#39;</code></li>
 <li><code>&#39;onClose&#39;</code></li>
 </ul>
@@ -409,38 +414,84 @@ fastify.addHook(&#39;preHandler&#39;, (request, reply, next) =&gt; {
   next()
 })
 
+fastify.addHook(&#39;onSend&#39;, (request, reply, payload, next) =&gt; {
+  // some code
+  next()
+})
+
 fastify.addHook(&#39;onResponse&#39;, (res, next) =&gt; {
   // some code
   next()
+})
+</code></pre>
+<p>Or <code>async/await</code></p>
+<pre><code class="lang-js">fastify.addHook(&#39;onRequest&#39;, async (req, res) =&gt; {
+  // some code
+  await asyncMethod()
+  // error occurred
+  if (err) {
+    throw new Error(&#39;some errors occurred.&#39;)
+  }
+  return
+})
+
+fastify.addHook(&#39;preHandler&#39;, async (request, reply) =&gt; {
+  // some code
+  await asyncMethod()
+  // error occurred
+  if (err) {
+    throw new Error(&#39;some errors occurred.&#39;)
+  }
+  return
+})
+
+fastify.addHook(&#39;onSend&#39;, async (request, reply, payload) =&gt; {
+  // some code
+  await asyncMethod()
+  // error occurred
+  if (err) {
+    throw new Error(&#39;some errors occurred.&#39;)
+  }
+  return
+})
+
+fastify.addHook(&#39;onResponse&#39;, async (res) =&gt; {
+  // some code
+  await asyncMethod()
+  // error occurred
+  if (err) {
+    throw new Error(&#39;some errors occurred.&#39;)
+  }
+  return
 })
 </code></pre>
 <table>
 <thead>
 <tr>
 <th>Parameter</th>
-<th style="text-align:center">Description</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>req</td>
-<td style="text-align:center">Node.js <a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage">IncomingMessage</a></td>
+<td>Node.js <a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage">IncomingMessage</a></td>
 </tr>
 <tr>
 <td>res</td>
-<td style="text-align:center">Node.js <a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">ServerResponse</a></td>
+<td>Node.js <a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">ServerResponse</a></td>
 </tr>
 <tr>
 <td>request</td>
-<td style="text-align:center">Fastify <a href="/docs/latest/Request">Request</a> interface</td>
+<td>Fastify <a href="/docs/latest/Request">Request</a> interface</td>
 </tr>
 <tr>
 <td>reply</td>
-<td style="text-align:center">Fastify <a href="/docs/latest/Reply">Reply</a> interface</td>
+<td>Fastify <a href="/docs/latest/Reply">Reply</a> interface</td>
 </tr>
 <tr>
 <td>next</td>
-<td style="text-align:center">Function to continue with the <a href="/docs/latest/Lifecycle">lifecycle</a></td>
+<td>Function to continue with the <a href="/docs/latest/Lifecycle">lifecycle</a></td>
 </tr>
 </tbody>
 </table>
@@ -457,7 +508,20 @@ fastify.addHook(&#39;onResponse&#39;, (res, next) =&gt; {
 })
 </code></pre>
 <p><em>The error will be handled by <a href="/docs/latest/Reply#errors"><code>Reply</code></a>.</em></p>
-<p>Note that in the <code>&#39;preHandler&#39;</code> hook the request and reply objects are different from <code>&#39;onRequest&#39;</code>, because the two arguments are <a href="/docs/latest/Request"><code>request</code></a> and <a href="/docs/latest/Reply"><code>reply</code></a> core Fastify objects.</p>
+<p>Note that in the <code>&#39;preHandler&#39;</code> and <code>&#39;onSend&#39;</code> hook the request and reply objects are different from <code>&#39;onRequest&#39;</code>, because the two arguments are <a href="/docs/latest/Request"><code>request</code></a> and <a href="/docs/latest/Reply"><code>reply</code></a> core Fastify objects.</p>
+<p>If you are using the <code>onSend</code> hook you can update the payload, but not overwrite it, for example:</p>
+<pre><code class="lang-js">// this is valid
+fastify.addHook(&#39;onSend&#39;, (request, reply, payload, next) =&gt; {
+  payload.hello = &#39;world&#39;
+  next()
+})
+
+// this is not valid
+fastify.addHook(&#39;onSend&#39;, (request, reply, payload, next) =&gt; {
+  payload = { hello: &#39;world&#39; }
+  next()
+})
+</code></pre>
 <p><a name="on-close"></a>
 <strong>&#39;onClose&#39;</strong><br>The unique hook that is not inside the lifecycle is <code>&#39;onClose&#39;</code>, this one is triggered when you call <code>fastify.close()</code> to stop the server, and it is useful if you have some <a href="/docs/latest/Plugins">plugins</a> that need a &quot;shutdown&quot; part, such as a connection to a database.<br>Only for this hook, the parameters of the function changes, the first one is the Fastify instance, the second one the <code>done</code> callback.</p>
 <pre><code class="lang-js">fastify.addHook(&#39;onClose&#39;, (instance, done) =&gt; {
@@ -543,6 +607,8 @@ fastify.route({
                 
               </div>
             </div>
+          
+        
           
         
           

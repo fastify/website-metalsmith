@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.30.x/Reply">
+    <link ref="canonical" href="/docs/v0.31.x/Reply">
   
 
   
@@ -160,6 +160,10 @@
                 <a  href="/docs/latest/Plugins-Guide">Plugins Guide</a>
               </li>
             
+              <li >
+                <a  href="/docs/latest/HTTP2">HTTP2</a>
+              </li>
+            
           </ul>
           <div class="content" style="margin: .8em; border-top: 1px solid #ccc; padding: .8em 0 0 0">
             Docs version
@@ -179,7 +183,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.30.x">v0.30.x</option>
+                          <option selected="selected" value="/docs/v0.31.x">v0.31.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.30.x">v0.30.x</option>
                       
                     
                       
@@ -264,12 +274,6 @@
                         
                         
                           <option  value="/docs/v0.16.x">v0.16.x</option>
-                      
-                    
-                      
-                        
-                        
-                          <option  value="/docs/v0.15.x">v0.15.x</option>
                       
                     
                       
@@ -300,7 +304,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.30.x">v0.30.x</option>
+                          <option selected="selected" value="/docs/v0.31.x">v0.31.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.30.x">v0.30.x</option>
                         
                       
                         
@@ -371,11 +380,6 @@
                         
                           
                           <option  value="/docs/v0.16.x">v0.16.x</option>
-                        
-                      
-                        
-                          
-                          <option  value="/docs/v0.15.x">v0.15.x</option>
                         
                       
                         
@@ -467,10 +471,18 @@ fastify.get(&#39;/async-await&#39;, options, async function (request, reply) {
   return res
 })
 </code></pre>
+<p>Rejected promises default to a <code>500</code> HTTP status code. Reject the promise, or <code>throw</code> in an <code>async function</code>, with an object that has <code>statusCode</code> (or <code>status</code>) and <code>message</code> properties to modify the reply.</p>
+<pre><code class="lang-js">fastify.get(&#39;/teapot&#39;, async function (request, reply) =&gt; {
+  const err = new Error()
+  err.statusCode = 418
+  err.message = &#39;short and stout&#39;
+  throw err
+})
+</code></pre>
 <p>If you want to know more please review <a href="/docs/latest/Routes#async-await">Routes#async-await</a>!</p>
 <p><a name="send-streams"></a></p>
 <h4 id="streams">Streams</h4>
-<p><em>send</em> can also handle strems out of the box, internally uses <a href="https://www.npmjs.com/package/pump">pump</a> to avoid leaks of file descriptors. If you are sending a stream and you have not setted a <code>&#39;Content-Type&#39;</code> header, <em>send</em> will set it at <code>&#39;application/octet-stream&#39;</code>.</p>
+<p><em>send</em> can also handle streams out of the box, internally uses <a href="https://www.npmjs.com/package/pump">pump</a> to avoid leaks of file descriptors. If you are sending a stream and you have not setted a <code>&#39;Content-Type&#39;</code> header, <em>send</em> will set it at <code>&#39;application/octet-stream&#39;</code>.</p>
 <pre><code class="lang-js">fastify.get(&#39;/streams&#39;, function (request, reply) {
   const fs = require(&#39;fs&#39;)
   const stream = fs.createReadStream(&#39;some-file&#39;, &#39;utf8&#39;)
@@ -534,6 +546,8 @@ fastify.get(&#39;/async-await&#39;, options, async function (request, reply) {
                 
               </div>
             </div>
+          
+        
           
         
           
