@@ -529,7 +529,13 @@ fastify.addHook(&#39;onSend&#39;, (request, reply, payload, next) =&gt; {
 </code></pre>
 <p><a name="scope"></a></p>
 <h3 id="scope">Scope</h3>
-<p>Except for <code>&#39;onClose&#39;</code> all the hooks are encapsulated this means that you can decide where your hooks should run by using <code>register</code> as explained in the <a href="/docs/master/Plugins-Guide">plugins guide</a>.</p>
+<p>Except for <code>&#39;onClose&#39;</code> all the hooks are encapsulated this means that you can decide where your hooks should run by using <code>register</code> as explained in the <a href="/docs/master/Plugins-Guide">plugins guide</a>. If you pass a function, that function is bound to the right Fastify context and from there you have full access to the Fastify api.</p>
+<pre><code class="lang-js">fastify.addHook(&#39;onRequest&#39;, function (req, res, next) {
+  const self = this // Fastify context
+  next()
+})
+</code></pre>
+<p>Note: using an arrow function will break the binding of this to the Fastify instance.</p>
 <p><a name="before-handler"></a></p>
 <h3 id="beforehandler">beforeHandler</h3>
 <p>Despite the name, <code>beforeHandler</code> is not a standard hook like <code>preHandler</code>, but is a function that your register right in the route option that will be executed only in the specified route. Can be useful if you need to handle the authentication at route level instead of at hook level (<code>preHandler</code> for example.), it could also be an array of functions.<br><strong><code>beforeHandler</code> is executed always after the <code>preHandler</code> hook.</strong></p>
