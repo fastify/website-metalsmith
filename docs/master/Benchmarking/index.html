@@ -409,7 +409,7 @@
 <h3 id="run-the-test-in-the-current-branch">Run the test in the current branch</h3>
 <pre><code class="lang-sh">npm run benchmark
 </code></pre>
-<h3 id="run-the-test-against-different-node-js-versions">Run the test against different Node.js versions</h3>
+<h3 id="run-the-test-against-different-node-js-versions-">Run the test against different Node.js versions ✨</h3>
 <pre><code class="lang-sh">npx -p node@6 -- npm run benchmark
 </code></pre>
 <h2 id="advanced">Advanced</h2>
@@ -418,6 +418,12 @@
 </code></pre>
 <h3 id="run-the-test-in-different-branches-against-different-node-js-versions-">Run the test in different branches against different Node.js versions ✨</h3>
 <pre><code class="lang-sh">branchcmp --rounds 2 --script &quot;npm run benchmark&quot;
+</code></pre>
+<h3 id="compare-current-branch-with-master-gitflow-">Compare current branch with master (Gitflow)</h3>
+<pre><code class="lang-sh">branchcmp --rounds 2 --gitflow --script &quot;npm run benchmark&quot;
+</code></pre>
+<p>or</p>
+<pre><code class="lang-sh">npm run bench
 </code></pre>
 <h3 id="run-different-examples">Run different examples</h3>
 <pre><code class="lang-sh">branchcmp --rounds 2 -s &quot;node ./node_modules/concurrently -k -s first \&quot;node ./examples/asyncawait.js\&quot; \&quot;node ./node_modules/autocannon -c 100 -d 5 -p 10 localhost:3000/\&quot;&quot;
