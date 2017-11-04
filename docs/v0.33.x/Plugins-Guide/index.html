@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Plugins Guide</title>
+  <meta name="description" content="Fast and low overhead web framework, for Node.js">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/images/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.1/css/bulma.min.css" integrity="sha256-CDVQJfU+jJGU/oyDzvnzuGXbv0rz+SyBsPQwyn7x/jQ=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
+
+  
+
+  
+</head>
+
+
+  <body>
+    <nav id="main-navbar" class="navbar">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="/images/fastify-logo-menu.png" alt="Fastify: Fast and low overhead web framework, for Node.js" height="28">
+    </a>
+
+    <a class="navbar-item is-hidden-desktop" href="https://github.com/fastify/fastify" target="_blank">
+      <span class="icon" style="color: #333;">
+        <i class="fa fa-github"></i>
+      </span>
+    </a>
+
+    <div class="navbar-burger burger" data-target="mobileMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div class="navbar-menu" id="mobileMenu">
+    <div class="navbar-start">
+      <a class="navbar-item " href="/">Home</a>
+      <a class="navbar-item " href="/docs/latest">Docs</a>
+      <a class="navbar-item " href="/ecosystem">Ecosystem</a>
+      <a class="navbar-item " href="/benchmarks">Benchmarks</a>
+    </div>
+
+    <div class="navbar-end">
+      <a class="navbar-item" href="https://github.com/fastify/fastify" target="_blank">
+        <span class="fa fa-github"> </span>&nbsp;Github
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+    <main class="page-content" aria-label="Content">
+      
+<section class="hero is-primary" style="background-image: url('/images/bg-pattern-bright.png')">
+  <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Documentation
+        </h1>
+      </div>
+  </div>
+</section>
+
+<div class="container">
+  <section class="section">
+    <div class="columns">
+
+      <div class="column is-3 is-hidden-mobile" data-sticky-container>
+        <aside class="menu sticky">
+          <p class="menu-label">
+            Table of contents
+          </p>
+          <ul class="menu-list">
+            
+              <li >
+                <a  href="/docs/v0.33.x/Getting-Started">Getting Started</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Server-Methods">Server Methods</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Routes">Routes</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Logging">Logging</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Middlewares">Middlewares</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Hooks">Hooks</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Decorators">Decorators</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Validation-and-Serialization">Validation and Serialization</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Lifecycle">Lifecycle</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Reply">Reply</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Request">Request</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/ContentTypeParser">Content Type Parser</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Plugins">Plugins</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Testing">Testing</a>
+              </li>
+            
+              <li id="doc-menu-section">
+                <a class="is-active" href="/docs/v0.33.x/Plugins-Guide">Plugins Guide</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/HTTP2">HTTP2</a>
+              </li>
+            
+          </ul>
+          <div class="content" style="margin: .8em; border-top: 1px solid #ccc; padding: .8em 0 0 0">
+            Docs version
+            <div class="field">
+              <div class="control">
+                <div class="select">
+                  <select onchange="if (this.value) window.location.href=this.value">
+                    
+                      
+                        
+                        
+                          <option  value="/docs/master">master</option>
+                      
+                    
+                      
+                        
+                        
+                          
+                        
+                          <option selected="selected" value="/docs/v0.33.x">v0.33.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.32.x">v0.32.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.31.x">v0.31.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.30.x">v0.30.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.29.x">v0.29.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.28.x">v0.28.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.27.x">v0.27.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.26.x">v0.26.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.25.x">v0.25.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.24.x">v0.24.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.23.x">v0.23.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.22.x">v0.22.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.21.x">v0.21.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.20.x">v0.20.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.19.x">v0.19.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.18.x">v0.18.x</option>
+                      
+                    
+                      
+                    
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="column">
+        <nav class="breadcrumb">
+          <ul>
+            <li><a href="/" style="padding-left: 0">Fastify</a></li>
+            <li><a href="/docs/">Documentation</a></li>
+            <li>
+              <div class="field">
+                <div class="control">
+                  <div class="select">
+                    <select onchange="if (this.value) window.location.href=this.value" style="border: none;">
+                      
+                        
+                          
+                          <option  value="/docs/master">master</option>
+                        
+                      
+                        
+                          
+                          <option selected="selected" value="/docs/v0.33.x">v0.33.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.32.x">v0.32.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.31.x">v0.31.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.30.x">v0.30.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.29.x">v0.29.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.28.x">v0.28.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.27.x">v0.27.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.26.x">v0.26.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.25.x">v0.25.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.24.x">v0.24.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.23.x">v0.23.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.22.x">v0.22.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.21.x">v0.21.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.20.x">v0.20.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.19.x">v0.19.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.18.x">v0.18.x</option>
+                        
+                      
+                        
+                      
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="is-active"><a>Plugins Guide</a></li>
+          </ul>
+        </nav>
+
+        <div id="doc-content" class="content">
+          <h1 id="the-hitchhiker-s-guide-to-plugins">The hitchhiker&#39;s guide to plugins</h1>
+<p>First of all, <code>DON&#39;T PANIC</code>!</p>
+<p>Fastify has been built since the beginning to be an extremely modular system, we built a powerful api that allows you to add methods and utilities to Fastify by creating a namespace, we built a system that creates an encapsulation model that allows you to split you application in multiple microservices at any moment, without the need to refactor the entire application.</p>
+<p><strong>Table of contents</strong></p>
+<ul>
+<li><a href="#register">Register</a></li>
+<li><a href="#decorators">Decorators</a></li>
+<li><a href="#hooks">Hooks</a></li>
+<li><a href="#middlewares">Middlewares</a></li>
+<li><a href="#distribution">How to handle encapsulation and distribution</a></li>
+<li><a href="#start">Let&#39;s start!</a></li>
+</ul>
+<p><a name="register"></a></p>
+<h2 id="register">Register</h2>
+<p>As in JavaScript everything is an object, in Fastify everything is a plugin.<br>Your routes, your utilities and so on are all plugins. And to add a new plugin, whatever its functionality is, in Fastify you have a nice and unique api to use: <a href="/docs/v0.33.x/Plugins"><code>register</code></a>.</p>
+<pre><code class="lang-js">fastify.register(
+  require(&#39;./my-plugin&#39;),
+  { options },
+  callback
+)
+</code></pre>
+<p><code>register</code> creates for you a new Fastify context, this means that if you do any change to the Fastify instance, that change(s) will not be reflected into the context&#39;s ancestors. In other words, encapsulation!</p>
+<p><em>Why encapsulation is important?</em><br>Well, let&#39;s say you are creating a new disruptive startup, what do you do? You create an api server with all your stuff, everything in the same place, a monolith!<br>Ok, you are growing very fast and you want to change your architecture and try microservices. Usually this implies an huge amount of work, because of cross dependencies and the lack of separation of concerns.<br>Fastify helps you a lot in this direction, because thanks to the encapsulation model it will completely avoid cross dependencies, and will help you structure your code in cohesive blocks.</p>
+<p><em>Let&#39;s return to how to use correctly <code>register</code>.</em><br>As you probably know, the required plugins must expose a single function with the following signature</p>
+<pre><code class="lang-js">module.exports = function (fastify, options, next) {}
+</code></pre>
+<p>Where <code>fastify</code> is (pretty obvious) the encapsulated Fastify instance, <code>options</code> is the options object and <code>next</code> is the function you <strong>must</strong> call when you plugin is ready.</p>
+<p>The Fastify&#39;s plugin model is fully reentrant and graph-based, it handles without any kind of problem asynchronous code and it guarantees the load order of the plugins, even the close order! <em>How?</em> Glad you asked, checkout <a href="https://github.com/mcollina/avvio"><code>avvio</code></a>!</p>
+<p>Inside a plugin you can do whatever you want, register routes, utilities (we&#39;ll see this in a moment) and do nested registers, just remember to call <code>next</code> when everything is set up!</p>
+<pre><code class="lang-js">module.exports = function (fastify, options, next) {
+  fastify.get(&#39;/plugin&#39;, (req, reply) =&gt; {
+    reply.send({ hello: &#39;world&#39; })
+  })
+
+  next()
+}
+</code></pre>
+<p>Well, now you know how to use the <code>register</code> api and how it works, but how add new functionalities to fastify and even better, share them with other developers?</p>
+<p><a name="decorators"></a></p>
+<h2 id="decorators">Decorators</h2>
+<p>Okay, let&#39;s say that you wrote an utility that is so good that you decided to make it available along all your code. How would you do it? Probably something like the following:</p>
+<pre><code class="lang-js">// your-awesome-utility.js
+module.exports = function (a, b) {
+  return a + b
+}
+</code></pre>
+<pre><code class="lang-js">const util = require(&#39;./your-awesome-utility&#39;)
+console.log(util(&#39;that is &#39;, &#39; awesome&#39;))
+</code></pre>
+<p>And now you will import your utility in every file you need it. (and don&#39;t forget that probably you will need it also in your test).</p>
+<p>Fastify offers you a way nicer and elegant way to do this, <em>decorators</em>.
+Create a decorator is extremely easy, just use the <a href="/docs/v0.33.x/Decorators"><code>decorate</code></a> api:</p>
+<pre><code class="lang-js">fastify.decorate(&#39;util&#39;, (a, b) =&gt; a + b)
+</code></pre>
+<p>Now you can access your utility just by doing <code>fastify.util</code> whenever you need it, even inside your test.<br>And here&#39;s starts the magic; do you remember that few lines above we talked about encapsulation? Well, use <code>register</code> and <code>decorate</code> in conjunction enable exactly that, let me show you an example to clarify this:</p>
+<pre><code class="lang-js">fastify.register((instance, opts, next) =&gt; {
+  instance.decorate(&#39;util&#39;, (a, b) =&gt; a + b)
+  console.log(instance.util(&#39;that is &#39;, &#39; awesome&#39;))
+
+  next()
+})
+
+fastify.register((instance, opts, next) =&gt; {
+  console.log(instance.util(&#39;that is &#39;, &#39; awesome&#39;)) // this will throw an error
+
+  next()
+})
+</code></pre>
+<p>Inside the second register call <code>instance.util</code> will throw an error, because <code>util</code> exist only inside the first register context.<br>Let&#39;s step back for a moment and get deepen on this: when using the <code>register</code> api you will create a new context every time and this avoid situations like the one mentioned few line above. But pay attention, the encapsulation works only for the ancestors and the brothers, but not for the sons.</p>
+<pre><code class="lang-js">fastify.register((instance, opts, next) =&gt; {
+  instance.decorate(&#39;util&#39;, (a, b) =&gt; a + b)
+  console.log(instance.util(&#39;that is &#39;, &#39; awesome&#39;))
+
+  fastify.register((instance, opts, next) =&gt; {
+    console.log(instance.util(&#39;that is &#39;, &#39; awesome&#39;)) // this will not throw an error
+    next()
+  })
+
+  next()
+})
+
+fastify.register((instance, opts, next) =&gt; {
+  console.log(instance.util(&#39;that is &#39;, &#39; awesome&#39;)) // this will throw an error
+
+  next()
+})
+</code></pre>
+<p><em>Take home message: if you need that an utility is available in every part of your application, pay attention that is declared at the root scope of your application. Otherwise you can use <code>fastify-plugin</code> utility as described <a href="#distribution">here</a>.</em></p>
+<p><code>decorate</code> is not the unique api that you can use to extend the server functionalities, you can also use <code>decorateRequest</code> and <code>decorateReply</code>.</p>
+<p><em><code>decorateRequest</code> and <code>decorateReply</code>? Why do we need them if we already have <code>decorate</code>?</em><br>Good question, we added them to make Fastify more developer-friendly. Let&#39;s see an example:</p>
+<pre><code class="lang-js">fastify.decorate(&#39;html&#39;, payload =&gt; {
+  return generateHtml(payload)
+})
+
+fastify.get(&#39;/html&#39;, (req, reply) =&gt; {
+  reply
+    .type(&#39;text/html&#39;)
+    .send(fastify.html({ hello: &#39;world&#39; }))
+})
+</code></pre>
+<p>It works, but it can be way better!</p>
+<pre><code class="lang-js">fastify.decorateReply(&#39;html&#39;, function (payload) {
+  this.type(&#39;text/html&#39;) // this is the &#39;Reply&#39; object
+  this.send(generateHtml(payload))
+})
+
+fastify.get(&#39;/html&#39;, (req, reply) =&gt; {
+  reply.html({ hello: &#39;world&#39; })
+})
+</code></pre>
+<p>And in the same way you can do this for the <code>request</code> object:</p>
+<pre><code class="lang-js">fastify.decorate(&#39;getHeader&#39;, (req, header) =&gt; {
+  return req.headers[header]
+})
+
+fastify.addHook(&#39;preHandler&#39;, (req, reply, done) =&gt; {
+  req.isHappy = fastify.getHeader(req.req, &#39;happy&#39;)
+  done()
+})
+
+fastify.get(&#39;/happiness&#39;, (req, reply) =&gt; {
+  reply.send({ happy: req.isHappy })
+})
+</code></pre>
+<p>Again, it works, but it can be way better!</p>
+<pre><code class="lang-js">fastify.decorateRequest(&#39;setHeader&#39;, function (header) {
+  this.isHappy = this.req.headers[header]
+})
+
+fastify.decorateRequest(&#39;isHappy&#39;, false) // this will be added to the Request object prototype, yay speed!
+
+fastify.addHook(&#39;preHandler&#39;, (req, reply, done) =&gt; {
+  req.setHeader(&#39;happy&#39;)
+  done()
+})
+
+fastify.get(&#39;/happiness&#39;, (req, reply) =&gt; {
+  reply.send({ happy: req.isHappy })
+})
+</code></pre>
+<p>We&#39;ve seen how extend server functionalities and how handle the encapsulation system, but what if you need to add a function that must be executed every time that the server &quot;<a href="/docs/v0.33.x/Lifecycle">emits</a>&quot; an event?</p>
+<p><a name="hooks"></a></p>
+<h2 id="hooks">Hooks</h2>
+<p>You just built an amazing utility, but now you need to execute that for every request, this is what you will likely do:</p>
+<pre><code class="lang-js">fastify.decorate(&#39;util&#39;, (req, key, value) =&gt; { req.key = value })
+
+fastify.get(&#39;/plugin1&#39;, (req, reply) =&gt; {
+  fastify.util(req, &#39;timestamp&#39;, new Date())
+  reply.send(req)
+})
+
+fastify.get(&#39;/plugin2&#39;, (req, reply) =&gt; {
+  fastify.util(req, &#39;timestamp&#39;, new Date())
+  reply.send(req)
+})
+</code></pre>
+<p>I think we all agree that this is terrible. Code repeat, awful readability and it cannot scale.</p>
+<p>So what can you do to avoid this annoying issue? Yes, you are right, use an <a href="/docs/v0.33.x/Hooks">hook</a>!  </p>
+<pre><code class="lang-js">fastify.decorate(&#39;util&#39;, (req, key, value) =&gt; { req.key = value })
+
+fastify.addHook(&#39;preHandler&#39;, (req, reply, done) =&gt; {
+  fastify.util(req, &#39;timestamp&#39;, new Date())
+  done()
+})
+
+fastify.get(&#39;/plugin1&#39;, (req, reply) =&gt; {
+  reply.send(req)
+})
+
+fastify.get(&#39;/plugin2&#39;, (req, reply) =&gt; {
+  reply.send(req)
+})
+</code></pre>
+<p>Now for every request you will run your utility, it is obvious that you can register as many hooks as you need.<br>It can happen that you want that a hook must be executed just for a subset of routes, how can you do that?  Yep, encapsulation!</p>
+<pre><code class="lang-js">fastify.register((instance, opts, next) =&gt; {
+  instance.decorate(&#39;util&#39;, (req, key, value) =&gt; { req.key = value })
+
+  instance.addHook(&#39;preHandler&#39;, (req, reply, done) =&gt; {
+    instance.util(req, &#39;timestamp&#39;, new Date())
+    done()
+  })
+
+  instance.get(&#39;/plugin1&#39;, (req, reply) =&gt; {
+    reply.send(req)
+  })
+
+  next()
+})
+
+fastify.get(&#39;/plugin2&#39;, (req, reply) =&gt; {
+  reply.send(req)
+})
+</code></pre>
+<p>Now your hook will run just for the first route!</p>
+<p>As you probably noticed at this time, <code>request</code> and <code>reply</code> are not the standard Nodejs <em>request</em> and <em>response</em> objects, but Fastify&#39;s objects.<br>Let&#39;s say that you are arriving from a framework like Express or Restify, and you already have some Middleware that do exactly what you need, and you don&#39;t want to redo al the work.</p>
+<p><a name="middlewares"></a></p>
+<h2 id="middlewares">Middlewares</h2>
+<p>Fastify <a href="/docs/v0.33.x/Middlewares">supports</a> out of the box Express/Restify/Connect middlewares, this means that you can just drop-in your old code and it will work! <em>(faster, by the way)</em><br>How we can do that? Checkout our middlewares engine, <a href="https://github.com/fastify/middie">middie</a>.</p>
+<pre><code class="lang-js">const yourMiddleware = require(&#39;your-middleware&#39;)
+fastify.use(yourMiddleware)
+</code></pre>
+<p><a name="distribution"></a></p>
+<h2 id="how-to-handle-encapsulation-and-distribution">How to handle encapsulation and distribution</h2>
+<p>Perfect, now you know (almost) all the tools that you can use to extend Fastify. But probably there is something you noted when trying out your code.<br>How can you distribute your code?</p>
+<p>The preferred way to distribute an utility is to wrap all your code inside a <code>register</code>, in this way your plugin can support an asynchronous bootstrap <em>(since <code>decorate</code> is a synchronous api)</em>, in the case of a database connection for example.</p>
+<p><em>Wait, what? Don&#39;t you told me that <code>register</code> creates and encapsulation and what I create inside there will not be available outside?</em><br>Yes, I told that. But what I didn&#39;t told you, is that you can tell to Fastify to avoid this behavior, with the <a href="https://github.com/fastify/fastify-plugin"><code>fastify-plugin</code></a> module.</p>
+<pre><code class="lang-js">const fp = require(&#39;fastify-plugin&#39;)
+const dbClient = require(&#39;db-client&#39;)
+
+function dbPlugin (fastify, opts, next) {
+  dbClient.connect(opts.url, (err, conn) =&gt; {
+    fastify.decorate(&#39;db&#39;, conn)
+    next()
+  })
+}
+
+module.exports = fp(dbPlugin)
+</code></pre>
+<p>You can also tell to <code>fastify-plugin</code> to check the installed version of Fastify, in case of you need a specific api.</p>
+<p><a name="start"></a></p>
+<h2 id="let-s-start-">Let&#39;s start!</h2>
+<p>Awesome, now you know everything you need to know about Fastify and its plugin system to start build your first plugin, and please if you do, tell us! We will add it to the <a href="https://github.com/fastify/fastify#ecosystem"><em>ecosystem</em></a> section of our documentation!</p>
+<p>If you want to see some real world example, checkout:</p>
+<ul>
+<li><a href="https://github.com/fastify/point-of-view"><code>point-of-view</code></a>
+Templates rendering (<em>ejs, pug, handlebars, marko</em>) plugin support for Fastify.</li>
+<li><a href="https://github.com/fastify/fastify-mongodb"><code>fastify-mongodb</code></a>
+Fastify MongoDB connection plugin, with this you can share the same MongoDb connection pool in every part of your server.</li>
+<li><a href="https://github.com/fastify/fastify-multipart"><code>fastify-multipart</code></a>
+Multipart support for Fastify</li>
+<li><a href="https://github.com/fastify/fastify-helmet"><code>fastify-helmet</code></a> Important security headers for Fastify</li>
+</ul>
+<p><em>Do you feel it&#39;s missing something here? Let us know! :)</em></p>
+
+        </div>
+
+        <hr/>
+        <nav class="level">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <div class="level-left">
+              <div class="level-item">
+                
+                  
+                  
+                  <a href="/docs/v0.33.x/Testing" class="button prev">≪ Testing</a>
+                
+              </div>
+            </div>
+            <div class="level-right">
+              <div class="level-item">
+                
+                  
+                  
+                  <a href="/docs/v0.33.x/HTTP2" class="button next">HTTP2 ≫</a>
+                
+              </div>
+            </div>
+          
+        
+          
+        
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // dynamically creates a submenu for the current section based on the content headers
+    var titles = document.querySelectorAll('#doc-content h3')
+    var currentMenu = document.getElementById('doc-menu-section')
+    if (titles.length && currentMenu) {
+      var submenu = document.createElement('ul')
+      titles.forEach(el => {
+        var currentSubmenuItem = document.createElement('li')
+        var currentSubmenuLink = document.createElement('a')
+        currentSubmenuLink.href = '#' + el.id
+        currentSubmenuLink.append(document.createTextNode(el.textContent))
+        currentSubmenuItem.append(currentSubmenuLink)
+        submenu.append(currentSubmenuItem)
+      })
+      currentMenu.append(submenu)
+    }
+  </script>
+</div>
+
+    </main>
+
+    <footer class="grey is-primary footer">
+  <div class="container">
+    <div class="content has-text-centered">
+    
+      <p>Fastify, Copyright &copy; 2016-2017 Matteo Collina and the <a href="https://github.com/fastify/fastify#team" target="_blank">Fastify team</a>, Licensed under <a href="https://github.com/fastify/fastify/blob/master/LICENSE" target="_blank">MIT</a></p>
+    </div>
+  </div>
+</footer>
+
+
+    <script src="/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+
+</html>

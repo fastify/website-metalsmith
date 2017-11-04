@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Hooks</title>
+  <meta name="description" content="Fast and low overhead web framework, for Node.js">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/images/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.1/css/bulma.min.css" integrity="sha256-CDVQJfU+jJGU/oyDzvnzuGXbv0rz+SyBsPQwyn7x/jQ=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
+
+  
+
+  
+</head>
+
+
+  <body>
+    <nav id="main-navbar" class="navbar">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="/images/fastify-logo-menu.png" alt="Fastify: Fast and low overhead web framework, for Node.js" height="28">
+    </a>
+
+    <a class="navbar-item is-hidden-desktop" href="https://github.com/fastify/fastify" target="_blank">
+      <span class="icon" style="color: #333;">
+        <i class="fa fa-github"></i>
+      </span>
+    </a>
+
+    <div class="navbar-burger burger" data-target="mobileMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div class="navbar-menu" id="mobileMenu">
+    <div class="navbar-start">
+      <a class="navbar-item " href="/">Home</a>
+      <a class="navbar-item " href="/docs/latest">Docs</a>
+      <a class="navbar-item " href="/ecosystem">Ecosystem</a>
+      <a class="navbar-item " href="/benchmarks">Benchmarks</a>
+    </div>
+
+    <div class="navbar-end">
+      <a class="navbar-item" href="https://github.com/fastify/fastify" target="_blank">
+        <span class="fa fa-github"> </span>&nbsp;Github
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+    <main class="page-content" aria-label="Content">
+      
+<section class="hero is-primary" style="background-image: url('/images/bg-pattern-bright.png')">
+  <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Documentation
+        </h1>
+      </div>
+  </div>
+</section>
+
+<div class="container">
+  <section class="section">
+    <div class="columns">
+
+      <div class="column is-3 is-hidden-mobile" data-sticky-container>
+        <aside class="menu sticky">
+          <p class="menu-label">
+            Table of contents
+          </p>
+          <ul class="menu-list">
+            
+              <li >
+                <a  href="/docs/v0.33.x/Getting-Started">Getting Started</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Server-Methods">Server Methods</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Routes">Routes</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Logging">Logging</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Middlewares">Middlewares</a>
+              </li>
+            
+              <li id="doc-menu-section">
+                <a class="is-active" href="/docs/v0.33.x/Hooks">Hooks</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Decorators">Decorators</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Validation-and-Serialization">Validation and Serialization</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Lifecycle">Lifecycle</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Reply">Reply</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Request">Request</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/ContentTypeParser">Content Type Parser</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Plugins">Plugins</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Testing">Testing</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Plugins-Guide">Plugins Guide</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/HTTP2">HTTP2</a>
+              </li>
+            
+          </ul>
+          <div class="content" style="margin: .8em; border-top: 1px solid #ccc; padding: .8em 0 0 0">
+            Docs version
+            <div class="field">
+              <div class="control">
+                <div class="select">
+                  <select onchange="if (this.value) window.location.href=this.value">
+                    
+                      
+                        
+                        
+                          <option  value="/docs/master">master</option>
+                      
+                    
+                      
+                        
+                        
+                          
+                        
+                          <option selected="selected" value="/docs/v0.33.x">v0.33.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.32.x">v0.32.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.31.x">v0.31.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.30.x">v0.30.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.29.x">v0.29.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.28.x">v0.28.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.27.x">v0.27.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.26.x">v0.26.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.25.x">v0.25.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.24.x">v0.24.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.23.x">v0.23.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.22.x">v0.22.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.21.x">v0.21.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.20.x">v0.20.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.19.x">v0.19.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.18.x">v0.18.x</option>
+                      
+                    
+                      
+                    
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="column">
+        <nav class="breadcrumb">
+          <ul>
+            <li><a href="/" style="padding-left: 0">Fastify</a></li>
+            <li><a href="/docs/">Documentation</a></li>
+            <li>
+              <div class="field">
+                <div class="control">
+                  <div class="select">
+                    <select onchange="if (this.value) window.location.href=this.value" style="border: none;">
+                      
+                        
+                          
+                          <option  value="/docs/master">master</option>
+                        
+                      
+                        
+                          
+                          <option selected="selected" value="/docs/v0.33.x">v0.33.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.32.x">v0.32.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.31.x">v0.31.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.30.x">v0.30.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.29.x">v0.29.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.28.x">v0.28.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.27.x">v0.27.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.26.x">v0.26.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.25.x">v0.25.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.24.x">v0.24.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.23.x">v0.23.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.22.x">v0.22.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.21.x">v0.21.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.20.x">v0.20.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.19.x">v0.19.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.18.x">v0.18.x</option>
+                        
+                      
+                        
+                      
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="is-active"><a>Hooks</a></li>
+          </ul>
+        </nav>
+
+        <div id="doc-content" class="content">
+          <h2 id="hooks">Hooks</h2>
+<p>By using the hooks you can interact directly inside the lifecycle of Fastify, there are three different Hooks that you can use <em>(in order of execution)</em>:</p>
+<ul>
+<li><code>&#39;onRequest&#39;</code></li>
+<li><code>&#39;preHandler&#39;</code></li>
+<li><code>&#39;onSend&#39;</code></li>
+<li><code>&#39;onResponse&#39;</code></li>
+<li><code>&#39;onClose&#39;</code></li>
+</ul>
+<p>Example:</p>
+<pre><code class="lang-js">fastify.addHook(&#39;onRequest&#39;, (req, res, next) =&gt; {
+  // some code
+  next()
+})
+
+fastify.addHook(&#39;preHandler&#39;, (request, reply, next) =&gt; {
+  // some code
+  next()
+})
+
+fastify.addHook(&#39;onSend&#39;, (request, reply, payload, next) =&gt; {
+  // some code
+  next()
+})
+
+fastify.addHook(&#39;onResponse&#39;, (res, next) =&gt; {
+  // some code
+  next()
+})
+</code></pre>
+<p>Or <code>async/await</code></p>
+<pre><code class="lang-js">fastify.addHook(&#39;onRequest&#39;, async (req, res) =&gt; {
+  // some code
+  await asyncMethod()
+  // error occurred
+  if (err) {
+    throw new Error(&#39;some errors occurred.&#39;)
+  }
+  return
+})
+
+fastify.addHook(&#39;preHandler&#39;, async (request, reply) =&gt; {
+  // some code
+  await asyncMethod()
+  // error occurred
+  if (err) {
+    throw new Error(&#39;some errors occurred.&#39;)
+  }
+  return
+})
+
+fastify.addHook(&#39;onSend&#39;, async (request, reply, payload) =&gt; {
+  // some code
+  await asyncMethod()
+  // error occurred
+  if (err) {
+    throw new Error(&#39;some errors occurred.&#39;)
+  }
+  return
+})
+
+fastify.addHook(&#39;onResponse&#39;, async (res) =&gt; {
+  // some code
+  await asyncMethod()
+  // error occurred
+  if (err) {
+    throw new Error(&#39;some errors occurred.&#39;)
+  }
+  return
+})
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>req</td>
+<td>Node.js <a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage">IncomingMessage</a></td>
+</tr>
+<tr>
+<td>res</td>
+<td>Node.js <a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">ServerResponse</a></td>
+</tr>
+<tr>
+<td>request</td>
+<td>Fastify <a href="/docs/v0.33.x/Request">Request</a> interface</td>
+</tr>
+<tr>
+<td>reply</td>
+<td>Fastify <a href="/docs/v0.33.x/Reply">Reply</a> interface</td>
+</tr>
+<tr>
+<td>next</td>
+<td>Function to continue with the <a href="/docs/v0.33.x/Lifecycle">lifecycle</a></td>
+</tr>
+</tbody>
+</table>
+<p>Is pretty easy understand where each hook is executed, if you need a visual feedback take a look to the <a href="/docs/v0.33.x/Lifecycle">lifecycle</a> page.</p>
+<p>If you get an error during the execution of you hook, just pass it to <code>next()</code> and Fastify will automatically close the request and send the appropriate error code to the user.</p>
+<pre><code class="lang-js">fastify.addHook(&#39;onRequest&#39;, (req, res, next) =&gt; {
+  next(new Error(&#39;some error&#39;))
+})
+</code></pre>
+<p>If you want to pass a custom error code to the user, just use <code>reply.code()</code>:</p>
+<pre><code class="lang-js">fastify.addHook(&#39;preHandler&#39;, (request, reply, next) =&gt; {
+  reply.code(500)
+  next(new Error(&#39;some error&#39;))
+})
+</code></pre>
+<p><em>The error will be handled by <a href="/docs/v0.33.x/Reply#errors"><code>Reply</code></a>.</em></p>
+<p>Note that in the <code>&#39;preHandler&#39;</code> and <code>&#39;onSend&#39;</code> hook the request and reply objects are different from <code>&#39;onRequest&#39;</code>, because the two arguments are <a href="/docs/v0.33.x/Request"><code>request</code></a> and <a href="/docs/v0.33.x/Reply"><code>reply</code></a> core Fastify objects.</p>
+<p>If you are using the <code>onSend</code> hook you can update the payload, but not overwrite it, for example:</p>
+<pre><code class="lang-js">// this is valid
+fastify.addHook(&#39;onSend&#39;, (request, reply, payload, next) =&gt; {
+  payload.hello = &#39;world&#39;
+  next()
+})
+
+// this is not valid
+fastify.addHook(&#39;onSend&#39;, (request, reply, payload, next) =&gt; {
+  payload = { hello: &#39;world&#39; }
+  next()
+})
+</code></pre>
+<p><a name="on-close"></a>
+<strong>&#39;onClose&#39;</strong><br>The unique hook that is not inside the lifecycle is <code>&#39;onClose&#39;</code>, this one is triggered when you call <code>fastify.close()</code> to stop the server, and it is useful if you have some <a href="/docs/v0.33.x/Plugins">plugins</a> that need a &quot;shutdown&quot; part, such as a connection to a database.<br>Only for this hook, the parameters of the function changes, the first one is the Fastify instance, the second one the <code>done</code> callback.</p>
+<pre><code class="lang-js">fastify.addHook(&#39;onClose&#39;, (instance, done) =&gt; {
+  // some code
+  done()
+})
+</code></pre>
+<p><a name="scope"></a></p>
+<h3 id="scope">Scope</h3>
+<p>Except for <code>&#39;onClose&#39;</code> all the hooks are encapsulated this means that you can decide where your hooks should run by using <code>register</code> as explained in the <a href="/docs/v0.33.x/Plugins-Guide">plugins guide</a>. If you pass a function, that function is bound to the right Fastify context and from there you have full access to the Fastify api.</p>
+<pre><code class="lang-js">fastify.addHook(&#39;onRequest&#39;, function (req, res, next) {
+  const self = this // Fastify context
+  next()
+})
+</code></pre>
+<p>Note: using an arrow function will break the binding of this to the Fastify instance.</p>
+<p><a name="before-handler"></a></p>
+<h3 id="beforehandler">beforeHandler</h3>
+<p>Despite the name, <code>beforeHandler</code> is not a standard hook like <code>preHandler</code>, but is a function that your register right in the route option that will be executed only in the specified route. Can be useful if you need to handle the authentication at route level instead of at hook level (<code>preHandler</code> for example.), it could also be an array of functions.<br><strong><code>beforeHandler</code> is executed always after the <code>preHandler</code> hook.</strong></p>
+<pre><code class="lang-js">fastify.addHook(&#39;preHandler&#39;, (request, reply, done) =&gt; {
+  // your code
+  done()
+})
+
+fastify.route({
+  method: &#39;GET&#39;,
+  url: &#39;/&#39;,
+  schema: { ... },
+  beforeHandler: function (request, reply, done) {
+    // your code
+    done()
+  },
+  handler: function (request, reply) {
+    reply.send({ hello: &#39;world&#39; })
+  }
+})
+
+fastify.route({
+  method: &#39;GET&#39;,
+  url: &#39;/&#39;,
+  schema: { ... },
+  beforeHandler: [
+    function first (request, reply, done) {
+      // your code
+      done()
+    },
+    function second (request, reply, done) {
+      // your code
+      done()
+    }
+  ],
+  handler: function (request, reply) {
+    reply.send({ hello: &#39;world&#39; })
+  }
+})
+</code></pre>
+
+        </div>
+
+        <hr/>
+        <nav class="level">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <div class="level-left">
+              <div class="level-item">
+                
+                  
+                  
+                  <a href="/docs/v0.33.x/Middlewares" class="button prev">≪ Middlewares</a>
+                
+              </div>
+            </div>
+            <div class="level-right">
+              <div class="level-item">
+                
+                  
+                  
+                  <a href="/docs/v0.33.x/Decorators" class="button next">Decorators ≫</a>
+                
+              </div>
+            </div>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // dynamically creates a submenu for the current section based on the content headers
+    var titles = document.querySelectorAll('#doc-content h3')
+    var currentMenu = document.getElementById('doc-menu-section')
+    if (titles.length && currentMenu) {
+      var submenu = document.createElement('ul')
+      titles.forEach(el => {
+        var currentSubmenuItem = document.createElement('li')
+        var currentSubmenuLink = document.createElement('a')
+        currentSubmenuLink.href = '#' + el.id
+        currentSubmenuLink.append(document.createTextNode(el.textContent))
+        currentSubmenuItem.append(currentSubmenuLink)
+        submenu.append(currentSubmenuItem)
+      })
+      currentMenu.append(submenu)
+    }
+  </script>
+</div>
+
+    </main>
+
+    <footer class="grey is-primary footer">
+  <div class="container">
+    <div class="content has-text-centered">
+    
+      <p>Fastify, Copyright &copy; 2016-2017 Matteo Collina and the <a href="https://github.com/fastify/fastify#team" target="_blank">Fastify team</a>, Licensed under <a href="https://github.com/fastify/fastify/blob/master/LICENSE" target="_blank">MIT</a></p>
+    </div>
+  </div>
+</footer>
+
+
+    <script src="/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+
+</html>

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Middlewares</title>
+  <meta name="description" content="Fast and low overhead web framework, for Node.js">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/images/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.1/css/bulma.min.css" integrity="sha256-CDVQJfU+jJGU/oyDzvnzuGXbv0rz+SyBsPQwyn7x/jQ=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
+
+  
+
+  
+</head>
+
+
+  <body>
+    <nav id="main-navbar" class="navbar">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="/images/fastify-logo-menu.png" alt="Fastify: Fast and low overhead web framework, for Node.js" height="28">
+    </a>
+
+    <a class="navbar-item is-hidden-desktop" href="https://github.com/fastify/fastify" target="_blank">
+      <span class="icon" style="color: #333;">
+        <i class="fa fa-github"></i>
+      </span>
+    </a>
+
+    <div class="navbar-burger burger" data-target="mobileMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div class="navbar-menu" id="mobileMenu">
+    <div class="navbar-start">
+      <a class="navbar-item " href="/">Home</a>
+      <a class="navbar-item " href="/docs/latest">Docs</a>
+      <a class="navbar-item " href="/ecosystem">Ecosystem</a>
+      <a class="navbar-item " href="/benchmarks">Benchmarks</a>
+    </div>
+
+    <div class="navbar-end">
+      <a class="navbar-item" href="https://github.com/fastify/fastify" target="_blank">
+        <span class="fa fa-github"> </span>&nbsp;Github
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+    <main class="page-content" aria-label="Content">
+      
+<section class="hero is-primary" style="background-image: url('/images/bg-pattern-bright.png')">
+  <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Documentation
+        </h1>
+      </div>
+  </div>
+</section>
+
+<div class="container">
+  <section class="section">
+    <div class="columns">
+
+      <div class="column is-3 is-hidden-mobile" data-sticky-container>
+        <aside class="menu sticky">
+          <p class="menu-label">
+            Table of contents
+          </p>
+          <ul class="menu-list">
+            
+              <li >
+                <a  href="/docs/v0.33.x/Getting-Started">Getting Started</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Server-Methods">Server Methods</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Routes">Routes</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Logging">Logging</a>
+              </li>
+            
+              <li id="doc-menu-section">
+                <a class="is-active" href="/docs/v0.33.x/Middlewares">Middlewares</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Hooks">Hooks</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Decorators">Decorators</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Validation-and-Serialization">Validation and Serialization</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Lifecycle">Lifecycle</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Reply">Reply</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Request">Request</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/ContentTypeParser">Content Type Parser</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Plugins">Plugins</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Testing">Testing</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/Plugins-Guide">Plugins Guide</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/v0.33.x/HTTP2">HTTP2</a>
+              </li>
+            
+          </ul>
+          <div class="content" style="margin: .8em; border-top: 1px solid #ccc; padding: .8em 0 0 0">
+            Docs version
+            <div class="field">
+              <div class="control">
+                <div class="select">
+                  <select onchange="if (this.value) window.location.href=this.value">
+                    
+                      
+                        
+                        
+                          <option  value="/docs/master">master</option>
+                      
+                    
+                      
+                        
+                        
+                          
+                        
+                          <option selected="selected" value="/docs/v0.33.x">v0.33.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.32.x">v0.32.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.31.x">v0.31.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.30.x">v0.30.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.29.x">v0.29.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.28.x">v0.28.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.27.x">v0.27.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.26.x">v0.26.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.25.x">v0.25.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.24.x">v0.24.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.23.x">v0.23.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.22.x">v0.22.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.21.x">v0.21.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.20.x">v0.20.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.19.x">v0.19.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.18.x">v0.18.x</option>
+                      
+                    
+                      
+                    
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="column">
+        <nav class="breadcrumb">
+          <ul>
+            <li><a href="/" style="padding-left: 0">Fastify</a></li>
+            <li><a href="/docs/">Documentation</a></li>
+            <li>
+              <div class="field">
+                <div class="control">
+                  <div class="select">
+                    <select onchange="if (this.value) window.location.href=this.value" style="border: none;">
+                      
+                        
+                          
+                          <option  value="/docs/master">master</option>
+                        
+                      
+                        
+                          
+                          <option selected="selected" value="/docs/v0.33.x">v0.33.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.32.x">v0.32.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.31.x">v0.31.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.30.x">v0.30.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.29.x">v0.29.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.28.x">v0.28.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.27.x">v0.27.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.26.x">v0.26.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.25.x">v0.25.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.24.x">v0.24.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.23.x">v0.23.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.22.x">v0.22.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.21.x">v0.21.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.20.x">v0.20.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.19.x">v0.19.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.18.x">v0.18.x</option>
+                        
+                      
+                        
+                      
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="is-active"><a>Middlewares</a></li>
+          </ul>
+        </nav>
+
+        <div id="doc-content" class="content">
+          <h2 id="middlewares">Middlewares</h2>
+<p>Fastify provides out of the box an asynchronous <a href="https://github.com/fastify/middie">middleware engine</a> compatible with <a href="https://expressjs.com/">Express</a> and <a href="http://restify.com/">Restify</a> middlewares.</p>
+<p><em>If you need a visual feedback to understand when the middlewares are executed take a look to the <a href="/docs/v0.33.x/Lifecycle">lifecycle</a> page.</em></p>
+<p>Fastify middlewares don&#39;t support the full syntax <code>middleware(err, req, res, next)</code>, because error handling is done inside Fastify.
+Furthermore methods added by Express and Restify to the enhanced versions of <code>req</code> and <code>res</code> are not supported in Fastify middlewares.</p>
+<p>Also, if you are using a middleware that bundles different, smaller middlewares, such as <a href="https://helmetjs.github.io/"><em>helmet</em></a>, we recommend to use the single modules to get better performances.</p>
+<pre><code class="lang-js">fastify.use(require(&#39;cors&#39;)())
+fastify.use(require(&#39;dns-prefetch-control&#39;)())
+fastify.use(require(&#39;frameguard&#39;)())
+fastify.use(require(&#39;hide-powered-by&#39;)())
+fastify.use(require(&#39;hsts&#39;)())
+fastify.use(require(&#39;ienoopen&#39;)())
+fastify.use(require(&#39;x-xss-protection&#39;)())
+</code></pre>
+<p>or, in the specific case of <em>helmet</em>, you can use the <a href="https://github.com/fastify/fastify-helmet"><em>fastify-helmet</em></a> <a href="Plugins.md">plugin</a>, which is an optimized helmet integration for fastify:</p>
+<pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)()
+const helmet = require(&#39;fastify-helmet&#39;)
+
+fastify.register(helmet)
+</code></pre>
+<p>Remember that middlewares can be encapsulated, this means that you can decide where your middlewares should run by using <code>register</code> as explained in the <a href="/docs/v0.33.x/Plugins-Guide">plugins guide</a>.</p>
+<p>Fastify middlewares also do not expose the <code>send</code> method or other methods specific to the Fastify <a href="&#39;./Reply.md&#39;" title="Reply">Reply</a> instance. This is because Fastify wraps the incoming <code>req</code> and <code>res</code> Node instances using the <a href="./Request.md" title="Request">Request</a> and <a href="./Reply.md" title="Reply">Reply</a> objects internally, but this is done after the middlewares phase. If you need to create a middleware you have to use the Node <code>req</code> and <code>res</code> instances. Otherwise, you can use the <code>preHandler</code> hook that has the <a href="./Request.md" title="Request">Request</a> and <a href="./Reply.md" title="Reply">Reply</a> Fastify instances. For more information, see <a href="./Hooks.md" title="Hooks">Hooks</a>.</p>
+<p><a name="restrict-usage"></a></p>
+<h4 id="restrict-middleware-execution-to-a-certain-path-s-">Restrict middleware execution to a certain path(s)</h4>
+<p>If you need to run a middleware only under certain path(s), just pass the path as first parameter to <code>use</code> and you are done!</p>
+<p><em>Note that this does not support routes with parameters, (eg: <code>/user/:id/comments</code>) and wildcard is not supported in multiple paths.</em></p>
+<pre><code class="lang-js">const path = require(&#39;path&#39;)
+const serveStatic = require(&#39;serve-static&#39;)
+
+// Single path
+fastify.use(&#39;/css&#39;, serveStatic(path.join(__dirname, &#39;/assets&#39;)))
+
+// Wildcard path
+fastify.use(&#39;/css/*&#39;, serveStatic(path.join(__dirname, &#39;/assets&#39;)))
+
+// Multiple paths
+fastify.use([&#39;/css&#39;, &#39;/js&#39;], serveStatic(path.join(__dirname, &#39;/assets&#39;)))
+</code></pre>
+
+        </div>
+
+        <hr/>
+        <nav class="level">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <div class="level-left">
+              <div class="level-item">
+                
+                  
+                  
+                  <a href="/docs/v0.33.x/Logging" class="button prev">≪ Logging</a>
+                
+              </div>
+            </div>
+            <div class="level-right">
+              <div class="level-item">
+                
+                  
+                  
+                  <a href="/docs/v0.33.x/Hooks" class="button next">Hooks ≫</a>
+                
+              </div>
+            </div>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // dynamically creates a submenu for the current section based on the content headers
+    var titles = document.querySelectorAll('#doc-content h3')
+    var currentMenu = document.getElementById('doc-menu-section')
+    if (titles.length && currentMenu) {
+      var submenu = document.createElement('ul')
+      titles.forEach(el => {
+        var currentSubmenuItem = document.createElement('li')
+        var currentSubmenuLink = document.createElement('a')
+        currentSubmenuLink.href = '#' + el.id
+        currentSubmenuLink.append(document.createTextNode(el.textContent))
+        currentSubmenuItem.append(currentSubmenuLink)
+        submenu.append(currentSubmenuItem)
+      })
+      currentMenu.append(submenu)
+    }
+  </script>
+</div>
+
+    </main>
+
+    <footer class="grey is-primary footer">
+  <div class="container">
+    <div class="content has-text-centered">
+    
+      <p>Fastify, Copyright &copy; 2016-2017 Matteo Collina and the <a href="https://github.com/fastify/fastify#team" target="_blank">Fastify team</a>, Licensed under <a href="https://github.com/fastify/fastify/blob/master/LICENSE" target="_blank">MIT</a></p>
+    </div>
+  </div>
+</footer>
+
+
+    <script src="/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+
+</html>
