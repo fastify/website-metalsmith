@@ -569,7 +569,7 @@ fastify.get(&#39;/plugin2&#39;, (req, reply) =&gt; {
   reply.send(req)
 })
 </code></pre>
-<p>Now for every request you will run your utility, it is obvious that you can register as many hooks as you need.<br>It can happen that you want that a hook must be executed just for a subset of routes, how can you do that?  Yep, encapsulation!</p>
+<p>Now for every request you will run your utility, it is obvious that you can register as many hooks as you need.<br>It can happen that you want a hook that must be executed just for a subset of routes, how can you do that?  Yep, encapsulation!</p>
 <pre><code class="lang-js">fastify.register((instance, opts, next) =&gt; {
   instance.decorate(&#39;util&#39;, (req, key, value) =&gt; { req.key = value })
 
@@ -590,7 +590,7 @@ fastify.get(&#39;/plugin2&#39;, (req, reply) =&gt; {
 })
 </code></pre>
 <p>Now your hook will run just for the first route!</p>
-<p>As you probably noticed at this time, <code>request</code> and <code>reply</code> are not the standard Nodejs <em>request</em> and <em>response</em> objects, but Fastify&#39;s objects.<br>Let&#39;s say that you are arriving from a framework like Express or Restify, and you already have some Middleware that do exactly what you need, and you don&#39;t want to redo al the work.</p>
+<p>As you probably noticed at this time, <code>request</code> and <code>reply</code> are not the standard Nodejs <em>request</em> and <em>response</em> objects, but Fastify&#39;s objects.<br>Let&#39;s say that you are arriving from a framework like Express or Restify, and you already have some Middleware that do exactly what you need, and you don&#39;t want to redo all the work.</p>
 <p><a name="middlewares"></a></p>
 <h2 id="middlewares">Middlewares</h2>
 <p>Fastify <a href="/docs/master/Middlewares">supports</a> out of the box Express/Restify/Connect middlewares, this means that you can just drop-in your old code and it will work! <em>(faster, by the way)</em><br>How we can do that? Checkout our middlewares engine, <a href="https://github.com/fastify/middie">middie</a>.</p>
@@ -617,7 +617,7 @@ module.exports = fp(dbPlugin)
 <p>You can also tell to <code>fastify-plugin</code> to check the installed version of Fastify, in case of you need a specific api.</p>
 <p><a name="start"></a></p>
 <h2 id="let-s-start-">Let&#39;s start!</h2>
-<p>Awesome, now you know everything you need to know about Fastify and its plugin system to start build your first plugin, and please if you do, tell us! We will add it to the <a href="https://github.com/fastify/fastify#ecosystem"><em>ecosystem</em></a> section of our documentation!</p>
+<p>Awesome, now you know everything you need to know about Fastify and its plugin system to start building your first plugin, and please if you do, tell us! We will add it to the <a href="https://github.com/fastify/fastify#ecosystem"><em>ecosystem</em></a> section of our documentation!</p>
 <p>If you want to see some real world example, checkout:</p>
 <ul>
 <li><a href="https://github.com/fastify/point-of-view"><code>point-of-view</code></a>

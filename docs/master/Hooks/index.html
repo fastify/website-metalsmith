@@ -497,7 +497,7 @@ fastify.addHook(&#39;onResponse&#39;, async (res) =&gt; {
 </tr>
 </tbody>
 </table>
-<p>Is pretty easy understand where each hook is executed, if you need a visual feedback take a look to the <a href="/docs/master/Lifecycle">lifecycle</a> page.</p>
+<p>It is pretty easy to understand where each hook is executed, if you need a visual feedback take a look to the <a href="/docs/master/Lifecycle">lifecycle</a> page.</p>
 <p>If you get an error during the execution of you hook, just pass it to <code>next()</code> and Fastify will automatically close the request and send the appropriate error code to the user.</p>
 <pre><code class="lang-js">fastify.addHook(&#39;onRequest&#39;, (req, res, next) =&gt; {
   next(new Error(&#39;some error&#39;))
