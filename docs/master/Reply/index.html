@@ -455,22 +455,20 @@ This is a shortcut for <code>reply.header(&#39;Content-Type&#39;, &#39;the/type&
   reply.send({ hello: &#39;world&#39; })
 })
 </code></pre>
-<p><a name="send-promise"></a></p>
-<h4 id="promises">Promises</h4>
-<p><em>send</em> handle natively the <em>promises</em> and supports out of the box <em>async-await</em>.</p>
+<p><a name="async-await-promise"></a></p>
+<h4 id="async-await-and-promises">Async-Await and Promises</h4>
+<p>Fastify natively handles promies and supports async-await.<br><em>Note that in the following examples we are not using reply.send.</em></p>
 <pre><code class="lang-js">fastify.get(&#39;/promises&#39;, options, function (request, reply) {
-  const promise = new Promise(...)
-  reply
-    .code(200)
-    .header(&#39;Content-Type&#39;, &#39;application/json&#39;)
-    .send(promise)
+  const promise = new Promise(function (resolve) {
+    setTimeout(resolve, 200, { hello: &#39;world&#39; })
+  })
+  return promise
 })
 
 fastify.get(&#39;/async-await&#39;, options, async function (request, reply) {
   var res = await new Promise(function (resolve) {
     setTimeout(resolve, 200, { hello: &#39;world&#39; })
   })
-  // note that we are returning the promise without using &#39;.send()&#39;
   return res
 })
 </code></pre>
