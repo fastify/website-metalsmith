@@ -404,6 +404,7 @@ Reply is a core Fastify object that exposes the following functions:</p>
 <li><code>.header(name, value)</code> - Sets the headers.</li>
 <li><code>.type(value)</code> - Sets the header <code>Content-Type</code>.</li>
 <li><code>.redirect([code,] url)</code> - Redirect to the specified url, the status code is optional (default to <code>302</code>).</li>
+<li><code>.serialize(payload)</code> - Serializes the specified payload using the default json serializer and returns the serialized payload.</li>
 <li><code>.serializer(function)</code> - Sets a custom serializer for the payload.</li>
 <li><code>.send(payload)</code> - Sends the payload to the user, could be a plain text, JSON, stream, or an Error object.</li>
 <li><code>.sent</code> - A boolean value that you can use if you need to know it <code>send</code> has already been called.</li>
