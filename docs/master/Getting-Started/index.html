@@ -492,17 +492,16 @@ async function routes (fastify, options) {
   })
 
   fastify.get(&#39;/search/:id&#39;, async (request, reply) =&gt; {
-    return await collection.findOne({ id: req.params.id })
+    return await collection.findOne({ id: request.params.id })
   })
 }
 
 module.exports = routes
 </code></pre>
-<p>Wow, that was fast!
-Let&#39;s recap what we have done here since we&#39;ve introduced some new concepts.<br>As you can see, we used <code>register</code> both for the database connector and the routes registration.
+<p>Wow, that was fast!<br>Let&#39;s recap what we have done here since we&#39;ve introduced some new concepts.<br>As you can see, we used <code>register</code> both for the database connector and the routes registration.
 This is one of the best features of Fastify, it will load your plugins in the same order you declare them, and it will load the next plugin only once the current one has been loaded. In this way we can register the database connector in the first plugin and use it in the second.</p>
 <p>We have used the <code>decorate</code> api API. Let&#39;s take a moment to understand what it is and how it works. A scenario is to use the same code/library in different parts of an application. A solution is to require the code/library that it is needed. it This works, but is annoying because of duplicated code repeated and, if needed, long refactors.<br>To solve this Fastify offers the <code>decorate</code> API, which adds custom objects to the Fastify namespace, so that they can be used everywhere.</p>
-<p>To dig deeper into how Fastify plugins work, how to develop new plugins, and for details on how to use the whole Fastify API to deal with the complexity of asynchronously bootstrapping an application, read <a href="/docs/master/Plugins">the hitchhiker&#39;s guide to plugins</a>.</p>
+<p>To dig deeper into how Fastify plugins work, how to develop new plugins, and for details on how to use the whole Fastify API to deal with the complexity of asynchronously bootstrapping an application, read <a href="/docs/master/Plugins-Guide">the hitchhiker&#39;s guide to plugins</a>.</p>
 <p><a name="validate-data"></a></p>
 <h3 id="validate-your-data">Validate your data</h3>
 <p>Data validation is extremely important and is a core concept of the framework.<br>To validate incoming requests, Fastify uses <a href="http://json-schema.org/">JSON Schema</a>.
