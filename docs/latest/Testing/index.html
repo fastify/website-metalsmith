@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.33.x/Testing">
+    <link ref="canonical" href="/docs/v0.34.x/Testing">
   
 
   
@@ -157,6 +157,10 @@
               </li>
             
               <li >
+                <a  href="/docs/latest/Benchmarking">Benchmarking</a>
+              </li>
+            
+              <li >
                 <a  href="/docs/latest/Plugins-Guide">Plugins Guide</a>
               </li>
             
@@ -183,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.33.x">v0.33.x</option>
+                          <option selected="selected" value="/docs/v0.34.x">v0.34.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.33.x">v0.33.x</option>
                       
                     
                       
@@ -268,12 +278,6 @@
                         
                         
                           <option  value="/docs/v0.19.x">v0.19.x</option>
-                      
-                    
-                      
-                        
-                        
-                          <option  value="/docs/v0.18.x">v0.18.x</option>
                       
                     
                       
@@ -304,7 +308,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.33.x">v0.33.x</option>
+                          <option selected="selected" value="/docs/v0.34.x">v0.34.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.33.x">v0.33.x</option>
                         
                       
                         
@@ -375,11 +384,6 @@
                         
                           
                           <option  value="/docs/v0.19.x">v0.19.x</option>
-                        
-                      
-                        
-                          
-                          <option  value="/docs/v0.18.x">v0.18.x</option>
                         
                       
                         
@@ -572,7 +576,7 @@ test(&#39;GET `/` route&#39;, t =&gt; {
     url: &#39;/&#39;
   }, res =&gt; {
     t.strictEqual(res.statusCode, 200)
-    t.strictEqual(res.headers[&#39;content-length&#39;], &#39;&#39; + body.length)
+    t.strictEqual(res.headers[&#39;content-length&#39;], &#39;&#39; + res.payload.length)
     t.deepEqual(JSON.parse(res.payload), { hello: &#39;world&#39; })
     // even if the server is not running (inject does not run the server)
     // at the end of your tests is highly recommended call `.close()`,
@@ -628,10 +632,12 @@ test(&#39;GET `/` route&#39;, t =&gt; {
                 
                   
                   
-                  <a href="/docs/latest/Plugins-Guide" class="button next">Plugins Guide ≫</a>
+                  <a href="/docs/latest/Benchmarking" class="button next">Benchmarking ≫</a>
                 
               </div>
             </div>
+          
+        
           
         
           

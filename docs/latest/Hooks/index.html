@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.33.x/Hooks">
+    <link ref="canonical" href="/docs/v0.34.x/Hooks">
   
 
   
@@ -157,6 +157,10 @@
               </li>
             
               <li >
+                <a  href="/docs/latest/Benchmarking">Benchmarking</a>
+              </li>
+            
+              <li >
                 <a  href="/docs/latest/Plugins-Guide">Plugins Guide</a>
               </li>
             
@@ -183,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.33.x">v0.33.x</option>
+                          <option selected="selected" value="/docs/v0.34.x">v0.34.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.33.x">v0.33.x</option>
                       
                     
                       
@@ -268,12 +278,6 @@
                         
                         
                           <option  value="/docs/v0.19.x">v0.19.x</option>
-                      
-                    
-                      
-                        
-                        
-                          <option  value="/docs/v0.18.x">v0.18.x</option>
                       
                     
                       
@@ -304,7 +308,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.33.x">v0.33.x</option>
+                          <option selected="selected" value="/docs/v0.34.x">v0.34.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.33.x">v0.33.x</option>
                         
                       
                         
@@ -375,11 +384,6 @@
                         
                           
                           <option  value="/docs/v0.19.x">v0.19.x</option>
-                        
-                      
-                        
-                          
-                          <option  value="/docs/v0.18.x">v0.18.x</option>
                         
                       
                         
@@ -495,7 +499,7 @@ fastify.addHook(&#39;onResponse&#39;, async (res) =&gt; {
 </tr>
 </tbody>
 </table>
-<p>Is pretty easy understand where each hook is executed, if you need a visual feedback take a look to the <a href="/docs/latest/Lifecycle">lifecycle</a> page.</p>
+<p>It is pretty easy to understand where each hook is executed, if you need a visual feedback take a look to the <a href="/docs/latest/Lifecycle">lifecycle</a> page.</p>
 <p>If you get an error during the execution of you hook, just pass it to <code>next()</code> and Fastify will automatically close the request and send the appropriate error code to the user.</p>
 <pre><code class="lang-js">fastify.addHook(&#39;onRequest&#39;, (req, res, next) =&gt; {
   next(new Error(&#39;some error&#39;))
@@ -613,6 +617,8 @@ fastify.route({
                 
               </div>
             </div>
+          
+        
           
         
           

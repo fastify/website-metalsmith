@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.33.x/Plugins-Guide">
+    <link ref="canonical" href="/docs/v0.34.x/Plugins-Guide">
   
 
   
@@ -156,6 +156,10 @@
                 <a  href="/docs/latest/Testing">Testing</a>
               </li>
             
+              <li >
+                <a  href="/docs/latest/Benchmarking">Benchmarking</a>
+              </li>
+            
               <li id="doc-menu-section">
                 <a class="is-active" href="/docs/latest/Plugins-Guide">Plugins Guide</a>
               </li>
@@ -183,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.33.x">v0.33.x</option>
+                          <option selected="selected" value="/docs/v0.34.x">v0.34.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.33.x">v0.33.x</option>
                       
                     
                       
@@ -268,12 +278,6 @@
                         
                         
                           <option  value="/docs/v0.19.x">v0.19.x</option>
-                      
-                    
-                      
-                        
-                        
-                          <option  value="/docs/v0.18.x">v0.18.x</option>
                       
                     
                       
@@ -304,7 +308,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.33.x">v0.33.x</option>
+                          <option selected="selected" value="/docs/v0.34.x">v0.34.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.33.x">v0.33.x</option>
                         
                       
                         
@@ -378,11 +387,6 @@
                         
                       
                         
-                          
-                          <option  value="/docs/v0.18.x">v0.18.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
@@ -404,6 +408,7 @@
 <li><a href="#hooks">Hooks</a></li>
 <li><a href="#middlewares">Middlewares</a></li>
 <li><a href="#distribution">How to handle encapsulation and distribution</a></li>
+<li><a href="#handle-errors">Handle errors</a></li>
 <li><a href="#start">Let&#39;s start!</a></li>
 </ul>
 <p><a name="register"></a></p>
@@ -411,8 +416,7 @@
 <p>As in JavaScript everything is an object, in Fastify everything is a plugin.<br>Your routes, your utilities and so on are all plugins. And to add a new plugin, whatever its functionality is, in Fastify you have a nice and unique api to use: <a href="/docs/latest/Plugins"><code>register</code></a>.</p>
 <pre><code class="lang-js">fastify.register(
   require(&#39;./my-plugin&#39;),
-  { options },
-  callback
+  { options }
 )
 </code></pre>
 <p><code>register</code> creates for you a new Fastify context, this means that if you do any change to the Fastify instance, that change(s) will not be reflected into the context&#39;s ancestors. In other words, encapsulation!</p>
@@ -567,7 +571,7 @@ fastify.get(&#39;/plugin2&#39;, (req, reply) =&gt; {
   reply.send(req)
 })
 </code></pre>
-<p>Now for every request you will run your utility, it is obvious that you can register as many hooks as you need.<br>It can happen that you want that a hook must be executed just for a subset of routes, how can you do that?  Yep, encapsulation!</p>
+<p>Now for every request you will run your utility, it is obvious that you can register as many hooks as you need.<br>It can happen that you want a hook that must be executed just for a subset of routes, how can you do that?  Yep, encapsulation!</p>
 <pre><code class="lang-js">fastify.register((instance, opts, next) =&gt; {
   instance.decorate(&#39;util&#39;, (req, key, value) =&gt; { req.key = value })
 
@@ -588,7 +592,7 @@ fastify.get(&#39;/plugin2&#39;, (req, reply) =&gt; {
 })
 </code></pre>
 <p>Now your hook will run just for the first route!</p>
-<p>As you probably noticed at this time, <code>request</code> and <code>reply</code> are not the standard Nodejs <em>request</em> and <em>response</em> objects, but Fastify&#39;s objects.<br>Let&#39;s say that you are arriving from a framework like Express or Restify, and you already have some Middleware that do exactly what you need, and you don&#39;t want to redo al the work.</p>
+<p>As you probably noticed at this time, <code>request</code> and <code>reply</code> are not the standard Nodejs <em>request</em> and <em>response</em> objects, but Fastify&#39;s objects.<br>Let&#39;s say that you are arriving from a framework like Express or Restify, and you already have some Middleware that do exactly what you need, and you don&#39;t want to redo all the work.</p>
 <p><a name="middlewares"></a></p>
 <h2 id="middlewares">Middlewares</h2>
 <p>Fastify <a href="/docs/latest/Middlewares">supports</a> out of the box Express/Restify/Connect middlewares, this means that you can just drop-in your old code and it will work! <em>(faster, by the way)</em><br>How we can do that? Checkout our middlewares engine, <a href="https://github.com/fastify/middie">middie</a>.</p>
@@ -613,9 +617,26 @@ function dbPlugin (fastify, opts, next) {
 module.exports = fp(dbPlugin)
 </code></pre>
 <p>You can also tell to <code>fastify-plugin</code> to check the installed version of Fastify, in case of you need a specific api.</p>
+<p><a name="handle-errors"></a></p>
+<h2 id="handle-errors">Handle errors</h2>
+<p>It can happen that one of your plugins could fail during the startup. Maybe you expect it and you have a custom logic that will be triggered in that case. How can you do this?
+The <code>after</code> api is what you need. <code>after</code> simply register a callback that will be executed just after a register, and it can take up to three parameters.<br>The callback changes basing on the parameters your are giving:</p>
+<ol>
+<li>If no parameter is given to the callback and there is an error, that error will be passed to the next error handler.</li>
+<li>If one parameter is given to the callback, that parameter will be the error object.</li>
+<li>If two parameters are given to the callback, the first will be the error object, the second will be the done callback.</li>
+<li>If three parameters are given to the callback, the first will be the error object, the second will be the top level context unless you have specified both server and override, in that case the context will be what the override returns, and the third the done callback.</li>
+</ol>
+<p>Let&#39;s see how use it:</p>
+<pre><code class="lang-js">fastify
+  .register(require(&#39;./database-connector&#39;))
+  .after(err =&gt; {
+    if (err) throw err
+  })
+</code></pre>
 <p><a name="start"></a></p>
 <h2 id="let-s-start-">Let&#39;s start!</h2>
-<p>Awesome, now you know everything you need to know about Fastify and its plugin system to start build your first plugin, and please if you do, tell us! We will add it to the <a href="https://github.com/fastify/fastify#ecosystem"><em>ecosystem</em></a> section of our documentation!</p>
+<p>Awesome, now you know everything you need to know about Fastify and its plugin system to start building your first plugin, and please if you do, tell us! We will add it to the <a href="https://github.com/fastify/fastify#ecosystem"><em>ecosystem</em></a> section of our documentation!</p>
 <p>If you want to see some real world example, checkout:</p>
 <ul>
 <li><a href="https://github.com/fastify/point-of-view"><code>point-of-view</code></a>
@@ -662,12 +683,14 @@ Multipart support for Fastify</li>
           
         
           
+        
+          
             <div class="level-left">
               <div class="level-item">
                 
                   
                   
-                  <a href="/docs/latest/Testing" class="button prev">≪ Testing</a>
+                  <a href="/docs/latest/Benchmarking" class="button prev">≪ Benchmarking</a>
                 
               </div>
             </div>
