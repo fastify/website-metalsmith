@@ -574,7 +574,7 @@ test(&#39;GET `/` route&#39;, t =&gt; {
     url: &#39;/&#39;
   }, res =&gt; {
     t.strictEqual(res.statusCode, 200)
-    t.strictEqual(res.headers[&#39;content-length&#39;], res.payload.length)
+    t.strictEqual(res.headers[&#39;content-length&#39;], &#39;&#39; + res.payload.length)
     t.deepEqual(JSON.parse(res.payload), { hello: &#39;world&#39; })
     // even if the server is not running (inject does not run the server)
     // at the end of your tests is highly recommended call `.close()`,
