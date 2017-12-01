@@ -273,12 +273,6 @@
                       
                     
                       
-                        
-                        
-                          <option  value="/docs/v0.20.x">v0.20.x</option>
-                      
-                    
-                      
                     
                   </select>
                 </div>
@@ -380,11 +374,6 @@
                         
                       
                         
-                          
-                          <option  value="/docs/v0.20.x">v0.20.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
@@ -397,7 +386,7 @@
 
         <div id="doc-content" class="content">
           <h2 id="hooks">Hooks</h2>
-<p>By using the hooks you can interact directly inside the lifecycle of Fastify, there are three different Hooks that you can use <em>(in order of execution)</em>:</p>
+<p>By using the hooks you can interact directly inside the lifecycle of Fastify. There are five different Hooks that you can use <em>(in order of execution)</em>:</p>
 <ul>
 <li><code>&#39;onRequest&#39;</code></li>
 <li><code>&#39;preHandler&#39;</code></li>
@@ -497,7 +486,7 @@ fastify.addHook(&#39;onResponse&#39;, async (res) =&gt; {
 </tr>
 </tbody>
 </table>
-<p>It is pretty easy to understand where each hook is executed, if you need a visual feedback take a look to the <a href="/docs/v0.35.x/Lifecycle">lifecycle</a> page.</p>
+<p>It is pretty easy to understand where each hook is executed by looking at the <a href="/docs/v0.35.x/Lifecycle">lifecycle page</a>.<br>Hooks are affected by Fastify&#39;s encapsulation, and can thus be applied to selected routes. See the <a href="#scope">Scopes</a> section for more information.</p>
 <p>If you get an error during the execution of you hook, just pass it to <code>next()</code> and Fastify will automatically close the request and send the appropriate error code to the user.</p>
 <pre><code class="lang-js">fastify.addHook(&#39;onRequest&#39;, (req, res, next) =&gt; {
   next(new Error(&#39;some error&#39;))
