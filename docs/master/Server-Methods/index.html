@@ -387,6 +387,22 @@ It takes an error parameter if something went wrong.</p>
   if (err) throw err
 })
 </code></pre>
+<p>If no callback is provided a Promise is returned:</p>
+<pre><code class="lang-js">fastify.listen(3000)
+  .then(() =&gt; console.log(&#39;Listening&#39;))
+  .catch(err =&gt; {
+    console.log(&#39;Error starting server:&#39;, err)
+    process.exit(1)
+  })
+</code></pre>
+<p>Specifying an address without a callback is also supported:</p>
+<pre><code class="lang-js">fastify.listen(3000, &#39;127.0.0.1&#39;)
+  .then(() =&gt; console.log(&#39;Listening&#39;))
+  .catch(err =&gt; {
+    console.log(&#39;Error starting server:&#39;, err)
+    process.exit(1)
+  })
+</code></pre>
 <p><a name="route"></a></p>
 <h4 id="route">route</h4>
 <p>Method to add routes to the server, it also have shorthands functions, check <a href="/docs/master/Routes">here</a>.</p>
