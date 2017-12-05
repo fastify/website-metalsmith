@@ -269,12 +269,6 @@
                       
                     
                       
-                        
-                        
-                          <option  value="/docs/v0.21.x">v0.21.x</option>
-                      
-                    
-                      
                     
                   </select>
                 </div>
@@ -371,11 +365,6 @@
                         
                       
                         
-                          
-                          <option  value="/docs/v0.21.x">v0.21.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
@@ -398,7 +387,7 @@ Fastify does not offer a testing framework out of the box, but we can recommend 
 </ul>
 <pre><code class="lang-js">// server.js
 const minimist = require(&#39;minimist&#39;)
-const fastify = require(&#39;fastify&#39;)()
+const Fastify = require(&#39;fastify&#39;)
 
 const options = {
   schema: {
@@ -414,6 +403,8 @@ const options = {
 }
 
 function start (opts, callback) {
+  const fastify = Fastify()
+
   fastify.get(&#39;/&#39;, options, function (request, reply) {
     reply.send({ hello: &#39;world&#39; })
   })
