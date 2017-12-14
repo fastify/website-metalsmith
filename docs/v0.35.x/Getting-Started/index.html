@@ -255,12 +255,6 @@
                       
                     
                       
-                        
-                        
-                          <option  value="/docs/v0.23.x">v0.23.x</option>
-                      
-                    
-                      
                     
                   </select>
                 </div>
@@ -344,11 +338,6 @@
                         
                           
                           <option  value="/docs/v0.24.x">v0.24.x</option>
-                        
-                      
-                        
-                          
-                          <option  value="/docs/v0.23.x">v0.23.x</option>
                         
                       
                         
@@ -437,6 +426,7 @@ fastify.listen(3000, function (err) {
 })
 </code></pre>
 <pre><code class="lang-js">// our-db-connector.js
+const fp = require(&#39;fastify-plugin&#39;)
 const MongoClient = require(&#39;mongodb&#39;).MongoClient
 
 async function db (fastify, options) {
@@ -447,7 +437,7 @@ async function db (fastify, options) {
   fastify.decorate(&#39;mongo&#39;, db)
 }
 
-module.exports = db
+module.exports = fp(db)
 </code></pre>
 <pre><code class="lang-js">// our-first-route.js
 
@@ -466,7 +456,7 @@ async function routes (fastify, options) {
 module.exports = routes
 </code></pre>
 <p>Wow, that was fast!<br>Let&#39;s recap what we have done here since we&#39;ve introduced some new concepts.<br>As you can see, we used <code>register</code> both for the database connector and the routes registration.
-This is one of the best features of Fastify, it will load your plugins in the same order you declare them, and it will load the next plugin only once the current one has been loaded. In this way we can register the database connector in the first plugin and use it in the second.</p>
+This is one of the best features of Fastify, it will load your plugins in the same order you declare them, and it will load the next plugin only once the current one has been loaded. In this way we can register the database connector in the first plugin and use it in the second <em>(read <a href="/docs/v0.35.x/Plugins#handle-the-scope">here</a> to understand how to handle the scope of a plugin)</em>.</p>
 <p>We have used the <code>decorate</code> api API. Let&#39;s take a moment to understand what it is and how it works. A scenario is to use the same code/library in different parts of an application. A solution is to require the code/library that it is needed. it This works, but is annoying because of duplicated code repeated and, if needed, long refactors.<br>To solve this Fastify offers the <code>decorate</code> API, which adds custom objects to the Fastify namespace, so that they can be used everywhere.</p>
 <p>To dig deeper into how Fastify plugins work, how to develop new plugins, and for details on how to use the whole Fastify API to deal with the complexity of asynchronously bootstrapping an application, read <a href="/docs/v0.35.x/Plugins-Guide">the hitchhiker&#39;s guide to plugins</a>.</p>
 <p><a name="validate-data"></a></p>

@@ -255,12 +255,6 @@
                       
                     
                       
-                        
-                        
-                          <option  value="/docs/v0.23.x">v0.23.x</option>
-                      
-                    
-                      
                     
                   </select>
                 </div>
@@ -344,11 +338,6 @@
                         
                           
                           <option  value="/docs/v0.24.x">v0.24.x</option>
-                        
-                      
-                        
-                          
-                          <option  value="/docs/v0.23.x">v0.23.x</option>
                         
                       
                         
@@ -478,17 +467,19 @@ fastify.addHook(&#39;onResponse&#39;, async (res) =&gt; {
 </code></pre>
 <p><em>The error will be handled by <a href="/docs/v0.35.x/Reply#errors"><code>Reply</code></a>.</em></p>
 <p>Note that in the <code>&#39;preHandler&#39;</code> and <code>&#39;onSend&#39;</code> hook the request and reply objects are different from <code>&#39;onRequest&#39;</code>, because the two arguments are <a href="/docs/v0.35.x/Request"><code>request</code></a> and <a href="/docs/v0.35.x/Reply"><code>reply</code></a> core Fastify objects.</p>
-<p>If you are using the <code>onSend</code> hook you can update the payload, but not overwrite it, for example:</p>
-<pre><code class="lang-js">// this is valid
+<p>If you are using the <code>onSend</code> hook you can update the payload, for example:</p>
+<pre><code class="lang-js">
 fastify.addHook(&#39;onSend&#39;, (request, reply, payload, next) =&gt; {
+  var err = null;
   payload.hello = &#39;world&#39;
-  next()
+  next(err, payload)
 })
 
-// this is not valid
+// Or
 fastify.addHook(&#39;onSend&#39;, (request, reply, payload, next) =&gt; {
-  payload = { hello: &#39;world&#39; }
-  next()
+  var err = null;
+  var newPayload = payload.replace(&#39;some-text&#39;, &#39;some-new-text&#39;)
+  next(err, newPayload)
 })
 </code></pre>
 <p><a name="on-close"></a>
