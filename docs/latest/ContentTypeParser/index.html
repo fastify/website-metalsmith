@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.35.x/ContentTypeParser">
+    <link ref="canonical" href="/docs/v0.36.x/ContentTypeParser">
   
 
   
@@ -187,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.35.x">v0.35.x</option>
+                          <option selected="selected" value="/docs/v0.36.x">v0.36.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.35.x">v0.35.x</option>
                       
                     
                       
@@ -278,7 +284,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.35.x">v0.35.x</option>
+                          <option selected="selected" value="/docs/v0.36.x">v0.36.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.35.x">v0.35.x</option>
                         
                       
                         
@@ -349,8 +360,13 @@
 <h4 id="usage">Usage</h4>
 <pre><code class="lang-js">fastify.addContentTypeParser(&#39;application/jsoff&#39;, function (req, done) {
   jsoffParser(req, function (err, body) {
-    done(err || body)
+    done(err, body)
   })
+})
+// async also supported in Node versions &gt;= 8.0.0
+fastify.addContentTypeParser(&#39;application/jsoff&#39;, async function (req) {
+  var res = await new Promise((resolve, reject) =&gt; resolve(req))
+  return res
 })
 </code></pre>
 <p>You can also use the <code>hasContentTypeParser</code> API to find if a specific content type parser already exists.</p>
@@ -360,7 +376,7 @@
   var data = &#39;&#39;
   req.on(&#39;data&#39;, chunk =&gt; { data += chunk })
   req.on(&#39;end&#39;, () =&gt; {
-    done(data)
+    done(null, data)
   })
 })
 </code></pre>

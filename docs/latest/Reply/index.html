@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.35.x/Reply">
+    <link ref="canonical" href="/docs/v0.36.x/Reply">
   
 
   
@@ -187,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.35.x">v0.35.x</option>
+                          <option selected="selected" value="/docs/v0.36.x">v0.36.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.35.x">v0.35.x</option>
                       
                     
                       
@@ -278,7 +284,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.35.x">v0.35.x</option>
+                          <option selected="selected" value="/docs/v0.36.x">v0.36.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.35.x">v0.35.x</option>
                         
                       
                         
@@ -385,7 +396,7 @@ This is a shortcut for <code>reply.header(&#39;Content-Type&#39;, &#39;the/type&
 </code></pre>
 <p><a name="serializer"></a></p>
 <h3 id="serializer">Serializer</h3>
-<p>Fastify was born as a full JSON compatible server, so out of the box will serialize your payload that you put in the <code>.send()</code> function using the internal serializers, <a href="https://www.npmjs.com/package/fast-json-stringify">fast-json-stringify</a> if you setted an output schema, otherwise <a href="https://www.npmjs.com/package/fast-safe-stringify">fast-safe-stringify</a>.</p>
+<p>Fastify was born as a full JSON compatible server, so out of the box will serialize your payload that you put in the <code>.send()</code> function using the internal serializers: <a href="https://www.npmjs.com/package/fast-json-stringify">fast-json-stringify</a> if you set an output schema, otherwise <code>JSON.stringify()</code>.</p>
 <p>If you need to use a custom serializer, such as <a href="https://github.com/mcollina/msgpack5">msgpack5</a> or <a href="https://github.com/dcodeIO/ProtoBuf.js/">protobuf</a>, you can use the <code>.serializer()</code> utility. As noted above, if you are using a custom serializer that does not serialize to JSON, you must set a custom <code>&#39;Content-Type&#39;</code> header.</p>
 <pre><code class="lang-js">reply
   .header(&#39;Content-Type&#39;, &#39;application/x-protobuf&#39;)
@@ -397,7 +408,7 @@ This is a shortcut for <code>reply.header(&#39;Content-Type&#39;, &#39;the/type&
 <p> As the name suggests, <code>.send()</code> is the function that sends the payload to the end user.</p>
 <p><a name="send-object"></a></p>
 <h4 id="objects">Objects</h4>
-<p>As writed above, if you are sending JSON objects, <em>send</em> will serialize the object with <a href="https://www.npmjs.com/package/fast-json-stringify">fast-json-stringify</a> if you setted an output schema, otherwise <a href="https://www.npmjs.com/package/fast-safe-stringify">fast-safe-stringify</a>.</p>
+<p>As noted above, if you are sending JSON objects, <code>send</code> will serialize the object with <a href="https://www.npmjs.com/package/fast-json-stringify">fast-json-stringify</a> if you set an output schema, otherwise <code>JSON.stringify()</code> will be used.</p>
 <pre><code class="lang-js">fastify.get(&#39;/json&#39;, options, function (request, reply) {
   reply.send({ hello: &#39;world&#39; })
 })
