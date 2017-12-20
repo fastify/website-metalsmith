@@ -449,7 +449,12 @@ async function routes (fastify, options) {
   })
 
   fastify.get(&#39;/search/:id&#39;, async (request, reply) =&gt; {
-    return await collection.findOne({ id: request.params.id })
+    try {
+      return await collection.findOne({ id: request.params.id })
+    } catch (err) {
+      reg.log.error(err)
+      return new Error(&#39;Something went wrong&#39;)
+    }
   })
 }
 
