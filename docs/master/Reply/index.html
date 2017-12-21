@@ -366,11 +366,16 @@ Reply is a core Fastify object that exposes the following functions:</p>
 <li><code>.sent</code> - A boolean value that you can use if you need to know it <code>send</code> has already been called.</li>
 </ul>
 <pre><code class="lang-js">fastify.get(&#39;/&#39;, options, function (request, reply) {
-  // You code
+  // Your code
   reply
     .code(200)
     .header(&#39;Content-Type&#39;, &#39;application/json&#39;)
     .send({ hello: &#39;world&#39; })
+})
+</code></pre>
+<p>Additionally, <code>Reply</code> provides access to the context of the request:</p>
+<pre><code class="lang-js">fastify.get(&#39;/&#39;, {config: {foo: &#39;bar&#39;}}, function (request, reply) {
+  reply.send(&#39;handler config.foo = &#39; + reply.context.config.foo)
 })
 </code></pre>
 <p><a name="code"></a></p>
