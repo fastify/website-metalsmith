@@ -515,7 +515,12 @@ Read <a href="/docs/master/Validation-and-Serialization">Validation and Serializ
 <p>Fastify does not offer a testing framework, but we do recommend a way to write your tests that uses the features and the architecture of Fastify.<br>Read the <a href="/docs/master/Testing">testing</a> documentation to learn more!</p>
 <p><a name="cli"></a></p>
 <h3 id="run-your-server-from-cli">Run your server from CLI</h3>
-<p>Fastify also has CLI integration thanks to <a href="https://github.com/fastify/fastify-cli">fastify-cli</a>. It&#39;s very easy!<br>Simply add the following lines to <code>package.json</code>:</p>
+<p>Fastify also has CLI integration thanks to
+<a href="https://github.com/fastify/fastify-cli">fastify-cli</a>.</p>
+<p>First, install <code>fastify-cli</code>:</p>
+<pre><code>npm i fastify-cli
+</code></pre><p>You can also install it globally with <code>-g</code>.</p>
+<p>Then, add the following lines to <code>package.json</code>:</p>
 <pre><code class="lang-json">{
   &quot;scripts&quot;: {
     &quot;start&quot;: &quot;fastify server.js&quot;
