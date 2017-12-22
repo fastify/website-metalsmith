@@ -461,13 +461,14 @@ fastify.get(&#39;/async-await&#39;, options, async function (request, reply) {
   statusCode: Number   // the http status code
 }
 </code></pre>
-<p>If you want it extend this error, check out <a href="/docs/master/Decorators#extend-server-error"><code>extendServerError</code></a>.</p>
-<p><em>If you are passing an error to send and the statusCode is less than 400, Fastify will automatically set it at 500.</em></p>
+<p>You can add some custom property to the Error object, such as <code>code</code> and <code>headers</code>, that will be used to enhance the http response.<br>
+<em>Note: If you are passing an error to <code>send</code> and the statusCode is less than 400, Fastify will automatically set it at 500.</em></p>
 <p>Tip: you can simplify errors by using the <a href="https://npm.im/http-errors"><code>http-errors</code></a> module to generate errors:</p>
 <pre><code class="lang-js">fastify.get(&#39;/&#39;, function (request, reply) {
   reply.send(httpErrors.Gone())
 })
 </code></pre>
+<p>If you want to completely customize the error response, checkout <a href="https://github.com/fastify/fastify/blob/error-docs/docs/Server-Methods.md#seterrorhandler"><code>setErrorHandler</code></a> API.</p>
 <p><a name="payload-type"></a></p>
 <h4 id="type-of-the-final-payload">Type of the final payload</h4>
 <p>It is crucial that the sent payload is a <code>string</code> or a <code>Buffer</code>, otherwise <em>send</em> will throw at runtime.</p>
