@@ -353,7 +353,9 @@
 
         <div id="doc-content" class="content">
           <h2 id="getting-started">Getting Started</h2>
-<p>Hello! Thank you for checking out Fastify!<br>This document aims to be a gentle introduction to the framework and its features. It is an elementary introduction with examples and links to other parts of the documentation.<br>Let&#39;s start!</p>
+<p>Hello! Thank you for checking out Fastify!<br>
+This document aims to be a gentle introduction to the framework and its features. It is an elementary introduction with examples and links to other parts of the documentation.<br>
+Let&#39;s start!</p>
 <p><a name="install"></a></p>
 <h3 id="install">Install</h3>
 <pre><code>npm i fastify --save
@@ -374,7 +376,8 @@ fastify.listen(3000, function (err) {
   fastify.log.info(`server listening on ${fastify.server.address().port}`)
 })
 </code></pre>
-<p>Do you prefer to use <code>async/await</code>? Fastify supports it out-of-the-box.<br><em>(we also suggest using <a href="https://github.com/mcollina/make-promises-safe">make-promises-safe</a> to avoid file descriptor and memory leaks)</em></p>
+<p>Do you prefer to use <code>async/await</code>? Fastify supports it out-of-the-box.<br>
+<em>(we also suggest using <a href="https://github.com/mcollina/make-promises-safe">make-promises-safe</a> to avoid file descriptor and memory leaks)</em></p>
 <pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)()
 
 fastify.get(&#39;/&#39;, async (request, reply) =&gt; {
@@ -386,10 +389,14 @@ fastify.listen(3000, function (err) {
   fastify.log.info(`server listening on ${fastify.server.address().port}`)
 })
 </code></pre>
-<p>Awesome, that was easy.<br>Unfortunately, writing a complex application requires significantly more code than this example. A classic problem when you are building a new application is how handle multiple files, asynchronous bootstrapping and the architecture of your code.<br>Fastify offers an easy platform that helps solve all of problems, and more.</p>
+<p>Awesome, that was easy.<br>
+Unfortunately, writing a complex application requires significantly more code than this example. A classic problem when you are building a new application is how handle multiple files, asynchronous bootstrapping and the architecture of your code.<br>
+Fastify offers an easy platform that helps solve all of problems, and more.</p>
 <p><a name="first-plugin"></a></p>
 <h3 id="your-first-plugin">Your first plugin</h3>
-<p>As with JavaScript everything is an object, with Fastify everything is a plugin.<br>Before digging into it, let&#39;s see how it works!<br>Let&#39;s declare our basic server, but instead of declaring the route inside the entry point, we&#39;ll declare it in an external file (checkout the <a href="/docs/master/Routes">route declaration</a> docs).</p>
+<p>As with JavaScript everything is an object, with Fastify everything is a plugin.<br>
+Before digging into it, let&#39;s see how it works!<br>
+Let&#39;s declare our basic server, but instead of declaring the route inside the entry point, we&#39;ll declare it in an external file (checkout the <a href="/docs/master/Routes">route declaration</a> docs).</p>
 <pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)()
 
 fastify.register(require(&#39;./our-first-route&#39;))
@@ -411,8 +418,11 @@ module.exports = routes
 </code></pre>
 <p>In this example we used the <code>register</code> API. This API is the core of the Fastify framework, and is the only way to register routes, plugins and so on.</p>
 <p>At the beginning of this guide we noted that Fastify provides a foundation that assists with the asynchronous bootstrapping of your an application. Why this is important?
-Consider the scenario where a database connection is needed to handle data storage. Obviously the database connection needs to be available prior to the server accepting connections. How do we address this problem?<br>A typical solution is to use a complex callback, or promises, system that will mix the framework API with other libraries and the application code.<br>Fastify handles this internally, with minimum effort!</p>
-<p>Let&#39;s rewrite the above example with a database connection.<br><em>(we will use a simple example, for a robust solution consider using <a href="https://github.com/fastify/fastify-mongodb"><code>fastify-mongo</code></a> or another in the Fastify <a href="/docs/master/Ecosystem">ecosystem</a>)</em></p>
+Consider the scenario where a database connection is needed to handle data storage. Obviously the database connection needs to be available prior to the server accepting connections. How do we address this problem?<br>
+A typical solution is to use a complex callback, or promises, system that will mix the framework API with other libraries and the application code.<br>
+Fastify handles this internally, with minimum effort!</p>
+<p>Let&#39;s rewrite the above example with a database connection.<br>
+<em>(we will use a simple example, for a robust solution consider using <a href="https://github.com/fastify/fastify-mongodb"><code>fastify-mongo</code></a> or another in the Fastify <a href="/docs/master/Ecosystem">ecosystem</a>)</em></p>
 <pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)()
 
 fastify.register(require(&#39;./our-db-connector&#39;), {
@@ -460,13 +470,18 @@ async function routes (fastify, options) {
 
 module.exports = routes
 </code></pre>
-<p>Wow, that was fast!<br>Let&#39;s recap what we have done here since we&#39;ve introduced some new concepts.<br>As you can see, we used <code>register</code> both for the database connector and the routes registration.
-This is one of the best features of Fastify, it will load your plugins in the same order you declare them, and it will load the next plugin only once the current one has been loaded. In this way we can register the database connector in the first plugin and use it in the second <em>(read <a href="/docs/master/Plugins#handle-the-scope">here</a> to understand how to handle the scope of a plugin)</em>.</p>
-<p>We have used the <code>decorate</code> api API. Let&#39;s take a moment to understand what it is and how it works. A scenario is to use the same code/library in different parts of an application. A solution is to require the code/library that it is needed. it This works, but is annoying because of duplicated code repeated and, if needed, long refactors.<br>To solve this Fastify offers the <code>decorate</code> API, which adds custom objects to the Fastify namespace, so that they can be used everywhere.</p>
+<p>Wow, that was fast!<br>
+Let&#39;s recap what we have done here since we&#39;ve introduced some new concepts.<br>
+As you can see, we used <code>register</code> both for the database connector and the routes registration.
+This is one of the best features of Fastify, it will load your plugins in the same order you declare them, and it will load the next plugin only once the current one has been loaded. In this way we can register the database connector in the first plugin and use it in the second <em>(read <a href="/docs/master/Plugins#handle-the-scope">here</a> to understand how to handle the scope of a plugin)</em>.
+Plugin loading starts when you call <code>fastify.listen()</code>, <code>fastify.inject()</code> or <code>fastify.ready()</code></p>
+<p>We have used the <code>decorate</code> api API. Let&#39;s take a moment to understand what it is and how it works. A scenario is to use the same code/library in different parts of an application. A solution is to require the code/library that it is needed. it This works, but is annoying because of duplicated code repeated and, if needed, long refactors.<br>
+To solve this Fastify offers the <code>decorate</code> API, which adds custom objects to the Fastify namespace, so that they can be used everywhere.</p>
 <p>To dig deeper into how Fastify plugins work, how to develop new plugins, and for details on how to use the whole Fastify API to deal with the complexity of asynchronously bootstrapping an application, read <a href="/docs/master/Plugins-Guide">the hitchhiker&#39;s guide to plugins</a>.</p>
 <p><a name="validate-data"></a></p>
 <h3 id="validate-your-data">Validate your data</h3>
-<p>Data validation is extremely important and is a core concept of the framework.<br>To validate incoming requests, Fastify uses <a href="http://json-schema.org/">JSON Schema</a>.
+<p>Data validation is extremely important and is a core concept of the framework.<br>
+To validate incoming requests, Fastify uses <a href="http://json-schema.org/">JSON Schema</a>.
 Let&#39;s look at an example demonstrating validation for routes:</p>
 <pre><code class="lang-js">const opts = {
   schema: {
@@ -484,10 +499,12 @@ fastify.post(&#39;/&#39;, opts, async (request, reply) =&gt; {
   return { hello: &#39;world&#39; }
 })
 </code></pre>
-<p>This example shows how to pass an options object to the route, which accepts a <code>schema</code> key, that contains all of the schemas for route, <code>body</code>, <code>querystring</code>, <code>params</code> and <code>headers</code>.<br>Read <a href="/docs/master/Validation-and-Serialization">Validation and Serialization</a> to learn more.</p>
+<p>This example shows how to pass an options object to the route, which accepts a <code>schema</code> key, that contains all of the schemas for route, <code>body</code>, <code>querystring</code>, <code>params</code> and <code>headers</code>.<br>
+Read <a href="/docs/master/Validation-and-Serialization">Validation and Serialization</a> to learn more.</p>
 <p><a name="serialize-data"></a></p>
 <h3 id="serialize-your-data">Serialize your data</h3>
-<p>Fastify has first class support for JSON. It is extremely optimized to parse a JSON body and to serialize JSON output.<br>To speed up JSON serialization (yes, it is slow!) use the <code>response</code> key of the schema option like so:</p>
+<p>Fastify has first class support for JSON. It is extremely optimized to parse a JSON body and to serialize JSON output.<br>
+To speed up JSON serialization (yes, it is slow!) use the <code>response</code> key of the schema option like so:</p>
 <pre><code class="lang-js">const opts = {
   schema: {
     response: {
@@ -509,10 +526,12 @@ fastify.get(&#39;/&#39;, opts, async (request, reply) =&gt; {
 Read <a href="/docs/master/Validation-and-Serialization">Validation and Serialization</a> to learn more.</p>
 <p><a name="extend-server"></a></p>
 <h3 id="extend-your-server">Extend your server</h3>
-<p>Fastify is built to be extremely extensible and very minimal, We believe that a bare minimum framework is all that is necessary to make great applications possible.<br>In other words, Fastify is not a &quot;batteries included&quot; framework, and relies on an amazing <a href="/docs/master/Ecosystem">ecosystem</a>!</p>
+<p>Fastify is built to be extremely extensible and very minimal, We believe that a bare minimum framework is all that is necessary to make great applications possible.<br>
+In other words, Fastify is not a &quot;batteries included&quot; framework, and relies on an amazing <a href="/docs/master/Ecosystem">ecosystem</a>!</p>
 <p><a name="test-server"></a></p>
 <h3 id="test-your-server">Test your server</h3>
-<p>Fastify does not offer a testing framework, but we do recommend a way to write your tests that uses the features and the architecture of Fastify.<br>Read the <a href="/docs/master/Testing">testing</a> documentation to learn more!</p>
+<p>Fastify does not offer a testing framework, but we do recommend a way to write your tests that uses the features and the architecture of Fastify.<br>
+Read the <a href="/docs/master/Testing">testing</a> documentation to learn more!</p>
 <p><a name="cli"></a></p>
 <h3 id="run-your-server-from-cli">Run your server from CLI</h3>
 <p>Fastify also has CLI integration thanks to

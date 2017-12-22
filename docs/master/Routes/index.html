@@ -409,7 +409,14 @@ schema allows us to have 10-20% more throughput.</li>
 </code></pre>
 <p><a name="shorthand-declaration"></a></p>
 <h3 id="shorthand-declaration">Shorthand declaration</h3>
-<p>The above route declaration is more <em>Hapi</em>-like, but if you prefer an <em>Express/Restify</em> approach, we support it as well:<br><code>fastify.get(path, [options], handler)</code><br><code>fastify.head(path, [options], handler)</code><br><code>fastify.post(path, [options], handler)</code><br><code>fastify.put(path, [options], handler)</code><br><code>fastify.delete(path, [options], handler)</code><br><code>fastify.options(path, [options], handler)</code><br><code>fastify.patch(path, [options], handler)</code></p>
+<p>The above route declaration is more <em>Hapi</em>-like, but if you prefer an <em>Express/Restify</em> approach, we support it as well:<br>
+<code>fastify.get(path, [options], handler)</code><br>
+<code>fastify.head(path, [options], handler)</code><br>
+<code>fastify.post(path, [options], handler)</code><br>
+<code>fastify.put(path, [options], handler)</code><br>
+<code>fastify.delete(path, [options], handler)</code><br>
+<code>fastify.options(path, [options], handler)</code><br>
+<code>fastify.patch(path, [options], handler)</code></p>
 <p>Example:</p>
 <pre><code class="lang-js">const opts = {
   schema: {
@@ -430,7 +437,8 @@ fastify.get(&#39;/&#39;, opts, (req, reply) =&gt; {
 <p><code>fastify.all(path, [options], handler)</code> will add the same handler to all the supported methods.</p>
 <p><a name="url-building"></a></p>
 <h3 id="url-building">Url building</h3>
-<p>Fastify supports both static and dynamic urls.<br>To register a <strong>parametric</strong> path, use the <em>colon</em> before the parameter name. For <strong>wildcard</strong> use the <em>star</em>.
+<p>Fastify supports both static and dynamic urls.<br>
+To register a <strong>parametric</strong> path, use the <em>colon</em> before the parameter name. For <strong>wildcard</strong> use the <em>star</em>.
 <em>Remember that static routes are always checked before parametric and wildcard.</em></p>
 <pre><code class="lang-js">// parametric
 fastify.get(&#39;/example/:userId&#39;, (req, reply) =&gt; {}))

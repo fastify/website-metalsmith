@@ -453,7 +453,8 @@ fastify.addHook(&#39;onResponse&#39;, async (res) =&gt; {
 </tr>
 </tbody>
 </table>
-<p>It is pretty easy to understand where each hook is executed by looking at the <a href="/docs/master/Lifecycle">lifecycle page</a>.<br>Hooks are affected by Fastify&#39;s encapsulation, and can thus be applied to selected routes. See the <a href="#scope">Scopes</a> section for more information.</p>
+<p>It is pretty easy to understand where each hook is executed by looking at the <a href="/docs/master/Lifecycle">lifecycle page</a>.<br>
+Hooks are affected by Fastify&#39;s encapsulation, and can thus be applied to selected routes. See the <a href="#scope">Scopes</a> section for more information.</p>
 <p>If you get an error during the execution of you hook, just pass it to <code>next()</code> and Fastify will automatically close the request and send the appropriate error code to the user.</p>
 <pre><code class="lang-js">fastify.addHook(&#39;onRequest&#39;, (req, res, next) =&gt; {
   next(new Error(&#39;some error&#39;))
@@ -483,7 +484,9 @@ fastify.addHook(&#39;onSend&#39;, (request, reply, payload, next) =&gt; {
 })
 </code></pre>
 <p><a name="on-close"></a>
-<strong>&#39;onClose&#39;</strong><br>The unique hook that is not inside the lifecycle is <code>&#39;onClose&#39;</code>, this one is triggered when you call <code>fastify.close()</code> to stop the server, and it is useful if you have some <a href="/docs/master/Plugins">plugins</a> that need a &quot;shutdown&quot; part, such as a connection to a database.<br>Only for this hook, the parameters of the function changes, the first one is the Fastify instance, the second one the <code>done</code> callback.</p>
+<strong>&#39;onClose&#39;</strong><br>
+The unique hook that is not inside the lifecycle is <code>&#39;onClose&#39;</code>, this one is triggered when you call <code>fastify.close()</code> to stop the server, and it is useful if you have some <a href="/docs/master/Plugins">plugins</a> that need a &quot;shutdown&quot; part, such as a connection to a database.<br>
+Only for this hook, the parameters of the function changes, the first one is the Fastify instance, the second one the <code>done</code> callback.</p>
 <pre><code class="lang-js">fastify.addHook(&#39;onClose&#39;, (instance, done) =&gt; {
   // some code
   done()
@@ -500,7 +503,8 @@ fastify.addHook(&#39;onSend&#39;, (request, reply, payload, next) =&gt; {
 <p>Note: using an arrow function will break the binding of this to the Fastify instance.</p>
 <p><a name="before-handler"></a></p>
 <h3 id="beforehandler">beforeHandler</h3>
-<p>Despite the name, <code>beforeHandler</code> is not a standard hook like <code>preHandler</code>, but is a function that your register right in the route option that will be executed only in the specified route. Can be useful if you need to handle the authentication at route level instead of at hook level (<code>preHandler</code> for example.), it could also be an array of functions.<br><strong><code>beforeHandler</code> is executed always after the <code>preHandler</code> hook.</strong></p>
+<p>Despite the name, <code>beforeHandler</code> is not a standard hook like <code>preHandler</code>, but is a function that your register right in the route option that will be executed only in the specified route. Can be useful if you need to handle the authentication at route level instead of at hook level (<code>preHandler</code> for example.), it could also be an array of functions.<br>
+<strong><code>beforeHandler</code> is executed always after the <code>preHandler</code> hook.</strong></p>
 <pre><code class="lang-js">fastify.addHook(&#39;preHandler&#39;, (request, reply, done) =&gt; {
   // your code
   done()

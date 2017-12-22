@@ -418,7 +418,8 @@ This is a shortcut for <code>reply.header(&#39;Content-Type&#39;, &#39;the/type&
 </code></pre>
 <p><a name="async-await-promise"></a></p>
 <h4 id="async-await-and-promises">Async-Await and Promises</h4>
-<p>Fastify natively handles promies and supports async-await.<br><em>Note that in the following examples we are not using reply.send.</em></p>
+<p>Fastify natively handles promies and supports async-await.<br>
+<em>Note that in the following examples we are not using reply.send.</em></p>
 <pre><code class="lang-js">fastify.get(&#39;/promises&#39;, options, function (request, reply) {
   const promise = new Promise(function (resolve) {
     setTimeout(resolve, 200, { hello: &#39;world&#39; })

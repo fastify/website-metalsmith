@@ -364,6 +364,13 @@ It takes an error parameter if something went wrong.</p>
   if (err) throw err
 })
 </code></pre>
+<p>If it is called without any arguments, it will return a <code>Promise</code>:</p>
+<pre><code class="lang-js">fastify.ready().then(() =&gt; {
+  console.log(&#39;successfully booted!&#39;)
+}, (err) =&gt; {
+  console.log(&#39;an error happened&#39;, err)
+})
+</code></pre>
 <p><a name="listen"></a></p>
 <h4 id="listen">listen</h4>
 <p>Starts the server on the given port after all the plugins are loaded, internally waits for the <code>.ready()</code> event. The callback is the same as the Node core.</p>
