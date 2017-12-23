@@ -185,6 +185,12 @@
                         
                           
                         
+                          <option  value="/docs/v0.37.x">v0.37.x</option>
+                      
+                    
+                      
+                        
+                        
                           <option  value="/docs/v0.36.x">v0.36.x</option>
                       
                     
@@ -278,6 +284,11 @@
                         
                           
                           <option selected="selected" value="/docs/master">master</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.37.x">v0.37.x</option>
                         
                       
                         
@@ -418,7 +429,7 @@ This is a shortcut for <code>reply.header(&#39;Content-Type&#39;, &#39;the/type&
 </code></pre>
 <p><a name="async-await-promise"></a></p>
 <h4 id="async-await-and-promises">Async-Await and Promises</h4>
-<p>Fastify natively handles promies and supports async-await.<br>
+<p>Fastify natively handles promises and supports async-await.<br>
 <em>Note that in the following examples we are not using reply.send.</em></p>
 <pre><code class="lang-js">fastify.get(&#39;/promises&#39;, options, function (request, reply) {
   const promise = new Promise(function (resolve) {
@@ -445,7 +456,7 @@ fastify.get(&#39;/async-await&#39;, options, async function (request, reply) {
 <p>If you want to know more please review <a href="/docs/master/Routes#async-await">Routes#async-await</a>!</p>
 <p><a name="send-streams"></a></p>
 <h4 id="streams">Streams</h4>
-<p><em>send</em> can also handle streams out of the box, internally uses <a href="https://www.npmjs.com/package/pump">pump</a> to avoid leaks of file descriptors. If you are sending a stream and you have not setted a <code>&#39;Content-Type&#39;</code> header, <em>send</em> will set it at <code>&#39;application/octet-stream&#39;</code>.</p>
+<p><em>send</em> can also handle streams out of the box, internally uses <a href="https://www.npmjs.com/package/pump">pump</a> to avoid leaks of file descriptors. If you are sending a stream and you have not set a <code>&#39;Content-Type&#39;</code> header, <em>send</em> will set it at <code>&#39;application/octet-stream&#39;</code>.</p>
 <pre><code class="lang-js">fastify.get(&#39;/streams&#39;, function (request, reply) {
   const fs = require(&#39;fs&#39;)
   const stream = fs.createReadStream(&#39;some-file&#39;, &#39;utf8&#39;)

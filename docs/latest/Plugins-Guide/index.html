@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.36.x/Plugins-Guide">
+    <link ref="canonical" href="/docs/v0.37.x/Plugins-Guide">
   
 
   
@@ -187,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.36.x">v0.36.x</option>
+                          <option selected="selected" value="/docs/v0.37.x">v0.37.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.36.x">v0.36.x</option>
                       
                     
                       
@@ -284,7 +290,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.36.x">v0.36.x</option>
+                          <option selected="selected" value="/docs/v0.37.x">v0.37.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.36.x">v0.36.x</option>
                         
                       
                         
@@ -369,19 +380,24 @@
 </ul>
 <p><a name="register"></a></p>
 <h2 id="register">Register</h2>
-<p>As in JavaScript everything is an object, in Fastify everything is a plugin.<br>Your routes, your utilities and so on are all plugins. And to add a new plugin, whatever its functionality is, in Fastify you have a nice and unique api to use: <a href="/docs/latest/Plugins"><code>register</code></a>.</p>
+<p>As in JavaScript everything is an object, in Fastify everything is a plugin.<br>
+Your routes, your utilities and so on are all plugins. And to add a new plugin, whatever its functionality is, in Fastify you have a nice and unique api to use: <a href="/docs/latest/Plugins"><code>register</code></a>.</p>
 <pre><code class="lang-js">fastify.register(
   require(&#39;./my-plugin&#39;),
   { options }
 )
 </code></pre>
 <p><code>register</code> creates for you a new Fastify context, this means that if you do any change to the Fastify instance, that change(s) will not be reflected into the context&#39;s ancestors. In other words, encapsulation!</p>
-<p><em>Why encapsulation is important?</em><br>Well, let&#39;s say you are creating a new disruptive startup, what do you do? You create an api server with all your stuff, everything in the same place, a monolith!<br>Ok, you are growing very fast and you want to change your architecture and try microservices. Usually this implies an huge amount of work, because of cross dependencies and the lack of separation of concerns.<br>Fastify helps you a lot in this direction, because thanks to the encapsulation model it will completely avoid cross dependencies, and will help you structure your code in cohesive blocks.</p>
-<p><em>Let&#39;s return to how to use correctly <code>register</code>.</em><br>As you probably know, the required plugins must expose a single function with the following signature</p>
+<p><em>Why encapsulation is important?</em><br>
+Well, let&#39;s say you are creating a new disruptive startup, what do you do? You create an api server with all your stuff, everything in the same place, a monolith!<br>
+Ok, you are growing very fast and you want to change your architecture and try microservices. Usually this implies an huge amount of work, because of cross dependencies and the lack of separation of concerns.<br>
+Fastify helps you a lot in this direction, because thanks to the encapsulation model it will completely avoid cross dependencies, and will help you structure your code in cohesive blocks.</p>
+<p><em>Let&#39;s return to how to use correctly <code>register</code>.</em><br>
+As you probably know, the required plugins must expose a single function with the following signature</p>
 <pre><code class="lang-js">module.exports = function (fastify, options, next) {}
 </code></pre>
 <p>Where <code>fastify</code> is (pretty obvious) the encapsulated Fastify instance, <code>options</code> is the options object and <code>next</code> is the function you <strong>must</strong> call when you plugin is ready.</p>
-<p>The Fastify&#39;s plugin model is fully reentrant and graph-based, it handles without any kind of problem asynchronous code and it guarantees the load order of the plugins, even the close order! <em>How?</em> Glad you asked, checkout <a href="https://github.com/mcollina/avvio"><code>avvio</code></a>!</p>
+<p>Fastify&#39;s plugin model is fully reentrant and graph-based, it handles without any kind of problem asynchronous code and it guarantees the load order of the plugins, even the close order! <em>How?</em> Glad you asked, checkout <a href="https://github.com/mcollina/avvio"><code>avvio</code></a>! Fastify starts loading the plugin <strong>after</strong> <code>.listen()</code>, <code>.inject()</code> or .ready()` are called.</p>
 <p>Inside a plugin you can do whatever you want, register routes, utilities (we&#39;ll see this in a moment) and do nested registers, just remember to call <code>next</code> when everything is set up!</p>
 <pre><code class="lang-js">module.exports = function (fastify, options, next) {
   fastify.get(&#39;/plugin&#39;, (req, reply) =&gt; {
@@ -408,7 +424,8 @@ console.log(util(&#39;that is &#39;, &#39; awesome&#39;))
 Create a decorator is extremely easy, just use the <a href="/docs/latest/Decorators"><code>decorate</code></a> api:</p>
 <pre><code class="lang-js">fastify.decorate(&#39;util&#39;, (a, b) =&gt; a + b)
 </code></pre>
-<p>Now you can access your utility just by doing <code>fastify.util</code> whenever you need it, even inside your test.<br>And here&#39;s starts the magic; do you remember that few lines above we talked about encapsulation? Well, use <code>register</code> and <code>decorate</code> in conjunction enable exactly that, let me show you an example to clarify this:</p>
+<p>Now you can access your utility just by doing <code>fastify.util</code> whenever you need it, even inside your test.<br>
+And here&#39;s starts the magic; do you remember that few lines above we talked about encapsulation? Well, use <code>register</code> and <code>decorate</code> in conjunction enable exactly that, let me show you an example to clarify this:</p>
 <pre><code class="lang-js">fastify.register((instance, opts, next) =&gt; {
   instance.decorate(&#39;util&#39;, (a, b) =&gt; a + b)
   console.log(instance.util(&#39;that is &#39;, &#39; awesome&#39;))
@@ -422,7 +439,8 @@ fastify.register((instance, opts, next) =&gt; {
   next()
 })
 </code></pre>
-<p>Inside the second register call <code>instance.util</code> will throw an error, because <code>util</code> exist only inside the first register context.<br>Let&#39;s step back for a moment and get deepen on this: when using the <code>register</code> api you will create a new context every time and this avoid situations like the one mentioned few line above. But pay attention, the encapsulation works only for the ancestors and the brothers, but not for the sons.</p>
+<p>Inside the second register call <code>instance.util</code> will throw an error, because <code>util</code> exist only inside the first register context.<br>
+Let&#39;s step back for a moment and get deepen on this: when using the <code>register</code> api you will create a new context every time and this avoid situations like the one mentioned few line above. But pay attention, the encapsulation works only for the ancestors and the brothers, but not for the sons.</p>
 <pre><code class="lang-js">fastify.register((instance, opts, next) =&gt; {
   instance.decorate(&#39;util&#39;, (a, b) =&gt; a + b)
   console.log(instance.util(&#39;that is &#39;, &#39; awesome&#39;))
@@ -443,7 +461,8 @@ fastify.register((instance, opts, next) =&gt; {
 </code></pre>
 <p><em>Take home message: if you need that an utility is available in every part of your application, pay attention that is declared at the root scope of your application. Otherwise you can use <code>fastify-plugin</code> utility as described <a href="#distribution">here</a>.</em></p>
 <p><code>decorate</code> is not the unique api that you can use to extend the server functionalities, you can also use <code>decorateRequest</code> and <code>decorateReply</code>.</p>
-<p><em><code>decorateRequest</code> and <code>decorateReply</code>? Why do we need them if we already have <code>decorate</code>?</em><br>Good question, we added them to make Fastify more developer-friendly. Let&#39;s see an example:</p>
+<p><em><code>decorateRequest</code> and <code>decorateReply</code>? Why do we need them if we already have <code>decorate</code>?</em><br>
+Good question, we added them to make Fastify more developer-friendly. Let&#39;s see an example:</p>
 <pre><code class="lang-js">fastify.decorate(&#39;html&#39;, payload =&gt; {
   return generateHtml(payload)
 })
@@ -511,7 +530,7 @@ fastify.get(&#39;/plugin2&#39;, (req, reply) =&gt; {
 })
 </code></pre>
 <p>I think we all agree that this is terrible. Code repeat, awful readability and it cannot scale.</p>
-<p>So what can you do to avoid this annoying issue? Yes, you are right, use an <a href="/docs/latest/Hooks">hook</a>!  </p>
+<p>So what can you do to avoid this annoying issue? Yes, you are right, use an <a href="/docs/latest/Hooks">hook</a>!<br></p>
 <pre><code class="lang-js">fastify.decorate(&#39;util&#39;, (req, key, value) =&gt; { req.key = value })
 
 fastify.addHook(&#39;preHandler&#39;, (req, reply, done) =&gt; {
@@ -527,7 +546,8 @@ fastify.get(&#39;/plugin2&#39;, (req, reply) =&gt; {
   reply.send(req)
 })
 </code></pre>
-<p>Now for every request you will run your utility, it is obvious that you can register as many hooks as you need.<br>It can happen that you want a hook that must be executed just for a subset of routes, how can you do that?  Yep, encapsulation!</p>
+<p>Now for every request you will run your utility, it is obvious that you can register as many hooks as you need.<br>
+It can happen that you want a hook that must be executed just for a subset of routes, how can you do that?  Yep, encapsulation!</p>
 <pre><code class="lang-js">fastify.register((instance, opts, next) =&gt; {
   instance.decorate(&#39;util&#39;, (req, key, value) =&gt; { req.key = value })
 
@@ -548,18 +568,22 @@ fastify.get(&#39;/plugin2&#39;, (req, reply) =&gt; {
 })
 </code></pre>
 <p>Now your hook will run just for the first route!</p>
-<p>As you probably noticed at this time, <code>request</code> and <code>reply</code> are not the standard Nodejs <em>request</em> and <em>response</em> objects, but Fastify&#39;s objects.<br>Let&#39;s say that you are arriving from a framework like Express or Restify, and you already have some Middleware that do exactly what you need, and you don&#39;t want to redo all the work.</p>
+<p>As you probably noticed at this time, <code>request</code> and <code>reply</code> are not the standard Nodejs <em>request</em> and <em>response</em> objects, but Fastify&#39;s objects.<br>
+Let&#39;s say that you are arriving from a framework like Express or Restify, and you already have some Middleware that do exactly what you need, and you don&#39;t want to redo all the work.</p>
 <p><a name="middlewares"></a></p>
 <h2 id="middlewares">Middlewares</h2>
-<p>Fastify <a href="/docs/latest/Middlewares">supports</a> out of the box Express/Restify/Connect middlewares, this means that you can just drop-in your old code and it will work! <em>(faster, by the way)</em><br>How we can do that? Checkout our middlewares engine, <a href="https://github.com/fastify/middie">middie</a>.</p>
+<p>Fastify <a href="/docs/latest/Middlewares">supports</a> out of the box Express/Restify/Connect middlewares, this means that you can just drop-in your old code and it will work! <em>(faster, by the way)</em><br>
+How we can do that? Checkout our middlewares engine, <a href="https://github.com/fastify/middie">middie</a>.</p>
 <pre><code class="lang-js">const yourMiddleware = require(&#39;your-middleware&#39;)
 fastify.use(yourMiddleware)
 </code></pre>
 <p><a name="distribution"></a></p>
 <h2 id="how-to-handle-encapsulation-and-distribution">How to handle encapsulation and distribution</h2>
-<p>Perfect, now you know (almost) all the tools that you can use to extend Fastify. But probably there is something you noted when trying out your code.<br>How can you distribute your code?</p>
+<p>Perfect, now you know (almost) all the tools that you can use to extend Fastify. But probably there is something you noted when trying out your code.<br>
+How can you distribute your code?</p>
 <p>The preferred way to distribute an utility is to wrap all your code inside a <code>register</code>, in this way your plugin can support an asynchronous bootstrap <em>(since <code>decorate</code> is a synchronous api)</em>, in the case of a database connection for example.</p>
-<p><em>Wait, what? Don&#39;t you told me that <code>register</code> creates and encapsulation and what I create inside there will not be available outside?</em><br>Yes, I told that. But what I didn&#39;t told you, is that you can tell to Fastify to avoid this behavior, with the <a href="https://github.com/fastify/fastify-plugin"><code>fastify-plugin</code></a> module.</p>
+<p><em>Wait, what? Don&#39;t you told me that <code>register</code> creates and encapsulation and what I create inside there will not be available outside?</em><br>
+Yes, I told that. But what I didn&#39;t told you, is that you can tell to Fastify to avoid this behavior, with the <a href="https://github.com/fastify/fastify-plugin"><code>fastify-plugin</code></a> module.</p>
 <pre><code class="lang-js">const fp = require(&#39;fastify-plugin&#39;)
 const dbClient = require(&#39;db-client&#39;)
 
@@ -576,7 +600,8 @@ module.exports = fp(dbPlugin)
 <p><a name="handle-errors"></a></p>
 <h2 id="handle-errors">Handle errors</h2>
 <p>It can happen that one of your plugins could fail during the startup. Maybe you expect it and you have a custom logic that will be triggered in that case. How can you do this?
-The <code>after</code> api is what you need. <code>after</code> simply register a callback that will be executed just after a register, and it can take up to three parameters.<br>The callback changes basing on the parameters your are giving:</p>
+The <code>after</code> api is what you need. <code>after</code> simply register a callback that will be executed just after a register, and it can take up to three parameters.<br>
+The callback changes basing on the parameters your are giving:</p>
 <ol>
 <li>If no parameter is given to the callback and there is an error, that error will be passed to the next error handler.</li>
 <li>If one parameter is given to the callback, that parameter will be the error object.</li>

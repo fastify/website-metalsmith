@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.36.x/Server-Methods">
+    <link ref="canonical" href="/docs/v0.37.x/Server-Methods">
   
 
   
@@ -187,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.36.x">v0.36.x</option>
+                          <option selected="selected" value="/docs/v0.37.x">v0.37.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.36.x">v0.36.x</option>
                       
                     
                       
@@ -284,7 +290,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.36.x">v0.36.x</option>
+                          <option selected="selected" value="/docs/v0.37.x">v0.37.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.36.x">v0.36.x</option>
                         
                       
                         
@@ -364,6 +375,13 @@
 It takes an error parameter if something went wrong.</p>
 <pre><code class="lang-js">fastify.ready(err =&gt; {
   if (err) throw err
+})
+</code></pre>
+<p>If it is called without any arguments, it will return a <code>Promise</code>:</p>
+<pre><code class="lang-js">fastify.ready().then(() =&gt; {
+  console.log(&#39;successfully booted!&#39;)
+}, (err) =&gt; {
+  console.log(&#39;an error happened&#39;, err)
 })
 </code></pre>
 <p><a name="listen"></a></p>
@@ -453,7 +471,7 @@ A plugin can be a set of routes, a server decorator or whatever, check <a href="
 <p><code>fastify.setNotFoundHandler(handler(request, reply))</code>: set the 404 handler. This call is fully encapsulated, so different plugins can set different not found handlers.</p>
 <p><a name="set-error-handler"></a></p>
 <h4 id="seterrorhandler">setErrorHandler</h4>
-<p><code>fastify.setErrorHandler(handler(error, reply))</code>: set a function that will be called whenever an error happens. The handler is fully encapsulated, so different plugins can set different error handlers.</p>
+<p><code>fastify.setErrorHandler(handler(error, reply))</code>: set a function that will be called whenever an error happens. The handler is fully encapsulated, so different plugins can set different error handlers, <em>async await</em> is supported as well.</p>
 
         </div>
 
