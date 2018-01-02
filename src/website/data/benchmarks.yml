@@ -1,27 +1,28 @@
-reference: 29304
+reference: 31319
 frameworks:
   - name: Fastify
-    requests_sec: 29304
+    requests_sec: 31319
     repository: https://github.com/fastify/fastify
     test: https://github.com/fastify/benchmarks/blob/master/benchmarks/fastify.js
     best: true
 
   - name: Koa
-    requests_sec: 26228
+    requests_sec: 25017
     repository: https://github.com/koajs/koa
     test: https://github.com/fastify/benchmarks/blob/master/benchmarks/koa.js
 
   - name: Express
-    requests_sec: 18740
+    requests_sec: 20690
     repository: https://github.com/expressjs/express
     test: https://github.com/fastify/benchmarks/blob/master/benchmarks/express.js
 
   - name: Restify
-    requests_sec: 16395
+    requests_sec: 22989
     repository: https://github.com/restify/node-restify
     test: https://github.com/fastify/benchmarks/blob/master/benchmarks/restify.js
 
   - name: Hapi
-    requests_sec: 4226
+    requests_sec: 19824
     repository: https://github.com/hapijs/hapi
     test: https://github.com/fastify/benchmarks/blob/master/benchmarks/hapi.js
+    
