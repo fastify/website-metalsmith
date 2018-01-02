@@ -45,6 +45,12 @@
       github: https://github.com/lmammino
       npm: https://www.npmjs.com/~lmammino
       twitter: https://twitter.com/loige
+  - name: Nathan Woltman
+    picture: "https://avatars0.githubusercontent.com/u/5128013?v=4&s=460"
+    links:
+      github: https://github.com/nwoltman
+      npm: https://www.npmjs.com/~nwoltman
+      twitter: https://twitter.com/NathanWoltman
   - name: Tommaso Allevi
     picture: "https://avatars0.githubusercontent.com/u/1054125?v=4&s=460"
     links:
