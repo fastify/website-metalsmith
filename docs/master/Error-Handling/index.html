@@ -376,7 +376,7 @@
 <p>The main difference between these errors are that <em>System</em> errors are handled by Fastify and result in an <a href="#unhandled-rejections"><code>unhandled rejection</code></a>.</p>
 <h3 id="background">Background</h3>
 <p>With the use of <code>promises</code> and <code>async/await</code> we are able to catch <strong>any</strong> synchronous error and return it back to the callee doesn&#39;t matter whether it&#39;s correct behavior or a syntax error. This is an anti-pattern because any unpredictable application state should exit your server so that it can come back in a clear state. This is useful for debugging and can prevent memory-leaks.
-In Node.js it&#39;s very common to derive from the <code>Error</code> type to build your own error hierarchy. If you are looking for a solution to work with http status codes we recommend <a href="https://github.com/jshttp/http-errors">http-errors</a>.</p>
+In Node.js it&#39;s very common to derive from the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error"><code>Error</code></a> type to build your own error hierarchy. If you are looking for a solution to work with http status codes we recommend <a href="https://github.com/jshttp/http-errors">http-errors</a>.</p>
 <p>Example:</p>
 <pre><code class="lang-js">const createError = require(&#39;http-errors&#39;)
 fastify.get(&#39;/&#39;, opts, (req, reply) =&gt; {
@@ -392,6 +392,21 @@ fastify.get(&#39;/&#39;, opts, async (req, reply) =&gt; {
 })
 fastify.get(&#39;/&#39;, async (req, reply) =&gt; {
   await meow
+})
+</code></pre>
+<h2 id="use-error-objects">Use Error objects</h2>
+<p>If you want to reject a promise with an error or send it as response payload, you have to use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error"><code>Error</code></a> objects (or subclasses). Any other value will throw an exception.</p>
+<p>Example:</p>
+<pre><code class="lang-js">// Good
+fastify.get(&#39;/&#39;, opts, async (req, reply) =&gt; {
+  throw new Error(&#39;foo&#39;)
+})
+fastify.get(&#39;/&#39;, opts, async (req, reply) =&gt; {
+  reply.send(new Error(&#39;foo&#39;))
+})
+// Bad
+fastify.get(&#39;/&#39;, async (req, reply) =&gt; {
+  throw &#39;foo&#39;
 })
 </code></pre>
 
