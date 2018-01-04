@@ -378,7 +378,7 @@ Reply is a core Fastify object that exposes the following functions:</p>
 <li><code>.serialize(payload)</code> - Serializes the specified payload using the default json serializer and returns the serialized payload.</li>
 <li><code>.serializer(function)</code> - Sets a custom serializer for the payload.</li>
 <li><code>.notFound()</code> - Invokes the 404 handler.</li>
-<li><code>.send(payload)</code> - Sends the payload to the user, could be a plain text, JSON, stream, or an Error object.</li>
+<li><code>.send(payload)</code> - Sends the payload to the user, could be a plain text, a buffer, JSON, stream, or an Error object.</li>
 <li><code>.sent</code> - A boolean value that you can use if you need to know it <code>send</code> has already been called.</li>
 </ul>
 <pre><code class="lang-js">fastify.get(&#39;/&#39;, options, function (request, reply) {
@@ -421,6 +421,7 @@ This is a shortcut for <code>reply.header(&#39;Content-Type&#39;, &#39;the/type&
   .header(&#39;Content-Type&#39;, &#39;application/x-protobuf&#39;)
   .serializer(protoBuf.serialize)
 </code></pre>
+<p>Note that if a string or buffer is passed to <code>reply.send</code> it is expected to already be serialized and skip the serialization step.</p>
 <p><em>Take a look <a href="/docs/master/Validation-and-Serialization#serialization">here</a> to understand how serialization is done.</em></p>
 <p><a name="notfound"></a></p>
 <h3 id="notfound">NotFound</h3>
