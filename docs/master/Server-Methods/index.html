@@ -470,7 +470,7 @@ A plugin can be a set of routes, a server decorator or whatever, check <a href="
 <p>Set the schema compiler for all routes <a href="/docs/master/Validation-and-Serialization#schema-compiler">here</a>.</p>
 <p><a name="set-not-found-handler"></a></p>
 <h4 id="setnotfoundhandler">setNotFoundHandler</h4>
-<p><code>fastify.setNotFoundHandler(handler(request, reply))</code>: set the 404 handler. This call is fully encapsulated, so different plugins can set different not found handlers.</p>
+<p><code>fastify.setNotFoundHandler(handler(request, reply))</code>: set the 404 handler. This call is fully encapsulated, so different plugins can set different not found handlers. The handler is treated like a regular route handler so requests will go through the full <a href="/docs/master/Lifecycle#lifecycle">Fastify lifecycle</a>.</p>
 <p><a name="set-error-handler"></a></p>
 <h4 id="seterrorhandler">setErrorHandler</h4>
 <p><code>fastify.setErrorHandler(handler(error, reply))</code>: set a function that will be called whenever an error happens. The handler is fully encapsulated, so different plugins can set different error handlers, <em>async await</em> is supported as well.</p>
