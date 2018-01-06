@@ -50,12 +50,12 @@
 const fastify = require('fastify')()
 
 // Declare a route
-fastify.get('/', function (request, reply) {
+fastify.get('/', (request, reply) => {
   reply.send({ hello: 'world' })
 })
 
 // Run the server!
-fastify.listen(3000, function (err) {
+fastify.listen(3000, (err) => {
   if (err) throw err
   console.log(`server listening on ${fastify.server.address().port}`)
 })</code></pre>
@@ -71,7 +71,7 @@ fastify.get('/', async (request, reply) => {
   return { hello: 'world' }
 })
 
-fastify.listen(3000, function (err) {
+fastify.listen(3000, (err) => {
   if (err) throw err
   console.log(`server listening on ${fastify.server.address().port}`)
 })</code></pre>
@@ -86,7 +86,39 @@ fastify.listen(3000, function (err) {
           <p>and you can test it with:</p>
           <pre><code class="shell">curl http://localhost:3000</code></pre>
 
-          <p>Visit the <a href="/docs">Documentation</a> to learn more about fastify.</p>
+          <h2>Request/Response validation and hooks</h2>
+
+          <p>Of course, Fastify can do more than this.<br/>For example, you can easily provide input and output validation using JSON Schema and perform specific operation before the handler is executed:</p>
+
+          <pre><code class="javascript">
+fastify.route({
+  method: 'GET',
+  url: '/',
+  schema: {
+    // request needs to have a querystring with a `name` parameter
+    querystring: {
+      name: { type: 'string' }
+    },
+    // the response needs to be an object with an `hello` property of type 'string'
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          hello: { type: 'string' }
+        }
+      }
+    }
+    // this function is executed for every request before the handler is executed
+    beforeHandler: async (request, reply) => {
+      // E.g. check authentication
+    }
+  },
+  handler: async (request, reply) => {
+    return { hello: 'world' }
+  }
+})</code></pre>
+
+          <p>Visit the <a href="/docs">Documentation</a> to learn more about all the features that Fastify has to offer.</p>
         </div>
       </div>
   </div>
