@@ -122,8 +122,21 @@ ${content}`
 }
 
 const fixInternalLink = (content) => {
+  /*
+   converts
+    [XXXX](/docs/VVVV/Ecosystem.md)
+   to
+    [XXXX](/ecosystem)
+   and
+    [XXXX](/docs/VVVV/YYYY.md)
+   to
+    [XXXX](/docs/VVVV/YYYY)
+  */
+  const ecosystemLinkRx = /\(\/docs\/[\w\d.-]+\/Ecosystem\.md\)/gi
   const docInternalLinkRx = /\(\/docs\/[\w\d.-]+\/[\w\d-]+(.md)/gi
-  return content.replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
+  return content
+    .replace(ecosystemLinkRx, (match) => '(/ecosystem)')
+    .replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
 }
 
 const createVersionIndexFile = (latestVersion) => (version, cb) => {
