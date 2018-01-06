@@ -435,7 +435,7 @@ Consider the scenario where a database connection is needed to handle data stora
 A typical solution is to use a complex callback, or promises, system that will mix the framework API with other libraries and the application code.<br>
 Fastify handles this internally, with minimum effort!</p>
 <p>Let&#39;s rewrite the above example with a database connection.<br>
-<em>(we will use a simple example, for a robust solution consider using <a href="https://github.com/fastify/fastify-mongodb"><code>fastify-mongo</code></a> or another in the Fastify <a href="/docs/latest/Ecosystem">ecosystem</a>)</em></p>
+<em>(we will use a simple example, for a robust solution consider using <a href="https://github.com/fastify/fastify-mongodb"><code>fastify-mongo</code></a> or another in the Fastify <a href="/ecosystem">ecosystem</a>)</em></p>
 <pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)()
 
 fastify.register(require(&#39;./our-db-connector&#39;), {
@@ -540,7 +540,7 @@ Read <a href="/docs/latest/Validation-and-Serialization">Validation and Serializ
 <p><a name="extend-server"></a></p>
 <h3 id="extend-your-server">Extend your server</h3>
 <p>Fastify is built to be extremely extensible and very minimal, We believe that a bare minimum framework is all that is necessary to make great applications possible.<br>
-In other words, Fastify is not a &quot;batteries included&quot; framework, and relies on an amazing <a href="/docs/latest/Ecosystem">ecosystem</a>!</p>
+In other words, Fastify is not a &quot;batteries included&quot; framework, and relies on an amazing <a href="/ecosystem">ecosystem</a>!</p>
 <p><a name="test-server"></a></p>
 <h3 id="test-your-server">Test your server</h3>
 <p>Fastify does not offer a testing framework, but we do recommend a way to write your tests that uses the features and the architecture of Fastify.<br>
