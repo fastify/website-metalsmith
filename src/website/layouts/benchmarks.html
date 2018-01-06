@@ -13,9 +13,11 @@
 <div class="container">
   <section class="section">
     <div class="content">
-      <p>Leveraging our experience with Node.js performance, Fastify has been built from the ground up to be <strong>faster than the currently well-known web frameworks such as Express or Hapi</strong></p>
+      <p>Leveraging our experience with Node.js performance, Fastify has been built from the ground up to be <strong>as fast as possible</strong>.</p>
 
-      <p>All the code used for our benchmarks is <a href="https://github.com/fastify/benchmarks/">available on GitHub</a>. Here's a brief summary on how fastify performed against the most well known Node.js web frameworks:</p>
+      <p>All the code used for our benchmarks is <a href="https://github.com/fastify/benchmarks/">available on GitHub</a>.</p>
+
+      <p>Here's a brief summary on how fastify overhead performed against the some other well known Node.js web frameworks:</p>
 
       {{ contents | safe }}
 
@@ -43,6 +45,8 @@
           {% endfor %}
         </div>
       </div>
+
+      <p>Please note that this is a synthetic, "hello world" benchmark that aims to evaluate the framework overhead. The overhead that each framework has on your application depends on your application, <strong>you should always benchmark if performance matters to you</strong>.</p>
 
       <p>Do you want to provide feedback on our benchmarks? <a href="https://github.com/fastify/benchmarks/issues">Open an issue on GitHub</a> and we will get back to you!</p>
     </div>
