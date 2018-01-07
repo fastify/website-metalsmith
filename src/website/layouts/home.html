@@ -116,7 +116,7 @@ fastify.route({
           hello: { type: 'string' }
         }
       }
-    }
+    },
     // this function is executed for every request before the handler is executed
     beforeHandler: (request, reply) => {
       // E.g. check authentication
@@ -149,7 +149,7 @@ fastify.route({
           hello: { type: 'string' }
         }
       }
-    }
+    },
     // this function is executed for every request before the handler is executed
     beforeHandler: async (request, reply) => {
       // E.g. check authentication
