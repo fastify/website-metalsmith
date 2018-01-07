@@ -90,9 +90,9 @@
   height: 1em;
   left: 0.1em;
   transition: background 0.1s ease;
-  background: #F25F5C;
+  background: #BBB;
   border-radius: 50px;
-  box-shadow: inset 0px 1px 1px rgba(171, 66, 63, 0.5);
+  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
 .swappable-async-await .toggle-checkbox label:after {
