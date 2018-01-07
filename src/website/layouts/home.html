@@ -283,41 +283,43 @@ fastify.route({
 
 {% block extraScripts %}
 <script type="text/javascript">
-  var state = { preferAsync: true }
-  function getAsyncToggles() {
-    return document.getElementsByClassName('swappable-async-await-checkbox')
-  }
-
-  function getCodeBlocks() {
-    return document.getElementsByClassName('swappable-async-await-code')
-  }
-
-  function initAsyncToggle() {
-    var toggles = getAsyncToggles()
-    for (var i=0; i < toggles.length; i++) {
-      toggles.item(i).addEventListener('change', function (e) {
-        state.preferAsync = e.target.checked
-        updateView()
-      })
-    }
-  }
-
-  function updateView() {
-    var toggles = getAsyncToggles()
-    for (var i=0; i < toggles.length; i++) {
-      toggles.item(i).checked = state.preferAsync
+  (function() {
+    var state = { preferAsync: true }
+    function getAsyncToggles() {
+      return document.getElementsByClassName('swappable-async-await-checkbox')
     }
 
-    var codeBlocks = getCodeBlocks()
-    for (var i=0; i < codeBlocks.length; i++) {
-      var block = codeBlocks.item(i)
-      var show = (block.className.indexOf('async') === 0 && state.preferAsync) ||
-        (block.className.indexOf('no-async') === 0 && !state.preferAsync)
-      block.style.display = show ? 'block' : 'none'
+    function getCodeBlocks() {
+      return document.getElementsByClassName('swappable-async-await-code')
     }
-  }
 
-  initAsyncToggle()
-  updateView()
+    function initAsyncToggle() {
+      var toggles = getAsyncToggles()
+      for (var i=0; i < toggles.length; i++) {
+        toggles.item(i).addEventListener('change', function (e) {
+          state.preferAsync = e.target.checked
+          updateView()
+        })
+      }
+    }
+
+    function updateView() {
+      var toggles = getAsyncToggles()
+      for (var i=0; i < toggles.length; i++) {
+        toggles.item(i).checked = state.preferAsync
+      }
+
+      var codeBlocks = getCodeBlocks()
+      for (var i=0; i < codeBlocks.length; i++) {
+        var block = codeBlocks.item(i)
+        var show = (block.className.indexOf('async') === 0 && state.preferAsync) ||
+          (block.className.indexOf('no-async') === 0 && !state.preferAsync)
+        block.style.display = show ? 'block' : 'none'
+      }
+    }
+
+    initAsyncToggle()
+    updateView()
+  })()
 </script>
 {% endblock %}
