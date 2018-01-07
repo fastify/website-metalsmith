@@ -417,7 +417,7 @@ This is a shortcut for <code>reply.header(&#39;Content-Type&#39;, &#39;the/type&
   .header(&#39;Content-Type&#39;, &#39;application/x-protobuf&#39;)
   .serializer(protoBuf.serialize)
 </code></pre>
-<p>Note that if a string or buffer is passed to <code>reply.send</code> it is expected to already be serialized and skip the serialization step.</p>
+<p>Note that if a buffer is passed to <code>reply.send</code> it is expected to already be serialized and skip the serialization step.</p>
 <p><em>Take a look <a href="/docs/master/Validation-and-Serialization#serialization">here</a> to understand how serialization is done.</em></p>
 <p><a name="notfound"></a></p>
 <h3 id="notfound">NotFound</h3>
@@ -439,6 +439,13 @@ This is a shortcut for <code>reply.header(&#39;Content-Type&#39;, &#39;the/type&
 <p>As noted above, if you are sending JSON objects, <code>send</code> will serialize the object with <a href="https://www.npmjs.com/package/fast-json-stringify">fast-json-stringify</a> if you set an output schema, otherwise <code>JSON.stringify()</code> will be used.</p>
 <pre><code class="lang-js">fastify.get(&#39;/json&#39;, options, function (request, reply) {
   reply.send({ hello: &#39;world&#39; })
+})
+</code></pre>
+<p><a name="send-string"></a></p>
+<h4 id="strings">Strings</h4>
+<p>If you pass a string to <code>send</code> without a <code>Content-Type</code>, it will be sent as plain text. If you set the <code>Content-Type</code> header and pass a string to <code>send</code>, it will be serialized with the custom serializer if one is set, otherwise it will be sent unmodified (unless the <code>Content-Type</code> header is set to <code>application/json</code>, in which case it will be JSON-serialized like an object — see the section above).</p>
+<pre><code class="lang-js">fastify.get(&#39;/json&#39;, options, function (request, reply) {
+  reply.send(&#39;plain string&#39;)
 })
 </code></pre>
 <p><a name="async-await-promise"></a></p>
