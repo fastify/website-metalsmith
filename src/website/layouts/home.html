@@ -39,14 +39,18 @@
         <h1 class="title">Quick start</h1>
         <p>Get fastify with NPM:</p>
         <pre><code class="shell">npm install fastify</code></pre>
-      </div>
-    </div>
 
-    <div class="columns">
-      <div class="column is-6">
-          <p>Then create <code>server.js</code> and add the following content:</p>
-          <pre><code class="javascript">
-// Require the framework and instantiate it
+        <p>Then create <code>server.js</code> and add the following content:</p>
+
+        <div class="swappable-async-await">
+          <div class="swap-button-box">
+            <label for="async-await-swap-1">async/await</label>
+            <div class="toggle-checkbox">
+              <input type="checkbox" class="swappable-async-await-checkbox" id="async-await-swap-1" value="0" checked="" name="async-await-swap-1">
+              <label for="async-await-swap-1"></label>
+            </div>
+          </div>
+          <pre class="no-async swappable-async-await-code"><code class="javascript">// Require the framework and instantiate it
 const fastify = require('fastify')()
 
 // Declare a route
@@ -59,37 +63,76 @@ fastify.listen(3000, (err) => {
   if (err) throw err
   console.log(`server listening on ${fastify.server.address().port}`)
 })</code></pre>
-        </div>
-        <div class="column is-6">
-          <p>Or, if you love <code>async/await</code>:</p>
-
-          <pre><code class="javascript">
+          <pre class="async swappable-async-await-code"><code class="javascript">// Require the framework and instantiate it
 const fastify = require('fastify')()
 
+// Declare a route
 fastify.get('/', async (request, reply) => {
   return { hello: 'world' }
+})
+
+// Run the server!
+(async () => {
+  await fastify.listen(3000)
+  console.log(`server listening on ${fastify.server.address().port}`)
+})()
+</code></pre>
+        </div>
+
+        <p>Finally, launch the server with:</p>
+        <pre><code class="shell">node server</code></pre>
+
+        <p>and you can test it with:</p>
+        <pre><code class="shell">curl http://localhost:3000</code></pre>
+
+        <h2>Request/Response validation and hooks</h2>
+
+        <p>Of course, Fastify can do much more than this.</p>
+        <p>For example, you can easily provide input and output validation using JSON Schema and perform specific operation before the handler is executed:</p>
+
+        <div class="swappable-async-await">
+          <div class="swap-button-box">
+            <label for="async-await-swap-2">async/await</label>
+            <div class="toggle-checkbox">
+              <input type="checkbox" class="swappable-async-await-checkbox" id="async-await-swap-2" value="0" checked="" name="async-await-swap-2">
+              <label for="async-await-swap-2"></label>
+            </div>
+          </div>
+          <pre class="no-async swappable-async-await-code"><code class="javascript">const fastify = require('fastify')()
+
+fastify.route({
+  method: 'GET',
+  url: '/',
+  schema: {
+    // request needs to have a querystring with a `name` parameter
+    querystring: {
+      name: { type: 'string' }
+    },
+    // the response needs to be an object with an `hello` property of type 'string'
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          hello: { type: 'string' }
+        }
+      }
+    }
+    // this function is executed for every request before the handler is executed
+    beforeHandler: (request, reply) => {
+      // E.g. check authentication
+    }
+  },
+  handler: (request, reply) => {
+    return { hello: 'world' }
+  }
 })
 
 fastify.listen(3000, (err) => {
   if (err) throw err
   console.log(`server listening on ${fastify.server.address().port}`)
 })</code></pre>
-        </div>
-      </div>
+          <pre class="async swappable-async-await-code"><code class="javascript">const fastify = require('fastify')()
 
-      <div class="columns is-centered">
-        <div class="column is-10">
-          <p>Finally, launch the server with:</p>
-          <pre><code class="shell">node server</code></pre>
-
-          <p>and you can test it with:</p>
-          <pre><code class="shell">curl http://localhost:3000</code></pre>
-
-          <h2>Request/Response validation and hooks</h2>
-
-          <p>Of course, Fastify can do more than this.<br/>For example, you can easily provide input and output validation using JSON Schema and perform specific operation before the handler is executed:</p>
-
-          <pre><code class="javascript">
 fastify.route({
   method: 'GET',
   url: '/',
@@ -115,11 +158,17 @@ fastify.route({
   handler: async (request, reply) => {
     return { hello: 'world' }
   }
-})</code></pre>
+})
 
-          <p>Visit the <a href="/docs">Documentation</a> to learn more about all the features that Fastify has to offer.</p>
+(async () => {
+  await fastify.listen(3000)
+  console.log(`server listening on ${fastify.server.address().port}`)
+})()</code></pre>
         </div>
+
+        <p>Visit the <a href="/docs">Documentation</a> to learn more about all the features that Fastify has to offer.</p>
       </div>
+    </div>
   </div>
 </section>
 
@@ -153,7 +202,6 @@ fastify.route({
         <div class="block">
           <p><a class="button is-primary is-large is-flex-mobile" href="/benchmarks">Checkout our benchmarks</a></p>
         </div>
-        <p class="is-size-7">Benchmarks taken using <a href="https://github.com/fastify/benchmarks"><code>fastify/benchmarks</code></a>. This is a synthetic, "hello world" benchmark that aims to evaluate the framework overhead. The overhead that each framework has on your application depends on your application, you should always benchmark if performance matters to you.</p>
       </div>
       <div class="column is-6">
         <h1 class="title">Ecosystem</h1>
@@ -230,4 +278,46 @@ fastify.route({
     </div>
   </div>
 </section>
+{% endblock %}
+
+
+{% block extraScripts %}
+<script type="text/javascript">
+  var state = { preferAsync: true }
+  function getAsyncToggles() {
+    return document.getElementsByClassName('swappable-async-await-checkbox')
+  }
+
+  function getCodeBlocks() {
+    return document.getElementsByClassName('swappable-async-await-code')
+  }
+
+  function initAsyncToggle() {
+    var toggles = getAsyncToggles()
+    for (var i=0; i < toggles.length; i++) {
+      toggles.item(i).addEventListener('change', function (e) {
+        state.preferAsync = e.target.checked
+        updateView()
+      })
+    }
+  }
+
+  function updateView() {
+    var toggles = getAsyncToggles()
+    for (var i=0; i < toggles.length; i++) {
+      toggles.item(i).checked = state.preferAsync
+    }
+
+    var codeBlocks = getCodeBlocks()
+    for (var i=0; i < codeBlocks.length; i++) {
+      var block = codeBlocks.item(i)
+      var show = (block.className.indexOf('async') === 0 && state.preferAsync) ||
+        (block.className.indexOf('no-async') === 0 && !state.preferAsync)
+      block.style.display = show ? 'block' : 'none'
+    }
+  }
+
+  initAsyncToggle()
+  updateView()
+</script>
 {% endblock %}
