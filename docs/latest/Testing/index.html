@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.37.x/Testing">
+    <link ref="canonical" href="/docs/v0.38.x/Testing">
   
 
   
@@ -187,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.37.x">v0.37.x</option>
+                          <option selected="selected" value="/docs/v0.38.x">v0.38.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.37.x">v0.37.x</option>
                       
                     
                       
@@ -290,7 +296,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.37.x">v0.37.x</option>
+                          <option selected="selected" value="/docs/v0.38.x">v0.38.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.37.x">v0.37.x</option>
                         
                       
                         
@@ -462,7 +473,7 @@ server.start({ port: 0 }, (err, fastify) =&gt; {
   url: String,
   payload: Object,
   headers: Object
-}, response =&gt; {
+}, (error, response) =&gt; {
   // your tests
 })
 </code></pre>
@@ -477,9 +488,17 @@ server.start({ port: 0 }, (err, fastify) =&gt; {
   .then(response =&gt; {
     // your tests
   })
+  .catch(err =&gt; {
+    // handle error
+  })
 </code></pre>
 <p>Async await is supported as well!</p>
-<pre><code class="lang-js">const res = await fastify.inject({ method: String, url: String, payload: Object, headers: Object })
+<pre><code class="lang-js">try {
+  const res = await fastify.inject({ method: String, url: String, payload: Object, headers: Object })
+  // your tests
+} catch (err) {
+  // handle error
+}
 </code></pre>
 <p>Example:</p>
 <pre><code class="lang-js">// server.js
@@ -542,7 +561,8 @@ test(&#39;GET `/` route&#39;, t =&gt; {
   fastify.inject({
     method: &#39;GET&#39;,
     url: &#39;/&#39;
-  }, res =&gt; {
+  }, (err, res) =&gt; {
+    t.error(err)
     t.strictEqual(res.statusCode, 200)
     t.strictEqual(res.headers[&#39;content-length&#39;], &#39;&#39; + res.payload.length)
     t.deepEqual(JSON.parse(res.payload), { hello: &#39;world&#39; })

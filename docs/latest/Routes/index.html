@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.37.x/Routes">
+    <link ref="canonical" href="/docs/v0.38.x/Routes">
   
 
   
@@ -187,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.37.x">v0.37.x</option>
+                          <option selected="selected" value="/docs/v0.38.x">v0.38.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.37.x">v0.37.x</option>
                       
                     
                       
@@ -290,7 +296,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.37.x">v0.37.x</option>
+                          <option selected="selected" value="/docs/v0.38.x">v0.38.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.37.x">v0.37.x</option>
                         
                       
                         
@@ -392,7 +403,8 @@ schema allows us to have 10-20% more throughput.</li>
 </li>
 <li><code>beforeHandler(request, reply, done)</code>: a <a href="/docs/latest/Hooks#before-handler">function</a> called just before the request handler, useful if you need to perform authentication at route level for example, it could also be and array of functions.</li>
 <li><code>handler(request, reply)</code>: the function that will handle this request.</li>
-<li><p><code>schemaCompiler(schema)</code>: the function that build the schema for the validations. See <a href="/docs/latest/Validation-and-Serialization#schema-compiler">here</a></p>
+<li><code>schemaCompiler(schema)</code>: the function that build the schema for the validations. See <a href="/docs/latest/Validation-and-Serialization#schema-compiler">here</a></li>
+<li><p><code>jsonBodyLimit</code>: prevents the default JSON body parser from parsing request bodies larger than this number of bytes. Must be an integer. You may also set this option globally when first creating the Fastify instance with <code>fastify(options)</code>. Defaults to <code>1048576</code> (1 MiB).</p>
 <p><code>request</code> is defined in <a href="/docs/latest/Request">Request</a>.</p>
 <p><code>reply</code> is defined in <a href="/docs/latest/Reply">Reply</a>.</p>
 </li>
