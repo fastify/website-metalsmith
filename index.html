@@ -93,377 +93,474 @@
 
 <section class="section">
   <div class="container content">
-    <h1 class="title">Why</h1>
-      <p>
-        An efficient server implies a lower cost of the infrastructure, a better responsiveness under load and happy users.
-        How can you efficiently handle the resources of your server, knowing that you are serving the highest number of requests as possible, without sacrificing security validations and handy development?
-      </p>
-      <p>
-        Enter Fastify. Fastify is a web framework highly focused on speed and low overhead. It is inspired from Hapi and Express and as far as we know, it is one of the fastest web frameworks in town.
-        Use Fastify can increase your throughput up to 100%.
-      </p>
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <h1 class="title">Why</h1>
+        <p>
+          An efficient server implies a lower cost of the infrastructure, a better responsiveness under load and happy users.
+          How can you efficiently handle the resources of your server, knowing that you are serving the highest number of requests as possible, without sacrificing security validations and handy development?
+        </p>
+        <p>
+          Enter Fastify. Fastify is a web framework highly focused on providing the best developer experience with the least overhead and a powerful plugin architecture. It is inspired by Hapi and Express and as far as we know, it is one of the fastest web frameworks in town.
+        </p>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="section alternate">
   <div class="container content">
-    <h1 class="title">Quick start</h1>
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <h1 class="title">Quick start</h1>
+        <p>Get fastify with NPM:</p>
+        <pre><code class="shell">npm install fastify</code></pre>
 
-    <p>Get fastify with NPM:</p>
-    <pre><code class="shell">npm install fastify</code></pre>
+        <p>Then create <code>server.js</code> and add the following content:</p>
 
-    <p>Then create <code>server.js</code> and add the following content:</p>
-
-    <pre><code class="javascript">'use strict'
-
+        <div class="swappable-async-await">
+          <div class="swap-button-box">
+            <label for="async-await-swap-1">async/await</label>
+            <div class="toggle-checkbox">
+              <input type="checkbox" class="swappable-async-await-checkbox" id="async-await-swap-1" value="0" checked="" name="async-await-swap-1">
+              <label for="async-await-swap-1"></label>
+            </div>
+          </div>
+          <pre class="no-async swappable-async-await-code"><code class="javascript">// Require the framework and instantiate it
 const fastify = require('fastify')()
 
-const schema = {
+// Declare a route
+fastify.get('/', (request, reply) => {
+  reply.send({ hello: 'world' })
+})
+
+// Run the server!
+fastify.listen(3000, (err) => {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+  fastify.log.info(`server listening on ${fastify.server.address().port}`)
+})</code></pre>
+          <pre class="async swappable-async-await-code"><code class="javascript">// Require the framework and instantiate it
+const fastify = require('fastify')()
+
+// Declare a route
+fastify.get('/', async (request, reply) => {
+  return { hello: 'world' }
+})
+
+// Run the server!
+const start = async () => {
+  try {
+    await fastify.listen(3000)
+    fastify.log.info(`server listening on ${fastify.server.address().port}`)
+  } catch (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+}
+start()
+</code></pre>
+        </div>
+
+        <p>Finally, launch the server with:</p>
+        <pre><code class="shell">node server</code></pre>
+
+        <p>and you can test it with:</p>
+        <pre><code class="shell">curl http://localhost:3000</code></pre>
+
+        <h2>Request/Response validation and hooks</h2>
+
+        <p>Of course, Fastify can do much more than this.</p>
+        <p>For example, you can easily provide input and output validation using JSON Schema and perform specific operation before the handler is executed:</p>
+
+        <div class="swappable-async-await">
+          <div class="swap-button-box">
+            <label for="async-await-swap-2">async/await</label>
+            <div class="toggle-checkbox">
+              <input type="checkbox" class="swappable-async-await-checkbox" id="async-await-swap-2" value="0" checked="" name="async-await-swap-2">
+              <label for="async-await-swap-2"></label>
+            </div>
+          </div>
+          <pre class="no-async swappable-async-await-code"><code class="javascript">const fastify = require('fastify')()
+
+fastify.route({
+  method: 'GET',
+  url: '/',
   schema: {
+    // request needs to have a querystring with a `name` parameter
+    querystring: {
+      name: { type: 'string' }
+    },
+    // the response needs to be an object with an `hello` property of type 'string'
     response: {
       200: {
         type: 'object',
         properties: {
-          hello: {
-            type: 'string'
-          }
+          hello: { type: 'string' }
         }
       }
+    },
+    // this function is executed for every request before the handler is executed
+    beforeHandler: (request, reply) => {
+      // E.g. check authentication
     }
+  },
+  handler: (request, reply) => {
+    return { hello: 'world' }
+  }
+})
+
+fastify.listen(3000, (err) => {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+  fastify.log.info(`server listening on ${fastify.server.address().port}`)
+})</code></pre>
+          <pre class="async swappable-async-await-code"><code class="javascript">const fastify = require('fastify')()
+
+fastify.route({
+  method: 'GET',
+  url: '/',
+  schema: {
+    // request needs to have a querystring with a `name` parameter
+    querystring: {
+      name: { type: 'string' }
+    },
+    // the response needs to be an object with an `hello` property of type 'string'
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          hello: { type: 'string' }
+        }
+      }
+    },
+    // this function is executed for every request before the handler is executed
+    beforeHandler: async (request, reply) => {
+      // E.g. check authentication
+    }
+  },
+  handler: async (request, reply) => {
+    return { hello: 'world' }
+  }
+})
+
+const start = async () => {
+  try {
+    await fastify.listen(3000)
+    fastify.log.info(`server listening on ${fastify.server.address().port}`)
+  } catch (err) {
+    fastify.log.error(err)
+    process.exit(1)
   }
 }
+start()</code></pre>
+        </div>
 
-fastify
-  .get('/', schema, function (req, reply) {
-    reply
-      .send({ hello: 'world' })
-  })
-
-fastify.listen(3000, err => {
-  if (err) throw err
-  console.log(`server listening on ${fastify.server.address().port}`)
-})</code></pre>
-
-    <p>Finally, launch the server with:</p>
-    <pre><code class="shell">node server</code></pre>
-
-
-    <p>and you can test it with:</p>
-    <pre><code class="shell">curl http://localhost:3000</code></pre>
-
-    <p>Visit the <a href="/docs">Documentation</a> to learn more about fastify.</p>
+        <p>Visit the <a href="/docs">Documentation</a> to learn more about all the features that Fastify has to offer.</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="section">
   <div class="container content">
-    <h1 class="title">Core features</h1>
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <h1 class="title">Core features</h1>
 
-    <p>These are the main features and principles on which fastify has been built:</p>
+        <p>These are the main features and principles on which fastify has been built:</p>
 
-    <ul>
-      <li><strong>100% asynchronous:</strong> all the core is implemented with asynchronous code, in this way not even a millisecond is wasted.</li>
-      <li><strong>Highly performant:</strong> as far as we know, Fastify is one of the fastest web frameworks in town, depending on the code complexity we can serve up to 20000 request per second.</li>
-      <li><strong>Extendible:</strong> Fastify is fully extensible via its hooks, plugins and decorators.</li>
-      <li><strong>Schema based:</strong> even if it is not mandatory we recommend to use <a href="http://json-schema.org/" target="_blank">JSON Schema</a> to validate your routes and serialize your outputs, internally Fastify compiles the schema in an highly performant function.</li>
-      <li><strong>Logging:</strong> logs are extremely important but are costly; we chose the best logger to almost remove this cost, <a href="https://github.com/pinojs/pino" target="_blank">Pino</a>!</li>
-      <li><strong>Developer friendly:</strong> the framework is built to be very expressive and help the developer in his daily use, without sacrificing performance and security.</li>
-    </ul>
+        <ul>
+          <li><strong>Highly performant:</strong> as far as we know, Fastify is one of the fastest web frameworks in town, depending on the code complexity we can serve up to 30 thousand requests per second.</li>
+          <li><strong>Extendible:</strong> Fastify is fully extensible via its hooks, plugins and decorators.</li>
+          <li><strong>Schema based:</strong> even if it is not mandatory we recommend to use <a href="http://json-schema.org/" target="_blank">JSON Schema</a> to validate your routes and serialize your outputs, internally Fastify compiles the schema in an highly performant function.</li>
+          <li><strong>Logging:</strong> logs are extremely important but are costly; we chose the best logger to almost remove this cost, <a href="https://github.com/pinojs/pino" target="_blank">Pino</a>!</li>
+          <li><strong>Developer friendly:</strong> the framework is built to be very expressive and help the developer in his daily use, without sacrificing performance and security.</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="section alternate">
   <div class="container content">
-    <h1 class="title">A faster web framework</h1>
+
     <div class="columns">
       <div class="column is-6">
-        <p>Leveraging our experience with Node.js performance, Fastify has been built from the ground up to be <strong>faster than the currently well-known web frameworks such as Express or Hapi</strong>. Have  a look at our <a href="/benchmarks">benchmarks section</a> to compare fastify performance to other common web frameworks.</p>
-      </div>
-      <div class="column is-3">
-        <div class="box">
-          <p class="has-text-centered"><span class="content is-large">160 %</span><br/> faster than <strong>HAPI</strong></p>
+        <h1 class="title">A fast web framework</h1>
+        <p>Leveraging our experience with Node.js performance, Fastify has been built from the ground up to be <strong>as fast as possible</strong>. Have  a look at our <a href="/benchmarks">benchmarks section</a> to compare fastify performance to other common web frameworks.</p>
+        <div class="block">
+          <p><a class="button is-primary is-large is-flex-mobile" href="/benchmarks">Checkout our benchmarks</a></p>
         </div>
       </div>
-      <div class="column is-3">
-        <div class="box">
-          <p class="has-text-centered"><span class="content is-large">150 %</span><br/> faster than <strong>Express</strong></p>
-        </div>
-      </div>
-    </div>
-    <div class="block">
-      <a class="button is-primary is-large is-flex-mobile" href="/benchmarks">Checkout our benchmarks</a>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container content">
-    <h1 class="title">Ecosystem</h1>
-    <div class="columns">
-      <div class="column is-9">
+      <div class="column is-6">
+        <h1 class="title">Ecosystem</h1>
         <p>
           Fastify has an ever-growing ecosystem of plugins. Probably there is already a plugin for your favourite database or template language.
           Have a look at the <a href="/ecosystem">Ecosystem page</a> to navigate through the currently available plugins.
           Can't you find the plugin you are looking for? No problem, <a href="/docs/master/plugins">it's very easy to write one</a>!
         </p>
-      </div>
-      <div class="column is-3">
-        <div class="box">
-          <p class="has-text-centered"><span class="content is-large">45</span><br/> Plugins</p>
+        <div class="block">
+          <a class="button is-primary is-large is-flex-mobile" href="/ecosystem">Explore 45 plugins</a>
         </div>
       </div>
     </div>
-    <div class="block">
-      <a class="button is-primary is-large is-flex-mobile" href="/ecosystem">Explore plugins</a>
-    </div>
   </div>
 </section>
 
-<section class="section alternate team">
+<section class="section team">
   <div class="container">
-    <div class="content">
-      <h1 class="title">The team</h1>
-      <p>In alphabetical order</p>
-    </div>
-    
-      <div class="content">
-        <h2>Lead Maintainers</h2>
-      </div>
-      <div class="columns is-multiline">
-        
-          <div class="column is-one-third">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <img src="https://avatars1.githubusercontent.com/u/52195?v=4&amp;s=460" alt="Matteo Collina's profile picture">
-                </figure>
-              </div>
-              <div class="media-content">
-                <p class="title is-5">Matteo Collina</p>
-                <p class="subtitle is-6">
-                  
-                    <a href="https://github.com/mcollina" target="_blank">github</a>
-                  
-                    <a href="https://www.npmjs.com/~matteo.collina" target="_blank">npm</a>
-                  
-                    <a href="https://twitter.com/matteocollina" target="_blank">twitter</a>
-                  
-                </p>
-              </div>
-            </div>
-          </div>
-        
-          <div class="column is-one-third">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <img src="https://avatars0.githubusercontent.com/u/4865608?v=4&amp;s=460" alt="Tomas Della Vedova's profile picture">
-                </figure>
-              </div>
-              <div class="media-content">
-                <p class="title is-5">Tomas Della Vedova</p>
-                <p class="subtitle is-6">
-                  
-                    <a href="https://github.com/delvedor" target="_blank">github</a>
-                  
-                    <a href="https://www.npmjs.com/~delvedor" target="_blank">npm</a>
-                  
-                    <a href="https://twitter.com/delvedor" target="_blank">twitter</a>
-                  
-                </p>
-              </div>
-            </div>
-          </div>
-        
-      </div>
-    
-      <div class="content">
-        <h2>Collaborators</h2>
-      </div>
-      <div class="columns is-multiline">
-        
-          <div class="column is-one-third">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <img src="https://avatars3.githubusercontent.com/u/1764424?v=4&amp;s=460" alt="Dustin Deus's profile picture">
-                </figure>
-              </div>
-              <div class="media-content">
-                <p class="title is-5">Dustin Deus</p>
-                <p class="subtitle is-6">
-                  
-                    <a href="https://github.com/StarpTech" target="_blank">github</a>
-                  
-                    <a href="https://www.npmjs.com/~starptech" target="_blank">npm</a>
-                  
-                    <a href="https://twitter.com/dustindeus" target="_blank">twitter</a>
-                  
-                </p>
-              </div>
-            </div>
-          </div>
-        
-          <div class="column is-one-third">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <img src="https://avatars3.githubusercontent.com/u/1303687?v=4&amp;s=400" alt="Evan Shortiss's profile picture">
-                </figure>
-              </div>
-              <div class="media-content">
-                <p class="title is-5">Evan Shortiss</p>
-                <p class="subtitle is-6">
-                  
-                    <a href="https://github.com/evanshortiss" target="_blank">github</a>
-                  
-                    <a href="https://www.npmjs.com/~evanshortiss" target="_blank">npm</a>
-                  
-                    <a href="https://twitter.com/evanshortiss" target="_blank">twitter</a>
-                  
-                </p>
-              </div>
-            </div>
-          </div>
-        
-          <div class="column is-one-third">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <img src="https://avatars0.githubusercontent.com/u/321201?v=4&amp;s=460" alt="James Sumners's profile picture">
-                </figure>
-              </div>
-              <div class="media-content">
-                <p class="title is-5">James Sumners</p>
-                <p class="subtitle is-6">
-                  
-                    <a href="https://github.com/jsumners" target="_blank">github</a>
-                  
-                    <a href="https://www.npmjs.com/~jsumners" target="_blank">npm</a>
-                  
-                    <a href="https://twitter.com/jsumners79" target="_blank">twitter</a>
-                  
-                </p>
-              </div>
-            </div>
-          </div>
-        
-          <div class="column is-one-third">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <img src="https://avatars3.githubusercontent.com/u/205629?v=4&amp;s=460" alt="Luciano Mammino's profile picture">
-                </figure>
-              </div>
-              <div class="media-content">
-                <p class="title is-5">Luciano Mammino</p>
-                <p class="subtitle is-6">
-                  
-                    <a href="https://github.com/lmammino" target="_blank">github</a>
-                  
-                    <a href="https://www.npmjs.com/~lmammino" target="_blank">npm</a>
-                  
-                    <a href="https://twitter.com/loige" target="_blank">twitter</a>
-                  
-                </p>
-              </div>
-            </div>
-          </div>
-        
-          <div class="column is-one-third">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <img src="https://avatars0.githubusercontent.com/u/5128013?v=4&amp;s=460" alt="Nathan Woltman's profile picture">
-                </figure>
-              </div>
-              <div class="media-content">
-                <p class="title is-5">Nathan Woltman</p>
-                <p class="subtitle is-6">
-                  
-                    <a href="https://github.com/nwoltman" target="_blank">github</a>
-                  
-                    <a href="https://www.npmjs.com/~nwoltman" target="_blank">npm</a>
-                  
-                    <a href="https://twitter.com/NathanWoltman" target="_blank">twitter</a>
-                  
-                </p>
-              </div>
-            </div>
-          </div>
-        
-          <div class="column is-one-third">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <img src="https://avatars0.githubusercontent.com/u/1054125?v=4&amp;s=460" alt="Tommaso Allevi's profile picture">
-                </figure>
-              </div>
-              <div class="media-content">
-                <p class="title is-5">Tommaso Allevi</p>
-                <p class="subtitle is-6">
-                  
-                    <a href="https://github.com/allevo" target="_blank">github</a>
-                  
-                    <a href="https://www.npmjs.com/~allevo" target="_blank">npm</a>
-                  
-                    <a href="https://twitter.com/allevitommaso" target="_blank">twitter</a>
-                  
-                </p>
-              </div>
-            </div>
-          </div>
-        
-          <div class="column is-one-third">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <img src="https://avatars1.githubusercontent.com/u/9213230?v=4&amp;s=460" alt="Çağatay Çalı's profile picture">
-                </figure>
-              </div>
-              <div class="media-content">
-                <p class="title is-5">Çağatay Çalı</p>
-                <p class="subtitle is-6">
-                  
-                    <a href="https://github.com/cagataycali" target="_blank">github</a>
-                  
-                    <a href="https://www.npmjs.com/~cagataycali" target="_blank">npm</a>
-                  
-                    <a href="https://twitter.com/cagataycali" target="_blank">twitter</a>
-                  
-                </p>
-              </div>
-            </div>
-          </div>
-        
-      </div>
-    
-  </div>
-</section>
+    <div class="columns is-centered">
+      <div class="column is-10">
 
-<section class="section">
-  <div class="container content">
-    <h1 class="title">Acknowlegments</h1>
-    <p>This project is kindly <strong>sponsored by</strong>:</p>
-    <ul>
-      
-        <li>
-          <a href="http://nearform.com" target="_blank">nearForm</a>
-        </li>
-      
-        <li>
-          <a href="http://www.letzdoitapp.com" target="_blank">LetzDoIt</a>
-        </li>
-      
-    </ul>
-    <p>Also thanks to:</p>
-    <ul>
-      
-        <li>
-          <a href="https://github.com/fastify/fastify/graphs/contributors" target="_blank">The amazing Fastify community</a>
-        </li>
-      
-    </ul>
+        <div class="content">
+          <h1 class="title">The team</h1>
+          <p>In alphabetical order</p>
+        </div>
+        
+          <div class="content">
+            <h2>Lead Maintainers</h2>
+          </div>
+          <div class="columns is-multiline">
+            
+              <div class="column is-one-third">
+                <div class="media">
+                  <div class="media-left">
+                    <figure class="image is-48x48">
+                      <img src="https://avatars1.githubusercontent.com/u/52195?v=4&amp;s=460" alt="Matteo Collina's profile picture">
+                    </figure>
+                  </div>
+                  <div class="media-content">
+                    <p class="title is-5">Matteo Collina</p>
+                    <p class="subtitle is-6">
+                      
+                        <a href="https://github.com/mcollina" target="_blank">github</a>
+                      
+                        <a href="https://www.npmjs.com/~matteo.collina" target="_blank">npm</a>
+                      
+                        <a href="https://twitter.com/matteocollina" target="_blank">twitter</a>
+                      
+                    </p>
+                  </div>
+                </div>
+              </div>
+            
+              <div class="column is-one-third">
+                <div class="media">
+                  <div class="media-left">
+                    <figure class="image is-48x48">
+                      <img src="https://avatars0.githubusercontent.com/u/4865608?v=4&amp;s=460" alt="Tomas Della Vedova's profile picture">
+                    </figure>
+                  </div>
+                  <div class="media-content">
+                    <p class="title is-5">Tomas Della Vedova</p>
+                    <p class="subtitle is-6">
+                      
+                        <a href="https://github.com/delvedor" target="_blank">github</a>
+                      
+                        <a href="https://www.npmjs.com/~delvedor" target="_blank">npm</a>
+                      
+                        <a href="https://twitter.com/delvedor" target="_blank">twitter</a>
+                      
+                    </p>
+                  </div>
+                </div>
+              </div>
+            
+          </div>
+        
+          <div class="content">
+            <h2>Collaborators</h2>
+          </div>
+          <div class="columns is-multiline">
+            
+              <div class="column is-one-third">
+                <div class="media">
+                  <div class="media-left">
+                    <figure class="image is-48x48">
+                      <img src="https://avatars0.githubusercontent.com/u/1054125?v=4&amp;s=460" alt="Tommaso Allevi's profile picture">
+                    </figure>
+                  </div>
+                  <div class="media-content">
+                    <p class="title is-5">Tommaso Allevi</p>
+                    <p class="subtitle is-6">
+                      
+                        <a href="https://github.com/allevo" target="_blank">github</a>
+                      
+                        <a href="https://www.npmjs.com/~allevo" target="_blank">npm</a>
+                      
+                        <a href="https://twitter.com/allevitommaso" target="_blank">twitter</a>
+                      
+                    </p>
+                  </div>
+                </div>
+              </div>
+            
+              <div class="column is-one-third">
+                <div class="media">
+                  <div class="media-left">
+                    <figure class="image is-48x48">
+                      <img src="https://avatars3.githubusercontent.com/u/1764424?v=4&amp;s=460" alt="Dustin Deus's profile picture">
+                    </figure>
+                  </div>
+                  <div class="media-content">
+                    <p class="title is-5">Dustin Deus</p>
+                    <p class="subtitle is-6">
+                      
+                        <a href="https://github.com/StarpTech" target="_blank">github</a>
+                      
+                        <a href="https://www.npmjs.com/~starptech" target="_blank">npm</a>
+                      
+                        <a href="https://twitter.com/dustindeus" target="_blank">twitter</a>
+                      
+                    </p>
+                  </div>
+                </div>
+              </div>
+            
+              <div class="column is-one-third">
+                <div class="media">
+                  <div class="media-left">
+                    <figure class="image is-48x48">
+                      <img src="https://avatars3.githubusercontent.com/u/205629?v=4&amp;s=460" alt="Luciano Mammino's profile picture">
+                    </figure>
+                  </div>
+                  <div class="media-content">
+                    <p class="title is-5">Luciano Mammino</p>
+                    <p class="subtitle is-6">
+                      
+                        <a href="https://github.com/lmammino" target="_blank">github</a>
+                      
+                        <a href="https://www.npmjs.com/~lmammino" target="_blank">npm</a>
+                      
+                        <a href="https://twitter.com/loige" target="_blank">twitter</a>
+                      
+                    </p>
+                  </div>
+                </div>
+              </div>
+            
+              <div class="column is-one-third">
+                <div class="media">
+                  <div class="media-left">
+                    <figure class="image is-48x48">
+                      <img src="https://avatars3.githubusercontent.com/u/1303687?v=4&amp;s=400" alt="Evan Shortiss's profile picture">
+                    </figure>
+                  </div>
+                  <div class="media-content">
+                    <p class="title is-5">Evan Shortiss</p>
+                    <p class="subtitle is-6">
+                      
+                        <a href="https://github.com/evanshortiss" target="_blank">github</a>
+                      
+                        <a href="https://www.npmjs.com/~evanshortiss" target="_blank">npm</a>
+                      
+                        <a href="https://twitter.com/evanshortiss" target="_blank">twitter</a>
+                      
+                    </p>
+                  </div>
+                </div>
+              </div>
+            
+              <div class="column is-one-third">
+                <div class="media">
+                  <div class="media-left">
+                    <figure class="image is-48x48">
+                      <img src="https://avatars0.githubusercontent.com/u/321201?v=4&amp;s=460" alt="James Sumners's profile picture">
+                    </figure>
+                  </div>
+                  <div class="media-content">
+                    <p class="title is-5">James Sumners</p>
+                    <p class="subtitle is-6">
+                      
+                        <a href="https://github.com/jsumners" target="_blank">github</a>
+                      
+                        <a href="https://www.npmjs.com/~jsumners" target="_blank">npm</a>
+                      
+                        <a href="https://twitter.com/jsumners79" target="_blank">twitter</a>
+                      
+                    </p>
+                  </div>
+                </div>
+              </div>
+            
+              <div class="column is-one-third">
+                <div class="media">
+                  <div class="media-left">
+                    <figure class="image is-48x48">
+                      <img src="https://avatars0.githubusercontent.com/u/5128013?v=4&amp;s=460" alt="Nathan Woltman's profile picture">
+                    </figure>
+                  </div>
+                  <div class="media-content">
+                    <p class="title is-5">Nathan Woltman</p>
+                    <p class="subtitle is-6">
+                      
+                        <a href="https://github.com/nwoltman" target="_blank">github</a>
+                      
+                        <a href="https://www.npmjs.com/~nwoltman" target="_blank">npm</a>
+                      
+                        <a href="https://twitter.com/NathanWoltman" target="_blank">twitter</a>
+                      
+                    </p>
+                  </div>
+                </div>
+              </div>
+            
+              <div class="column is-one-third">
+                <div class="media">
+                  <div class="media-left">
+                    <figure class="image is-48x48">
+                      <img src="https://avatars1.githubusercontent.com/u/9213230?v=4&amp;s=460" alt="Çağatay Çalı's profile picture">
+                    </figure>
+                  </div>
+                  <div class="media-content">
+                    <p class="title is-5">Çağatay Çalı</p>
+                    <p class="subtitle is-6">
+                      
+                        <a href="https://github.com/cagataycali" target="_blank">github</a>
+                      
+                        <a href="https://www.npmjs.com/~cagataycali" target="_blank">npm</a>
+                      
+                        <a href="https://twitter.com/cagataycali" target="_blank">twitter</a>
+                      
+                    </p>
+                  </div>
+                </div>
+              </div>
+            
+          </div>
+        
+
+        <div class="content">
+          <hr/>
+          <h1 class="title">Acknowlegments</h1>
+          <p>This project is kindly <strong>sponsored by</strong>:</p>
+          <ul>
+            
+              <li>
+                <a href="http://nearform.com" target="_blank">nearForm</a>
+              </li>
+            
+              <li>
+                <a href="http://www.letzdoitapp.com" target="_blank">LetzDoIt</a>
+              </li>
+            
+          </ul>
+          <p>Also thanks to:</p>
+          <ul>
+            
+              <li>
+                <a href="https://github.com/fastify/fastify/graphs/contributors" target="_blank">The amazing Fastify community</a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -484,6 +581,48 @@ fastify.listen(3000, err => {
     <script src="/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
     <script>hljs.initHighlightingOnLoad();</script>
+    
+<script type="text/javascript">
+  (function() {
+    var state = { preferAsync: true }
+    function getAsyncToggles() {
+      return document.getElementsByClassName('swappable-async-await-checkbox')
+    }
+
+    function getCodeBlocks() {
+      return document.getElementsByClassName('swappable-async-await-code')
+    }
+
+    function initAsyncToggle() {
+      var toggles = getAsyncToggles()
+      for (var i=0; i < toggles.length; i++) {
+        toggles.item(i).addEventListener('change', function (e) {
+          state.preferAsync = e.target.checked
+          updateView()
+        })
+      }
+    }
+
+    function updateView() {
+      var toggles = getAsyncToggles()
+      for (var i=0; i < toggles.length; i++) {
+        toggles.item(i).checked = state.preferAsync
+      }
+
+      var codeBlocks = getCodeBlocks()
+      for (var i=0; i < codeBlocks.length; i++) {
+        var block = codeBlocks.item(i)
+        var show = (block.className.indexOf('async') === 0 && state.preferAsync) ||
+          (block.className.indexOf('no-async') === 0 && !state.preferAsync)
+        block.style.display = show ? 'block' : 'none'
+      }
+    }
+
+    initAsyncToggle()
+    updateView()
+  })()
+</script>
+
   </body>
 
 </html>
