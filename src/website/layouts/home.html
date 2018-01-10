@@ -72,10 +72,11 @@ fastify.get('/', async (request, reply) => {
 })
 
 // Run the server!
-(async () => {
+const start = async () => {
   await fastify.listen(3000)
-  fastify.log.info(`server listening on ${fastify.server.address().port}`)
-})()
+  console.log(`server listening on ${fastify.server.address().port}`)
+}
+start()
 </code></pre>
         </div>
 
@@ -160,10 +161,11 @@ fastify.route({
   }
 })
 
-(async () => {
+const start = async () => {
   await fastify.listen(3000)
-  fastify.log.info(`server listening on ${fastify.server.address().port}`)
-})()</code></pre>
+  console.log(`server listening on ${fastify.server.address().port}`)
+}
+start()</code></pre>
         </div>
 
         <p>Visit the <a href="/docs">Documentation</a> to learn more about all the features that Fastify has to offer.</p>
