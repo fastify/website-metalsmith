@@ -379,9 +379,9 @@
 On the right branch of every section there is the next phase of the lifecycle, on the left branch there is the corresponding error code that will be generated if the parent throws an error <em>(note that all the errors are automatically handled by Fastify)</em>.</p>
 <pre><code>Incoming Request
   │
-  └─▶ Instance Logger
+  └─▶ Routing
         │
-        └─▶ Routing
+        └─▶ Instance Logger
              │
        404 ◀─┴─▶ onRequest Hook
                   │
