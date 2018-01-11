@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.38.x/Getting-Started">
+    <link ref="canonical" href="/docs/v0.39.x/Getting-Started">
   
 
   
@@ -187,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.38.x">v0.38.x</option>
+                          <option selected="selected" value="/docs/v0.39.x">v0.39.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.38.x">v0.38.x</option>
                       
                     
                       
@@ -260,12 +266,6 @@
                         
                         
                           <option  value="/docs/v0.26.x">v0.26.x</option>
-                      
-                    
-                      
-                        
-                        
-                          <option  value="/docs/v0.25.x">v0.25.x</option>
                       
                     
                       
@@ -296,7 +296,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.38.x">v0.38.x</option>
+                          <option selected="selected" value="/docs/v0.39.x">v0.39.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.38.x">v0.38.x</option>
                         
                       
                         
@@ -357,11 +362,6 @@
                         
                           
                           <option  value="/docs/v0.26.x">v0.26.x</option>
-                        
-                      
-                        
-                          
-                          <option  value="/docs/v0.25.x">v0.25.x</option>
                         
                       
                         
@@ -450,7 +450,7 @@ Fastify handles this internally, with minimum effort!</p>
 <pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)()
 
 fastify.register(require(&#39;./our-db-connector&#39;), {
-  url: &#39;mongodb://mongo/db&#39;
+  url: &#39;mongodb://localhost:27017/&#39;
 })
 fastify.register(require(&#39;./our-first-route&#39;))
 
@@ -476,7 +476,8 @@ module.exports = fp(db)
 <pre><code class="lang-js">// our-first-route.js
 
 async function routes (fastify, options) {
-  const collection = fastify.mongo.collection(&#39;test&#39;)
+  const database = fastify.mongo.db(&#39;db&#39;)
+  const collection = database.collection(&#39;test&#39;)
 
   fastify.get(&#39;/&#39;, async (request, reply) =&gt; {
     return { hello: &#39;world&#39; }
