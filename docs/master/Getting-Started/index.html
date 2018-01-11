@@ -448,7 +448,7 @@ Fastify handles this internally, with minimum effort!</p>
 <pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)()
 
 fastify.register(require(&#39;./our-db-connector&#39;), {
-  url: &#39;mongodb://mongo/db&#39;
+  url: &#39;mongodb://localhost:27017/&#39;
 })
 fastify.register(require(&#39;./our-first-route&#39;))
 
@@ -474,7 +474,8 @@ module.exports = fp(db)
 <pre><code class="lang-js">// our-first-route.js
 
 async function routes (fastify, options) {
-  const collection = fastify.mongo.collection(&#39;test&#39;)
+  const database = fastify.mongo.db(&#39;db&#39;)
+  const collection = database.collection(&#39;test&#39;)
 
   fastify.get(&#39;/&#39;, async (request, reply) =&gt; {
     return { hello: &#39;world&#39; }
