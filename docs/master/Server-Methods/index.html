@@ -477,7 +477,18 @@ A plugin can be a set of routes, a server decorator or whatever, check <a href="
 <p>Set the schema compiler for all routes <a href="/docs/master/Validation-and-Serialization#schema-compiler">here</a>.</p>
 <p><a name="set-not-found-handler"></a></p>
 <h4 id="setnotfoundhandler">setNotFoundHandler</h4>
-<p><code>fastify.setNotFoundHandler(handler(request, reply))</code>: set the 404 handler. This call is fully encapsulated, so different plugins can set different not found handlers. The handler is treated like a regular route handler so requests will go through the full <a href="/docs/master/Lifecycle#lifecycle">Fastify lifecycle</a>.</p>
+<p><code>fastify.setNotFoundHandler(handler(request, reply))</code>: set the 404 handler. This call is encapsulated by prefix, so different plugins can set different not found handlers if a different <a href="/docs/master/Plugins#route-prefixing-option"><code>prefix</code> option</a> is passed to <code>fastify.register()</code>. The handler is treated like a regular route handler so requests will go through the full <a href="/docs/master/Lifecycle#lifecycle">Fastify lifecycle</a>.</p>
+<pre><code class="lang-js">fastify.setNotFoundHandler(function (request, reply) {
+  // Default not found handler  
+})
+
+fastify.register(function (instance, options, next) {
+  instance.setNotFoundHandler(function (request, reply) {
+    // Handle not found request to URLs that begin with &#39;/v1&#39;
+  })
+  next()
+}, { prefix: &#39;/v1&#39; })
+</code></pre>
 <p><a name="set-error-handler"></a></p>
 <h4 id="seterrorhandler">setErrorHandler</h4>
 <p><code>fastify.setErrorHandler(handler(error, reply))</code>: set a function that will be called whenever an error happens. The handler is fully encapsulated, so different plugins can set different error handlers, <em>async await</em> is supported as well.</p>

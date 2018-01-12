@@ -498,7 +498,7 @@ fastify.get(&#39;/html&#39;, (req, reply) =&gt; {
 })
 
 fastify.addHook(&#39;preHandler&#39;, (req, reply, done) =&gt; {
-  req.isHappy = fastify.getHeader(req.req, &#39;happy&#39;)
+  req.isHappy = fastify.getHeader(req.raw, &#39;happy&#39;)
   done()
 })
 
