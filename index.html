@@ -208,7 +208,7 @@ fastify.route({
     }
   },
   handler: (request, reply) => {
-    return { hello: 'world' }
+    reply.send({ hello: 'world' })
   }
 })
 
