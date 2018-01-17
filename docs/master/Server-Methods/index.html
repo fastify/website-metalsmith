@@ -395,14 +395,20 @@ It takes an error parameter if something went wrong.</p>
 </code></pre>
 <p><a name="listen"></a></p>
 <h4 id="listen">listen</h4>
-<p>Starts the server on the given port after all the plugins are loaded, internally waits for the <code>.ready()</code> event. The callback is the same as the Node core.</p>
+<p>Starts the server on the given port after all the plugins are loaded, internally waits for the <code>.ready()</code> event. The callback is the same as the Node core. By default, the server will listen on address <code>127.0.0.1</code> when no specific address is provided. If listening on any available interface is desired, then specifying <code>0.0.0.0</code> for the address will listen on all IPv4 address. Using <code>::</code> for the address will listen on all IPv6 addresses, and, depending on OS, may also listen on all IPv4 addresses. Be careful when deciding to listen on all interfaces; it comes with inherent <a href="https://web.archive.org/web/20170831174611/https://snyk.io/blog/mongodb-hack-and-secure-defaults/">security risks</a>.</p>
 <pre><code class="lang-js">fastify.listen(3000, err =&gt; {
-  if (err) throw err
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
 })
 </code></pre>
 <p>Specifying an address is also supported:</p>
 <pre><code class="lang-js">fastify.listen(3000, &#39;127.0.0.1&#39;, err =&gt; {
-  if (err) throw err
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
 })
 </code></pre>
 <p>If no callback is provided a Promise is returned:</p>
@@ -420,6 +426,14 @@ It takes an error parameter if something went wrong.</p>
     console.log(&#39;Error starting server:&#39;, err)
     process.exit(1)
   })
+</code></pre>
+<p>When deploying to a Docker, and potentially other, containers, it is advisable to listen on <code>0.0.0.0</code> because they do not default to exposing mapped ports to <code>127.0.0.1</code>:</p>
+<pre><code class="lang-js">fastify.listen(3000, &#39;0.0.0.0&#39;, (err) =&gt; {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+})
 </code></pre>
 <p><a name="route"></a></p>
 <h4 id="route">route</h4>
@@ -453,7 +467,7 @@ A plugin can be a set of routes, a server decorator or whatever, check <a href="
 <h4 id="setnotfoundhandler">setNotFoundHandler</h4>
 <p><code>fastify.setNotFoundHandler(handler(request, reply))</code>: set the 404 handler. This call is encapsulated by prefix, so different plugins can set different not found handlers if a different <a href="/docs/master/Plugins#route-prefixing-option"><code>prefix</code> option</a> is passed to <code>fastify.register()</code>. The handler is treated like a regular route handler so requests will go through the full <a href="/docs/master/Lifecycle#lifecycle">Fastify lifecycle</a>.</p>
 <pre><code class="lang-js">fastify.setNotFoundHandler(function (request, reply) {
-  // Default not found handler  
+  // Default not found handler
 })
 
 fastify.register(function (instance, options, next) {

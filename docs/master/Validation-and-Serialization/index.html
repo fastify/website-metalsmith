@@ -421,13 +421,17 @@
 <p><a name="schema-compiler"></a></p>
 <h4 id="schema-compiler">Schema Compiler</h4>
 <p>The <code>schemaCompiler</code> is a function that returns a function that validates the body, url parameters, headers, and query string. The default <code>schemaCompiler</code> returns a function that implements the <code>ajv</code> validation interface. Fastify uses it internally to speed the validation up.</p>
-<p>If you want to change the default options of the <code>ajv</code> instance, you can pass the <code>ajv</code> option to Fastify. The options are described in the <a href="https://github.com/epoberezkin/ajv#options">Ajv documentation</a>.</p>
-<pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)({
-  ajv: {
-    removeAdditional: true,
-    useDefaults:      true,
-    coerceTypes:      true
-  }
+<p>While you cannot change the configuration options of the default <code>ajv</code> instance, you can create your own:</p>
+<pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)()
+const Ajv = require(&#39;ajv&#39;)
+const ajv = new Ajv({
+  // the fastify defaults
+  removeAdditional: true,
+  useDefaults: true,
+  coerceTypes: true
+})
+fastify.setSchemaCompiler(function (schema) {
+  return ajv.compile(schema)
 })
 </code></pre>
 <p>But maybe you want to change the validation library. Perhaps you like <code>Joi</code>. In this case, you can use it to validate the url parameters, body, and query string!</p>
