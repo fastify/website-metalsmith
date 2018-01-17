@@ -394,8 +394,10 @@ fastify.get(&#39;/&#39;, function (request, reply) {
 
 // Run the server!
 fastify.listen(3000, function (err) {
-  if (err) throw err
-  fastify.log.info(`server listening on ${fastify.server.address().port}`)
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
 })
 </code></pre>
 <p>Do you prefer to use <code>async/await</code>? Fastify supports it out-of-the-box.<br>
@@ -406,10 +408,15 @@ fastify.get(&#39;/&#39;, async (request, reply) =&gt; {
   return { hello: &#39;world&#39; }
 })
 
-fastify.listen(3000, function (err) {
-  if (err) throw err
-  fastify.log.info(`server listening on ${fastify.server.address().port}`)
-})
+const start = async () =&gt; {
+  try {
+    await fastify.listen(3000)
+  } catch (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+}
+start()
 </code></pre>
 <p>Awesome, that was easy.<br>
 Unfortunately, writing a complex application requires significantly more code than this example. A classic problem when you are building a new application is how handle multiple files, asynchronous bootstrapping and the architecture of your code.<br>
@@ -424,8 +431,10 @@ Let&#39;s declare our basic server, but instead of declaring the route inside th
 fastify.register(require(&#39;./our-first-route&#39;))
 
 fastify.listen(3000, function (err) {
-  if (err) throw err
-  fastify.log.info(`server listening on ${fastify.server.address().port}`)
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
 })
 </code></pre>
 <pre><code class="lang-js">// our-first-route.js
@@ -453,8 +462,10 @@ fastify.register(require(&#39;./our-db-connector&#39;), {
 fastify.register(require(&#39;./our-first-route&#39;))
 
 fastify.listen(3000, function (err) {
-  if (err) throw err
-  fastify.log.info(`server listening on ${fastify.server.address().port}`)
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
 })
 </code></pre>
 <pre><code class="lang-js">// our-db-connector.js
