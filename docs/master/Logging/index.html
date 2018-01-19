@@ -387,8 +387,8 @@ this purpose.</p>
   logger: true
 })
 
-fastify.get(&#39;/&#39;, options, function (req, reply) {
-  req.log.info(&#39;Some info about the current request&#39;)
+fastify.get(&#39;/&#39;, options, function (request, reply) {
+  request.log.info(&#39;Some info about the current request&#39;)
   reply.send({ hello: &#39;world&#39; })
 })
 </code></pre>
@@ -404,8 +404,8 @@ const fastify = require(&#39;fastify&#39;)({
   }
 })
 
-fastify.get(&#39;/&#39;, options, function (req, reply) {
-  req.log.info(&#39;Some info about the current request&#39;)
+fastify.get(&#39;/&#39;, options, function (request, reply) {
+  request.log.info(&#39;Some info about the current request&#39;)
   reply.send({ hello: &#39;world&#39; })
 })
 </code></pre>
@@ -439,8 +439,8 @@ const fastify = require(&#39;fastify&#39;)({ logger: log })
 
 log.info(&#39;does not have request information&#39;)
 
-fastify.get(&#39;/&#39;, function (req, reply) {
-  req.log.info(&#39;includes request information, but is the same logger instance as `log`&#39;)
+fastify.get(&#39;/&#39;, function (request, reply) {
+  request.log.info(&#39;includes request information, but is the same logger instance as `log`&#39;)
   reply.send({ hello: &#39;world&#39; })
 })
 </code></pre>

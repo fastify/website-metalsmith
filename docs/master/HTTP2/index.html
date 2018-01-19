@@ -394,7 +394,7 @@ const fastify = require(&#39;fastify&#39;)({
   }
 })
 
-fastify.get(&#39;/&#39;, function (req, reply) {
+fastify.get(&#39;/&#39;, function (request, reply) {
   reply.code(200).send({ hello: &#39;world&#39; })
 })
 
@@ -416,7 +416,7 @@ const fastify = require(&#39;fastify&#39;)({
 })
 
 // this route can be accessed through both protocols
-fastify.get(&#39;/&#39;, function (req, reply) {
+fastify.get(&#39;/&#39;, function (request, reply) {
   reply.code(200).send({ hello: &#39;world&#39; })
 })
 
@@ -433,7 +433,7 @@ const fastify = require(&#39;fastify&#39;)({
   http2: true
 })
 
-fastify.get(&#39;/&#39;, function (req, reply) {
+fastify.get(&#39;/&#39;, function (request, reply) {
   reply.code(200).send({ hello: &#39;world&#39; })
 })
 

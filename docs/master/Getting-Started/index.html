@@ -597,7 +597,7 @@ Read the <a href="/docs/master/Testing">testing</a> documentation to learn more!
 &#39;use strict&#39;
 
 module.exports = async function (fastify, opts) {
-  fastify.get(&#39;/&#39;, async (req, reply) =&gt; {
+  fastify.get(&#39;/&#39;, async (request, reply) =&gt; {
     return { hello: &#39;world&#39; }
   })
 }
