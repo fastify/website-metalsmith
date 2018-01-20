@@ -454,6 +454,30 @@ A plugin can be a set of routes, a server decorator or whatever, check <a href="
 <p><a name="addHook"></a></p>
 <h4 id="addhook">addHook</h4>
 <p>Function to add a specific hook in the lifecycle of Fastify, check <a href="/docs/master/Hooks">here</a>.</p>
+<p><a name="base-path"></a></p>
+<h4 id="basepath">basepath</h4>
+<p>The full path that will be prefixed to a route.</p>
+<p>Example:</p>
+<pre><code class="lang-js">fastify.register(function (instance, opts, next) {
+  instance.get(&#39;/foo&#39;, function (request, reply) {
+    // Will log &quot;basePath: /v1&quot;
+    request.log.info(&#39;basePath: %s&#39;, instance.basePath)
+    reply.send({basePath: instance.basePath})
+  })
+
+  instance.register(function (instance, opts, next) {
+    instance.get(&#39;/bar&#39;, function (request, reply) {
+      // Will log &quot;basePath: /v1/v2&quot;
+      request.log.info(&#39;basePath: %s&#39;, instance.basePath)
+      reply.send({basePath: instance.basePath})
+    })
+
+    next()
+  }, { prefix: &#39;/v2&#39; })
+
+  next()
+}, { prefix: &#39;/v1&#39; })
+</code></pre>
 <p><a name="log"></a></p>
 <h4 id="log">log</h4>
 <p>The logger instance, check <a href="/docs/master/Logging">here</a>.</p>
