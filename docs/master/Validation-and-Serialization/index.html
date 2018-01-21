@@ -416,6 +416,8 @@
     required: [&#39;x-foo&#39;]
   }
 }
+
+fastify.post(&#39;/the/url&#39;, { schema }, handler)
 </code></pre>
 <p><em>Note that Ajv will try to <a href="https://github.com/epoberezkin/ajv#coercing-data-types">coerce</a> the values to the types specified in your schema <code>type</code> keywords, both to pass the validation and to use the correctly typed data afterwards.</em></p>
 <p><a name="schema-compiler"></a></p>
@@ -444,7 +446,7 @@ fastify.post(&#39;/the/url&#39;, {
     }).required()
   },
   schemaCompiler: schema =&gt; data =&gt; Joi.validate(data, schema)
-})
+}, handler)
 </code></pre>
 <p>In that case the function returned by <code>schemaCompiler</code> returns an object like:</p>
 <ul>
@@ -466,6 +468,8 @@ fastify.post(&#39;/the/url&#39;, {
     }
   }
 }
+
+fastify.post(&#39;/the/url&#39;, { schema }, handler)
 </code></pre>
 <p>As you can see, the response schema is based on the status code. If you want to use the same schema for multiple status codes, you can use <code>&#39;2xx&#39;</code>, for example:</p>
 <pre><code class="lang-js">const schema = {
@@ -485,6 +489,8 @@ fastify.post(&#39;/the/url&#39;, {
     }
   }
 }
+
+fastify.post(&#39;/the/url&#39;, { schema }, handler)
 </code></pre>
 <p><em>If you need a custom serializer in a very specific part of your code, you can always set one with <code>reply.serializer(...)</code>.</em></p>
 <p><a name="resources"></a></p>
