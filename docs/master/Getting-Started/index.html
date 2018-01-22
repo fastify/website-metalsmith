@@ -466,6 +466,7 @@ A typical solution is to use a complex callback, or promises, system that will m
 Fastify handles this internally, with minimum effort!</p>
 <p>Let&#39;s rewrite the above example with a database connection.<br>
 <em>(we will use a simple example, for a robust solution consider using <a href="https://github.com/fastify/fastify-mongodb"><code>fastify-mongo</code></a> or another in the Fastify <a href="/ecosystem">ecosystem</a>)</em></p>
+<p><strong>server.js</strong></p>
 <pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)()
 
 fastify.register(require(&#39;./our-db-connector&#39;), {
@@ -480,11 +481,11 @@ fastify.listen(3000, function (err) {
   }
 })
 </code></pre>
-<pre><code class="lang-js">// our-db-connector.js
-const fp = require(&#39;fastify-plugin&#39;)
+<p><strong>our-db-connector.js</strong></p>
+<pre><code class="lang-js">const fastifyPlugin = require(&#39;fastify-plugin&#39;)
 const MongoClient = require(&#39;mongodb&#39;).MongoClient
 
-async function db (fastify, options) {
+async function dbConnector (fastify, options) {
   const url = options.url
   delete options.url
 
@@ -492,11 +493,12 @@ async function db (fastify, options) {
   fastify.decorate(&#39;mongo&#39;, db)
 }
 
-module.exports = fp(db)
+// Wrapping a plugin function with fastify-plugin exposes the decorators,
+// hooks, and middlewares declared inside the plugin to the parent scope.
+module.exports = fastifyPlugin(dbConnector)
 </code></pre>
-<pre><code class="lang-js">// our-first-route.js
-
-async function routes (fastify, options) {
+<p><strong>our-first-route.js</strong></p>
+<pre><code class="lang-js">async function routes (fastify, options) {
   const database = fastify.mongo.db(&#39;db&#39;)
   const collection = database.collection(&#39;test&#39;)
 
