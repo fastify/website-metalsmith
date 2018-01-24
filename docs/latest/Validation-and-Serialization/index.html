@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.39.x/Validation-and-Serialization">
+    <link ref="canonical" href="/docs/v0.40.x/Validation-and-Serialization">
   
 
   
@@ -187,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.39.x">v0.39.x</option>
+                          <option selected="selected" value="/docs/v0.40.x">v0.40.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.39.x">v0.39.x</option>
                       
                     
                       
@@ -296,7 +302,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.39.x">v0.39.x</option>
+                          <option selected="selected" value="/docs/v0.40.x">v0.40.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.39.x">v0.39.x</option>
                         
                       
                         
@@ -418,18 +429,24 @@
     required: [&#39;x-foo&#39;]
   }
 }
+
+fastify.post(&#39;/the/url&#39;, { schema }, handler)
 </code></pre>
 <p><em>Note that Ajv will try to <a href="https://github.com/epoberezkin/ajv#coercing-data-types">coerce</a> the values to the types specified in your schema <code>type</code> keywords, both to pass the validation and to use the correctly typed data afterwards.</em></p>
 <p><a name="schema-compiler"></a></p>
 <h4 id="schema-compiler">Schema Compiler</h4>
 <p>The <code>schemaCompiler</code> is a function that returns a function that validates the body, url parameters, headers, and query string. The default <code>schemaCompiler</code> returns a function that implements the <code>ajv</code> validation interface. Fastify uses it internally to speed the validation up.</p>
-<p>If you want to change the default options of the <code>ajv</code> instance, you can pass the <code>ajv</code> option to Fastify. The options are described in the <a href="https://github.com/epoberezkin/ajv#options">Ajv documentation</a>.</p>
-<pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)({
-  ajv: {
-    removeAdditional: true,
-    useDefaults:      true,
-    coerceTypes:      true
-  }
+<p>While you cannot change the configuration options of the default <code>ajv</code> instance, you can create your own:</p>
+<pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)()
+const Ajv = require(&#39;ajv&#39;)
+const ajv = new Ajv({
+  // the fastify defaults
+  removeAdditional: true,
+  useDefaults: true,
+  coerceTypes: true
+})
+fastify.setSchemaCompiler(function (schema) {
+  return ajv.compile(schema)
 })
 </code></pre>
 <p>But maybe you want to change the validation library. Perhaps you like <code>Joi</code>. In this case, you can use it to validate the url parameters, body, and query string!</p>
@@ -442,7 +459,7 @@ fastify.post(&#39;/the/url&#39;, {
     }).required()
   },
   schemaCompiler: schema =&gt; data =&gt; Joi.validate(data, schema)
-})
+}, handler)
 </code></pre>
 <p>In that case the function returned by <code>schemaCompiler</code> returns an object like:</p>
 <ul>
@@ -464,6 +481,8 @@ fastify.post(&#39;/the/url&#39;, {
     }
   }
 }
+
+fastify.post(&#39;/the/url&#39;, { schema }, handler)
 </code></pre>
 <p>As you can see, the response schema is based on the status code. If you want to use the same schema for multiple status codes, you can use <code>&#39;2xx&#39;</code>, for example:</p>
 <pre><code class="lang-js">const schema = {
@@ -483,6 +502,8 @@ fastify.post(&#39;/the/url&#39;, {
     }
   }
 }
+
+fastify.post(&#39;/the/url&#39;, { schema }, handler)
 </code></pre>
 <p><em>If you need a custom serializer in a very specific part of your code, you can always set one with <code>reply.serializer(...)</code>.</em></p>
 <p><a name="resources"></a></p>

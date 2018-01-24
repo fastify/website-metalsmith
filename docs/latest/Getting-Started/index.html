@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.39.x/Getting-Started">
+    <link ref="canonical" href="/docs/v0.40.x/Getting-Started">
   
 
   
@@ -187,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.39.x">v0.39.x</option>
+                          <option selected="selected" value="/docs/v0.40.x">v0.40.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.39.x">v0.39.x</option>
                       
                     
                       
@@ -296,7 +302,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.39.x">v0.39.x</option>
+                          <option selected="selected" value="/docs/v0.40.x">v0.40.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.39.x">v0.39.x</option>
                         
                       
                         
@@ -396,8 +407,10 @@ fastify.get(&#39;/&#39;, function (request, reply) {
 
 // Run the server!
 fastify.listen(3000, function (err) {
-  if (err) throw err
-  fastify.log.info(`server listening on ${fastify.server.address().port}`)
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
 })
 </code></pre>
 <p>Do you prefer to use <code>async/await</code>? Fastify supports it out-of-the-box.<br>
@@ -408,14 +421,31 @@ fastify.get(&#39;/&#39;, async (request, reply) =&gt; {
   return { hello: &#39;world&#39; }
 })
 
-fastify.listen(3000, function (err) {
-  if (err) throw err
-  fastify.log.info(`server listening on ${fastify.server.address().port}`)
-})
+const start = async () =&gt; {
+  try {
+    await fastify.listen(3000)
+  } catch (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+}
+start()
 </code></pre>
 <p>Awesome, that was easy.<br>
 Unfortunately, writing a complex application requires significantly more code than this example. A classic problem when you are building a new application is how handle multiple files, asynchronous bootstrapping and the architecture of your code.<br>
 Fastify offers an easy platform that helps solve all of problems, and more.</p>
+<blockquote>
+<h2 id="note">Note</h2>
+<p>The above examples, and subsequent examples in this document, default to listening <em>only</em> on the localhost <code>127.0.0.1</code> interface. To listen on all available IPv4 interfaces the example should be modified to listen on <code>0.0.0.0</code> like so:</p>
+<pre><code class="lang-js">fastify.listen(3000, &#39;0.0.0.0&#39;, function (err) {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+})
+</code></pre>
+<p>When deploying to a Docker, or other type of, container this would be the easiest method for exposing the application.</p>
+</blockquote>
 <p><a name="first-plugin"></a></p>
 <h3 id="your-first-plugin">Your first plugin</h3>
 <p>As with JavaScript everything is an object, with Fastify everything is a plugin.<br>
@@ -426,8 +456,10 @@ Let&#39;s declare our basic server, but instead of declaring the route inside th
 fastify.register(require(&#39;./our-first-route&#39;))
 
 fastify.listen(3000, function (err) {
-  if (err) throw err
-  fastify.log.info(`server listening on ${fastify.server.address().port}`)
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
 })
 </code></pre>
 <pre><code class="lang-js">// our-first-route.js
@@ -447,6 +479,7 @@ A typical solution is to use a complex callback, or promises, system that will m
 Fastify handles this internally, with minimum effort!</p>
 <p>Let&#39;s rewrite the above example with a database connection.<br>
 <em>(we will use a simple example, for a robust solution consider using <a href="https://github.com/fastify/fastify-mongodb"><code>fastify-mongo</code></a> or another in the Fastify <a href="/ecosystem">ecosystem</a>)</em></p>
+<p><strong>server.js</strong></p>
 <pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)()
 
 fastify.register(require(&#39;./our-db-connector&#39;), {
@@ -455,15 +488,17 @@ fastify.register(require(&#39;./our-db-connector&#39;), {
 fastify.register(require(&#39;./our-first-route&#39;))
 
 fastify.listen(3000, function (err) {
-  if (err) throw err
-  fastify.log.info(`server listening on ${fastify.server.address().port}`)
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
 })
 </code></pre>
-<pre><code class="lang-js">// our-db-connector.js
-const fp = require(&#39;fastify-plugin&#39;)
+<p><strong>our-db-connector.js</strong></p>
+<pre><code class="lang-js">const fastifyPlugin = require(&#39;fastify-plugin&#39;)
 const MongoClient = require(&#39;mongodb&#39;).MongoClient
 
-async function db (fastify, options) {
+async function dbConnector (fastify, options) {
   const url = options.url
   delete options.url
 
@@ -471,11 +506,12 @@ async function db (fastify, options) {
   fastify.decorate(&#39;mongo&#39;, db)
 }
 
-module.exports = fp(db)
+// Wrapping a plugin function with fastify-plugin exposes the decorators,
+// hooks, and middlewares declared inside the plugin to the parent scope.
+module.exports = fastifyPlugin(dbConnector)
 </code></pre>
-<pre><code class="lang-js">// our-first-route.js
-
-async function routes (fastify, options) {
+<p><strong>our-first-route.js</strong></p>
+<pre><code class="lang-js">async function routes (fastify, options) {
   const database = fastify.mongo.db(&#39;db&#39;)
   const collection = database.collection(&#39;test&#39;)
 
@@ -576,7 +612,7 @@ Read the <a href="/docs/latest/Testing">testing</a> documentation to learn more!
 &#39;use strict&#39;
 
 module.exports = async function (fastify, opts) {
-  fastify.get(&#39;/&#39;, async (req, reply) =&gt; {
+  fastify.get(&#39;/&#39;, async (request, reply) =&gt; {
     return { hello: &#39;world&#39; }
   })
 }

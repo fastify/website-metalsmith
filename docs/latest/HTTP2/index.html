@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.39.x/HTTP2">
+    <link ref="canonical" href="/docs/v0.40.x/HTTP2">
   
 
   
@@ -187,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.39.x">v0.39.x</option>
+                          <option selected="selected" value="/docs/v0.40.x">v0.40.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.39.x">v0.39.x</option>
                       
                     
                       
@@ -296,7 +302,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.39.x">v0.39.x</option>
+                          <option selected="selected" value="/docs/v0.40.x">v0.40.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.39.x">v0.39.x</option>
                         
                       
                         
@@ -396,7 +407,7 @@ const fastify = require(&#39;fastify&#39;)({
   }
 })
 
-fastify.get(&#39;/&#39;, function (req, reply) {
+fastify.get(&#39;/&#39;, function (request, reply) {
   reply.code(200).send({ hello: &#39;world&#39; })
 })
 
@@ -418,7 +429,7 @@ const fastify = require(&#39;fastify&#39;)({
 })
 
 // this route can be accessed through both protocols
-fastify.get(&#39;/&#39;, function (req, reply) {
+fastify.get(&#39;/&#39;, function (request, reply) {
   reply.code(200).send({ hello: &#39;world&#39; })
 })
 
@@ -435,7 +446,7 @@ const fastify = require(&#39;fastify&#39;)({
   http2: true
 })
 
-fastify.get(&#39;/&#39;, function (req, reply) {
+fastify.get(&#39;/&#39;, function (request, reply) {
   reply.code(200).send({ hello: &#39;world&#39; })
 })
 

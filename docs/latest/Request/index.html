@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.39.x/Request">
+    <link ref="canonical" href="/docs/v0.40.x/Request">
   
 
   
@@ -187,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.39.x">v0.39.x</option>
+                          <option selected="selected" value="/docs/v0.40.x">v0.40.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.39.x">v0.39.x</option>
                       
                     
                       
@@ -296,7 +302,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.39.x">v0.39.x</option>
+                          <option selected="selected" value="/docs/v0.40.x">v0.40.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.39.x">v0.39.x</option>
                         
                       
                         
@@ -384,7 +395,8 @@ Request is a core Fastify object containing the following fields:</p>
 <li><code>body</code> - the body</li>
 <li><code>params</code> - the params matching the URL</li>
 <li><code>headers</code> - the headers</li>
-<li><code>req</code> - the incoming HTTP request from Node core</li>
+<li><code>raw</code> - the incoming HTTP request from Node core <em>(you can use the alias <code>req</code>)</em></li>
+<li><code>id</code> - the request id</li>
 <li><code>log</code> - the logger instance of the incoming request</li>
 </ul>
 <pre><code class="lang-js">fastify.post(&#39;/:params&#39;, options, function (request, reply) {
@@ -392,7 +404,8 @@ Request is a core Fastify object containing the following fields:</p>
   console.log(request.query)
   console.log(request.params)
   console.log(request.headers)
-  console.log(request.req)
+  console.log(request.raw)
+  console.log(request.id)
   request.log.info(&#39;some info&#39;)
 })
 </code></pre>

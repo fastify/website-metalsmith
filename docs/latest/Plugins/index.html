@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.39.x/Plugins">
+    <link ref="canonical" href="/docs/v0.40.x/Plugins">
   
 
   
@@ -187,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.39.x">v0.39.x</option>
+                          <option selected="selected" value="/docs/v0.40.x">v0.40.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.39.x">v0.39.x</option>
                       
                     
                       
@@ -296,7 +302,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.39.x">v0.39.x</option>
+                          <option selected="selected" value="/docs/v0.40.x">v0.40.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.39.x">v0.39.x</option>
                         
                       
                         
@@ -382,11 +393,28 @@ A plugin can be a set of routes, a server <a href="/docs/latest/Decorators">deco
 <p>By default, <code>register</code> creates a <em>new scope</em>, this means that if you do some changes to the Fastify instance (via <code>decorate</code>), this change will not be reflected to the current context ancestors, but only to its sons. This feature allows us to achieve plugin <em>encapsulation</em> and <em>inheritance</em>, in this way we create a <em>direct acyclic graph</em> (DAG) and we will not have issues caused by cross dependencies.</p>
 <p>You already see in the <a href="/docs/latest/Getting-Started#register">getting started</a> section how using this API is pretty straightforward.</p>
 <pre><code>fastify.register(plugin, [options])
-</code></pre><p>Example:</p>
-<pre><code class="lang-js">fastify.register([
-  require(&#39;./another-route&#39;),
-  require(&#39;./yet-another-route&#39;)
-], opts)
+</code></pre><p><a name="plugin-options"></a></p>
+<h3 id="plugin-options">Plugin Options</h3>
+<p>The optional <code>options</code> parameter for <code>fastify.register</code> supports a predefined set of options that Fastify itself will use, except when the plugin has been wrapped with <a href="https://github.com/fastify/fastify-plugin">fastify-plugin</a>. This options object will also be passed to the plugin upon invocation, regardless of whether or not the plugin has been wrapped. The currently supported list of Fastify specific options is:</p>
+<ul>
+<li><a href="/docs/latest/Routes#custom-log-level"><code>logLevel</code></a></li>
+<li><a href="/docs/latest/Plugins#route-prefixing-options"><code>prefix</code></a></li>
+</ul>
+<p>It is possible that Fastify will directly support other options in the future. Thus, to avoid collisions, a plugin should consider namespacing its options. For example, a plugin <code>foo</code> might be registered like so:</p>
+<pre><code class="lang-js">fatify.register(require(&#39;fastify-foo&#39;), {
+  prefix: &#39;/foo&#39;,
+  foo: {
+    fooOption1: &#39;value&#39;,
+    fooOption2: &#39;value&#39;
+  }
+})
+</code></pre>
+<p>If collisions are not a concern, the plugin may simply accept the options object as-is:</p>
+<pre><code class="lang-js">fatify.register(require(&#39;fastify-foo&#39;), {
+  prefix: &#39;/foo&#39;,
+  fooOption1: &#39;value&#39;,
+  fooOption2: &#39;value&#39;
+})
 </code></pre>
 <p><a name="route-prefixing-option"></a></p>
 <h4 id="route-prefixing-option">Route Prefixing option</h4>

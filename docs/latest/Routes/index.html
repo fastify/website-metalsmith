@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.39.x/Routes">
+    <link ref="canonical" href="/docs/v0.40.x/Routes">
   
 
   
@@ -187,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.39.x">v0.39.x</option>
+                          <option selected="selected" value="/docs/v0.40.x">v0.40.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.39.x">v0.39.x</option>
                       
                     
                       
@@ -296,7 +302,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.39.x">v0.39.x</option>
+                          <option selected="selected" value="/docs/v0.40.x">v0.40.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.39.x">v0.39.x</option>
                         
                       
                         
@@ -455,7 +466,7 @@ schema allows us to have 10-20% more throughput.</li>
     }
   }
 }
-fastify.get(&#39;/&#39;, opts, (req, reply) =&gt; {
+fastify.get(&#39;/&#39;, opts, (request, reply) =&gt; {
   reply.send({ hello: &#39;world&#39; })
 })
 </code></pre>
@@ -466,22 +477,22 @@ fastify.get(&#39;/&#39;, opts, (req, reply) =&gt; {
 To register a <strong>parametric</strong> path, use the <em>colon</em> before the parameter name. For <strong>wildcard</strong> use the <em>star</em>.
 <em>Remember that static routes are always checked before parametric and wildcard.</em></p>
 <pre><code class="lang-js">// parametric
-fastify.get(&#39;/example/:userId&#39;, (req, reply) =&gt; {}))
-fastify.get(&#39;/example/:userId/:secretToken&#39;, (req, reply) =&gt; {}))
+fastify.get(&#39;/example/:userId&#39;, (request, reply) =&gt; {}))
+fastify.get(&#39;/example/:userId/:secretToken&#39;, (request, reply) =&gt; {}))
 
 // wildcard
-fastify.get(&#39;/example/*&#39;, (req, reply) =&gt; {}))
+fastify.get(&#39;/example/*&#39;, (request, reply) =&gt; {}))
 </code></pre>
 <p>Regular expression routes are supported as well, but pay attention, RegExp are very expensive in term of performance!</p>
 <pre><code class="lang-js">// parametric with regexp
-fastify.get(&#39;/example/:file(^\\d+).png&#39;, (req, reply) =&gt; {}))
+fastify.get(&#39;/example/:file(^\\d+).png&#39;, (request, reply) =&gt; {}))
 </code></pre>
 <p>It&#39;s possible to define more than one parameter within the same couple of slash (&quot;/&quot;). Such as:</p>
-<pre><code class="lang-js">fastify.get(&#39;/example/near/:lat-:lng/radius/:r&#39;, (req, reply) =&gt; {}))
+<pre><code class="lang-js">fastify.get(&#39;/example/near/:lat-:lng/radius/:r&#39;, (request, reply) =&gt; {}))
 </code></pre>
 <p><em>Remember in this case to use the dash (&quot;-&quot;) as parameters separator.</em></p>
 <p>Finally it&#39;s possible to have multiple parameters with RegExp.</p>
-<pre><code class="lang-js">fastify.get(&#39;/example/at/:hour(^\\d{2})h:minute(^\\d{2})m&#39;, (req, reply) =&gt; {}))
+<pre><code class="lang-js">fastify.get(&#39;/example/at/:hour(^\\d{2})h:minute(^\\d{2})m&#39;, (request, reply) =&gt; {}))
 </code></pre>
 <p>In this case as parameter separator it&#39;s possible to use whatever character is not matched by the regular expression.</p>
 <p>Having a route with multiple parameters may affect negatively the performance, so prefer single parameter approach whenever possible, especially on routes which are on the hot path of your application.
@@ -550,7 +561,7 @@ fastify.register(require(&#39;./routes/events&#39;), { logLevel: &#39;debug&#39;
 fastify.listen(3000)
 </code></pre>
 <p>Or you can directly pass it to a route:</p>
-<pre><code class="lang-js">fastify.get(&#39;/&#39;, { logLevel: &#39;warn&#39; }, (req, reply) =&gt; {
+<pre><code class="lang-js">fastify.get(&#39;/&#39;, { logLevel: &#39;warn&#39; }, (request, reply) =&gt; {
   reply.send({ hello: &#39;world&#39; })
 })
 </code></pre>

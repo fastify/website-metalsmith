@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.39.x/Logging">
+    <link ref="canonical" href="/docs/v0.40.x/Logging">
   
 
   
@@ -187,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.39.x">v0.39.x</option>
+                          <option selected="selected" value="/docs/v0.40.x">v0.40.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.39.x">v0.39.x</option>
                       
                     
                       
@@ -296,7 +302,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.39.x">v0.39.x</option>
+                          <option selected="selected" value="/docs/v0.40.x">v0.40.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.39.x">v0.39.x</option>
                         
                       
                         
@@ -389,8 +400,8 @@ this purpose.</p>
   logger: true
 })
 
-fastify.get(&#39;/&#39;, options, function (req, reply) {
-  req.log.info(&#39;Some info about the current request&#39;)
+fastify.get(&#39;/&#39;, options, function (request, reply) {
+  request.log.info(&#39;Some info about the current request&#39;)
   reply.send({ hello: &#39;world&#39; })
 })
 </code></pre>
@@ -406,8 +417,8 @@ const fastify = require(&#39;fastify&#39;)({
   }
 })
 
-fastify.get(&#39;/&#39;, options, function (req, reply) {
-  req.log.info(&#39;Some info about the current request&#39;)
+fastify.get(&#39;/&#39;, options, function (request, reply) {
+  request.log.info(&#39;Some info about the current request&#39;)
   reply.send({ hello: &#39;world&#39; })
 })
 </code></pre>
@@ -420,6 +431,18 @@ const fastify = require(&#39;fastify&#39;)({
   }
 })
 </code></pre>
+<p>The default logger is configured with a set of standard serializers that serialize objects with <code>req</code>, <code>res</code>, and <code>err</code> properties. This behavior can be customized by specifying custom serializers.</p>
+<pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)({
+  logger: {
+    serializers: {
+      req: function (req) { 
+        return { url: req.url } 
+      }
+    }
+  }
+})
+</code></pre>
+<p><em>This option will be ignored by any logger other than Pino.</em></p>
 <p>You can also supply your own logger instance. Instead of passing configuration options, simply pass the instance.
 The logger you supply must conform to the Pino interface; that is, it must have the following methods:
 <code>info</code>, <code>error</code>, <code>debug</code>, <code>fatal</code>, <code>warn</code>, <code>trace</code>, <code>child</code>.</p>
@@ -429,8 +452,8 @@ const fastify = require(&#39;fastify&#39;)({ logger: log })
 
 log.info(&#39;does not have request information&#39;)
 
-fastify.get(&#39;/&#39;, function (req, reply) {
-  req.log.info(&#39;includes request information, but is the same logger instance as `log`&#39;)
+fastify.get(&#39;/&#39;, function (request, reply) {
+  request.log.info(&#39;includes request information, but is the same logger instance as `log`&#39;)
   reply.send({ hello: &#39;world&#39; })
 })
 </code></pre>

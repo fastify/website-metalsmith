@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.39.x/Server-Methods">
+    <link ref="canonical" href="/docs/v0.40.x/Server-Methods">
   
 
   
@@ -187,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.39.x">v0.39.x</option>
+                          <option selected="selected" value="/docs/v0.40.x">v0.40.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.39.x">v0.39.x</option>
                       
                     
                       
@@ -296,7 +302,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.39.x">v0.39.x</option>
+                          <option selected="selected" value="/docs/v0.40.x">v0.40.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.39.x">v0.39.x</option>
                         
                       
                         
@@ -379,7 +390,7 @@
           <h2 id="server-methods">Server Methods</h2>
 <p><a name="server"></a></p>
 <h4 id="server">server</h4>
-<p><code>fastify.server</code>: The Node core <a href="https://nodejs.org/api/http.html#http_class_http_server">server</a> object</p>
+<p><code>fastify.server</code>: The Node core <a href="https://nodejs.org/api/http.html#http_class_http_server">server</a> object as returned by the <a href="/docs/latest/Factory.md"><code><b>Fastify factory function</b></code></a>.</p>
 <p><a name="ready"></a></p>
 <h4 id="ready">ready</h4>
 <p>Function called when all the plugins has been loaded.
@@ -397,14 +408,20 @@ It takes an error parameter if something went wrong.</p>
 </code></pre>
 <p><a name="listen"></a></p>
 <h4 id="listen">listen</h4>
-<p>Starts the server on the given port after all the plugins are loaded, internally waits for the <code>.ready()</code> event. The callback is the same as the Node core.</p>
+<p>Starts the server on the given port after all the plugins are loaded, internally waits for the <code>.ready()</code> event. The callback is the same as the Node core. By default, the server will listen on address <code>127.0.0.1</code> when no specific address is provided. If listening on any available interface is desired, then specifying <code>0.0.0.0</code> for the address will listen on all IPv4 address. Using <code>::</code> for the address will listen on all IPv6 addresses, and, depending on OS, may also listen on all IPv4 addresses. Be careful when deciding to listen on all interfaces; it comes with inherent <a href="https://web.archive.org/web/20170831174611/https://snyk.io/blog/mongodb-hack-and-secure-defaults/">security risks</a>.</p>
 <pre><code class="lang-js">fastify.listen(3000, err =&gt; {
-  if (err) throw err
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
 })
 </code></pre>
 <p>Specifying an address is also supported:</p>
 <pre><code class="lang-js">fastify.listen(3000, &#39;127.0.0.1&#39;, err =&gt; {
-  if (err) throw err
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
 })
 </code></pre>
 <p>If no callback is provided a Promise is returned:</p>
@@ -423,35 +440,17 @@ It takes an error parameter if something went wrong.</p>
     process.exit(1)
   })
 </code></pre>
-<p><a name="route"></a></p>
-<h4 id="route">route</h4>
-<p>Method to add routes to the server, it also have shorthands functions, check <a href="/docs/latest/Routes">here</a>.</p>
-<p><a name="routes-iterator"></a></p>
-<h4 id="routes-iterator">routes iterator</h4>
-<p>The Fastify instance is an Iterable object with all the registered routes.
-The route properties are the same the developer has declared <a href="/docs/latest/Routes">here</a>.</p>
-<pre><code class="lang-js">fastify.get(&#39;/route&#39;, opts, handler)
-
-fastify.ready(() =&gt; {
-  for (var route of fastify) {
-    console.log(route)
-    /* will output:
-    {
-      &#39;/route&#39;: {
-        get: {
-          method: String,
-          url: String,
-          schema: Object,
-          handler: Function,
-          Request: Function,
-          Reply: Function
-        }
-      }
-    }
-    */
+<p>When deploying to a Docker, and potentially other, containers, it is advisable to listen on <code>0.0.0.0</code> because they do not default to exposing mapped ports to <code>127.0.0.1</code>:</p>
+<pre><code class="lang-js">fastify.listen(3000, &#39;0.0.0.0&#39;, (err) =&gt; {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
   }
 })
 </code></pre>
+<p><a name="route"></a></p>
+<h4 id="route">route</h4>
+<p>Method to add routes to the server, it also have shorthands functions, check <a href="/docs/latest/Routes">here</a>.</p>
 <p><a name="close"></a></p>
 <h4 id="close">close</h4>
 <p><code>fastify.close(callback)</code>: call this function to close the server instance and run the <a href="/docs/latest/Hooks#on-close"><code>&#39;onClose&#39;</code></a> hook.</p>
@@ -468,6 +467,30 @@ A plugin can be a set of routes, a server decorator or whatever, check <a href="
 <p><a name="addHook"></a></p>
 <h4 id="addhook">addHook</h4>
 <p>Function to add a specific hook in the lifecycle of Fastify, check <a href="/docs/latest/Hooks">here</a>.</p>
+<p><a name="base-path"></a></p>
+<h4 id="basepath">basepath</h4>
+<p>The full path that will be prefixed to a route.</p>
+<p>Example:</p>
+<pre><code class="lang-js">fastify.register(function (instance, opts, next) {
+  instance.get(&#39;/foo&#39;, function (request, reply) {
+    // Will log &quot;basePath: /v1&quot;
+    request.log.info(&#39;basePath: %s&#39;, instance.basePath)
+    reply.send({basePath: instance.basePath})
+  })
+
+  instance.register(function (instance, opts, next) {
+    instance.get(&#39;/bar&#39;, function (request, reply) {
+      // Will log &quot;basePath: /v1/v2&quot;
+      request.log.info(&#39;basePath: %s&#39;, instance.basePath)
+      reply.send({basePath: instance.basePath})
+    })
+
+    next()
+  }, { prefix: &#39;/v2&#39; })
+
+  next()
+}, { prefix: &#39;/v1&#39; })
+</code></pre>
 <p><a name="log"></a></p>
 <h4 id="log">log</h4>
 <p>The logger instance, check <a href="/docs/latest/Logging">here</a>.</p>
@@ -479,10 +502,37 @@ A plugin can be a set of routes, a server decorator or whatever, check <a href="
 <p>Set the schema compiler for all routes <a href="/docs/latest/Validation-and-Serialization#schema-compiler">here</a>.</p>
 <p><a name="set-not-found-handler"></a></p>
 <h4 id="setnotfoundhandler">setNotFoundHandler</h4>
-<p><code>fastify.setNotFoundHandler(handler(request, reply))</code>: set the 404 handler. This call is fully encapsulated, so different plugins can set different not found handlers. The handler is treated like a regular route handler so requests will go through the full <a href="/docs/latest/Lifecycle#lifecycle">Fastify lifecycle</a>.</p>
+<p><code>fastify.setNotFoundHandler(handler(request, reply))</code>: set the 404 handler. This call is encapsulated by prefix, so different plugins can set different not found handlers if a different <a href="/docs/latest/Plugins#route-prefixing-option"><code>prefix</code> option</a> is passed to <code>fastify.register()</code>. The handler is treated like a regular route handler so requests will go through the full <a href="/docs/latest/Lifecycle#lifecycle">Fastify lifecycle</a>.</p>
+<pre><code class="lang-js">fastify.setNotFoundHandler(function (request, reply) {
+  // Default not found handler
+})
+
+fastify.register(function (instance, options, next) {
+  instance.setNotFoundHandler(function (request, reply) {
+    // Handle not found request to URLs that begin with &#39;/v1&#39;
+  })
+  next()
+}, { prefix: &#39;/v1&#39; })
+</code></pre>
 <p><a name="set-error-handler"></a></p>
 <h4 id="seterrorhandler">setErrorHandler</h4>
 <p><code>fastify.setErrorHandler(handler(error, reply))</code>: set a function that will be called whenever an error happens. The handler is fully encapsulated, so different plugins can set different error handlers, <em>async await</em> is supported as well.</p>
+<p><a name="print-routes"></a></p>
+<h4 id="printroutes">printRoutes</h4>
+<p><code>fastify.printRoutes()</code>: Prints the representation of the internal radix tree used by the router, useful for debugging.<br/>
+<em>Remember to call it inside or after a <code>ready</code> call.</em></p>
+<pre><code class="lang-js">fastify.get(&#39;/test&#39;, () =&gt; {})
+fastify.get(&#39;/test/hello&#39;, () =&gt; {})
+fastify.get(&#39;/hello/world&#39;, () =&gt; {})
+
+fastify.ready(() =&gt; {
+  console.log(fastify.printRoutes())
+  // └── /
+  //   ├── test (GET)
+  //   │   └── /hello (GET)
+  //   └── hello/world (GET)
+})
+</code></pre>
 
         </div>
 
