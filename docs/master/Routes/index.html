@@ -185,6 +185,12 @@
                         
                           
                         
+                          <option  value="/docs/v0.41.x">v0.41.x</option>
+                      
+                    
+                      
+                        
+                        
                           <option  value="/docs/v0.40.x">v0.40.x</option>
                       
                     
@@ -264,12 +270,6 @@
                         
                         
                           <option  value="/docs/v0.27.x">v0.27.x</option>
-                      
-                    
-                      
-                        
-                        
-                          <option  value="/docs/v0.26.x">v0.26.x</option>
                       
                     
                       
@@ -300,6 +300,11 @@
                       
                         
                           
+                          <option  value="/docs/v0.41.x">v0.41.x</option>
+                        
+                      
+                        
+                          
                           <option  value="/docs/v0.40.x">v0.40.x</option>
                         
                       
@@ -366,11 +371,6 @@
                         
                           
                           <option  value="/docs/v0.27.x">v0.27.x</option>
-                        
-                      
-                        
-                          
-                          <option  value="/docs/v0.26.x">v0.26.x</option>
                         
                       
                         
@@ -504,7 +504,7 @@ If you are interested in how we handle the routing, checkout <a href="https://gi
   return processed
 })
 </code></pre>
-<p>As you can see we are not calling <code>reply.send</code> to send back the data to the user. You just need to return the body and you are done!
+<p>As you can see we are not calling <code>reply.send</code> to send back the data to the user. You just need to return the body (given that body is not <code>undefined</code>) and you are done!
 If you need it you can also send back the data to the user with <code>reply.send</code>.</p>
 <pre><code class="lang-js">fastify.get(&#39;/&#39;, options, async function (request, reply) {
   var data = await getData()
