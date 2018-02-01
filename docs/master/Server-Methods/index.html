@@ -495,6 +495,10 @@ A plugin can be a set of routes, a server decorator or whatever, check <a href="
 <p><a name="inject"></a></p>
 <h4 id="inject">inject</h4>
 <p>Fake http injection (for testing purposes) <a href="/docs/master/Testing#inject">here</a>.</p>
+<p><a name="add-schema"></a></p>
+<h4 id="addschema">addSchema</h4>
+<p><code>fastify.addSchema(schemaObj)</code>, adds a shared schema to the Fastify instance. This allows you to reuse it everywhere in your application just by writing the schema id that you need.<br/>
+To learn more, see <a href="/docs/master/Validation-and-Serialization#shared-schema">shared schema example</a> in the <a href="/docs/master/Validation-and-Serialization">Validation and Serialization</a> documentation.</p>
 <p><a name="set-schema-compiler"></a></p>
 <h4 id="setschemacompiler">setSchemaCompiler</h4>
 <p>Set the schema compiler for all routes <a href="/docs/master/Validation-and-Serialization#schema-compiler">here</a>.</p>

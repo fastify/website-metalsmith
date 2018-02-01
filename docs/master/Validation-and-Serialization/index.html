@@ -431,6 +431,54 @@
 fastify.post(&#39;/the/url&#39;, { schema }, handler)
 </code></pre>
 <p><em>Note that Ajv will try to <a href="https://github.com/epoberezkin/ajv#coercing-data-types">coerce</a> the values to the types specified in your schema <code>type</code> keywords, both to pass the validation and to use the correctly typed data afterwards.</em></p>
+<p><a name="shared-schema"></a></p>
+<h4 id="adding-a-shared-schema">Adding a shared schema</h4>
+<p>Thanks to the <code>addSchema</code> API, you can add multiple schemas to the Fastify instance and then reuse them in multiple parts of your application. <em>(Note that this API is not encapsulated)</em></p>
+<pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)()
+
+fastify.addSchema({
+  $id: &#39;greetings&#39;,
+  type: &#39;object&#39;,
+  properties: {
+    hello: { type: &#39;string&#39; }
+  }
+})
+
+fastify.route({
+  method: &#39;POST&#39;,
+  url: &#39;/&#39;,
+  schema: {
+    body: &#39;greetings#&#39;
+  },
+  handler: () =&gt; {}
+})
+</code></pre>
+<p>You can use the shared schema everywhere, as top level schema or nested inside other schemas:</p>
+<pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)()
+
+fastify.addSchema({
+  $id: &#39;greetings&#39;,
+  type: &#39;object&#39;,
+  properties: {
+    hello: { type: &#39;string&#39; }
+  }
+})
+
+fastify.route({
+  method: &#39;POST&#39;,
+  url: &#39;/&#39;,
+  schema: {
+    body: {
+      type: &#39;object&#39;,
+      properties: {
+        greeting: &#39;greetings#&#39;,
+        timestamp: { type: &#39;number&#39; }
+      }
+    }
+  },
+  handler: () =&gt; {}
+})
+</code></pre>
 <p><a name="schema-compiler"></a></p>
 <h4 id="schema-compiler">Schema Compiler</h4>
 <p>The <code>schemaCompiler</code> is a function that returns a function that validates the body, url parameters, headers, and query string. The default <code>schemaCompiler</code> returns a function that implements the <code>ajv</code> validation interface. Fastify uses it internally to speed the validation up.</p>
