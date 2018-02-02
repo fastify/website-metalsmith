@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.42.x/Reply">
+    <link ref="canonical" href="/docs/v0.43.x/Reply">
   
 
   
@@ -187,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.42.x">v0.42.x</option>
+                          <option selected="selected" value="/docs/v0.43.x">v0.43.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.42.x">v0.42.x</option>
                       
                     
                       
@@ -302,7 +308,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.42.x">v0.42.x</option>
+                          <option selected="selected" value="/docs/v0.43.x">v0.43.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.42.x">v0.42.x</option>
                         
                       
                         
@@ -398,7 +409,8 @@ Reply is a core Fastify object that exposes the following functions:</p>
 <li><code>.serialize(payload)</code> - Serializes the specified payload using the default json serializer and returns the serialized payload.</li>
 <li><code>.serializer(function)</code> - Sets a custom serializer for the payload.</li>
 <li><code>.send(payload)</code> - Sends the payload to the user, could be a plain text, a buffer, JSON, stream, or an Error object.</li>
-<li><code>.sent</code> - A boolean value that you can use if you need to know it <code>send</code> has already been called.</li>
+<li><code>.sent</code> - A boolean value that you can use if you need to know if <code>send</code> has already been called.</li>
+<li><code>.res</code> - The <a href="https://nodejs.org/dist/latest/docs/api/http.html#http_class_http_serverresponse"><code>http.ServerResponse</code></a> from Node core.</li>
 </ul>
 <pre><code class="lang-js">fastify.get(&#39;/&#39;, options, function (request, reply) {
   // Your code

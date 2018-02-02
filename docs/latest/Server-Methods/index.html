@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.42.x/Server-Methods">
+    <link ref="canonical" href="/docs/v0.43.x/Server-Methods">
   
 
   
@@ -187,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.42.x">v0.42.x</option>
+                          <option selected="selected" value="/docs/v0.43.x">v0.43.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.42.x">v0.42.x</option>
                       
                     
                       
@@ -302,7 +308,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.42.x">v0.42.x</option>
+                          <option selected="selected" value="/docs/v0.43.x">v0.43.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.42.x">v0.42.x</option>
                         
                       
                         
@@ -520,7 +531,11 @@ fastify.register(function (instance, options, next) {
 </code></pre>
 <p><a name="set-error-handler"></a></p>
 <h4 id="seterrorhandler">setErrorHandler</h4>
-<p><code>fastify.setErrorHandler(handler(error, reply))</code>: set a function that will be called whenever an error happens. The handler is fully encapsulated, so different plugins can set different error handlers, <em>async await</em> is supported as well.</p>
+<p><code>fastify.setErrorHandler(handler(error, request, reply))</code>: Set a function that will be called whenever an error happens. The handler is fully encapsulated, so different plugins can set different error handlers. <em>async-await</em> is supported as well.</p>
+<pre><code class="lang-js">fastify.setErrorHandler(function (error, request, reply) {
+  // Send error response
+})
+</code></pre>
 <p><a name="print-routes"></a></p>
 <h4 id="printroutes">printRoutes</h4>
 <p><code>fastify.printRoutes()</code>: Prints the representation of the internal radix tree used by the router, useful for debugging.<br/>
