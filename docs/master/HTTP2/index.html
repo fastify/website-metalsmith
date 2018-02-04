@@ -408,6 +408,8 @@ both over HTTPS or over plaintext.</p>
 connection</strong>:</p>
 <pre><code class="lang-js">&#39;use strict&#39;
 
+const fs = require(&#39;fs&#39;)
+const path = require(&#39;path&#39;)
 const fastify = require(&#39;fastify&#39;)({
   http2: true,
   https: {
@@ -428,6 +430,8 @@ or <a href="https://nodejs.org/api/http2.html">HTTP/2</a>.
 <em>Fastify</em> supports this out of the box:</p>
 <pre><code class="lang-js">&#39;use strict&#39;
 
+const fs = require(&#39;fs&#39;)
+const path = require(&#39;path&#39;)
 const fastify = require(&#39;fastify&#39;)({
   http2: true,
   https: {
