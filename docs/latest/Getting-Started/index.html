@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.43.x/Getting-Started">
+    <link ref="canonical" href="/docs/v1.0.x/Getting-Started">
   
 
   
@@ -187,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.43.x">v0.43.x</option>
+                          <option selected="selected" value="/docs/v1.0.x">v1.0.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.43.x">v0.43.x</option>
                       
                     
                       
@@ -308,7 +314,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.43.x">v0.43.x</option>
+                          <option selected="selected" value="/docs/v1.0.x">v1.0.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.43.x">v0.43.x</option>
                         
                       
                         
@@ -551,7 +562,36 @@ Plugin loading starts when you call <code>fastify.listen()</code>, <code>fastify
 <p>We have used the <code>decorate</code> api API. Let&#39;s take a moment to understand what it is and how it works. A scenario is to use the same code/library in different parts of an application. A solution is to require the code/library that it is needed. it This works, but is annoying because of duplicated code repeated and, if needed, long refactors.<br>
 To solve this Fastify offers the <code>decorate</code> API, which adds custom objects to the Fastify namespace, so that they can be used everywhere.</p>
 <p>To dig deeper into how Fastify plugins work, how to develop new plugins, and for details on how to use the whole Fastify API to deal with the complexity of asynchronously bootstrapping an application, read <a href="/docs/latest/Plugins-Guide">the hitchhiker&#39;s guide to plugins</a>.</p>
-<p><a name="validate-data"></a></p>
+<p><a name="plugin-loading-order"></a></p>
+<h3 id="loading-order-of-your-plugins">Loading order of your plugins</h3>
+<p>To guarantee a consistent and predictable behavior of your application, we highly recommend to always load your code as shown below:</p>
+<pre><code>└── plugins (from the Fastify ecosystem)
+└── your plugins (your custom plugins)
+└── decorators
+└── hooks and middlewares
+└── your services
+</code></pre><p>In this way you will always have access to all of the properties declared in the current scope.<br/>
+As discussed previously, Fastify offers a solid encapsulation model, to help you build your application as single and independent services. If you want to register a plugin only for a subset of routes, you have just to replicate the above structure.</p>
+<pre><code>└── plugins (from the Fastify ecosystem)
+└── your plugins (your custom plugins)
+└── decorators
+└── hooks and middlewares
+└── your services
+    │
+    └──  service A
+    │     └── plugins (from the Fastify ecosystem)
+    │     └── your plugins (your custom plugins)
+    │     └── decorators
+    │     └── hooks and middlewares
+    │     └── your services
+    │
+    └──  service B
+          └── plugins (from the Fastify ecosystem)
+          └── your plugins (your custom plugins)
+          └── decorators
+          └── hooks and middlewares
+          └── your services
+</code></pre><p><a name="validate-data"></a></p>
 <h3 id="validate-your-data">Validate your data</h3>
 <p>Data validation is extremely important and is a core concept of the framework.<br>
 To validate incoming requests, Fastify uses <a href="http://json-schema.org/">JSON Schema</a>.

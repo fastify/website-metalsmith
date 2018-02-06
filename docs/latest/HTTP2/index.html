@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v0.43.x/HTTP2">
+    <link ref="canonical" href="/docs/v1.0.x/HTTP2">
   
 
   
@@ -187,7 +187,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v0.43.x">v0.43.x</option>
+                          <option selected="selected" value="/docs/v1.0.x">v1.0.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v0.43.x">v0.43.x</option>
                       
                     
                       
@@ -308,7 +314,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v0.43.x">v0.43.x</option>
+                          <option selected="selected" value="/docs/v1.0.x">v1.0.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v0.43.x">v0.43.x</option>
                         
                       
                         
@@ -410,6 +421,8 @@ both over HTTPS or over plaintext.</p>
 connection</strong>:</p>
 <pre><code class="lang-js">&#39;use strict&#39;
 
+const fs = require(&#39;fs&#39;)
+const path = require(&#39;path&#39;)
 const fastify = require(&#39;fastify&#39;)({
   http2: true,
   https: {
@@ -430,6 +443,8 @@ or <a href="https://nodejs.org/api/http2.html">HTTP/2</a>.
 <em>Fastify</em> supports this out of the box:</p>
 <pre><code class="lang-js">&#39;use strict&#39;
 
+const fs = require(&#39;fs&#39;)
+const path = require(&#39;path&#39;)
 const fastify = require(&#39;fastify&#39;)({
   http2: true,
   https: {
