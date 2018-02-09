@@ -444,6 +444,14 @@ It takes an error parameter if something went wrong.</p>
   }
 })
 </code></pre>
+<p>Specifying a backlog queue size is also supported:</p>
+<pre><code class="lang-js">fastify.listen(3000, &#39;127.0.0.1&#39;, 511, err =&gt; {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+})
+</code></pre>
 <p>If no callback is provided a Promise is returned:</p>
 <pre><code class="lang-js">fastify.listen(3000)
   .then(() =&gt; console.log(&#39;Listening&#39;))
