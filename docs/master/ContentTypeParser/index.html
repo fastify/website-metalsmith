@@ -422,8 +422,14 @@ fastify.addContentTypeParser(&#39;application/jsoff&#39;, async function (req) {
   return res
 })
 </code></pre>
-<p>You can also use the <code>hasContentTypeParser</code> API to find if a specific content type parser already exists.
-See <a href="https://github.com/fastify/fastify/blob/master/examples/parser.js"><code>example/parser.js</code></a> for an example.</p>
+<p>You can also use the <code>hasContentTypeParser</code> API to find if a specific content type parser already exists.</p>
+<pre><code class="lang-js">if (!fastify.hasContentTypeParser(&#39;application/jsoff&#39;)){
+  fastify.addContentTypeParser(&#39;application/jsoff&#39;, function (req, done) {
+    //code to parse request body /payload for given content type 
+  })
+}
+</code></pre>
+<p>See <a href="https://github.com/fastify/fastify/blob/master/examples/parser.js"><code>example/parser.js</code></a> for an example.</p>
 <h5 id="catch-all">Catch All</h5>
 <p>There are some cases where you need to catch all requests regardless of their content type. With Fastify, you just need to add the <code>&#39;*&#39;</code> content type.</p>
 <pre><code class="lang-js">fastify.addContentTypeParser(&#39;*&#39;, function (req, done) {
