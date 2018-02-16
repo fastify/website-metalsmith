@@ -281,12 +281,6 @@
                       
                     
                       
-                        
-                        
-                          <option  value="/docs/v0.28.x">v0.28.x</option>
-                      
-                    
-                      
                     
                   </select>
                 </div>
@@ -393,11 +387,6 @@
                         
                       
                         
-                          
-                          <option  value="/docs/v0.28.x">v0.28.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
@@ -423,7 +412,7 @@ A plugin can be a set of routes, a server <a href="/docs/latest/Decorators">deco
 <li><a href="/docs/latest/Plugins#route-prefixing-options"><code>prefix</code></a></li>
 </ul>
 <p>It is possible that Fastify will directly support other options in the future. Thus, to avoid collisions, a plugin should consider namespacing its options. For example, a plugin <code>foo</code> might be registered like so:</p>
-<pre><code class="lang-js">fatify.register(require(&#39;fastify-foo&#39;), {
+<pre><code class="lang-js">fastify.register(require(&#39;fastify-foo&#39;), {
   prefix: &#39;/foo&#39;,
   foo: {
     fooOption1: &#39;value&#39;,
@@ -432,7 +421,7 @@ A plugin can be a set of routes, a server <a href="/docs/latest/Decorators">deco
 })
 </code></pre>
 <p>If collisions are not a concern, the plugin may simply accept the options object as-is:</p>
-<pre><code class="lang-js">fatify.register(require(&#39;fastify-foo&#39;), {
+<pre><code class="lang-js">fastify.register(require(&#39;fastify-foo&#39;), {
   prefix: &#39;/foo&#39;,
   fooOption1: &#39;value&#39;,
   fooOption2: &#39;value&#39;

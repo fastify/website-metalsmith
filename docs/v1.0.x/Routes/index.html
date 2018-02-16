@@ -279,12 +279,6 @@
                       
                     
                       
-                        
-                        
-                          <option  value="/docs/v0.28.x">v0.28.x</option>
-                      
-                    
-                      
                     
                   </select>
                 </div>
@@ -391,11 +385,6 @@
                         
                       
                         
-                          
-                          <option  value="/docs/v0.28.x">v0.28.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
@@ -435,7 +424,9 @@ schema allows us to have 10-20% more throughput.</li>
 <li><code>beforeHandler(request, reply, done)</code>: a <a href="/docs/v1.0.x/Hooks#before-handler">function</a> called just before the request handler, useful if you need to perform authentication at route level for example, it could also be and array of functions.</li>
 <li><code>handler(request, reply)</code>: the function that will handle this request.</li>
 <li><code>schemaCompiler(schema)</code>: the function that build the schema for the validations. See <a href="/docs/v1.0.x/Validation-and-Serialization#schema-compiler">here</a></li>
-<li><p><code>jsonBodyLimit</code>: prevents the default JSON body parser from parsing request bodies larger than this number of bytes. Must be an integer. You may also set this option globally when first creating the Fastify instance with <code>fastify(options)</code>. Defaults to <code>1048576</code> (1 MiB).</p>
+<li><code>jsonBodyLimit</code>: prevents the default JSON body parser from parsing request bodies larger than this number of bytes. Must be an integer. You may also set this option globally when first creating the Fastify instance with <code>fastify(options)</code>. Defaults to <code>1048576</code> (1 MiB).</li>
+<li><code>logLevel</code>: set log level for this route. See below.</li>
+<li><p><code>config</code>: object used to store custom configuration.</p>
 <p><code>request</code> is defined in <a href="/docs/v1.0.x/Request">Request</a>.</p>
 <p><code>reply</code> is defined in <a href="/docs/v1.0.x/Reply">Reply</a>.</p>
 </li>
