@@ -421,7 +421,7 @@ fastify.addContentTypeParser(&#39;application/jsoff&#39;, async function (req) {
 }
 </code></pre>
 <h4 id="body-parser">Body Parser</h4>
-<p>You can parse the body of the request in two ways. The first one is shown above: you add a custom content type parser and handle the request stream. In the second one you should pass a <code>parseAs</code> option to the <code>addContentTypeParser</code> API, where you declare how you want to get the body, it could be <code>&#39;string&#39;</code> or <code>&#39;buffer&#39;</code>. If you use the <code>parseAs</code> option Fastify will internally handle the stream and perform some checks, such as the <a href="/docs/v1.0.x/Factory#factory-body-limit">maximum size</a> of the body and the content length.</p>
+<p>You can parse the body of the request in two ways. The first one is shown above: you add a custom content type parser and handle the request stream. In the second one you should pass a <code>parseAs</code> option to the <code>addContentTypeParser</code> API, where you declare how you want to get the body, it could be <code>&#39;string&#39;</code> or <code>&#39;buffer&#39;</code>. If you use the <code>parseAs</code> option Fastify will internally handle the stream and perform some checks, such as the <a href="/docs/v1.0.x/Factory#factory-body-limit">maximum size</a> of the body and the content length. If the limit is exceeded the custom parser will not be invoked.</p>
 <pre><code class="lang-js">fastify.addContentTypeParser(&#39;application/json&#39;, { parseAs: &#39;string&#39; }, function (req, body, done) {
   try {
     var json = JSON.parse(body)
@@ -434,6 +434,11 @@ fastify.addContentTypeParser(&#39;application/jsoff&#39;, async function (req) {
 </code></pre>
 <p>As you can see, now the function signature is <code>(req, body, done)</code> instead of <code>(req, done)</code>.</p>
 <p>See <a href="https://github.com/fastify/fastify/blob/master/examples/parser.js"><code>example/parser.js</code></a> for an example.</p>
+<h5 id="custom-parser-options">Custom Parser Options</h5>
+<ul>
+<li><code>parseAs</code> (string): Either <code>&#39;string&#39;</code> or <code>&#39;buffer&#39;</code> to designate how the incoming data should be collected. Default: <code>&#39;buffer&#39;</code>.</li>
+<li><code>bodyLimit</code> (number): The maximum payload size, in bytes, that the custom parser will accept. Defaults to the global body limit passed to the <a href="/docs/v1.0.x/Factory#bodylimit"><code>Fastify factory function</code></a>.</li>
+</ul>
 <h4 id="catch-all">Catch All</h4>
 <p>There are some cases where you need to catch all requests regardless of their content type. With Fastify, you just need to add the <code>&#39;*&#39;</code> content type.</p>
 <pre><code class="lang-js">fastify.addContentTypeParser(&#39;*&#39;, function (req, done) {
