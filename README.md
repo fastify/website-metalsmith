@@ -1,5 +1,7 @@
 # fastify-website
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/fastify/website.svg)](https://greenkeeper.io/)
+
 [![CircleCI](https://circleci.com/gh/fastify/website.svg?style=shield)](https://circleci.com/gh/fastify/website)
 
 This project is used to build the website for [fastify web framework](https://github.com/fastify/fastify) and publish it online.
