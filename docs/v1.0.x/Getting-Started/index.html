@@ -531,12 +531,11 @@ module.exports = fastifyPlugin(dbConnector)
   })
 
   fastify.get(&#39;/search/:id&#39;, async (request, reply) =&gt; {
-    try {
-      return await collection.findOne({ id: request.params.id })
-    } catch (err) {
-      reg.log.error(err)
-      return new Error(&#39;Something went wrong&#39;)
+    const result = await collection.findOne({ id: request.params.id })
+    if (result.value === null) {
+      throw new Error(&#39;Invalid value&#39;)
     }
+    return result.value
   })
 }
 

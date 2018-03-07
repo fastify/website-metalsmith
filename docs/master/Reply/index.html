@@ -403,6 +403,8 @@ Reply is a core Fastify object that exposes the following functions:</p>
 <ul>
 <li><code>.code(statusCode)</code> - Sets the status code.</li>
 <li><code>.header(name, value)</code> - Sets a response header.</li>
+<li><code>.getHeader(name)</code> - Retrieve value of already set header.</li>
+<li><code>.hasHeader(name)</code> = Determine if a header has been set.</li>
 <li><code>.type(value)</code> - Sets the header <code>Content-Type</code>.</li>
 <li><code>.redirect([code,] url)</code> - Redirect to the specified url, the status code is optional (default to <code>302</code>).</li>
 <li><code>.serialize(payload)</code> - Serializes the specified payload using the default json serializer and returns the serialized payload.</li>
@@ -431,6 +433,15 @@ Reply is a core Fastify object that exposes the following functions:</p>
 <h3 id="header">Header</h3>
 <p>Sets a response header.</p>
 <p>For more information, see <a href="https://nodejs.org/dist/latest/docs/api/http.html#http_response_setheader_name_value"><code>http.ServerResponse#setHeader</code></a>.</p>
+<p><a name="getHeader"></a></p>
+<h3 id="getheader">GetHeader</h3>
+<p>Retrieves the value of a previously set header.</p>
+<pre><code class="lang-js">reply.header(&#39;x-foo&#39;, &#39;foo&#39;)
+reply.getHeader(&#39;x-foo&#39;) // &#39;foo&#39;
+</code></pre>
+<p><a name="hasHeader"></a></p>
+<h3 id="hasheader">HasHeader</h3>
+<p>Returns a boolean indicating if the specified header has been set.</p>
 <p><a name="redirect"></a></p>
 <h3 id="redirect">Redirect</h3>
 <p>Redirects a request to the specified url, the status code is optional, default to <code>302</code>.</p>
