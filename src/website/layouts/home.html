@@ -127,11 +127,11 @@ fastify.route({
       }
     },
     // this function is executed for every request before the handler is executed
-    beforeHandler: (request, reply) => {
+    beforeHandler(request, reply) {
       // E.g. check authentication
     }
   },
-  handler: (request, reply) => {
+  handler(request, reply) {
     reply.send({ hello: 'world' })
   }
 })
@@ -163,11 +163,11 @@ fastify.route({
       }
     },
     // this function is executed for every request before the handler is executed
-    beforeHandler: async (request, reply) => {
+    async beforeHandler(request, reply) {
       // E.g. check authentication
     }
   },
-  handler: async (request, reply) => {
+  async handler(request, reply) {
     return { hello: 'world' }
   }
 })
