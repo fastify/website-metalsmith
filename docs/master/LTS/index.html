@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Request</title>
+  <title>Long Term Support</title>
   <meta name="description" content="Fast and low overhead web framework, for Node.js">
 
   <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
@@ -142,8 +142,8 @@
                 <a  href="/docs/master/Reply">Reply</a>
               </li>
             
-              <li id="doc-menu-section">
-                <a class="is-active" href="/docs/master/Request">Request</a>
+              <li >
+                <a  href="/docs/master/Request">Request</a>
               </li>
             
               <li >
@@ -170,8 +170,8 @@
                 <a  href="/docs/master/HTTP2">HTTP2</a>
               </li>
             
-              <li >
-                <a  href="/docs/master/LTS">Long Term Support</a>
+              <li id="doc-menu-section">
+                <a class="is-active" href="/docs/master/LTS">Long Term Support</a>
               </li>
             
           </ul>
@@ -399,33 +399,44 @@
                 </div>
               </div>
             </li>
-            <li class="is-active"><a>Request</a></li>
+            <li class="is-active"><a>Long Term Support</a></li>
           </ul>
         </nav>
 
         <div id="doc-content" class="content">
-          <h2 id="request">Request</h2>
-<p>The first parameter of the handler function is <code>Request</code>.<br>
-Request is a core Fastify object containing the following fields:</p>
-<ul>
-<li><code>query</code> - the parsed querystring</li>
-<li><code>body</code> - the body</li>
-<li><code>params</code> - the params matching the URL</li>
-<li><code>headers</code> - the headers</li>
-<li><code>raw</code> - the incoming HTTP request from Node core <em>(you can use the alias <code>req</code>)</em></li>
-<li><code>id</code> - the request id</li>
-<li><code>log</code> - the logger instance of the incoming request</li>
-</ul>
-<pre><code class="lang-js">fastify.post(&#39;/:params&#39;, options, function (request, reply) {
-  console.log(request.body)
-  console.log(request.query)
-  console.log(request.params)
-  console.log(request.headers)
-  console.log(request.raw)
-  console.log(request.id)
-  request.log.info(&#39;some info&#39;)
-})
-</code></pre>
+          <p><a name="lts"></a></p>
+<h2 id="long-term-support">Long Term Support</h2>
+<p>Fastify&#39;s Long Term Support (LTS) is provided according the schedule laid
+out in this document:</p>
+<ol>
+<li><p>Major releases, &quot;X&quot; release of <a href="https://semver.org/">semantic versioning</a> X.Y.Z release
+versions, are supported for a minimum period of six months from their release
+date. The release date of any specific version can be found at
+<a href="https://github.com/fastify/fastify/releases">https://github.com/fastify/fastify/releases</a>.</p>
+</li>
+<li><p>Major releases will receive security updates for an additional six months
+from the release of the next major release.</p>
+</li>
+</ol>
+<p>A &quot;month&quot; is to be a period of 30 consecutive days.</p>
+<p><a name="lts-schedule"></a></p>
+<h3 id="schedule">Schedule</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Version</th>
+<th style="text-align:left">Release Date</th>
+<th style="text-align:left">End Of LTS Date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1.0.0</td>
+<td style="text-align:left">2018-03-06</td>
+<td style="text-align:left">TBD</td>
+</tr>
+</tbody>
+</table>
 
         </div>
 
@@ -453,38 +464,36 @@ Request is a core Fastify object containing the following fields:</p>
           
         
           
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
             <div class="level-left">
               <div class="level-item">
                 
                   
                   
-                  <a href="/docs/master/Reply" class="button prev">≪ Reply</a>
+                  <a href="/docs/master/HTTP2" class="button prev">≪ HTTP2</a>
                 
               </div>
             </div>
             <div class="level-right">
               <div class="level-item">
                 
-                  
-                  
-                  <a href="/docs/master/ContentTypeParser" class="button next">Content Type Parser ≫</a>
+                  &nbsp;
                 
               </div>
             </div>
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
           
         
         </nav>
@@ -517,7 +526,7 @@ Request is a core Fastify object containing the following fields:</p>
   <div class="container">
     <div class="content has-text-centered">
     
-      <p><em>Found a typo or want to improve this page?</em> <a href="https://github.com/fastify/fastify/blob/master/docs/Request.md">Submit a PR on GitHub</a></p>
+      <p><em>Found a typo or want to improve this page?</em> <a href="https://github.com/fastify/fastify/blob/master/docs/LTS.md">Submit a PR on GitHub</a></p>
     
       <p>Fastify, Copyright &copy; 2016-2017 Matteo Collina and the <a href="https://github.com/fastify/fastify#team" target="_blank">Fastify team</a>, Licensed under <a href="https://github.com/fastify/fastify/blob/master/LICENSE" target="_blank">MIT</a></p>
     </div>
