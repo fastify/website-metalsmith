@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.1.x/Routes">
+    <link ref="canonical" href="/docs/v1.2.x/Routes">
   
 
   
@@ -172,6 +172,10 @@
                 <a  href="/docs/latest/HTTP2">HTTP2</a>
               </li>
             
+              <li >
+                <a  href="/docs/latest/LTS">Long Term Support</a>
+              </li>
+            
           </ul>
           <div class="content" style="margin: .8em; border-top: 1px solid #ccc; padding: .8em 0 0 0">
             Docs version
@@ -191,7 +195,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.1.x">v1.1.x</option>
+                          <option selected="selected" value="/docs/v1.2.x">v1.2.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.1.x">v1.1.x</option>
                       
                     
                       
@@ -312,7 +322,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.1.x">v1.1.x</option>
+                          <option selected="selected" value="/docs/v1.2.x">v1.2.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.1.x">v1.1.x</option>
                         
                       
                         
@@ -488,6 +503,27 @@ fastify.get(&#39;/&#39;, opts, (request, reply) =&gt; {
 })
 </code></pre>
 <p><code>fastify.all(path, [options], handler)</code> will add the same handler to all the supported methods.</p>
+<p>The handler may also be supplied via the <code>options</code> object:</p>
+<pre><code class="lang-js">const opts = {
+  schema: {
+    response: {
+      200: {
+        type: &#39;object&#39;,
+        properties: {
+          hello: { type: &#39;string&#39; }
+        }
+      }
+    }
+  },
+  handler (request, reply) {
+    reply.send({ hello: &#39;world&#39; })
+  }
+}
+fastify.get(&#39;/&#39;, opts)
+</code></pre>
+<blockquote>
+<p>Note: if the handler is specified in both the <code>options</code> and as the third parameter to the shortcut method then throws duplicate <code>handler</code> error.</p>
+</blockquote>
 <p><a name="url-building"></a></p>
 <h3 id="url-building">Url building</h3>
 <p>Fastify supports both static and dynamic urls.<br>
@@ -612,6 +648,8 @@ fastify.listen(3000)
                 
               </div>
             </div>
+          
+        
           
         
           

@@ -193,6 +193,12 @@
                         
                           
                         
+                          <option  value="/docs/v1.2.x">v1.2.x</option>
+                      
+                    
+                      
+                        
+                        
                           <option  value="/docs/v1.1.x">v1.1.x</option>
                       
                     
@@ -310,6 +316,11 @@
                         
                           
                           <option selected="selected" value="/docs/master">master</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.2.x">v1.2.x</option>
                         
                       
                         
@@ -525,9 +536,9 @@ fastify.get(&#39;/streams&#39;, function (request, reply) {
   reply.send(httpErrors.Gone())
 })
 </code></pre>
-<p>If you want to completely customize the error response, checkout <a href="https://github.com/fastify/fastify/blob/error-docs/docs/Server-Methods.md#seterrorhandler"><code>setErrorHandler</code></a> API.</p>
+<p>If you want to completely customize the error response, checkout <a href="/docs/master/Server-Methods#seterrorhandler"><code>setErrorHandler</code></a> API.</p>
 <p>Errors with a <code>status</code> or <code>statusCode</code> property equal to <code>404</code> will be routed to the not found handler.
-See <a href="https://github.com/fastify/fastify/blob/error-docs/docs/Server-Methods.md#setnotfoundhandler"><code>server.setNotFoundHandler</code></a>
+See <a href="/docs/master/Server-Methods#setnotfoundhandler"><code>server.setNotFoundHandler</code></a>
 API to learn more about handling such cases:</p>
 <pre><code class="lang-js">fastify.setNotFoundHandler(function (request, reply) {
   reply.type(&#39;text/plain&#39;).send(&#39;a custom not found&#39;)

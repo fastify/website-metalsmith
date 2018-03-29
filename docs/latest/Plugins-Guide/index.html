@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.1.x/Plugins-Guide">
+    <link ref="canonical" href="/docs/v1.2.x/Plugins-Guide">
   
 
   
@@ -172,6 +172,10 @@
                 <a  href="/docs/latest/HTTP2">HTTP2</a>
               </li>
             
+              <li >
+                <a  href="/docs/latest/LTS">Long Term Support</a>
+              </li>
+            
           </ul>
           <div class="content" style="margin: .8em; border-top: 1px solid #ccc; padding: .8em 0 0 0">
             Docs version
@@ -191,7 +195,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.1.x">v1.1.x</option>
+                          <option selected="selected" value="/docs/v1.2.x">v1.2.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.1.x">v1.1.x</option>
                       
                     
                       
@@ -312,7 +322,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.1.x">v1.1.x</option>
+                          <option selected="selected" value="/docs/v1.2.x">v1.2.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.1.x">v1.1.x</option>
                         
                       
                         
@@ -404,7 +419,7 @@
         <div id="doc-content" class="content">
           <h1 id="the-hitchhiker-s-guide-to-plugins">The hitchhiker&#39;s guide to plugins</h1>
 <p>First of all, <code>DON&#39;T PANIC</code>!</p>
-<p>Fastify has been built since the beginning to be an extremely modular system, we built a powerful api that allows you to add methods and utilities to Fastify by creating a namespace, we built a system that creates an encapsulation model that allows you to split you application in multiple microservices at any moment, without the need to refactor the entire application.</p>
+<p>Fastify was built from the beginning to be an extremely modular system. We built a powerful API that allows you to add methods and utilities to Fastify by creating a namespace. We built a system that creates an encapsulation model that allows you to split your application in multiple microservices at any moment, without the need to refactor the entire application.</p>
 <p><strong>Table of contents</strong></p>
 <ul>
 <li><a href="#register">Register</a></li>
@@ -418,16 +433,16 @@
 <p><a name="register"></a></p>
 <h2 id="register">Register</h2>
 <p>As in JavaScript everything is an object, in Fastify everything is a plugin.<br>
-Your routes, your utilities and so on are all plugins. And to add a new plugin, whatever its functionality is, in Fastify you have a nice and unique api to use: <a href="/docs/latest/Plugins"><code>register</code></a>.</p>
+Your routes, your utilities and so on are all plugins. To add a new plugin, whatever its functionality is, in Fastify you have a nice and unique api to use: <a href="/docs/latest/Plugins"><code>register</code></a>.</p>
 <pre><code class="lang-js">fastify.register(
   require(&#39;./my-plugin&#39;),
   { options }
 )
 </code></pre>
-<p><code>register</code> creates for you a new Fastify context, this means that if you do any change to the Fastify instance, that change(s) will not be reflected into the context&#39;s ancestors. In other words, encapsulation!</p>
+<p><code>register</code> creates a new Fastify context, this means that if you do any change to the Fastify instance, those changes will not be reflected in the context&#39;s ancestors. In other words, encapsulation!</p>
 <p><em>Why is encapsulation important?</em><br>
 Well, let&#39;s say you are creating a new disruptive startup, what do you do? You create an api server with all your stuff, everything in the same place, a monolith!<br>
-Ok, you are growing very fast and you want to change your architecture and try microservices. Usually this implies an huge amount of work, because of cross dependencies and the lack of separation of concerns.<br>
+Ok, you are growing very fast and you want to change your architecture and try microservices. Usually this implies a huge amount of work, because of cross dependencies and the lack of separation of concerns.<br>
 Fastify helps you a lot in this direction, because thanks to the encapsulation model it will completely avoid cross dependencies, and will help you structure your code in cohesive blocks.</p>
 <p><em>Let&#39;s return to how to correctly use <code>register</code>.</em><br>
 As you probably know, the required plugins must expose a single function with the following signature</p>
@@ -444,7 +459,7 @@ As you probably know, the required plugins must expose a single function with th
   next()
 }
 </code></pre>
-<p>Well, now you know how to use the <code>register</code> api and how it works, but how add new functionalities to fastify and even better, share them with other developers?</p>
+<p>Well, now you know how to use the <code>register</code> api and how it works, but how do we add new functionality to Fastify and even better, share them with other developers?</p>
 <p><a name="decorators"></a></p>
 <h2 id="decorators">Decorators</h2>
 <p>Okay, let&#39;s say that you wrote an utility that is so good that you decided to make it available along all your code. How would you do it? Probably something like the following:</p>
@@ -476,8 +491,8 @@ fastify.register((instance, opts, next) =&gt; {
   next()
 })
 </code></pre>
-<p>Inside the second register call <code>instance.util</code> will throw an error, because <code>util</code> exist only inside the first register context.<br>
-Let&#39;s step back for a moment and get deepen on this: when using the <code>register</code> api you will create a new context every time and this avoid situations like the one mentioned few line above. But pay attention, the encapsulation works only for the ancestors and the brothers, but not for the sons.</p>
+<p>Inside the second register call <code>instance.util</code> will throw an error, because <code>util</code> exists only inside the first register context.<br>
+Let&#39;s step back for a moment and get deeper on this: when using the <code>register</code> api you will create a new context every time and this avoids situations like the one mentioned few line above. But pay attention, the encapsulation works only for the ancestors and the brothers, but not for the sons.</p>
 <pre><code class="lang-js">fastify.register((instance, opts, next) =&gt; {
   instance.decorate(&#39;util&#39;, (a, b) =&gt; a + b)
   console.log(instance.util(&#39;that is &#39;, &#39; awesome&#39;))
@@ -550,7 +565,7 @@ fastify.get(&#39;/happiness&#39;, (request, reply) =&gt; {
   reply.send({ happy: request.isHappy })
 })
 </code></pre>
-<p>We&#39;ve seen how extend server functionalities and how handle the encapsulation system, but what if you need to add a function that must be executed every time that the server &quot;<a href="/docs/latest/Lifecycle">emits</a>&quot; an event?</p>
+<p>We&#39;ve seen how to extend server functionality and how handle the encapsulation system, but what if you need to add a function that must be executed every time that the server &quot;<a href="/docs/latest/Lifecycle">emits</a>&quot; an event?</p>
 <p><a name="hooks"></a></p>
 <h2 id="hooks">Hooks</h2>
 <p>You just built an amazing utility, but now you need to execute that for every request, this is what you will likely do:</p>
@@ -606,7 +621,7 @@ fastify.get(&#39;/plugin2&#39;, (request, reply) =&gt; {
 </code></pre>
 <p>Now your hook will run just for the first route!</p>
 <p>As you probably noticed at this time, <code>request</code> and <code>reply</code> are not the standard Nodejs <em>request</em> and <em>response</em> objects, but Fastify&#39;s objects.<br>
-Let&#39;s say that you are arriving from a framework like Express or Restify, and you already have some Middleware that do exactly what you need, and you don&#39;t want to redo all the work.</p>
+Let&#39;s say that you are arriving from a framework like Express or Restify, and you already have some Middleware that does exactly what you need, and you don&#39;t want to redo all the work.</p>
 <p><a name="middlewares"></a></p>
 <h2 id="middlewares">Middlewares</h2>
 <p>Fastify <a href="/docs/latest/Middlewares">supports</a> out of the box Express/Restify/Connect middlewares, this means that you can just drop-in your old code and it will work! <em>(faster, by the way)</em><br>
@@ -618,7 +633,7 @@ fastify.use(yourMiddleware)
 <h2 id="how-to-handle-encapsulation-and-distribution">How to handle encapsulation and distribution</h2>
 <p>Perfect, now you know (almost) all the tools that you can use to extend Fastify. But probably there is something you noted when trying out your code.<br>
 How can you distribute your code?</p>
-<p>The preferred way to distribute an utility is to wrap all your code inside a <code>register</code>, in this way your plugin can support an asynchronous bootstrap <em>(since <code>decorate</code> is a synchronous api)</em>, in the case of a database connection for example.</p>
+<p>The preferred way to distribute a utility is to wrap all your code inside a <code>register</code>, in this way your plugin can support an asynchronous bootstrap <em>(since <code>decorate</code> is a synchronous api)</em>, in the case of a database connection for example.</p>
 <p><em>Wait, what? Didn&#39;t you tell me that <code>register</code> creates an encapsulation and that what I create inside there will not be available outside?</em><br>
 Yes, I said that. But what I didn&#39;t tell you, is that you can tell to Fastify to avoid this behavior, with the <a href="https://github.com/fastify/fastify-plugin"><code>fastify-plugin</code></a> module.</p>
 <pre><code class="lang-js">const fp = require(&#39;fastify-plugin&#39;)
@@ -637,15 +652,15 @@ module.exports = fp(dbPlugin)
 <p><a name="handle-errors"></a></p>
 <h2 id="handle-errors">Handle errors</h2>
 <p>It can happen that one of your plugins could fail during the startup. Maybe you expect it and you have a custom logic that will be triggered in that case. How can you do this?
-The <code>after</code> api is what you need. <code>after</code> simply register a callback that will be executed just after a register, and it can take up to three parameters.<br>
-The callback changes basing on the parameters your are giving:</p>
+The <code>after</code> api is what you need. <code>after</code> simply registers a callback that will be executed just after a register, and it can take up to three parameters.<br>
+The callback changes based on the parameters your are giving:</p>
 <ol>
 <li>If no parameter is given to the callback and there is an error, that error will be passed to the next error handler.</li>
 <li>If one parameter is given to the callback, that parameter will be the error object.</li>
 <li>If two parameters are given to the callback, the first will be the error object, the second will be the done callback.</li>
 <li>If three parameters are given to the callback, the first will be the error object, the second will be the top level context unless you have specified both server and override, in that case the context will be what the override returns, and the third the done callback.</li>
 </ol>
-<p>Let&#39;s see how use it:</p>
+<p>Let&#39;s see how to use it:</p>
 <pre><code class="lang-js">fastify
   .register(require(&#39;./database-connector&#39;))
   .after(err =&gt; {
@@ -721,6 +736,8 @@ Multipart support for Fastify</li>
                 
               </div>
             </div>
+          
+        
           
         
           
