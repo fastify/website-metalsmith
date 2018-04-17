@@ -487,6 +487,7 @@ fastify.addHook(&#39;onResponse&#39;, async (res) =&gt; {
   return
 })
 </code></pre>
+<p><strong>Notice:</strong> the <code>next</code> callback is not available when using <code>async</code>/<code>await</code> or returning a <code>Promise</code>. If you do invoke a <code>next</code> callback in this situation unexpected behavior may occur, e.g. duplicate invocation of handlers.</p>
 <table>
 <thead>
 <tr>
