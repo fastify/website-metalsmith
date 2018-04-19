@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.2.x/Reply">
+    <link ref="canonical" href="/docs/v1.3.x/Reply">
   
 
   
@@ -195,7 +195,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.2.x">v1.2.x</option>
+                          <option selected="selected" value="/docs/v1.3.x">v1.3.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.2.x">v1.2.x</option>
                       
                     
                       
@@ -286,12 +292,6 @@
                         
                         
                           <option  value="/docs/v0.31.x">v0.31.x</option>
-                      
-                    
-                      
-                        
-                        
-                          <option  value="/docs/v0.30.x">v0.30.x</option>
                       
                     
                       
@@ -322,7 +322,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.2.x">v1.2.x</option>
+                          <option selected="selected" value="/docs/v1.3.x">v1.3.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.2.x">v1.2.x</option>
                         
                       
                         
@@ -398,11 +403,6 @@
                         
                           
                           <option  value="/docs/v0.31.x">v0.31.x</option>
-                        
-                      
-                        
-                          
-                          <option  value="/docs/v0.30.x">v0.30.x</option>
                         
                       
                         
@@ -447,34 +447,42 @@ Reply is a core Fastify object that exposes the following functions:</p>
 })
 </code></pre>
 <p><a name="code"></a></p>
-<h3 id="code">Code</h3>
+<h3 id="-code-statuscode-">.code(statusCode)</h3>
 <p>If not set via <code>reply.code</code>, the resulting <code>statusCode</code> will be <code>200</code>.</p>
 <p><a name="header"></a></p>
-<h3 id="header">Header</h3>
-<p>Sets a response header.</p>
+<h3 id="-header-key-value-">.header(key, value)</h3>
+<p>Sets a response header. If the value is omitted or undefined it is coerced
+to <code>&#39;&#39;</code>.</p>
 <p>For more information, see <a href="https://nodejs.org/dist/latest/docs/api/http.html#http_response_setheader_name_value"><code>http.ServerResponse#setHeader</code></a>.</p>
 <p><a name="getHeader"></a></p>
-<h3 id="getheader">GetHeader</h3>
+<h3 id="-getheader-key-">.getHeader(key)</h3>
 <p>Retrieves the value of a previously set header.</p>
 <pre><code class="lang-js">reply.header(&#39;x-foo&#39;, &#39;foo&#39;)
 reply.getHeader(&#39;x-foo&#39;) // &#39;foo&#39;
 </code></pre>
+<p><a name="getHeader"></a></p>
+<h3 id="-removeheader-key-">.removeHeader(key)</h3>
+<p>Removed the value of a previously set header.</p>
+<pre><code class="lang-js">reply.header(&#39;x-foo&#39;, &#39;foo&#39;)
+reply.removeHeader(&#39;x-foo&#39;)
+reply.getHeader(&#39;x-foo&#39;) // undefined
+</code></pre>
 <p><a name="hasHeader"></a></p>
-<h3 id="hasheader">HasHeader</h3>
+<h3 id="-hasheader-key-">.hasHeader(key)</h3>
 <p>Returns a boolean indicating if the specified header has been set.</p>
 <p><a name="redirect"></a></p>
-<h3 id="redirect">Redirect</h3>
+<h3 id="-redirect-dest-">.redirect(dest)</h3>
 <p>Redirects a request to the specified url, the status code is optional, default to <code>302</code>.</p>
 <pre><code class="lang-js">reply.redirect(&#39;/home&#39;)
 </code></pre>
 <p><a name="type"></a></p>
-<h3 id="type">Type</h3>
+<h3 id="-type-contenttype-type-">.type(contentType, type)</h3>
 <p>Sets the content type for the response.
 This is a shortcut for <code>reply.header(&#39;Content-Type&#39;, &#39;the/type&#39;)</code>.</p>
 <pre><code class="lang-js">reply.type(&#39;text/html&#39;)
 </code></pre>
 <p><a name="serializer"></a></p>
-<h3 id="serializer">Serializer</h3>
+<h3 id="-serializer-func-">.serializer(func)</h3>
 <p><code>.send()</code> will by default JSON-serialize any value that is not one of: <code>Buffer</code>, <code>stream</code>, <code>string</code>, <code>undefined</code>, <code>Error</code>. If you need to replace the default serializer with a custom serializer for a particular request, you can do so with the <code>.serializer()</code> utility. Be aware that if you are using a custom serializer, you must set a custom <code>&#39;Content-Type&#39;</code> header.</p>
 <pre><code class="lang-js">reply
   .header(&#39;Content-Type&#39;, &#39;application/x-protobuf&#39;)
@@ -487,7 +495,7 @@ This is a shortcut for <code>reply.header(&#39;Content-Type&#39;, &#39;the/type&
 </code></pre>
 <p>See <a href="#send"><code>.send()</code></a> for more information on sending different types of values.</p>
 <p><a name="send"></a></p>
-<h3 id="send">Send</h3>
+<h3 id="-send-data-">.send(data)</h3>
 <p> As the name suggests, <code>.send()</code> is the function that sends the payload to the end user.</p>
 <p><a name="send-object"></a></p>
 <h4 id="objects">Objects</h4>
