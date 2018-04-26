@@ -289,12 +289,6 @@
                       
                     
                       
-                        
-                        
-                          <option  value="/docs/v0.31.x">v0.31.x</option>
-                      
-                    
-                      
                     
                   </select>
                 </div>
@@ -398,11 +392,6 @@
                         
                           
                           <option  value="/docs/v0.32.x">v0.32.x</option>
-                        
-                      
-                        
-                          
-                          <option  value="/docs/v0.31.x">v0.31.x</option>
                         
                       
                         
@@ -575,7 +564,7 @@ If you are interested in how we handle the routing, checkout <a href="https://gi
 </ul>
 <p><a name="promise-resolution"></a></p>
 <h3 id="promise-resolution">Promise resolution</h3>
-<p>If you use <code>async/await</code> or return a promise inside your handler you should be aware of a special behaviour which is necessary to support the callback and promise control-flow. If you resolve the handler&#39;s promise with <code>undefined</code>, it will be ignored causing the request to hang and an <em>error</em> log to be emitted.</p>
+<p>If your handler is an <code>async</code> function or returns a promise, you should be aware of a special behaviour which is necessary to support the callback and promise control-flow. If the handler&#39;s promise is resolved with <code>undefined</code>, it will be ignored causing the request to hang and an <em>error</em> log to be emitted.</p>
 <ol>
 <li>If you want to use <code>async/await</code> or promises but respond a value with <code>reply.send</code>:<ul>
 <li><strong>Don&#39;t</strong> <code>return</code> any value.</li>

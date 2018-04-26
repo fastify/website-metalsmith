@@ -289,12 +289,6 @@
                       
                     
                       
-                        
-                        
-                          <option  value="/docs/v0.31.x">v0.31.x</option>
-                      
-                    
-                      
                     
                   </select>
                 </div>
@@ -401,11 +395,6 @@
                         
                       
                         
-                          
-                          <option  value="/docs/v0.31.x">v0.31.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
@@ -457,6 +446,24 @@ As above, this API is needed if you want to add new methods to the <code>Request
 })
 </code></pre>
 <p>Note: using an arrow function will break the binding of <code>this</code> to the Fastify <code>request</code> instance.</p>
+<p><a name="usage_notes"></a></p>
+<h4 id="usage-notes">Usage Notes</h4>
+<p><code>decorateReply</code> and <code>decorateRequest</code> are used to modify the <code>Reply</code> and <code>Request</code> constructors respectively by adding methods or properties. To update these properties you should directly access the desired property of the <code>Reply</code> or <code>Request</code> object.</p>
+<p>As an example let&#39;s add a user property to the <code>Request</code> object:</p>
+<pre><code class="lang-js">// Decorate request with a &#39;user&#39; property
+fastify.decorateRequest(&#39;user&#39;, &#39;&#39;) 
+
+// Update our property
+fastify.addHook(&#39;preHandler&#39;, (req, reply, next) =&gt; {
+  req.user = &#39;Bob Dylan&#39;
+  next()
+})
+// And finally access it
+fastify.get(&#39;/&#39;, (req, reply) =&gt; {
+  reply.send(`Hello ${req.user}!`)
+})
+</code></pre>
+<p>Note: The usage of <code>decorateReply</code> and <code>decorateRequest</code> is optional in this case but will allow Fastify to optimize for performance.</p>
 <p><a name="sync-async"></a></p>
 <h4 id="sync-and-async">Sync and Async</h4>
 <p><code>decorate</code> is a <em>synchronous</em> API. If you need to add a decorator that has an <em>asynchronous</em> bootstrap, Fastify could boot up before your decorator is ready. To avoid this issue, you must use the <code>register</code> API in combination with <code>fastify-plugin</code>. To learn more, check out the <a href="/docs/latest/Plugins">Plugins</a> documentation as well.</p>
