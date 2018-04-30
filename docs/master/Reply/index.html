@@ -424,7 +424,7 @@ Reply is a core Fastify object that exposes the following functions:</p>
   // Your code
   reply
     .code(200)
-    .header(&#39;Content-Type&#39;, &#39;application/json&#39;)
+    .header(&#39;Content-Type&#39;, &#39;application/json; charset=utf-8&#39;)
     .send({ hello: &#39;world&#39; })
 })
 </code></pre>
@@ -493,7 +493,7 @@ This is a shortcut for <code>reply.header(&#39;Content-Type&#39;, &#39;the/type&
 </code></pre>
 <p><a name="send-string"></a></p>
 <h4 id="strings">Strings</h4>
-<p>If you pass a string to <code>send</code> without a <code>Content-Type</code>, it will be sent as plain text. If you set the <code>Content-Type</code> header and pass a string to <code>send</code>, it will be serialized with the custom serializer if one is set, otherwise it will be sent unmodified (unless the <code>Content-Type</code> header is set to <code>application/json</code>, in which case it will be JSON-serialized like an object — see the section above).</p>
+<p>If you pass a string to <code>send</code> without a <code>Content-Type</code>, it will be sent as <code>text/plain; charset=utf-8</code>. If you set the <code>Content-Type</code> header and pass a string to <code>send</code>, it will be serialized with the custom serializer if one is set, otherwise it will be sent unmodified (unless the <code>Content-Type</code> header is set to <code>application/json; charset=utf-8</code>, in which case it will be JSON-serialized like an object — see the section above).</p>
 <pre><code class="lang-js">fastify.get(&#39;/json&#39;, options, function (request, reply) {
   reply.send(&#39;plain string&#39;)
 })

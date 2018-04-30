@@ -477,7 +477,7 @@ tap.test(&#39;GET `/` route&#39;, t =&gt; {
   }, (err, response) =&gt; {
     t.error(err)
     t.strictEqual(response.statusCode, 200)
-    t.strictEqual(response.headers[&#39;content-type&#39;], &#39;application/json&#39;)
+    t.strictEqual(response.headers[&#39;content-type&#39;], &#39;application/json; charset=utf-8&#39;)
     t.deepEqual(JSON.parse(response.payload), { hello: &#39;world&#39; })
   })
 })
@@ -507,7 +507,7 @@ tap.test(&#39;GET `/` route&#39;, t =&gt; {
     }, (err, response, body) =&gt; {
       t.error(err)
       t.strictEqual(response.statusCode, 200)
-      t.strictEqual(response.headers[&#39;content-type&#39;], &#39;application/json&#39;)
+      t.strictEqual(response.headers[&#39;content-type&#39;], &#39;application/json; charset=utf-8&#39;)
       t.deepEqual(JSON.parse(body), { hello: &#39;world&#39; })
     })
   })
@@ -528,7 +528,7 @@ tap.test(&#39;GET `/` route&#39;, async (t) =&gt; {
   const response = await supertest(fastify.server)
     .get(&#39;/&#39;)
     .expect(200)
-    .expect(&#39;Content-Type&#39;, &#39;application/json&#39;)
+    .expect(&#39;Content-Type&#39;, &#39;application/json; charset=utf-8&#39;)
   t.deepEqual(response.body, { hello: &#39;world&#39; })
 })
 </code></pre>
