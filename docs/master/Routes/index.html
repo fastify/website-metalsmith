@@ -628,6 +628,21 @@ fastify.listen(3000)
 })
 </code></pre>
 <p><em>Remember that the custom log level is applied only to the routes, and not to the global Fastify Logger, accessible with <code>fastify.log</code></em></p>
+<p><a name="routes-config"></a></p>
+<h3 id="config">Config</h3>
+<p>Registering a new handler, you can pass a configuration object to it and retrieve it in the handler.</p>
+<pre><code class="lang-js">// server.js
+const fastify = require(&#39;fastify&#39;)()
+
+function handler (req, reply) {
+  reply.send(reply.context.config.output)
+}
+
+fastify.get(&#39;/en&#39;, { config: { output: &#39;hello world!&#39; } }, handler)
+fastify.get(&#39;/it&#39;, { config: { output: &#39;ciao mondo!&#39; } }, handler)
+
+fastify.listen(3000)
+</code></pre>
 
         </div>
 
