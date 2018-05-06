@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.3.x/ContentTypeParser">
+    <link ref="canonical" href="/docs/v1.4.x/ContentTypeParser">
   
 
   
@@ -195,7 +195,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.3.x">v1.3.x</option>
+                          <option selected="selected" value="/docs/v1.4.x">v1.4.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.3.x">v1.3.x</option>
                       
                     
                       
@@ -280,12 +286,6 @@
                         
                         
                           <option  value="/docs/v0.33.x">v0.33.x</option>
-                      
-                    
-                      
-                        
-                        
-                          <option  value="/docs/v0.32.x">v0.32.x</option>
                       
                     
                       
@@ -316,7 +316,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.3.x">v1.3.x</option>
+                          <option selected="selected" value="/docs/v1.4.x">v1.4.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.3.x">v1.3.x</option>
                         
                       
                         
@@ -390,11 +395,6 @@
                         
                       
                         
-                          
-                          <option  value="/docs/v0.32.x">v0.32.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
@@ -407,7 +407,7 @@
 
         <div id="doc-content" class="content">
           <h2 id="content-type-parser">Content Type Parser</h2>
-<p>Natively, Fastify only supports the <code>&#39;application/json&#39;</code> content type. If you need to support different content types, you can use the <code>addContentTypeParser</code> API. <em>The default JSON parser can be changed.</em></p>
+<p>Natively, Fastify only supports the <code>&#39;application/json&#39;</code> content type. The default charset is <code>utf-8</code>. If you need to support different content types, you can use the <code>addContentTypeParser</code> API. <em>The default JSON parser can be changed.</em></p>
 <p>As with the other APIs, <code>addContentTypeParser</code> is encapsulated in the scope in which it is declared. This means that if you declare it in the root scope it will be available everywhere, while if you declare it inside a register it will be available only in that scope and its children.</p>
 <p>Fastify adds automatically the parsed request payload to the <a href="/docs/latest/Request">Fastify request</a> object, you can reach it with <code>request.body</code>.</p>
 <h3 id="usage">Usage</h3>

@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.3.x/Hooks">
+    <link ref="canonical" href="/docs/v1.4.x/Hooks">
   
 
   
@@ -195,7 +195,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.3.x">v1.3.x</option>
+                          <option selected="selected" value="/docs/v1.4.x">v1.4.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.3.x">v1.3.x</option>
                       
                     
                       
@@ -280,12 +286,6 @@
                         
                         
                           <option  value="/docs/v0.33.x">v0.33.x</option>
-                      
-                    
-                      
-                        
-                        
-                          <option  value="/docs/v0.32.x">v0.32.x</option>
                       
                     
                       
@@ -316,7 +316,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.3.x">v1.3.x</option>
+                          <option selected="selected" value="/docs/v1.4.x">v1.4.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.3.x">v1.3.x</option>
                         
                       
                         
@@ -390,11 +395,6 @@
                         
                       
                         
-                          
-                          <option  value="/docs/v0.32.x">v0.32.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
@@ -409,7 +409,7 @@
           <h2 id="hooks">Hooks</h2>
 <p>Hooks are registered with the <code>fastify.addHook</code> method and allow you to listen to specific events in the application or request/response lifecycle. You have to register a hook before the event is triggered otherwise the event is lost.</p>
 <h2 id="request-response-hooks">Request/Response Hooks</h2>
-<p>By using the hooks you can interact directly inside the lifecycle of Fastify. There are five different Hooks that you can use <em>(in order of execution)</em>:</p>
+<p>By using the hooks you can interact directly inside the lifecycle of Fastify. There are four different Hooks that you can use <em>(in order of execution)</em>:</p>
 <ul>
 <li><code>&#39;onRequest&#39;</code></li>
 <li><code>&#39;preHandler&#39;</code></li>

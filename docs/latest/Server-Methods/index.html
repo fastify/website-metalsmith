@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.3.x/Server-Methods">
+    <link ref="canonical" href="/docs/v1.4.x/Server-Methods">
   
 
   
@@ -195,7 +195,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.3.x">v1.3.x</option>
+                          <option selected="selected" value="/docs/v1.4.x">v1.4.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.3.x">v1.3.x</option>
                       
                     
                       
@@ -280,12 +286,6 @@
                         
                         
                           <option  value="/docs/v0.33.x">v0.33.x</option>
-                      
-                    
-                      
-                        
-                        
-                          <option  value="/docs/v0.32.x">v0.32.x</option>
                       
                     
                       
@@ -316,7 +316,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.3.x">v1.3.x</option>
+                          <option selected="selected" value="/docs/v1.4.x">v1.4.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.3.x">v1.3.x</option>
                         
                       
                         
@@ -390,11 +395,6 @@
                         
                       
                         
-                          
-                          <option  value="/docs/v0.32.x">v0.32.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
@@ -410,6 +410,27 @@
 <p><a name="server"></a></p>
 <h4 id="server">server</h4>
 <p><code>fastify.server</code>: The Node core <a href="https://nodejs.org/api/http.html#http_class_http_server">server</a> object as returned by the <a href="/docs/latest/Factory"><strong><code>Fastify factory function</code></strong></a>.</p>
+<p><a name="after"></a></p>
+<h4 id="after">after</h4>
+<p>Invoked when the current plugin and all the plugins
+that have been registered within it have finished loading.
+It is always executed before the method <code>fastify.ready</code>.</p>
+<pre><code class="lang-js">fastify
+  .register((instance. opts, next) =&gt; {
+    console.log(&#39;Current plugin&#39;)
+    next()
+  })
+  .after(err =&gt; {
+    console.log(&#39;After current plugin&#39;)
+  })
+  .register((instance. opts, next) =&gt; {
+    console.log(&#39;Next plugin&#39;)
+    next()
+  })
+  .ready(err =&gt; {
+    console.log(&#39;Everything has been loaded&#39;)
+  })
+</code></pre>
 <p><a name="ready"></a></p>
 <h4 id="ready">ready</h4>
 <p>Function called when all the plugins have been loaded.
