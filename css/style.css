@@ -118,3 +118,13 @@
   animation: switch-on .2s ease-out;
   left: 1.1em;
 }
+
+a.anchor {
+  color: #808080;
+  padding: 0 0 0 .5rem;
+  float: right;
+}
+
+a.anchor:hover {
+  color: #4a4a4a;
+}

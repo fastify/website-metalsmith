@@ -543,7 +543,7 @@ fastify.listen(3000)
 
   <script>
     // dynamically creates a submenu for the current section based on the content headers
-    var titles = document.querySelectorAll('#doc-content h3')
+    var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
     var currentMenu = document.getElementById('doc-menu-section')
     if (titles.length && currentMenu) {
       var submenu = document.createElement('ul')
@@ -557,6 +557,16 @@ fastify.listen(3000)
       })
       currentMenu.append(submenu)
     }
+
+    // dynamically creates header anchor links
+    var headers = document.querySelectorAll('#doc-content h3, #doc-content h4')
+    headers.forEach(el => {
+      var currentAnchorLink = document.createElement('a')
+      currentAnchorLink.className = 'anchor'
+      currentAnchorLink.href = "#" + el.id
+      currentAnchorLink.append(document.createTextNode('¶'))
+      el.insertBefore(currentAnchorLink, el.firstChild);
+    })
   </script>
 </div>
 
