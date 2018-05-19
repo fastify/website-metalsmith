@@ -449,7 +449,7 @@ As above, this API is needed if you want to add new methods to the <code>Request
 <p><code>decorateReply</code> and <code>decorateRequest</code> are used to modify the <code>Reply</code> and <code>Request</code> constructors respectively by adding methods or properties. To update these properties you should directly access the desired property of the <code>Reply</code> or <code>Request</code> object.</p>
 <p>As an example let&#39;s add a user property to the <code>Request</code> object:</p>
 <pre><code class="lang-js">// Decorate request with a &#39;user&#39; property
-fastify.decorateRequest(&#39;user&#39;, &#39;&#39;) 
+fastify.decorateRequest(&#39;user&#39;, &#39;&#39;)
 
 // Update our property
 fastify.addHook(&#39;preHandler&#39;, (req, reply, next) =&gt; {
@@ -475,6 +475,16 @@ fastify.get(&#39;/&#39;, (req, reply) =&gt; {
 <h4 id="hasdecorator">hasDecorator</h4>
 <p>You can check for the presence of a decorator with the <code>hasDecorator</code> API:</p>
 <pre><code class="lang-js">fastify.hasDecorator(&#39;utility&#39;)
+</code></pre>
+<p><a name="has-request-decorator"></a></p>
+<h4 id="hasrequestdecorator">hasRequestDecorator</h4>
+<p>You can check for the presence of a Request decorator with the <code>hasRequestDecorator</code> API:</p>
+<pre><code class="lang-js">fastify.hasRequestDecorator(&#39;utility&#39;)
+</code></pre>
+<p><a name="has-reply-decorator"></a></p>
+<h4 id="hasreplydecorator">hasReplyDecorator</h4>
+<p>You can check for the presence of a Reply decorator with the <code>hasReplyDecorator</code> API:</p>
+<pre><code class="lang-js">fastify.hasReplyDecorator(&#39;utility&#39;)
 </code></pre>
 
         </div>
