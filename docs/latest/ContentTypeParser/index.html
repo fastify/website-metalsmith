@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.5.x/ContentTypeParser">
+    <link ref="canonical" href="/docs/v1.6.x/ContentTypeParser">
   
 
   
@@ -195,7 +195,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.5.x">v1.5.x</option>
+                          <option selected="selected" value="/docs/v1.6.x">v1.6.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.5.x">v1.5.x</option>
                       
                     
                       
@@ -280,12 +286,6 @@
                         
                         
                           <option  value="/docs/v0.35.x">v0.35.x</option>
-                      
-                    
-                      
-                        
-                        
-                          <option  value="/docs/v0.34.x">v0.34.x</option>
                       
                     
                       
@@ -316,7 +316,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.5.x">v1.5.x</option>
+                          <option selected="selected" value="/docs/v1.6.x">v1.6.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.5.x">v1.5.x</option>
                         
                       
                         
@@ -390,11 +395,6 @@
                         
                       
                         
-                          
-                          <option  value="/docs/v0.34.x">v0.34.x</option>
-                        
-                      
-                        
                       
                     </select>
                   </div>
@@ -413,6 +413,12 @@
 <h3 id="usage">Usage</h3>
 <pre><code class="lang-js">fastify.addContentTypeParser(&#39;application/jsoff&#39;, function (req, done) {
   jsoffParser(req, function (err, body) {
+    done(err, body)
+  })
+})
+// handle multiple content types as the same
+fastify.addContentTypeParser([&#39;text/xml&#39;, &#39;application/xml&#39;], function (req, done) {
+  xmlParser(req, function (err, body) {
     done(err, body)
   })
 })

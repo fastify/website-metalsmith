@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.5.x/Server-Methods">
+    <link ref="canonical" href="/docs/v1.6.x/Server-Methods">
   
 
   
@@ -195,7 +195,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.5.x">v1.5.x</option>
+                          <option selected="selected" value="/docs/v1.6.x">v1.6.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.5.x">v1.5.x</option>
                       
                     
                       
@@ -280,12 +286,6 @@
                         
                         
                           <option  value="/docs/v0.35.x">v0.35.x</option>
-                      
-                    
-                      
-                        
-                        
-                          <option  value="/docs/v0.34.x">v0.34.x</option>
                       
                     
                       
@@ -316,7 +316,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.5.x">v1.5.x</option>
+                          <option selected="selected" value="/docs/v1.6.x">v1.6.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.5.x">v1.5.x</option>
                         
                       
                         
@@ -387,11 +392,6 @@
                         
                           
                           <option  value="/docs/v0.35.x">v0.35.x</option>
-                        
-                      
-                        
-                          
-                          <option  value="/docs/v0.34.x">v0.34.x</option>
                         
                       
                         
@@ -501,7 +501,8 @@ It takes an error parameter if something went wrong.</p>
 <p>Method to add routes to the server, it also has shorthand functions, check <a href="/docs/latest/Routes">here</a>.</p>
 <p><a name="close"></a></p>
 <h4 id="close">close</h4>
-<p><code>fastify.close(callback)</code>: call this function to close the server instance and run the <a href="/docs/latest/Hooks#on-close"><code>&#39;onClose&#39;</code></a> hook.</p>
+<p><code>fastify.close(callback)</code>: call this function to close the server instance and run the <a href="/docs/latest/Hooks#on-close"><code>&#39;onClose&#39;</code></a> hook.<br>
+Calling <code>close</code> will also cause the server to respond to every new incoming request with a <code>503</code> error and destroy that request.</p>
 <p><a name="decorate"></a></p>
 <h4 id="decorate-">decorate*</h4>
 <p>Function useful if you need to decorate the fastify instance, Reply or Request, check <a href="/docs/latest/Decorators">here</a>.</p>
