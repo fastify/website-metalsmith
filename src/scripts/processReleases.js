@@ -244,7 +244,7 @@ const extractEcosystemFromFile = (file, cb) => {
       }
       return acc
     }, [])
-    const re = /\[`([-a-z0-9]+)`\]\(([^)]+)\)(\s*(.+))?/
+    const re = /\[`([-a-zA-Z0-9]+)`\]\(([^)]+)\)(\s*(.+))?/
     const plugins = mergedLines.map((line) => {
       const match = re.exec(line)
 
