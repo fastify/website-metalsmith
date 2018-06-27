@@ -248,8 +248,6 @@ const extractEcosystemFromFile = (file, cb) => {
     const plugins = mergedLines.map((line) => {
       const match = re.exec(line)
 
-      console.log({ match, line })
-
       const name = match[1]
       const url = match[2]
       const description = match[3] ? match[3].trim() : ''
