@@ -193,6 +193,12 @@
                         
                           
                         
+                          <option  value="/docs/v1.7.x">v1.7.x</option>
+                      
+                    
+                      
+                        
+                        
                           <option  value="/docs/v1.6.x">v1.6.x</option>
                       
                     
@@ -314,6 +320,11 @@
                       
                         
                           
+                          <option  value="/docs/v1.7.x">v1.7.x</option>
+                        
+                      
+                        
+                          
                           <option  value="/docs/v1.6.x">v1.6.x</option>
                         
                       
@@ -415,7 +426,9 @@ Let&#39;s start!</p>
 <h3 id="your-first-server">Your first server</h3>
 <p>Let&#39;s write our first server:</p>
 <pre><code class="lang-js">// Require the framework and instantiate it
-const fastify = require(&#39;fastify&#39;)()
+const fastify = require(&#39;fastify&#39;)({
+  logger: true
+})
 
 // Declare a route
 fastify.get(&#39;/&#39;, function (request, reply) {
@@ -423,11 +436,12 @@ fastify.get(&#39;/&#39;, function (request, reply) {
 })
 
 // Run the server!
-fastify.listen(3000, function (err) {
+fastify.listen(3000, function (err, address) {
   if (err) {
     fastify.log.error(err)
     process.exit(1)
   }
+  fastify.log.info(`server listening on ${address}`)
 })
 </code></pre>
 <p>Do you prefer to use <code>async/await</code>? Fastify supports it out-of-the-box.<br>
@@ -454,11 +468,12 @@ Fastify offers an easy platform that helps solve all of problems, and more.</p>
 <blockquote>
 <h2 id="note">Note</h2>
 <p>The above examples, and subsequent examples in this document, default to listening <em>only</em> on the localhost <code>127.0.0.1</code> interface. To listen on all available IPv4 interfaces the example should be modified to listen on <code>0.0.0.0</code> like so:</p>
-<pre><code class="lang-js">fastify.listen(3000, &#39;0.0.0.0&#39;, function (err) {
+<pre><code class="lang-js">fastify.listen(3000, &#39;0.0.0.0&#39;, function (err, address) {
   if (err) {
     fastify.log.error(err)
     process.exit(1)
   }
+  fastify.log.info(`server listening on ${address}`)
 })
 </code></pre>
 <p>Similarly, specify <code>::1</code> to accept only local connections via IPv6. Or specify <code>::</code> to accept connections on all IPv6 addresses, and, if the operating system supports it, also on all IPv4 addresses.</p>
@@ -469,15 +484,18 @@ Fastify offers an easy platform that helps solve all of problems, and more.</p>
 <p>As with JavaScript everything is an object, with Fastify everything is a plugin.<br>
 Before digging into it, let&#39;s see how it works!<br>
 Let&#39;s declare our basic server, but instead of declaring the route inside the entry point, we&#39;ll declare it in an external file (checkout the <a href="/docs/master/Routes">route declaration</a> docs).</p>
-<pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)()
+<pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)({
+  logger: true
+})
 
 fastify.register(require(&#39;./our-first-route&#39;))
 
-fastify.listen(3000, function (err) {
+fastify.listen(3000, function (err, address) {
   if (err) {
     fastify.log.error(err)
     process.exit(1)
   }
+  fastify.log.info(`server listening on ${address}`)
 })
 </code></pre>
 <pre><code class="lang-js">// our-first-route.js
@@ -498,18 +516,21 @@ Fastify handles this internally, with minimum effort!</p>
 <p>Let&#39;s rewrite the above example with a database connection.<br>
 <em>(we will use a simple example, for a robust solution consider using <a href="https://github.com/fastify/fastify-mongodb"><code>fastify-mongo</code></a> or another in the Fastify <a href="/ecosystem">ecosystem</a>)</em></p>
 <p><strong>server.js</strong></p>
-<pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)()
+<pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)({
+  logger: true
+})
 
 fastify.register(require(&#39;./our-db-connector&#39;), {
   url: &#39;mongodb://localhost:27017/&#39;
 })
 fastify.register(require(&#39;./our-first-route&#39;))
 
-fastify.listen(3000, function (err) {
+fastify.listen(3000, function (err, address) {
   if (err) {
     fastify.log.error(err)
     process.exit(1)
   }
+  fastify.log.info(`server listening on ${address}`)
 })
 </code></pre>
 <p><strong>our-db-connector.js</strong></p>

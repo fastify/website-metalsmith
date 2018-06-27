@@ -193,6 +193,12 @@
                         
                           
                         
+                          <option  value="/docs/v1.7.x">v1.7.x</option>
+                      
+                    
+                      
+                        
+                        
                           <option  value="/docs/v1.6.x">v1.6.x</option>
                       
                     
@@ -314,6 +320,11 @@
                       
                         
                           
+                          <option  value="/docs/v1.7.x">v1.7.x</option>
+                        
+                      
+                        
+                          
                           <option  value="/docs/v1.6.x">v1.6.x</option>
                         
                       
@@ -428,6 +439,16 @@ Just call the <code>decorate</code> API and pass the name of the new property an
 console.log(fastify.conf.db)
 </code></pre>
 <p>Decorators are not <em>overwritable</em>. If you try to declare a decorator that was previously declared <em>(in other words, use the same name)</em>, <code>decorate</code> will throw an exception.</p>
+<p>Decorators accept special &quot;getter/setter&quot; objects. These objects have functions named <code>getter</code> and <code>setter</code> (though, the <code>setter</code> function is optional). This allows defining properties via decorators. For example:</p>
+<pre><code class="lang-js">fastify.decorate(&#39;foo&#39;, {
+  getter () {
+    return &#39;a getter&#39;
+  }
+})
+</code></pre>
+<p>Will define the <code>foo</code> property on the <em>Fastify</em> instance:</p>
+<pre><code class="lang-js">console.log(fastify.foo) // &#39;a getter&#39;
+</code></pre>
 <p><a name="decorate-reply"></a>
 <strong>decorateReply</strong>
 As the name suggests, this API is needed if you want to add new methods to the <code>Reply</code> core object. Just call the <code>decorateReply</code> API and pass the name of the new property and its value:</p>

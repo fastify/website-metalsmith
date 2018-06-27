@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.6.x/Routes">
+    <link ref="canonical" href="/docs/v1.7.x/Routes">
   
 
   
@@ -195,7 +195,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.6.x">v1.6.x</option>
+                          <option selected="selected" value="/docs/v1.7.x">v1.7.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.6.x">v1.6.x</option>
                       
                     
                       
@@ -316,7 +322,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.6.x">v1.6.x</option>
+                          <option selected="selected" value="/docs/v1.7.x">v1.7.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.6.x">v1.6.x</option>
                         
                       
                         
@@ -436,7 +447,8 @@ schema allows us to have 10-20% more throughput.</li>
 <li><code>schemaCompiler(schema)</code>: the function that build the schema for the validations. See <a href="/docs/latest/Validation-and-Serialization#schema-compiler">here</a></li>
 <li><code>bodyLimit</code>: prevents the default JSON body parser from parsing request bodies larger than this number of bytes. Must be an integer. You may also set this option globally when first creating the Fastify instance with <code>fastify(options)</code>. Defaults to <code>1048576</code> (1 MiB).</li>
 <li><code>logLevel</code>: set log level for this route. See below.</li>
-<li><p><code>config</code>: object used to store custom configuration.</p>
+<li><code>config</code>: object used to store custom configuration.</li>
+<li><p><code>version</code>: a <a href="http://semver.org/">semver</a> compatible string that defined the version of the endpoint. <a href="https://github.com/fastify/fastify/blob/versioned-routes/docs/Routes.md#version">Example</a>.</p>
 <p><code>request</code> is defined in <a href="/docs/latest/Request">Request</a>.</p>
 <p><code>reply</code> is defined in <a href="/docs/latest/Reply">Reply</a>.</p>
 </li>
@@ -645,6 +657,32 @@ fastify.get(&#39;/it&#39;, { config: { output: &#39;ciao mondo!&#39; } }, handle
 
 fastify.listen(3000)
 </code></pre>
+<p><a name="version"></a></p>
+<h3 id="version">Version</h3>
+<p>If needed you can provide a version option, which will allow you to declare multiple versions of the same route. The versioning should follow the <a href="http://semver.org/">semver</a> specification.<br/>
+Fastify will automatically detect the <code>Accept-Version</code> header and route the request accordingly (advanced ranges and pre-releases currently are not supported).<br/>
+<em>Be aware that using this feature will cause a degradation of the overall performances of the router.</em></p>
+<pre><code class="lang-js">fastify.route({
+  method: &#39;GET&#39;,
+  url: &#39;/&#39;,
+  version: &#39;1.2.0&#39;,
+  handler: function (request, reply) {
+    reply.send({ hello: &#39;world&#39; })
+  }
+})
+
+fastify.inject({
+  method: &#39;GET&#39;,
+  url: &#39;/&#39;,
+  headers: {
+    &#39;Accept-Version&#39;: &#39;1.x&#39; // it could also be &#39;1.2.0&#39; or &#39;1.2.x&#39;
+  }
+}, (err, res) =&gt; {
+  // { hello: &#39;world&#39; }
+})
+</code></pre>
+<p>If you declare multiple versions with the same major or minor, Fastify will always choose the highest compatible with the <code>Accept-Version</code> header value.<br/>
+If the request will not have the <code>Accept-Version</code> header, a 404 error will be returned.</p>
 
         </div>
 

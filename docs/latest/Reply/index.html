@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.6.x/Reply">
+    <link ref="canonical" href="/docs/v1.7.x/Reply">
   
 
   
@@ -195,7 +195,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.6.x">v1.6.x</option>
+                          <option selected="selected" value="/docs/v1.7.x">v1.7.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.6.x">v1.6.x</option>
                       
                     
                       
@@ -316,7 +322,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.6.x">v1.6.x</option>
+                          <option selected="selected" value="/docs/v1.7.x">v1.7.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.6.x">v1.6.x</option>
                         
                       
                         
@@ -411,6 +422,7 @@
 Reply is a core Fastify object that exposes the following functions:</p>
 <ul>
 <li><code>.code(statusCode)</code> - Sets the status code.</li>
+<li><code>.status(statusCode)</code> - An alias for <code>.code(statusCode)</code>.</li>
 <li><code>.header(name, value)</code> - Sets a response header.</li>
 <li><code>.getHeader(name)</code> - Retrieve value of already set header.</li>
 <li><code>.hasHeader(name)</code> = Determine if a header has been set.</li>
