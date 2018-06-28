@@ -13,13 +13,18 @@ const minRelease = process.argv[4] || 'v0.11.0'
 
 console.log(`downloading releases into ${dest}`)
 
-const headers = { 'User-Agent': 'fastify-website-builder-v1' }
-
-request({
-  url: `https://api.github.com/repos/${repository}/releases`,
+const requestConfig = {
   json: true,
-  headers
-})
+  headers: { 'User-Agent': 'fastify-website-builder-v1' }
+}
+
+if (process.env.GH_NAME && process.env.GH_TOKEN) {
+  console.log(`  » GitHub API requests authenticated as "${process.env.GH_NAME}"`)
+  requestConfig.user = process.env.GH_NAME
+  requestConfig.pass = process.env.GH_TOKEN
+}
+
+request(Object.assign(requestConfig, { url: `https://api.github.com/repos/${repository}/releases` }))
   .then((releases) => {
     const selectedReleases = releases
       // creates version map and label per every release
@@ -64,10 +69,7 @@ request({
     // downloads the releases
     mapLimit(Object.keys(selectedReleases), cpus().length * 2, (name, done) => {
       const release = selectedReleases[name]
-      request({
-        url: release.url,
-        headers
-      })
+      request(Object.assign(requestConfig, { url: release.url }))
         .pipe(unzip.Extract({ path: join(dest, name) }))
         .on('finish', () => {
           console.log(` - ${name}`)
