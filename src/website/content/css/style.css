@@ -128,3 +128,9 @@ a.anchor {
 a.anchor:hover {
   color: #4a4a4a;
 }
+
+#main-navbar .control.has-icons-left .icon.is-left {
+  left: 18px;
+  top: 18px;
+  height: 1em;
+}
