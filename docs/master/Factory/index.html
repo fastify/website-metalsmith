@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Benchmarking</title>
+  <title>Factory</title>
   <meta name="description" content="Fast and low overhead web framework, for Node.js">
 
   <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
@@ -150,8 +150,8 @@
                 <a  href="/docs/master/ContentTypeParser">Content Type Parser</a>
               </li>
             
-              <li >
-                <a  href="/docs/master/Factory">Factory</a>
+              <li id="doc-menu-section">
+                <a class="is-active" href="/docs/master/Factory">Factory</a>
               </li>
             
               <li >
@@ -162,8 +162,8 @@
                 <a  href="/docs/master/Testing">Testing</a>
               </li>
             
-              <li id="doc-menu-section">
-                <a class="is-active" href="/docs/master/Benchmarking">Benchmarking</a>
+              <li >
+                <a  href="/docs/master/Benchmarking">Benchmarking</a>
               </li>
             
               <li >
@@ -422,43 +422,126 @@
                 </div>
               </div>
             </li>
-            <li class="is-active"><a>Benchmarking</a></li>
+            <li class="is-active"><a>Factory</a></li>
           </ul>
         </nav>
 
         <div id="doc-content" class="content">
-          <h2 id="benchmarking">Benchmarking</h2>
-<p>Benchmarking is important if you want to measure how a change can impact your application performance. We provide a simple way to benchmark your application from the point of view of a user and contributor. The setup allows you to automate benchmarks in different branches on different Node.js versions.</p>
-<p>The modules we&#39;ll use:</p>
+          <p><a name="factory"></a></p>
+<h2 id="factory">Factory</h2>
+<p>The Fastify module exports a factory function that is used to create new
+<a href="/docs/master/Server-Methods.md"><code><b>Fastify server</b></code></a>
+instances. This factory function accepts an options object which is used to
+customize the resulting instance. This document describes the properties
+available in that options object.</p>
+<p><a name="factory-http2"></a></p>
+<h3 id="-http2-status-experimental-"><code>http2</code> (Status: experimental)</h3>
+<p>If <code>true</code> Node.js core&#39;s <a href="https://nodejs.org/dist/latest-v8.x/docs/api/http2.html">HTTP/2</a>
+HTTP/2 module is used for binding the socket.</p>
 <ul>
-<li><a href="https://github.com/mcollina/autocannon">Autocannon</a>: A HTTP/1.1 benchmarking tool written in node.</li>
-<li><a href="https://github.com/StarpTech/branch-comparer">Branch-comparer</a>: Checkout multiple git branches, execute scripts and log the results.</li>
-<li><a href="https://github.com/kimmobrunfeldt/concurrently">Concurrently</a>: Run commands concurrently.</li>
-<li><a href="https://github.com/zkat/npx">Npx</a> NPM package runner - We using it to run scripts against different Node.js Versions and execute local binaries. Shipped with npm@5.2.0.</li>
+<li>Default: <code>false</code></li>
 </ul>
-<h2 id="simple">Simple</h2>
-<h3 id="run-the-test-in-the-current-branch">Run the test in the current branch</h3>
-<pre><code class="lang-sh">npm run benchmark
+<p><a name="factory-https"></a></p>
+<h3 id="-https-"><code>https</code></h3>
+<p>An object used to configure the server&#39;s listening socket for TLS. The options
+are the same as the Node.js core
+<a href="https://nodejs.org/dist/latest-v8.x/docs/api/https.html#https_https_createserver_options_requestlistener"><code>createServer</code> method</a>.
+When this property is <code>null</code>, the socket will not be configured for TLS.</p>
+<p>This option also applies when the
+<a href="/docs/master/Factory.md#factory-http2">
+<code><b>http2</b></code>
+</a> option is set.</p>
+<ul>
+<li>Default: <code>null</code></li>
+</ul>
+<p><a name="factory-ignore-slash"></a></p>
+<h3 id="-ignoretrailingslash-"><code>ignoreTrailingSlash</code></h3>
+<p>Fastify uses <a href="https://github.com/delvedor/find-my-way">find-my-way</a> to handle
+routing. This option may be set to <code>true</code> to ignore trailing slashes in routes.
+This option applies to <em>all</em> route registrations for the resulting server
+instance.</p>
+<ul>
+<li>Default: <code>false</code></li>
+</ul>
+<pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)({
+  ignoreTrailingSlash: true
+})
+
+// registers both &quot;/foo&quot; and &quot;/foo/&quot;
+fastify.get(&#39;/foo/&#39;, function (req, reply) {
+  res.send(&#39;foo&#39;)
+})
+
+// registers both &quot;/bar&quot; and &quot;/bar/&quot;
+fastify.get(&#39;/bar&#39;, function (req, reply) {
+  res.send(&#39;bar&#39;)
+})
 </code></pre>
-<h3 id="run-the-test-against-different-node-js-versions-">Run the test against different Node.js versions ✨</h3>
-<pre><code class="lang-sh">npx -p node@6 -- npm run benchmark
+<p><a name="factory-max-param-length"></a></p>
+<h3 id="-maxparamlength-"><code>maxParamLength</code></h3>
+<p>You can set a custom length for parameters in parametric (standard, regex and multi) routes by using <code>maxParamLength</code> option, the default value is 100 characters.<br>
+This can be useful especially if you have some regex based route, protecting you against <a href="https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS">DoS attacks</a>.<br>
+<em>If the maximum length limit is reached, the not found route will be invoked.</em></p>
+<p><a name="factory-body-limit"></a></p>
+<h3 id="-bodylimit-"><code>bodyLimit</code></h3>
+<p>Defines the maximum payload, in bytes, the server is allowed to accept.</p>
+<ul>
+<li>Default: <code>1048576</code> (1MiB)</li>
+</ul>
+<p><a name="factory-logger"></a></p>
+<h3 id="-logger-"><code>logger</code></h3>
+<p>Fastify includes built-in logging via the <a href="https://getpino.io/">Pino</a> logger.
+This property is used to configure the internal logger instance.</p>
+<p>The possible values this property may have are:</p>
+<ul>
+<li><p>Default: <code>false</code>. The logger is disabled. All logging methods will point to a
+null logger <a href="https://npm.im/abstract-logging">abstract-logging</a> instance.</p>
+</li>
+<li><p><code>pinoInstance</code>: a previously instantiated instance of Pino. The internal
+logger will point to this instance.</p>
+</li>
+<li><p><code>object</code>: a standard Pino <a href="https://github.com/pinojs/pino/blob/c77d8ec5ce/docs/API.md#constructor">options object</a>.
+This will be passed directly to the Pino constructor. If the following properties
+are not present on the object, they will be added accordingly:</p>
+<ul>
+<li><code>genReqId</code>: a synchronous function that will be used to generate identifiers
+for incoming requests. The default function generates sequential identifiers.</li>
+<li><code>level</code>: the minimum logging level. If not set, it will be set to <code>&#39;info&#39;</code>.</li>
+<li><code>serializers</code>: a hash of serialization functions. By default, serializers
+are added for <code>req</code> (incoming request objects), <code>res</code> (outgoing repsonse
+objets), and <code>err</code> (standard <code>Error</code> objects). When a log method receives
+and object with any of these properties then the respective serializer will
+be used for that property. For example:<pre><code class="lang-js">  fastify.get(&#39;/foo&#39;, function (req, res) {
+    req.log.info({req}) // log the serialized request object
+    res.send(&#39;foo&#39;)
+  })
 </code></pre>
-<h2 id="advanced">Advanced</h2>
-<h3 id="run-the-test-in-different-branches">Run the test in different branches</h3>
-<pre><code class="lang-sh">branchcmp --rounds 2 --script &quot;npm run benchmark&quot;
+Any user supplied serializer will override the default serializer of the
+corresponding property.</li>
+</ul>
+</li>
+</ul>
+<p><a name="custom-http-server"></a></p>
+<h3 id="-serverfactory-"><code>serverFactory</code></h3>
+<p>You can pass a custom http server to Fastify by using the <code>serverFactory</code> option.<br/>
+<code>serverFactory</code> is a function that takes an <code>handler</code> parameter, which takes the <code>request</code> and <code>response</code> objects as parameters, and an options object, which is the same you have passed to Fastify.</p>
+<pre><code class="lang-js">const serverFactory = (handler, opts) =&gt; {
+  const server = http.createServer((req, res) =&gt; {
+    handler(req, res)
+  })
+
+  return server
+}
+
+const fastify = Fastify({ serverFactory })
+
+fastify.get(&#39;/&#39;, (req, reply) =&gt; {
+  reply.send({ hello: &#39;world&#39; })
+})
+
+fastify.listen(3000)
 </code></pre>
-<h3 id="run-the-test-in-different-branches-against-different-node-js-versions-">Run the test in different branches against different Node.js versions ✨</h3>
-<pre><code class="lang-sh">branchcmp --rounds 2 --script &quot;npm run benchmark&quot;
-</code></pre>
-<h3 id="compare-current-branch-with-master-gitflow-">Compare current branch with master (Gitflow)</h3>
-<pre><code class="lang-sh">branchcmp --rounds 2 --gitflow --script &quot;npm run benchmark&quot;
-</code></pre>
-<p>or</p>
-<pre><code class="lang-sh">npm run bench
-</code></pre>
-<h3 id="run-different-examples">Run different examples</h3>
-<pre><code class="lang-sh">branchcmp --rounds 2 -s &quot;node ./node_modules/concurrently -k -s first \&quot;node ./examples/asyncawait.js\&quot; \&quot;node ./node_modules/autocannon -c 100 -d 5 -p 10 localhost:3000/\&quot;&quot;
-</code></pre>
+<p>Internally Fastify uses the API of Node core http server, so if you are using a custom server you must be sure to have the same API exposed. If not, you can enhance the sever instance inside the <code>serverFactory</code> function before the <code>return</code> statement.</p>
 
         </div>
 
@@ -490,18 +573,12 @@
           
         
           
-        
-          
-        
-          
-        
-          
             <div class="level-left">
               <div class="level-item">
                 
                   
                   
-                  <a href="/docs/master/Testing" class="button prev">≪ Testing</a>
+                  <a href="/docs/master/ContentTypeParser" class="button prev">≪ Content Type Parser</a>
                 
               </div>
             </div>
@@ -510,10 +587,16 @@
                 
                   
                   
-                  <a href="/docs/master/Write-Plugin" class="button next">How to write a good plugin ≫</a>
+                  <a href="/docs/master/Plugins" class="button next">Plugins ≫</a>
                 
               </div>
             </div>
+          
+        
+          
+        
+          
+        
           
         
           
@@ -566,7 +649,7 @@
   <div class="container">
     <div class="content has-text-centered">
     
-      <p><em>Found a typo or want to improve this page?</em> <a href="https://github.com/fastify/fastify/blob/master/docs/Benchmarking.md">Submit a PR on GitHub</a></p>
+      <p><em>Found a typo or want to improve this page?</em> <a href="https://github.com/fastify/fastify/blob/master/docs/Factory.md">Submit a PR on GitHub</a></p>
     
       <p>Fastify, Copyright &copy; 2016-2017 Matteo Collina and the <a href="https://github.com/fastify/fastify#team" target="_blank">Fastify team</a>, Licensed under <a href="https://github.com/fastify/fastify/blob/master/LICENSE" target="_blank">MIT</a></p>
     </div>
