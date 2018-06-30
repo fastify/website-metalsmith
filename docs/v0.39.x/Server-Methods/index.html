@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="/css/style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" crossorigin="anonymous" />
 
   
 
@@ -68,6 +69,13 @@
     </div>
 
     <div class="navbar-end">
+      <span class="control has-icons-left navbar-item">
+        <input id="algolia-search-input" class="input" type="search" placeholder="">
+        <span class="icon is-medium is-left">
+          <i class="fa fa-search"></i>
+        </span>
+      </span>
+
       <a class="navbar-item" href="https://github.com/fastify/fastify" target="_blank">
         <span class="fa fa-github"> </span>&nbsp;Github
       </a>
@@ -627,6 +635,16 @@ A plugin can be a set of routes, a server decorator or whatever, check <a href="
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script type="text/javascript">
+      docsearch({
+        apiKey: 'f7c62ddab40e653f67a6e15be761d951',
+        indexName: 'fastify',
+        inputSelector: '#algolia-search-input',
+        algoliaOptions: { 'facetFilters': ["version:latest", "tags:docs"] },
+        debug: false // Set debug to true if you want to inspect the dropdown
+      });
+    </script>
   </body>
 
 </html>
