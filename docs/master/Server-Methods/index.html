@@ -585,13 +585,20 @@ To learn more, see <a href="/docs/master/Validation-and-Serialization#shared-sch
 <p><a name="set-not-found-handler"></a></p>
 <h4 id="setnotfoundhandler">setNotFoundHandler</h4>
 <p><code>fastify.setNotFoundHandler(handler(request, reply))</code>: set the 404 handler. This call is encapsulated by prefix, so different plugins can set different not found handlers if a different <a href="/docs/master/Plugins#route-prefixing-option"><code>prefix</code> option</a> is passed to <code>fastify.register()</code>. The handler is treated like a regular route handler so requests will go through the full <a href="/docs/master/Lifecycle#lifecycle">Fastify lifecycle</a>.</p>
-<pre><code class="lang-js">fastify.setNotFoundHandler(function (request, reply) {
-  // Default not found handler
+<p>You can also register <a href="https://www.fastify.io/docs/latest/Hooks/#beforehandler">beforeHandler</a> hook for the 404 handler. </p>
+<pre><code class="lang-js">fastify.setNotFoundHandler({
+  beforeHandler: (req, reply, next) =&gt; {
+    req.body.beforeHandler = true
+    next()
+  }  
+}, function (request, reply) {
+    // Default not found handler with beforeHandler hook
 })
 
 fastify.register(function (instance, options, next) {
   instance.setNotFoundHandler(function (request, reply) {
-    // Handle not found request to URLs that begin with &#39;/v1&#39;
+    // Handle not found request without beforeHandler hook
+    // to URLs that begin with &#39;/v1&#39;
   })
   next()
 }, { prefix: &#39;/v1&#39; })
