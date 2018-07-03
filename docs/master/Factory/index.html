@@ -550,6 +550,18 @@ fastify.get(&#39;/&#39;, (req, reply) =&gt; {
 fastify.listen(3000)
 </code></pre>
 <p>Internally Fastify uses the API of Node core http server, so if you are using a custom server you must be sure to have the same API exposed. If not, you can enhance the sever instance inside the <code>serverFactory</code> function before the <code>return</code> statement.</p>
+<p><a name="factory-case-sensitive"></a></p>
+<h3 id="-casesensitive-"><code>caseSensitive</code></h3>
+<p>By default, value equal to <code>true</code>, routes are registered as case sensitive. That is, <code>/foo</code> is not equivalent to <code>/Foo</code>. When set to <code>false</code>, routes are registered in a fashion such that <code>/foo</code> is equivalent to <code>/Foo</code> which is equivalent to <code>/FOO</code>.</p>
+<p>Setting <code>caseSensitivy</code> to <code>false</code> will also result in
+all params (and all value matched by regexps) to be lowercased as well.</p>
+<pre><code class="lang-js">fastify.get(&#39;/user/:username&#39;, (request, reply) =&gt; {
+  // Given the URL: /user/NodeJS
+  console.log(request.params.username) // -&gt; &#39;nodejs&#39;
+})
+</code></pre>
+<p>Please note this setting this option to <code>false</code> goes against
+<a href="https://tools.ietf.org/html/rfc3986#section-6.2.2.1">RFC3986</a>.</p>
 
         </div>
 
