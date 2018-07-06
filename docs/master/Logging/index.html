@@ -470,7 +470,8 @@ fastify.get(&#39;/&#39;, options, function (request, reply) {
   reply.send({ hello: &#39;world&#39; })
 })
 </code></pre>
-<p>By default fastify adds an id to every request for easier tracking. If the &quot;request-id&quot; header is present its value is used, otherwise a new incremental id is generated.
+<p><a name="logging-request-id" />
+By default fastify adds an id to every request for easier tracking. If the &quot;request-id&quot; header is present its value is used, otherwise a new incremental id is generated. See Fastify Factory <a href="./Factory.md#factory-request-id-header"><code>requestIdHeader</code></a> options for customizing that header name.
 Additionally, <code>genReqId</code> option can be used for generating the request id by yourself. It will received the incoming request as a parameter.</p>
 <pre><code class="lang-js">let i = 0
 const fastify = require(&#39;fastify&#39;)({
@@ -483,8 +484,8 @@ const fastify = require(&#39;fastify&#39;)({
 <pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)({
   logger: {
     serializers: {
-      req: function (req) { 
-        return { url: req.url } 
+      req: function (req) {
+        return { url: req.url }
       }
     }
   }
