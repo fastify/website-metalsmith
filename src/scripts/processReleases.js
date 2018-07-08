@@ -98,9 +98,7 @@ const processDocFiles = (docs, latestVersion, cb) => {
         content = content.replace(/<h1 align="center">Fastify<\/h1>\n/, '')
 
         // remap links
-        content = content.replace(/https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/g, `/docs/${item.version}`)
-
-        content = fixInternalLink(content)
+        content = remapLinks(content, item)
 
         // adds frontmatter
         content =
@@ -121,21 +119,22 @@ ${content}`
   )
 }
 
-const fixInternalLink = (content) => {
+const remapLinks = (content, item) => {
   /*
-   converts
-    [XXXX](/docs/VVVV/Ecosystem.md)
-   to
-    [XXXX](/ecosystem)
-   and
-    [XXXX](/docs/VVVV/YYYY.md)
-   to
-    [XXXX](/docs/VVVV/YYYY)
+    Links remapping rules:
+    /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/ -> /docs/[VERSION]
+    [XXXX](/docs/VVVV/Ecosystem.md) -> [XXXX](/ecosystem)
+    [XXXX](/docs/VVVV/YYYY.md) -> [XXXX](/docs/VVVV/YYYY)
+    [XXXX]('./YYYY' "ZZZZ") -> [XXXX]('/docs/[VERSION]/YYYY' "ZZZZ")
+    [XXXX](./YYYY "ZZZZ") -> [XXXX]('/docs/[VERSION]/YYYY' "ZZZZ")
   */
   const ecosystemLinkRx = /\(\/docs\/[\w\d.-]+\/Ecosystem\.md\)/gi
   const docInternalLinkRx = /\(\/docs\/[\w\d.-]+\/[\w\d-]+(.md)/gi
+  const relativeLinksWithLabel = /\('?(\.\/)([\w\d.-]+)(.md)'?\s"([\w\d.-]+)"\)/gi
   return content
+    .replace(/https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/g, `/docs/${item.version}`)
     .replace(ecosystemLinkRx, (match) => '(/ecosystem)')
+    .replace(relativeLinksWithLabel, (match, ...parts) => `('/docs/${item.version}/${parts[1]}' "${parts[3]}")`)
     .replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
 }
 
