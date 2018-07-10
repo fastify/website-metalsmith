@@ -42,6 +42,20 @@ const extractTOCFromFile = (file, version, cb) => {
       }
     })
 
+    // fix for missing Factory.md in old versions of TOC
+    const factoryFileSource = join(dirname(file), 'docs', 'Factory.md')
+    const hasFactoryFile = existsSync(factoryFileSource)
+    if (!toc.find((item) => item.fileName === 'Factory.md') && hasFactoryFile) {
+      toc.push({
+        fileName: 'Factory.md',
+        name: 'Factory',
+        sourceFile: factoryFileSource,
+        destinationFile: join(destFolder, 'content', 'docs', version, 'Factory.md'),
+        slug: 'Factory',
+        link: '/docs/latest/Factory'
+      })
+    }
+
     cb(null, toc)
   })
 }
