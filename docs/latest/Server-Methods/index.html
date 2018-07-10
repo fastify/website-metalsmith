@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.7.x/Server-Methods">
+    <link ref="canonical" href="/docs/v1.8.x/Server-Methods">
   
 
   
@@ -161,6 +161,10 @@
               </li>
             
               <li >
+                <a  href="/docs/latest/Factory">Factory</a>
+              </li>
+            
+              <li >
                 <a  href="/docs/latest/Plugins">Plugins</a>
               </li>
             
@@ -173,6 +177,10 @@
               </li>
             
               <li >
+                <a  href="/docs/latest/Write-Plugin">How to write a good plugin</a>
+              </li>
+            
+              <li >
                 <a  href="/docs/latest/Plugins-Guide">Plugins Guide</a>
               </li>
             
@@ -182,6 +190,10 @@
             
               <li >
                 <a  href="/docs/latest/LTS">Long Term Support</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/latest/TypeScript">TypeScript and types support</a>
               </li>
             
           </ul>
@@ -203,7 +215,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.7.x">v1.7.x</option>
+                          <option selected="selected" value="/docs/v1.8.x">v1.8.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.7.x">v1.7.x</option>
                       
                     
                       
@@ -330,7 +348,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.7.x">v1.7.x</option>
+                          <option selected="selected" value="/docs/v1.8.x">v1.8.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.7.x">v1.7.x</option>
                         
                       
                         
@@ -575,13 +598,20 @@ To learn more, see <a href="/docs/latest/Validation-and-Serialization#shared-sch
 <p><a name="set-not-found-handler"></a></p>
 <h4 id="setnotfoundhandler">setNotFoundHandler</h4>
 <p><code>fastify.setNotFoundHandler(handler(request, reply))</code>: set the 404 handler. This call is encapsulated by prefix, so different plugins can set different not found handlers if a different <a href="/docs/latest/Plugins#route-prefixing-option"><code>prefix</code> option</a> is passed to <code>fastify.register()</code>. The handler is treated like a regular route handler so requests will go through the full <a href="/docs/latest/Lifecycle#lifecycle">Fastify lifecycle</a>.</p>
-<pre><code class="lang-js">fastify.setNotFoundHandler(function (request, reply) {
-  // Default not found handler
+<p>You can also register <a href="https://www.fastify.io/docs/latest/Hooks/#beforehandler">beforeHandler</a> hook for the 404 handler. </p>
+<pre><code class="lang-js">fastify.setNotFoundHandler({
+  beforeHandler: (req, reply, next) =&gt; {
+    req.body.beforeHandler = true
+    next()
+  }  
+}, function (request, reply) {
+    // Default not found handler with beforeHandler hook
 })
 
 fastify.register(function (instance, options, next) {
   instance.setNotFoundHandler(function (request, reply) {
-    // Handle not found request to URLs that begin with &#39;/v1&#39;
+    // Handle not found request without beforeHandler hook
+    // to URLs that begin with &#39;/v1&#39;
   })
   next()
 }, { prefix: &#39;/v1&#39; })
@@ -636,6 +666,12 @@ fastify.ready(() =&gt; {
                 
               </div>
             </div>
+          
+        
+          
+        
+          
+        
           
         
           

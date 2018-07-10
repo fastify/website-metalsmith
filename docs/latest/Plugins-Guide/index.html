@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.7.x/Plugins-Guide">
+    <link ref="canonical" href="/docs/v1.8.x/Plugins-Guide">
   
 
   
@@ -161,6 +161,10 @@
               </li>
             
               <li >
+                <a  href="/docs/latest/Factory">Factory</a>
+              </li>
+            
+              <li >
                 <a  href="/docs/latest/Plugins">Plugins</a>
               </li>
             
@@ -170,6 +174,10 @@
             
               <li >
                 <a  href="/docs/latest/Benchmarking">Benchmarking</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/latest/Write-Plugin">How to write a good plugin</a>
               </li>
             
               <li id="doc-menu-section">
@@ -182,6 +190,10 @@
             
               <li >
                 <a  href="/docs/latest/LTS">Long Term Support</a>
+              </li>
+            
+              <li >
+                <a  href="/docs/latest/TypeScript">TypeScript and types support</a>
               </li>
             
           </ul>
@@ -203,7 +215,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.7.x">v1.7.x</option>
+                          <option selected="selected" value="/docs/v1.8.x">v1.8.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.7.x">v1.7.x</option>
                       
                     
                       
@@ -330,7 +348,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.7.x">v1.7.x</option>
+                          <option selected="selected" value="/docs/v1.8.x">v1.8.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.7.x">v1.7.x</option>
                         
                       
                         
@@ -591,7 +614,7 @@ fastify.get(&#39;/plugin2&#39;, (request, reply) =&gt; {
 </code></pre>
 <p>I think we all agree that this is terrible. Code repeat, awful readability and it cannot scale.</p>
 <p>So what can you do to avoid this annoying issue? Yes, you are right, use an <a href="/docs/latest/Hooks">hook</a>!<br></p>
-<pre><code class="lang-js">fastify.decorate(&#39;util&#39;, (request, key, value) =&gt; { request.key = value })
+<pre><code class="lang-js">fastify.decorate(&#39;util&#39;, (request, key, value) =&gt; { request[key] = value })
 
 fastify.addHook(&#39;preHandler&#39;, (request, reply, done) =&gt; {
   fastify.util(request, &#39;timestamp&#39;, new Date())
@@ -609,7 +632,7 @@ fastify.get(&#39;/plugin2&#39;, (request, reply) =&gt; {
 <p>Now for every request you will run your utility, it is obvious that you can register as many hooks as you need.<br>
 It can happen that you want a hook that must be executed just for a subset of routes, how can you do that?  Yep, encapsulation!</p>
 <pre><code class="lang-js">fastify.register((instance, opts, next) =&gt; {
-  instance.decorate(&#39;util&#39;, (request, key, value) =&gt; { request.key = value })
+  instance.decorate(&#39;util&#39;, (request, key, value) =&gt; { request[key] = value })
 
   instance.addHook(&#39;preHandler&#39;, (request, reply, done) =&gt; {
     instance.util(request, &#39;timestamp&#39;, new Date())
@@ -726,12 +749,16 @@ Multipart support for Fastify</li>
           
         
           
+        
+          
+        
+          
             <div class="level-left">
               <div class="level-item">
                 
                   
                   
-                  <a href="/docs/latest/Benchmarking" class="button prev">≪ Benchmarking</a>
+                  <a href="/docs/latest/Write-Plugin" class="button prev">≪ How to write a good plugin</a>
                 
               </div>
             </div>
@@ -744,6 +771,8 @@ Multipart support for Fastify</li>
                 
               </div>
             </div>
+          
+        
           
         
           
