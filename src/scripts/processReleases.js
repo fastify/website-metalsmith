@@ -137,7 +137,7 @@ const remapLinks = (content, item) => {
     .replace(/https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/g, `/docs/${item.version}`)
     .replace(ecosystemLinkRx, (match) => '(/ecosystem)')
     .replace(pluginsLink, (match) => `(/docs/${item.version}/Plugins)`)
-    .replace(relativeLinksWithLabel, (match, ...parts) => `('/docs/${item.version}/${parts[1]}' "${parts[3]}")`)
+    .replace(relativeLinksWithLabel, (match, ...parts) => `(/docs/${item.version}/${parts[1]} "${parts[3]}")`)
     .replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
 }
 
