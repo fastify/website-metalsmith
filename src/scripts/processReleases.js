@@ -42,6 +42,20 @@ const extractTOCFromFile = (file, version, cb) => {
       }
     })
 
+    // fix for missing Factory.md in old versions of TOC
+    const factoryFileSource = join(dirname(file), 'docs', 'Factory.md')
+    const hasFactoryFile = existsSync(factoryFileSource)
+    if (!toc.find((item) => item.fileName === 'Factory.md') && hasFactoryFile) {
+      toc.push({
+        fileName: 'Factory.md',
+        name: 'Factory',
+        sourceFile: factoryFileSource,
+        destinationFile: join(destFolder, 'content', 'docs', version, 'Factory.md'),
+        slug: 'Factory',
+        link: '/docs/latest/Factory'
+      })
+    }
+
     cb(null, toc)
   })
 }
@@ -128,16 +142,19 @@ const remapLinks = (content, item) => {
     [XXXX](/docs/VVVV/YYYY.md) -> [XXXX](/docs/VVVV/YYYY)
     [XXXX]('./YYYY' "ZZZZ") -> [XXXX]('/docs/[VERSION]/YYYY' "ZZZZ")
     [XXXX](./YYYY "ZZZZ") -> [XXXX]('/docs/[VERSION]/YYYY' "ZZZZ")
+    href="https://github.com/fastify/fastify/blob/master/docs/YYYY.md -> href="/docs/[VERSION]/YYYY
   */
   const ecosystemLinkRx = /\(\/docs\/[\w\d.-]+\/Ecosystem\.md\)/gi
   const docInternalLinkRx = /\(\/docs\/[\w\d.-]+\/[\w\d-]+(.md)/gi
   const pluginsLink = /\(Plugins.md\)/gi
   const relativeLinksWithLabel = /\('?(\.\/)([\w\d.-]+)(.md)'?\s+"([\w\d.-]+)"\)/gi
+  const hrefAbsoluteLinks = /href="https:\/\/github\.com\/fastify\/fastify\/blob\/master\/docs\/([\w\d.-]+)\.md/gi
   return content
+    .replace(hrefAbsoluteLinks, (match, p1) => `href="/docs/${item.version}/${p1}`)
     .replace(/https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/g, `/docs/${item.version}`)
     .replace(ecosystemLinkRx, (match) => '(/ecosystem)')
     .replace(pluginsLink, (match) => `(/docs/${item.version}/Plugins)`)
-    .replace(relativeLinksWithLabel, (match, ...parts) => `('/docs/${item.version}/${parts[1]}' "${parts[3]}")`)
+    .replace(relativeLinksWithLabel, (match, ...parts) => `(/docs/${item.version}/${parts[1]} "${parts[3]}")`)
     .replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
 }
 
