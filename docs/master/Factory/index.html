@@ -528,7 +528,7 @@ for incoming requests. The default function generates sequential identifiers.</l
 <li><code>serializers</code>: a hash of serialization functions. By default, serializers
 are added for <code>req</code> (incoming request objects), <code>res</code> (outgoing repsonse
 objets), and <code>err</code> (standard <code>Error</code> objects). When a log method receives
-and object with any of these properties then the respective serializer will
+an object with any of these properties then the respective serializer will
 be used for that property. For example:<pre><code class="lang-js">  fastify.get(&#39;/foo&#39;, function (req, res) {
     req.log.info({req}) // log the serialized request object
     res.send(&#39;foo&#39;)
