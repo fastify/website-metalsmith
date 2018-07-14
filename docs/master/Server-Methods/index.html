@@ -456,14 +456,14 @@
 that have been registered within it have finished loading.
 It is always executed before the method <code>fastify.ready</code>.</p>
 <pre><code class="lang-js">fastify
-  .register((instance. opts, next) =&gt; {
+  .register((instance, opts, next) =&gt; {
     console.log(&#39;Current plugin&#39;)
     next()
   })
   .after(err =&gt; {
     console.log(&#39;After current plugin&#39;)
   })
-  .register((instance. opts, next) =&gt; {
+  .register((instance, opts, next) =&gt; {
     console.log(&#39;Next plugin&#39;)
     next()
   })
@@ -522,7 +522,7 @@ It takes an error parameter if something went wrong.</p>
 </code></pre>
 <p>Specifying an address without a callback is also supported:</p>
 <pre><code class="lang-js">fastify.listen(3000, &#39;127.0.0.1&#39;)
-  .then((adress) =&gt; console.log(`server listening on ${address}`))
+  .then((address) =&gt; console.log(`server listening on ${address}`))
   .catch(err =&gt; {
     console.log(&#39;Error starting server:&#39;, err)
     process.exit(1)
