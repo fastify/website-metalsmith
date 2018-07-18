@@ -649,11 +649,11 @@ fastify.get(&#39;/plugin2&#39;, (request, reply) =&gt; {
 })
 </code></pre>
 <p>Now your hook will run just for the first route!</p>
-<p>As you probably noticed at this time, <code>request</code> and <code>reply</code> are not the standard Nodejs <em>request</em> and <em>response</em> objects, but Fastify&#39;s objects.<br>
-Let&#39;s say that you are arriving from a framework like Express or Restify, and you already have some Middleware that does exactly what you need, and you don&#39;t want to redo all the work.</p>
+<p>As you probably noticed at this time, <code>request</code> and <code>reply</code> are not the standard Nodejs <em>request</em> and <em>response</em> objects, but Fastify&#39;s objects.<br></p>
 <p><a name="middlewares"></a></p>
 <h2 id="middlewares">Middlewares</h2>
 <p>Fastify <a href="/docs/master/Middlewares">supports</a> out of the box Express/Restify/Connect middlewares, this means that you can just drop-in your old code and it will work! <em>(faster, by the way)</em><br>
+Let&#39;s say that you are arriving from Express, and you already have some Middleware that does exactly what you need, and you don&#39;t want to redo all the work.
 How we can do that? Checkout our middlewares engine, <a href="https://github.com/fastify/middie">middie</a>.</p>
 <pre><code class="lang-js">const yourMiddleware = require(&#39;your-middleware&#39;)
 fastify.use(yourMiddleware)
