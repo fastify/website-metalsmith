@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.8.x/Validation-and-Serialization">
+    <link ref="canonical" href="/docs/v1.9.x/Validation-and-Serialization">
   
 
   
@@ -215,7 +215,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.8.x">v1.8.x</option>
+                          <option selected="selected" value="/docs/v1.9.x">v1.9.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.8.x">v1.8.x</option>
                       
                     
                       
@@ -348,7 +354,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.8.x">v1.8.x</option>
+                          <option selected="selected" value="/docs/v1.9.x">v1.9.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.8.x">v1.8.x</option>
                         
                       
                         
@@ -542,6 +553,9 @@ fastify.route({
   handler: () =&gt; {}
 })
 </code></pre>
+<p><a name="get-shared-schema"></a></p>
+<h4 id="retrieving-a-copy-of-all-shared-schemas">Retrieving a copy of all shared schemas</h4>
+<p>The function <code>getSchemas</code> returns all shared schemas that were added by <code>addSchema</code> method.</p>
 <p><a name="schema-compiler"></a></p>
 <h4 id="schema-compiler">Schema Compiler</h4>
 <p>The <code>schemaCompiler</code> is a function that returns a function that validates the body, url parameters, headers, and query string. The default <code>schemaCompiler</code> returns a function that implements the <code>ajv</code> validation interface. Fastify uses it internally to speed the validation up.</p>

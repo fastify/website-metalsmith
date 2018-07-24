@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.8.x/Server-Methods">
+    <link ref="canonical" href="/docs/v1.9.x/Server-Methods">
   
 
   
@@ -215,7 +215,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.8.x">v1.8.x</option>
+                          <option selected="selected" value="/docs/v1.9.x">v1.9.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.8.x">v1.8.x</option>
                       
                     
                       
@@ -348,7 +354,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.8.x">v1.8.x</option>
+                          <option selected="selected" value="/docs/v1.9.x">v1.9.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.8.x">v1.8.x</option>
                         
                       
                         
@@ -458,14 +469,14 @@
 that have been registered within it have finished loading.
 It is always executed before the method <code>fastify.ready</code>.</p>
 <pre><code class="lang-js">fastify
-  .register((instance. opts, next) =&gt; {
+  .register((instance, opts, next) =&gt; {
     console.log(&#39;Current plugin&#39;)
     next()
   })
   .after(err =&gt; {
     console.log(&#39;After current plugin&#39;)
   })
-  .register((instance. opts, next) =&gt; {
+  .register((instance, opts, next) =&gt; {
     console.log(&#39;Next plugin&#39;)
     next()
   })
@@ -490,7 +501,7 @@ It takes an error parameter if something went wrong.</p>
 </code></pre>
 <p><a name="listen"></a></p>
 <h4 id="listen">listen</h4>
-<p>Starts the server on the given port after all the plugins are loaded, internally waits for the <code>.ready()</code> event. The callback is the same as the Node core. By default, the server will listen on address <code>127.0.0.1</code> when no specific address is provided. If listening on any available interface is desired, then specifying <code>0.0.0.0</code> for the address will listen on all IPv4 address. Using <code>::</code> for the address will listen on all IPv6 addresses, and, depending on OS, may also listen on all IPv4 addresses. Be careful when deciding to listen on all interfaces; it comes with inherent <a href="https://web.archive.org/web/20170831174611/https://snyk.io/blog/mongodb-hack-and-secure-defaults/">security risks</a>.</p>
+<p>Starts the server on the given port after all the plugins are loaded, internally waits for the <code>.ready()</code> event. The callback is the same as the Node core. By default, the server will listen on the address resolved by <code>localhost</code> when no specific address is provided (<code>127.0.0.1</code> or <code>::1</code> depending on the operating system). If listening on any available interface is desired, then specifying <code>0.0.0.0</code> for the address will listen on all IPv4 address. Using <code>::</code> for the address will listen on all IPv6 addresses, and, depending on OS, may also listen on all IPv4 addresses. Be careful when deciding to listen on all interfaces; it comes with inherent <a href="https://web.archive.org/web/20170831174611/https://snyk.io/blog/mongodb-hack-and-secure-defaults/">security risks</a>.</p>
 <pre><code class="lang-js">fastify.listen(3000, (err, address) =&gt; {
   if (err) {
     fastify.log.error(err)
@@ -524,13 +535,13 @@ It takes an error parameter if something went wrong.</p>
 </code></pre>
 <p>Specifying an address without a callback is also supported:</p>
 <pre><code class="lang-js">fastify.listen(3000, &#39;127.0.0.1&#39;)
-  .then((adress) =&gt; console.log(`server listening on ${address}`))
+  .then((address) =&gt; console.log(`server listening on ${address}`))
   .catch(err =&gt; {
     console.log(&#39;Error starting server:&#39;, err)
     process.exit(1)
   })
 </code></pre>
-<p>When deploying to a Docker, and potentially other, containers, it is advisable to listen on <code>0.0.0.0</code> because they do not default to exposing mapped ports to <code>127.0.0.1</code>:</p>
+<p>When deploying to a Docker, and potentially other, containers, it is advisable to listen on <code>0.0.0.0</code> because they do not default to exposing mapped ports to <code>localhost</code>:</p>
 <pre><code class="lang-js">fastify.listen(3000, &#39;0.0.0.0&#39;, (err, address) =&gt; {
   if (err) {
     fastify.log.error(err)

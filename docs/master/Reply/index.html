@@ -213,6 +213,12 @@
                         
                           
                         
+                          <option  value="/docs/v1.9.x">v1.9.x</option>
+                      
+                    
+                      
+                        
+                        
                           <option  value="/docs/v1.8.x">v1.8.x</option>
                       
                     
@@ -342,6 +348,11 @@
                         
                           
                           <option selected="selected" value="/docs/master">master</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.9.x">v1.9.x</option>
                         
                       
                         
@@ -502,7 +513,7 @@ reply.getHeader(&#39;x-foo&#39;) // undefined
 <p>Returns a boolean indicating if the specified header has been set.</p>
 <p><a name="redirect"></a></p>
 <h3 id="-redirect-dest-">.redirect(dest)</h3>
-<p>Redirects a request to the specified url, the status code is optional, default to <code>302</code>.</p>
+<p>Redirects a request to the specified url, the status code is optional, default to <code>302</code> (if status code is not already set by calling <code>code</code>).</p>
 <pre><code class="lang-js">reply.redirect(&#39;/home&#39;)
 </code></pre>
 <p><a name="type"></a></p>

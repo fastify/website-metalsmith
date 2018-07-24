@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.8.x/Factory">
+    <link ref="canonical" href="/docs/v1.9.x/Factory">
   
 
   
@@ -215,7 +215,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.8.x">v1.8.x</option>
+                          <option selected="selected" value="/docs/v1.9.x">v1.9.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.8.x">v1.8.x</option>
                       
                     
                       
@@ -348,7 +354,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.8.x">v1.8.x</option>
+                          <option selected="selected" value="/docs/v1.9.x">v1.9.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.8.x">v1.8.x</option>
                         
                       
                         
@@ -457,8 +468,7 @@ customize the resulting instance. This document describes the properties
 available in that options object.</p>
 <p><a name="factory-http2"></a></p>
 <h3 id="-http2-status-experimental-"><code>http2</code> (Status: experimental)</h3>
-<p>If <code>true</code> Node.js core&#39;s <a href="https://nodejs.org/dist/latest-v8.x/docs/api/http2.html">HTTP/2</a>
-HTTP/2 module is used for binding the socket.</p>
+<p>If <code>true</code> Node.js core&#39;s <a href="https://nodejs.org/dist/latest-v8.x/docs/api/http2.html">HTTP/2</a> module is used for binding the socket.</p>
 <ul>
 <li>Default: <code>false</code></li>
 </ul>
@@ -531,7 +541,7 @@ for incoming requests. The default function generates sequential identifiers.</l
 <li><code>serializers</code>: a hash of serialization functions. By default, serializers
 are added for <code>req</code> (incoming request objects), <code>res</code> (outgoing repsonse
 objets), and <code>err</code> (standard <code>Error</code> objects). When a log method receives
-and object with any of these properties then the respective serializer will
+an object with any of these properties then the respective serializer will
 be used for that property. For example:<pre><code class="lang-js">  fastify.get(&#39;/foo&#39;, function (req, res) {
     req.log.info({req}) // log the serialized request object
     res.send(&#39;foo&#39;)
@@ -562,11 +572,11 @@ fastify.get(&#39;/&#39;, (req, reply) =&gt; {
 
 fastify.listen(3000)
 </code></pre>
-<p>Internally Fastify uses the API of Node core http server, so if you are using a custom server you must be sure to have the same API exposed. If not, you can enhance the sever instance inside the <code>serverFactory</code> function before the <code>return</code> statement.</p>
+<p>Internally Fastify uses the API of Node core http server, so if you are using a custom server you must be sure to have the same API exposed. If not, you can enhance the server instance inside the <code>serverFactory</code> function before the <code>return</code> statement.</p>
 <p><a name="factory-case-sensitive"></a></p>
 <h3 id="-casesensitive-"><code>caseSensitive</code></h3>
 <p>By default, value equal to <code>true</code>, routes are registered as case sensitive. That is, <code>/foo</code> is not equivalent to <code>/Foo</code>. When set to <code>false</code>, routes are registered in a fashion such that <code>/foo</code> is equivalent to <code>/Foo</code> which is equivalent to <code>/FOO</code>.</p>
-<p>Setting <code>caseSensitivy</code> to <code>false</code> will also result in
+<p>Setting <code>caseSensitive</code> to <code>false</code> will also result in
 all params (and all value matched by regexps) to be lowercased as well.</p>
 <pre><code class="lang-js">fastify.get(&#39;/user/:username&#39;, (request, reply) =&gt; {
   // Given the URL: /user/NodeJS
@@ -577,7 +587,7 @@ all params (and all value matched by regexps) to be lowercased as well.</p>
 <a href="https://tools.ietf.org/html/rfc3986#section-6.2.2.1">RFC3986</a>.</p>
 <p><a name="factory-request-id-header"></a></p>
 <h3 id="-requestidheader-"><code>requestIdHeader</code></h3>
-<p>The header name used to know the request id. See <a href="./Logging.md#logging-request-id">the request id</a> section.</p>
+<p>The header name used to know the request id. See <a href="/docs/latest/Logging#logging-request-id">the request id</a> section.</p>
 <ul>
 <li>Default: <code>&#39;request-id&#39;</code></li>
 </ul>
