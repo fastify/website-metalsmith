@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.9.x/Factory">
+    <link ref="canonical" href="/docs/v1.10.x/Factory">
   
 
   
@@ -215,7 +215,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.9.x">v1.9.x</option>
+                          <option selected="selected" value="/docs/v1.10.x">v1.10.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.9.x">v1.9.x</option>
                       
                     
                       
@@ -354,7 +360,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.9.x">v1.9.x</option>
+                          <option selected="selected" value="/docs/v1.10.x">v1.10.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.9.x">v1.9.x</option>
                         
                       
                         
@@ -591,6 +602,30 @@ all params (and all value matched by regexps) to be lowercased as well.</p>
 <ul>
 <li>Default: <code>&#39;request-id&#39;</code></li>
 </ul>
+<p><a name="factory-trust-proxy"></a></p>
+<h3 id="-trustproxy-"><code>trustProxy</code></h3>
+<p>By enabling the <code>trustProxy</code> option, Fastify will have knowledge that it&#39;s sitting behind a proxy and that the <code>X-Forwarded-*</code> header fields may be trusted, which otherwise may be easily spoofed.</p>
+<pre><code class="lang-js">const fastify = Fastify({ trustProxy: true })
+</code></pre>
+<ul>
+<li>Default: <code>false</code></li>
+<li><code>true/false</code>: Trust all proxies (<code>true</code>) or do not trust any proxies (<code>false</code>).</li>
+<li><code>string</code>: Trust only given IP/CIDR (e.g. <code>&#39;127.0.0.1&#39;</code>). May be a list of comma separated values (e.g. <code>&#39;127.0.0.1,192.168.1.1/24&#39;</code>).</li>
+<li><code>Array&lt;string&gt;</code>: Trust only given IP/CIDR list (e.g. <code>[&#39;127.0.0.1&#39;]</code>).</li>
+<li><code>number</code>: Trust the nth hop from the front-facing proxy server as the client.</li>
+<li><code>Function</code>: Custom trust function that takes <code>address</code> as first arg<pre><code class="lang-js">  function myTrustFn(address, hop) {
+    return address === &#39;1.2.3.4&#39; || hop === 1
+  }
+</code></pre>
+</li>
+</ul>
+<p>For more examples refer to <a href="https://www.npmjs.com/package/proxy-addr">proxy-addr</a> package.</p>
+<p>You may also access <code>ip</code> and <code>hostname</code> values from raw <code>request</code>.</p>
+<pre><code class="lang-js">fastify.get(&#39;/&#39;, (request, reply) =&gt; {
+  console.log(request.raw.ip)
+  console.log(request.raw.hostname)
+})
+</code></pre>
 
         </div>
 

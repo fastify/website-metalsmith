@@ -213,6 +213,12 @@
                         
                           
                         
+                          <option  value="/docs/v1.10.x">v1.10.x</option>
+                      
+                    
+                      
+                        
+                        
                           <option  value="/docs/v1.9.x">v1.9.x</option>
                       
                     
@@ -348,6 +354,11 @@
                         
                           
                           <option selected="selected" value="/docs/master">master</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.10.x">v1.10.x</option>
                         
                       
                         
@@ -613,6 +624,14 @@ all params (and all value matched by regexps) to be lowercased as well.</p>
   console.log(request.raw.hostname)
 })
 </code></pre>
+<p><a name="plugin-timeout"></a></p>
+<h3 id="-plugintimeout-"><code>pluginTimeout</code></h3>
+<p>The maximum amount of time in milliseconds in which a plugin can load.
+If not, <a href="/docs/master/Server-Methods#ready"><code>ready</code></a>
+will complete with an <code>Error</code> with code <code>&#39;ERR_AVVIO_PLUGIN_TIMEOUT&#39;</code>.</p>
+<ul>
+<li>Default: <code>0</code> (disabled)</li>
+</ul>
 
         </div>
 

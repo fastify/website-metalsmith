@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.9.x/Plugins">
+    <link ref="canonical" href="/docs/v1.10.x/Plugins">
   
 
   
@@ -215,7 +215,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.9.x">v1.9.x</option>
+                          <option selected="selected" value="/docs/v1.10.x">v1.10.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.9.x">v1.9.x</option>
                       
                     
                       
@@ -354,7 +360,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.9.x">v1.9.x</option>
+                          <option selected="selected" value="/docs/v1.10.x">v1.10.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.9.x">v1.9.x</option>
                         
                       
                         
@@ -495,7 +506,30 @@ Be aware that if you use <a href="https://github.com/fastify/fastify-plugin"><co
 <p><a name="error-handling"></a></p>
 <h4 id="error-handling">Error handling</h4>
 <p>The error handling is done by <a href="https://github.com/mcollina/avvio#error-handling">avvio</a>.<br>
-As general rule, it is highly recommended that you handle your errors in the <code>register</code>&#39;s callback, otherwise the server will not start, and you will find the unhandled error in the <code>listen</code> callback.</p>
+As general rule, it is highly recommended that you handle your errors in the next <code>after</code> or <code>ready</code> block, otherwise you will get them inside the <code>listen</code> callback.</p>
+<pre><code class="lang-js">fastify.register(require(&#39;my-plugin&#39;))
+
+// `after` will be executed once
+// the previous declared `register` has finished
+fastify.after(err =&gt; console.log(err))
+
+// `ready` will be executed once all the registers declared
+// have finished their execution
+fastify.ready(err =&gt; console.log(err))
+
+// `listen` is a special ready,
+// so it behaves in the same way
+fastify.listen(3000, (err, address) =&gt; {
+  if (err) console.log(err)
+})
+</code></pre>
+<p><em>async-await</em> is supported only by <code>ready</code> and <code>listen</code>.</p>
+<pre><code class="lang-js">fastify.register(require(&#39;my-plugin&#39;))
+
+await fastify.ready()
+
+await fastify.listen(3000)
+</code></pre>
 <p><a name="create-plugin"></a></p>
 <h3 id="create-a-plugin">Create a plugin</h3>
 <p>Creating a plugin is very easy, you just need to create a function that takes three parameters, the <code>fastify</code> instance, an options object and the next callback.<br>
