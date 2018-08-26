@@ -567,15 +567,24 @@ fastify.route({
 <p>The function <code>getSchemas</code> returns all shared schemas that were added by <code>addSchema</code> method.</p>
 <p><a name="schema-compiler"></a></p>
 <h4 id="schema-compiler">Schema Compiler</h4>
-<p>The <code>schemaCompiler</code> is a function that returns a function that validates the body, url parameters, headers, and query string. The default <code>schemaCompiler</code> returns a function that implements the <code>ajv</code> validation interface. Fastify uses it internally to speed the validation up.</p>
-<p>While you cannot change the configuration options of the default <code>ajv</code> instance, you can create your own:</p>
-<pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)()
-const Ajv = require(&#39;ajv&#39;)
-const ajv = new Ajv({
-  // the fastify defaults
+<p>The <code>schemaCompiler</code> is a function that returns a function that validates the body, url parameters, headers, and query string. The default <code>schemaCompiler</code> returns a function that implements the <a href="https://ajv.js.org/">ajv</a> validation interface. Fastify uses it internally to speed the validation up.</p>
+<p>Fastify&#39;s baseline ajv configuration is:</p>
+<pre><code class="lang-js">{
   removeAdditional: true,
   useDefaults: true,
   coerceTypes: true
+}
+</code></pre>
+<p>This baseline configuration cannot be modified. If you want to change or set additional config options, you will need to create your own instance and override the existing one like:</p>
+<pre><code class="lang-js">const fastify = require(&#39;fastify&#39;)()
+const Ajv = require(&#39;ajv&#39;)
+const ajv = new Ajv({
+  // the fastify defaults (if needed)
+  removeAdditional: true,
+  useDefaults: true,
+  coerceTypes: true
+  // any other options
+  // ...
 })
 fastify.setSchemaCompiler(function (schema) {
   return ajv.compile(schema)
