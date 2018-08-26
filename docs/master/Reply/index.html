@@ -115,7 +115,7 @@
               </li>
             
               <li >
-                <a  href="/docs/master/Server-Methods">Server Methods</a>
+                <a  href="/docs/master/Server">Server</a>
               </li>
             
               <li >
@@ -156,10 +156,6 @@
             
               <li >
                 <a  href="/docs/master/ContentTypeParser">Content Type Parser</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/master/Factory">Factory</a>
               </li>
             
               <li >
@@ -598,9 +594,9 @@ fastify.get(&#39;/streams&#39;, function (request, reply) {
   reply.send(httpErrors.Gone())
 })
 </code></pre>
-<p>If you want to completely customize the error response, checkout <a href="/docs/master/Server-Methods#seterrorhandler"><code>setErrorHandler</code></a> API.</p>
+<p>If you want to completely customize the error response, checkout <a href="/docs/master/Server#seterrorhandler"><code>setErrorHandler</code></a> API.</p>
 <p>Errors with a <code>status</code> or <code>statusCode</code> property equal to <code>404</code> will be routed to the not found handler.
-See <a href="/docs/master/Server-Methods#setnotfoundhandler"><code>server.setNotFoundHandler</code></a>
+See <a href="/docs/master/Server#setnotfoundhandler"><code>server.setNotFoundHandler</code></a>
 API to learn more about handling such cases:</p>
 <pre><code class="lang-js">fastify.setNotFoundHandler(function (request, reply) {
   reply.type(&#39;text/plain&#39;).send(&#39;a custom not found&#39;)
@@ -689,8 +685,6 @@ fastify.get(&#39;/async-await&#39;, options, async function (request, reply) {
                 
               </div>
             </div>
-          
-        
           
         
           

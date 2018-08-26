@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Factory</title>
+  <title>Server</title>
   <meta name="description" content="Fast and low overhead web framework, for Node.js">
 
   <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
@@ -114,8 +114,8 @@
                 <a  href="/docs/master/Getting-Started">Getting Started</a>
               </li>
             
-              <li >
-                <a  href="/docs/master/Server-Methods">Server Methods</a>
+              <li id="doc-menu-section">
+                <a class="is-active" href="/docs/master/Server">Server</a>
               </li>
             
               <li >
@@ -156,10 +156,6 @@
             
               <li >
                 <a  href="/docs/master/ContentTypeParser">Content Type Parser</a>
-              </li>
-            
-              <li id="doc-menu-section">
-                <a class="is-active" href="/docs/master/Factory">Factory</a>
               </li>
             
               <li >
@@ -463,7 +459,7 @@
                 </div>
               </div>
             </li>
-            <li class="is-active"><a>Factory</a></li>
+            <li class="is-active"><a>Server</a></li>
           </ul>
         </nav>
 
@@ -471,7 +467,7 @@
           <p><a name="factory"></a></p>
 <h2 id="factory">Factory</h2>
 <p>The Fastify module exports a factory function that is used to create new
-<a href="/docs/master/Server-Methods"><code><b>Fastify server</b></code></a>
+<a href="/docs/master/Server"><code><b>Fastify server</b></code></a>
 instances. This factory function accepts an options object which is used to
 customize the resulting instance. This document describes the properties
 available in that options object.</p>
@@ -488,7 +484,7 @@ are the same as the Node.js core
 <a href="https://nodejs.org/dist/latest-v8.x/docs/api/https.html#https_https_createserver_options_requestlistener"><code>createServer</code> method</a>.
 When this property is <code>null</code>, the socket will not be configured for TLS.</p>
 <p>This option also applies when the
-<a href="/docs/master/Factory#factory-http2">
+<a href="/docs/master/Server#factory-http2">
 <code><b>http2</b></code>
 </a> option is set.</p>
 <ul>
@@ -627,11 +623,203 @@ all params (and all value matched by regexps) to be lowercased as well.</p>
 <p><a name="plugin-timeout"></a></p>
 <h3 id="-plugintimeout-"><code>pluginTimeout</code></h3>
 <p>The maximum amount of time in milliseconds in which a plugin can load.
-If not, <a href="/docs/master/Server-Methods#ready"><code>ready</code></a>
+If not, <a href="/docs/master/Server#ready"><code>ready</code></a>
 will complete with an <code>Error</code> with code <code>&#39;ERR_AVVIO_PLUGIN_TIMEOUT&#39;</code>.</p>
 <ul>
 <li>Default: <code>0</code> (disabled)</li>
 </ul>
+<h2 id="instance">Instance</h2>
+<h3 id="server-methods">Server Methods</h3>
+<p><a name="server"></a></p>
+<h4 id="server">server</h4>
+<p><code>fastify.server</code>: The Node core <a href="https://nodejs.org/api/http.html#http_class_http_server">server</a> object as returned by the <a href="/docs/master/Server"><strong><code>Fastify factory function</code></strong></a>.</p>
+<p><a name="after"></a></p>
+<h4 id="after">after</h4>
+<p>Invoked when the current plugin and all the plugins
+that have been registered within it have finished loading.
+It is always executed before the method <code>fastify.ready</code>.</p>
+<pre><code class="lang-js">fastify
+  .register((instance, opts, next) =&gt; {
+    console.log(&#39;Current plugin&#39;)
+    next()
+  })
+  .after(err =&gt; {
+    console.log(&#39;After current plugin&#39;)
+  })
+  .register((instance, opts, next) =&gt; {
+    console.log(&#39;Next plugin&#39;)
+    next()
+  })
+  .ready(err =&gt; {
+    console.log(&#39;Everything has been loaded&#39;)
+  })
+</code></pre>
+<p><a name="ready"></a></p>
+<h4 id="ready">ready</h4>
+<p>Function called when all the plugins have been loaded.
+It takes an error parameter if something went wrong.</p>
+<pre><code class="lang-js">fastify.ready(err =&gt; {
+  if (err) throw err
+})
+</code></pre>
+<p>If it is called without any arguments, it will return a <code>Promise</code>:</p>
+<pre><code class="lang-js">fastify.ready().then(() =&gt; {
+  console.log(&#39;successfully booted!&#39;)
+}, (err) =&gt; {
+  console.log(&#39;an error happened&#39;, err)
+})
+</code></pre>
+<p><a name="listen"></a></p>
+<h4 id="listen">listen</h4>
+<p>Starts the server on the given port after all the plugins are loaded, internally waits for the <code>.ready()</code> event. The callback is the same as the Node core. By default, the server will listen on the address resolved by <code>localhost</code> when no specific address is provided (<code>127.0.0.1</code> or <code>::1</code> depending on the operating system). If listening on any available interface is desired, then specifying <code>0.0.0.0</code> for the address will listen on all IPv4 address. Using <code>::</code> for the address will listen on all IPv6 addresses, and, depending on OS, may also listen on all IPv4 addresses. Be careful when deciding to listen on all interfaces; it comes with inherent <a href="https://web.archive.org/web/20170831174611/https://snyk.io/blog/mongodb-hack-and-secure-defaults/">security risks</a>.</p>
+<pre><code class="lang-js">fastify.listen(3000, (err, address) =&gt; {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+})
+</code></pre>
+<p>Specifying an address is also supported:</p>
+<pre><code class="lang-js">fastify.listen(3000, &#39;127.0.0.1&#39;, (err, address) =&gt; {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+})
+</code></pre>
+<p>Specifying a backlog queue size is also supported:</p>
+<pre><code class="lang-js">fastify.listen(3000, &#39;127.0.0.1&#39;, 511, (err, address) =&gt; {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+})
+</code></pre>
+<p>If no callback is provided a Promise is returned:</p>
+<pre><code class="lang-js">fastify.listen(3000)
+  .then((address) =&gt; console.log(`server listening on ${address}`))
+  .catch(err =&gt; {
+    console.log(&#39;Error starting server:&#39;, err)
+    process.exit(1)
+  })
+</code></pre>
+<p>Specifying an address without a callback is also supported:</p>
+<pre><code class="lang-js">fastify.listen(3000, &#39;127.0.0.1&#39;)
+  .then((address) =&gt; console.log(`server listening on ${address}`))
+  .catch(err =&gt; {
+    console.log(&#39;Error starting server:&#39;, err)
+    process.exit(1)
+  })
+</code></pre>
+<p>When deploying to a Docker, and potentially other, containers, it is advisable to listen on <code>0.0.0.0</code> because they do not default to exposing mapped ports to <code>localhost</code>:</p>
+<pre><code class="lang-js">fastify.listen(3000, &#39;0.0.0.0&#39;, (err, address) =&gt; {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+})
+</code></pre>
+<p><a name="route"></a></p>
+<h4 id="route">route</h4>
+<p>Method to add routes to the server, it also has shorthand functions, check <a href="/docs/master/Routes">here</a>.</p>
+<p><a name="close"></a></p>
+<h4 id="close">close</h4>
+<p><code>fastify.close(callback)</code>: call this function to close the server instance and run the <a href="/docs/master/Hooks#on-close"><code>&#39;onClose&#39;</code></a> hook.<br>
+Calling <code>close</code> will also cause the server to respond to every new incoming request with a <code>503</code> error and destroy that request.</p>
+<p><a name="decorate"></a></p>
+<h4 id="decorate-">decorate*</h4>
+<p>Function useful if you need to decorate the fastify instance, Reply or Request, check <a href="/docs/master/Decorators">here</a>.</p>
+<p><a name="register"></a></p>
+<h4 id="register">register</h4>
+<p>Fastify allows the user to extend its functionality with plugins.
+A plugin can be a set of routes, a server decorator or whatever, check <a href="/docs/master/Plugins">here</a>.</p>
+<p><a name="use"></a></p>
+<h4 id="use">use</h4>
+<p>Function to add middlewares to Fastify, check <a href="/docs/master/Middlewares">here</a>.</p>
+<p><a name="addHook"></a></p>
+<h4 id="addhook">addHook</h4>
+<p>Function to add a specific hook in the lifecycle of Fastify, check <a href="/docs/master/Hooks">here</a>.</p>
+<p><a name="base-path"></a></p>
+<h4 id="basepath">basepath</h4>
+<p>The full path that will be prefixed to a route.</p>
+<p>Example:</p>
+<pre><code class="lang-js">fastify.register(function (instance, opts, next) {
+  instance.get(&#39;/foo&#39;, function (request, reply) {
+    // Will log &quot;basePath: /v1&quot;
+    request.log.info(&#39;basePath: %s&#39;, instance.basePath)
+    reply.send({basePath: instance.basePath})
+  })
+
+  instance.register(function (instance, opts, next) {
+    instance.get(&#39;/bar&#39;, function (request, reply) {
+      // Will log &quot;basePath: /v1/v2&quot;
+      request.log.info(&#39;basePath: %s&#39;, instance.basePath)
+      reply.send({basePath: instance.basePath})
+    })
+
+    next()
+  }, { prefix: &#39;/v2&#39; })
+
+  next()
+}, { prefix: &#39;/v1&#39; })
+</code></pre>
+<p><a name="log"></a></p>
+<h4 id="log">log</h4>
+<p>The logger instance, check <a href="/docs/master/Logging">here</a>.</p>
+<p><a name="inject"></a></p>
+<h4 id="inject">inject</h4>
+<p>Fake http injection (for testing purposes) <a href="/docs/master/Testing#inject">here</a>.</p>
+<p><a name="add-schema"></a></p>
+<h4 id="addschema">addSchema</h4>
+<p><code>fastify.addSchema(schemaObj)</code>, adds a shared schema to the Fastify instance. This allows you to reuse it everywhere in your application just by writing the schema id that you need.<br/>
+To learn more, see <a href="/docs/master/Validation-and-Serialization#shared-schema">shared schema example</a> in the <a href="/docs/master/Validation-and-Serialization">Validation and Serialization</a> documentation.</p>
+<p><a name="set-schema-compiler"></a></p>
+<h4 id="setschemacompiler">setSchemaCompiler</h4>
+<p>Set the schema compiler for all routes <a href="/docs/master/Validation-and-Serialization#schema-compiler">here</a>.</p>
+<p><a name="set-not-found-handler"></a></p>
+<h4 id="setnotfoundhandler">setNotFoundHandler</h4>
+<p><code>fastify.setNotFoundHandler(handler(request, reply))</code>: set the 404 handler. This call is encapsulated by prefix, so different plugins can set different not found handlers if a different <a href="/docs/master/Plugins#route-prefixing-option"><code>prefix</code> option</a> is passed to <code>fastify.register()</code>. The handler is treated like a regular route handler so requests will go through the full <a href="/docs/master/Lifecycle#lifecycle">Fastify lifecycle</a>.</p>
+<p>You can also register <a href="https://www.fastify.io/docs/latest/Hooks/#beforehandler">beforeHandler</a> hook for the 404 handler.</p>
+<pre><code class="lang-js">fastify.setNotFoundHandler({
+  beforeHandler: (req, reply, next) =&gt; {
+    req.body.beforeHandler = true
+    next()
+  }  
+}, function (request, reply) {
+    // Default not found handler with beforeHandler hook
+})
+
+fastify.register(function (instance, options, next) {
+  instance.setNotFoundHandler(function (request, reply) {
+    // Handle not found request without beforeHandler hook
+    // to URLs that begin with &#39;/v1&#39;
+  })
+  next()
+}, { prefix: &#39;/v1&#39; })
+</code></pre>
+<p><a name="set-error-handler"></a></p>
+<h4 id="seterrorhandler">setErrorHandler</h4>
+<p><code>fastify.setErrorHandler(handler(error, request, reply))</code>: Set a function that will be called whenever an error happens. The handler is fully encapsulated, so different plugins can set different error handlers. <em>async-await</em> is supported as well.</p>
+<pre><code class="lang-js">fastify.setErrorHandler(function (error, request, reply) {
+  // Send error response
+})
+</code></pre>
+<p><a name="print-routes"></a></p>
+<h4 id="printroutes">printRoutes</h4>
+<p><code>fastify.printRoutes()</code>: Prints the representation of the internal radix tree used by the router, useful for debugging.<br/>
+<em>Remember to call it inside or after a <code>ready</code> call.</em></p>
+<pre><code class="lang-js">fastify.get(&#39;/test&#39;, () =&gt; {})
+fastify.get(&#39;/test/hello&#39;, () =&gt; {})
+fastify.get(&#39;/hello/world&#39;, () =&gt; {})
+
+fastify.ready(() =&gt; {
+  console.log(fastify.printRoutes())
+  // └── /
+  //   ├── test (GET)
+  //   │   └── /hello (GET)
+  //   └── hello/world (GET)
+})
+</code></pre>
 
         </div>
 
@@ -641,34 +829,12 @@ will complete with an <code>Error</code> with code <code>&#39;ERR_AVVIO_PLUGIN_T
           
         
           
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
             <div class="level-left">
               <div class="level-item">
                 
                   
                   
-                  <a href="/docs/master/ContentTypeParser" class="button prev">≪ Content Type Parser</a>
+                  <a href="/docs/master/Getting-Started" class="button prev">≪ Getting Started</a>
                 
               </div>
             </div>
@@ -677,10 +843,30 @@ will complete with an <code>Error</code> with code <code>&#39;ERR_AVVIO_PLUGIN_T
                 
                   
                   
-                  <a href="/docs/master/Plugins" class="button next">Plugins ≫</a>
+                  <a href="/docs/master/Routes" class="button next">Routes ≫</a>
                 
               </div>
             </div>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
           
         
           
@@ -739,7 +925,7 @@ will complete with an <code>Error</code> with code <code>&#39;ERR_AVVIO_PLUGIN_T
   <div class="container">
     <div class="content has-text-centered">
     
-      <p><em>Found a typo or want to improve this page?</em> <a href="https://github.com/fastify/fastify/blob/master/docs/Factory.md">Submit a PR on GitHub</a></p>
+      <p><em>Found a typo or want to improve this page?</em> <a href="https://github.com/fastify/fastify/blob/master/docs/Server.md">Submit a PR on GitHub</a></p>
     
       <p>Fastify, Copyright &copy; 2016-2018 <a href="https://github.com/fastify/fastify#team" target="_blank">The Fastify team</a>, Licensed under <a href="https://github.com/fastify/fastify/blob/master/LICENSE" target="_blank">MIT</a></p>
     </div>
