@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.10.x/Logging">
+    <link ref="canonical" href="/docs/v1.11.x/Logging">
   
 
   
@@ -117,7 +117,7 @@
               </li>
             
               <li >
-                <a  href="/docs/latest/Server-Methods">Server Methods</a>
+                <a  href="/docs/latest/Server">Server</a>
               </li>
             
               <li >
@@ -158,10 +158,6 @@
             
               <li >
                 <a  href="/docs/latest/ContentTypeParser">Content Type Parser</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/latest/Factory">Factory</a>
               </li>
             
               <li >
@@ -215,7 +211,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.10.x">v1.10.x</option>
+                          <option selected="selected" value="/docs/v1.11.x">v1.11.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.10.x">v1.10.x</option>
                       
                     
                       
@@ -360,7 +362,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.10.x">v1.10.x</option>
+                          <option selected="selected" value="/docs/v1.11.x">v1.11.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.10.x">v1.10.x</option>
                         
                       
                         
@@ -506,7 +513,7 @@ fastify.get(&#39;/&#39;, options, function (request, reply) {
 })
 </code></pre>
 <p><a name="logging-request-id" /></p>
-<p>By default fastify adds an id to every request for easier tracking. If the &quot;request-id&quot; header is present its value is used, otherwise a new incremental id is generated. See Fastify Factory <a href="/docs/latest/Factory#factory-request-id-header"><code>requestIdHeader</code></a> options for customizing that header name.
+<p>By default fastify adds an id to every request for easier tracking. If the &quot;request-id&quot; header is present its value is used, otherwise a new incremental id is generated. See Fastify Factory <a href="/docs/latest/Server#factory-request-id-header"><code>requestIdHeader</code></a> options for customizing that header name.
 Additionally, <code>genReqId</code> option can be used for generating the request id by yourself. It will received the incoming request as a parameter.</p>
 <pre><code class="lang-js">let i = 0
 const fastify = require(&#39;fastify&#39;)({
@@ -573,8 +580,6 @@ fastify.get(&#39;/&#39;, function (request, reply) {
                 
               </div>
             </div>
-          
-        
           
         
           

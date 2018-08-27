@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.10.x/Routes">
+    <link ref="canonical" href="/docs/v1.11.x/Routes">
   
 
   
@@ -117,7 +117,7 @@
               </li>
             
               <li >
-                <a  href="/docs/latest/Server-Methods">Server Methods</a>
+                <a  href="/docs/latest/Server">Server</a>
               </li>
             
               <li id="doc-menu-section">
@@ -158,10 +158,6 @@
             
               <li >
                 <a  href="/docs/latest/ContentTypeParser">Content Type Parser</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/latest/Factory">Factory</a>
               </li>
             
               <li >
@@ -215,7 +211,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.10.x">v1.10.x</option>
+                          <option selected="selected" value="/docs/v1.11.x">v1.11.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.10.x">v1.10.x</option>
                       
                     
                       
@@ -360,7 +362,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.10.x">v1.10.x</option>
+                          <option selected="selected" value="/docs/v1.11.x">v1.11.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.10.x">v1.10.x</option>
                         
                       
                         
@@ -680,7 +687,7 @@ Be aware that if you use <a href="https://github.com/fastify/fastify-plugin"><co
 <h3 id="custom-log-level">Custom Log Level</h3>
 <p>It could happen that you need different log levels in your routes, with Fastify achieve this is very straightforward.<br/>
 You just need to pass the option <code>logLevel</code> to the plugin option or the route option with the <a href="https://github.com/pinojs/pino/blob/master/docs/API.md#discussion-3">value</a> that you need.</p>
-<p>Be aware that if you set the <code>logLevel</code> at plugin level, also the <a href="/docs/latest/Server-Methods#setnotfoundhandler"><code>setNotFoundHandler</code></a> and <a href="/docs/latest/Server-Methods#seterrorhandler"><code>setErrorHandler</code></a> will be affected.</p>
+<p>Be aware that if you set the <code>logLevel</code> at plugin level, also the <a href="/docs/latest/Server#setnotfoundhandler"><code>setNotFoundHandler</code></a> and <a href="/docs/latest/Server#seterrorhandler"><code>setErrorHandler</code></a> will be affected.</p>
 <pre><code class="lang-js">// server.js
 const fastify = require(&#39;fastify&#39;)({ logger: true })
 
@@ -752,7 +759,7 @@ If the request will not have the <code>Accept-Version</code> header, a 404 error
                 
                   
                   
-                  <a href="/docs/latest/Server-Methods" class="button prev">≪ Server Methods</a>
+                  <a href="/docs/latest/Server" class="button prev">≪ Server</a>
                 
               </div>
             </div>
@@ -765,8 +772,6 @@ If the request will not have the <code>Accept-Version</code> header, a 404 error
                 
               </div>
             </div>
-          
-        
           
         
           

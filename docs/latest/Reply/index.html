@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" crossorigin="anonymous" />
 
   
-    <link ref="canonical" href="/docs/v1.10.x/Reply">
+    <link ref="canonical" href="/docs/v1.11.x/Reply">
   
 
   
@@ -117,7 +117,7 @@
               </li>
             
               <li >
-                <a  href="/docs/latest/Server-Methods">Server Methods</a>
+                <a  href="/docs/latest/Server">Server</a>
               </li>
             
               <li >
@@ -158,10 +158,6 @@
             
               <li >
                 <a  href="/docs/latest/ContentTypeParser">Content Type Parser</a>
-              </li>
-            
-              <li >
-                <a  href="/docs/latest/Factory">Factory</a>
               </li>
             
               <li >
@@ -215,7 +211,13 @@
                         
                           
                         
-                          <option selected="selected" value="/docs/v1.10.x">v1.10.x</option>
+                          <option selected="selected" value="/docs/v1.11.x">v1.11.x</option>
+                      
+                    
+                      
+                        
+                        
+                          <option  value="/docs/v1.10.x">v1.10.x</option>
                       
                     
                       
@@ -360,7 +362,12 @@
                       
                         
                           
-                          <option selected="selected" value="/docs/v1.10.x">v1.10.x</option>
+                          <option selected="selected" value="/docs/v1.11.x">v1.11.x</option>
+                        
+                      
+                        
+                          
+                          <option  value="/docs/v1.10.x">v1.10.x</option>
                         
                       
                         
@@ -600,9 +607,9 @@ fastify.get(&#39;/streams&#39;, function (request, reply) {
   reply.send(httpErrors.Gone())
 })
 </code></pre>
-<p>If you want to completely customize the error response, checkout <a href="/docs/latest/Server-Methods#seterrorhandler"><code>setErrorHandler</code></a> API.</p>
+<p>If you want to completely customize the error response, checkout <a href="/docs/latest/Server#seterrorhandler"><code>setErrorHandler</code></a> API.</p>
 <p>Errors with a <code>status</code> or <code>statusCode</code> property equal to <code>404</code> will be routed to the not found handler.
-See <a href="/docs/latest/Server-Methods#setnotfoundhandler"><code>server.setNotFoundHandler</code></a>
+See <a href="/docs/latest/Server#setnotfoundhandler"><code>server.setNotFoundHandler</code></a>
 API to learn more about handling such cases:</p>
 <pre><code class="lang-js">fastify.setNotFoundHandler(function (request, reply) {
   reply.type(&#39;text/plain&#39;).send(&#39;a custom not found&#39;)
@@ -691,8 +698,6 @@ fastify.get(&#39;/async-await&#39;, options, async function (request, reply) {
                 
               </div>
             </div>
-          
-        
           
         
           
