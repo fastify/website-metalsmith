@@ -575,11 +575,11 @@ fastify.route({
 <p><a name="schema-compiler"></a></p>
 <h4 id="schema-compiler">Schema Compiler</h4>
 <p>The <code>schemaCompiler</code> is a function that returns a function that validates the body, url parameters, headers, and query string. The default <code>schemaCompiler</code> returns a function that implements the <a href="https://ajv.js.org/">ajv</a> validation interface. Fastify uses it internally to speed the validation up.</p>
-<p>Fastify&#39;s baseline ajv configuration is:</p>
+<p>Fastify&#39;s <a href="https://github.com/epoberezkin/ajv#options-to-modify-validated-data">baseline ajv configuration</a> is:</p>
 <pre><code class="lang-js">{
-  removeAdditional: true,
-  useDefaults: true,
-  coerceTypes: true
+  removeAdditional: true, // remove additional properties
+  useDefaults: true, // replace missing properties and items with the values from corresponding default keyword
+  coerceTypes: true  // change data type of data to match type keyword
 }
 </code></pre>
 <p>This baseline configuration cannot be modified. If you want to change or set additional config options, you will need to create your own instance and override the existing one like:</p>
