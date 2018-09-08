@@ -32,6 +32,36 @@
   </div>
 </section>
 
+<section class="section">
+  <div class="container content">
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <h1 class="title">Who is using fastify?</h1>
+        <p>Fastify is proudly powering a large ecosystem of companies and products out there.</p>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-12">
+        <ul class="brands-list">
+          {% for brand in data.brands %}
+            <li>
+              <a href="{{ brand.link }}" target="_blank" rel="nofollow">
+                <img src="/images/brands/{{ brand.image }}" alt="{{ brand.name }} is using fastify"/>
+              </a>
+            </li>
+
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <p>Discover <a href="/brands">all brands using fastify</a>. Want your brand to <a href="/brands#how-to-be-featured">be featured here</a>?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section alternate">
   <div class="container content">
     <div class="columns is-centered">

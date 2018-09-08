@@ -1,5 +1,5 @@
 #main-navbar {
-  border-bottom: 1px solid #ccc
+  border-bottom: 1px solid #ccc;
 }
 
 .hero {
@@ -14,7 +14,7 @@
 }
 
 .hero img.logo {
-  max-width: 320px
+  max-width: 320px;
 }
 
 .section.alternate {
@@ -24,7 +24,7 @@
 }
 
 .section .container p {
-  margin: .8em 0;
+  margin: 0.8em 0;
 }
 
 .section.team .container p {
@@ -32,7 +32,7 @@
 }
 
 .content .hljs {
-  background: transparent
+  background: transparent;
 }
 
 .swappable-async-await {
@@ -43,7 +43,7 @@
   background: transparent;
 }
 
-.swappable-async-await input[type=checkbox] {
+.swappable-async-await input[type='checkbox'] {
   position: absolute;
   opacity: 0;
 }
@@ -60,7 +60,7 @@
 .swappable-async-await .swap-button-box > label {
   display: inline-block;
   font-family: monospace;
-  font-size: .8em;
+  font-size: 0.8em;
   cursor: pointer;
 }
 
@@ -70,7 +70,7 @@
   vertical-align: top;
 }
 
-.swappable-async-await .toggle-checkbox input[type=checkbox] {
+.swappable-async-await .toggle-checkbox input[type='checkbox'] {
   position: absolute;
   opacity: 0;
 }
@@ -90,7 +90,7 @@
   height: 1em;
   left: 0.1em;
   transition: background 0.1s ease;
-  background: #BBB;
+  background: #bbb;
   border-radius: 50px;
   box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5);
 }
@@ -105,23 +105,29 @@
   transition: all 0.2s ease;
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
   background: #fcfff4;
-  animation: switch-off .2s ease-out;
+  animation: switch-off 0.2s ease-out;
   z-index: 2;
 }
 
-.swappable-async-await .toggle-checkbox input[type=checkbox]:checked + label:before {
-  background: #70C1B3;
+.swappable-async-await
+  .toggle-checkbox
+  input[type='checkbox']:checked
+  + label:before {
+  background: #70c1b3;
   box-shadow: inset 0px 1px 1px rgba(84, 152, 140, 0.5);
 }
 
-.swappable-async-await .toggle-checkbox input[type=checkbox]:checked + label:after {
-  animation: switch-on .2s ease-out;
+.swappable-async-await
+  .toggle-checkbox
+  input[type='checkbox']:checked
+  + label:after {
+  animation: switch-on 0.2s ease-out;
   left: 1.1em;
 }
 
 a.anchor {
   color: #808080;
-  padding: 0 0 0 .5rem;
+  padding: 0 0 0 0.5rem;
   float: right;
 }
 
@@ -133,4 +139,29 @@ a.anchor:hover {
   left: 18px;
   top: 18px;
   height: 1em;
+}
+
+.brands-list {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.brands-list li {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-right: 1rem;
+  min-height: 120px;
+}
+
+.brands-list li a {
+  text-decoration: none;
+}
+
+.brands-list li a img {
+  height: auto;
+  max-width: 100%;
 }

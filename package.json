@@ -8,6 +8,7 @@
     "build:get-releases": "node src/scripts/downloadReleases.js fastify/fastify build-temp/releases v0.11.0",
     "build:process-releases": "node src/scripts/processReleases.js build-temp/releases src/website",
     "build:website": "node src/scripts/buildWebsite.js",
+    "build:website:watch": "npm run build:website && chokidar 'src/website' -c 'npm run build:website'",
     "build": "npm run build:cleanup && npm run build:create-temp-folder && npm run build:get-releases && npm run build:process-releases && npm run build:website",
     "deploy": "gh-pages -d build --dotfiles",
     "test:lint": "eslint src --ignore-pattern 'src/website/content/'",
@@ -54,6 +55,7 @@
     "unzip-stream": "^0.1.2"
   },
   "devDependencies": {
+    "chokidar-cli": "^1.2.1",
     "eslint": "^4.4.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.7.0",
