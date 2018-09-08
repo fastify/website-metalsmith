@@ -18,6 +18,34 @@
   image: "croft.svg"
   link: "https://example.com"
 
+- name: "dance studio"
+  image: "dancestudio.svg"
+  link: "https://example.com"
+
 - name: "fast BANANA"
   image: "fastbanana.svg"
+  link: "https://example.com"
+
+- name: "green food"
+  image: "greensfood.svg"
+  link: "https://example.com"
+
+- name: "James & Sons"
+  image: "jamessons.svg"
+  link: "https://example.com"
+
+- name: "pete blinds"
+  image: "peteblinds.svg"
+  link: "https://example.com"
+
+- name: "space cube"
+  image: "spacecube.svg"
+  link: "https://example.com"
+
+- name: "web works"
+  image: "webworks.svg"
+  link: "https://example.com"
+
+- name: "yoga baby"
+  image: "yogababy.svg"
   link: "https://example.com"

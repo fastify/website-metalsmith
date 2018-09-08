@@ -44,12 +44,15 @@
     <div class="columns is-centered">
       <div class="column is-12">
         <ul class="brands-list">
-          {% for brand in data.brands %}
+          {% for brandIndex in range(0, 6) %}
+            {% set brand = data.brands[brandIndex] %}
+            {% if brand %}
             <li>
               <a href="{{ brand.link }}" target="_blank" rel="nofollow">
                 <img src="/images/brands/{{ brand.image }}" alt="{{ brand.name }} is using fastify"/>
               </a>
             </li>
+            {% endif %}
           {% endfor %}
         </ul>
       </div>
