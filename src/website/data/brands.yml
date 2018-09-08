@@ -1,20 +1,23 @@
 - name: "Auto Speed"
   image: "autospeed.svg"
   link: "https://auto-speed.com"
-  reqMonth: 200000
+
 - name: "Baby Swim"
   image: "babyswim.svg"
   link: "https://baby-swim.com"
-  reqMonth: 250000
+
 - name: "BeautyBox"
   image: "beautybox.svg"
-  reqMonth: 10000
   link: "https://bbox.com"
+
 - name: "cheshire"
   image: "cheshire.svg"
   link: "https://example.com"
-  reqMonth: 10000
+
 - name: "croft"
   image: "croft.svg"
   link: "https://example.com"
-  reqMonth: 10000
+
+- name: "fast BANANA"
+  image: "fastbanana.svg"
+  link: "https://example.com"
