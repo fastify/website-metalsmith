@@ -145,7 +145,7 @@ a.anchor:hover {
   height: 1em;
 }
 
-.brands-list {
+.organisations-list {
   margin: 0 0 0 0 !important;
   display: flex;
   flex-wrap: wrap;
@@ -155,11 +155,11 @@ a.anchor:hover {
   justify-items: center;
 }
 
-.brands-list.align-start {
+.organisations-list.align-start {
   justify-content: space-between;
 }
 
-.brands-list li {
+.organisations-list li {
   align-items: center;
   display: flex;
   justify-content: center;
@@ -167,12 +167,20 @@ a.anchor:hover {
   max-height: 80px;
 }
 
-.brands-list li a {
+.organisations-list li a {
   text-decoration: none;
 }
 
-.brands-list li a img {
+.organisations-list li a img {
   height: auto;
   max-width: 100%;
   max-height: 80px;
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+  transition: all 0.5s;
+}
+
+.organisations-list li a:hover img {
+  filter: none;
+  -webkit-filter: none;
 }

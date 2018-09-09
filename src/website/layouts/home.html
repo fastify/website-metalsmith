@@ -37,19 +37,19 @@
     <div class="columns is-centered">
       <div class="column is-10">
         <h1 class="title">Who is using fastify?</h1>
-        <p>Fastify is proudly powering a large ecosystem of companies and products out there.</p>
-        <p>Discover <a href="/brands">all brands using fastify</a>. Do want your brand to <a href="/brands#how-to-be-featured">be featured here</a>?</p>
+        <p>Fastify is proudly powering a large ecosystem of organisations and products out there.</p>
+        <p>Discover <a href="/organisations">all organisations using fastify</a>. Do want your organisation to <a href="/organisations#how-to-be-featured">be featured here</a>?</p>
       </div>
     </div>
     <div class="columns is-centered">
       <div class="column is-12">
-        <ul class="brands-list">
-          {% for brandIndex in range(0, 6) %}
-            {% set brand = data.brands[brandIndex] %}
-            {% if brand %}
+        <ul class="organisations-list">
+          {% for organizationIndex in range(0, 6) %}
+            {% set organization = data.organisations[organizationIndex] %}
+            {% if organization %}
             <li>
-              <a href="{{ brand.link }}" target="_blank" rel="nofollow">
-                <img src="/images/brands/{{ brand.image }}" alt="{{ brand.name }} is using fastify"/>
+              <a href="{{ organization.link }}" target="_blank" rel="nofollow">
+                <img src="/images/organisations/{{ organization.image }}" alt="{{ organization.name }} is using fastify"/>
               </a>
             </li>
             {% endif %}

@@ -5,7 +5,7 @@
   <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          Brands using fastify
+          Organisations using fastify
         </h1>
       </div>
   </div>
@@ -14,15 +14,15 @@
 <div class="container">
   <section class="section">
     <div class="content">
-      <p>Fastify is proudly powering a large ecosystem of companies and products out there.</p>
-      <p>Find here a list of some of the companies adopting fastify.</p>
+      <p>Fastify is proudly powering a large ecosystem of organisations and products out there.</p>
+      <p>Find here a list of some of the organisations adopting fastify.</p>
       <div class="columns is-centered">
         <div class="column is-12">
-          <ul class="brands-list align-start">
-            {% for brand in data.brands %}
+          <ul class="organisations-list align-start">
+            {% for organization in data.organisations %}
               <li>
-                <a href="{{ brand.link }}" target="_blank" rel="nofollow">
-                  <img src="/images/brands/{{ brand.image }}" alt="{{ brand.name }} is using fastify"/>
+                <a href="{{ organization.link }}" target="_blank" rel="nofollow">
+                  <img src="/images/organisations/{{ organization.image }}" alt="{{ organization.name }} is using fastify"/>
                 </a>
               </li>
             {% endfor %}
@@ -36,26 +36,25 @@
       <h2>How to be featured here</h2>
       <div class="columns">
         <div class="column is-10">
-          <p>Is your company using fastify? That's great!</p>
-          <p>If you would like your company to be featured in this list, we would love it too!</p>
-          <p>Here's how to submit your company, your logo and other few relevant details, so that we can update this page:</p>
+          <p>Is your organisation using fastify? That's great!</p>
+          <p>If you would like your organisation to have its logo featured in this list, here's how you do it!</p>
+          <p>You can submit your organisation, your logo and other few relevant details by following these steps:</p>
           <ol>
             <li>Fork the <a href="https://github.com/fastify/website">Fastify website repository</a> on GitHub.</li>
             <li>
-              Add the logo in the folder <code>src/website/content/images/brands</code>.<br/>
+              Add the logo in the folder <code>src/website/content/images/organisations</code>.<br/>
               Please make sure that your logo complies to the following specs:
               <ul>
                 <li>Encoded in SVG (Scalable Vector Graphics) format</li>
-                <li>Use only 2 colors: <code>#fff</code> (white) and <code>#999</code> (gray)</li>
                 <li>Be reasonably optimized/minified (you can use <a href="https://www.svgminify.com">svgminify</a>)</li>
               </ul>
             </li>
-            <li>Update the file <code>src/website/data/brands.yml</code> with a new entry (in alphabetical order by company name).<br/>
+            <li>Update the file <code>src/website/data/organisations.yml</code> with a new entry (in alphabetical order by organization name).<br/>
               Your entry must provide:
               <ul>
-                <li><code>name</code>: the name of your company</li>
-                <li><code>image</code>: the filename of the file you added in the previous step</li>
-                <li><code>link</code>: a link to a website that represents your organisation</li>
+                <li><code>name</code>: the name of your organisation</li>
+                <li><code>image</code>: the filename of the logo you added in the previous step</li>
+                <li><code>link</code>: a link to a website that represents your organisation (please include <code>http(s)://</code>)</li>
               </ul>
               Please, make sure not to break the YAML syntax of the file.
             </li>
