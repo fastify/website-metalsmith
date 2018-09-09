@@ -10,15 +10,24 @@ const markdown = require('metalsmith-markdown')
 const permalinks = require('metalsmith-permalinks')
 const writemetadata = require('metalsmith-writemetadata')
 const markdownFilter = require('nunjucks-markdown-filter')
+const { shuffle } = require('lodash')
 const metadataDir = require('../plugins/metalsmith-metadata-dir')
 
-const source = path.resolve(process.argv[2] || path.join(__dirname, '..', 'website'))
-const dest = path.resolve(process.argv[3] || path.join(__dirname, '..', '..', 'build'))
+const source = path.resolve(
+  process.argv[2] || path.join(__dirname, '..', 'website')
+)
+const dest = path.resolve(
+  process.argv[3] || path.join(__dirname, '..', '..', 'build')
+)
 
 console.log(`Building website from ${source} into ${dest}`)
 
-const env = nunjucks.configure(path.join(source, 'layouts'), {watch: false, noCache: true})
+const env = nunjucks.configure(path.join(source, 'layouts'), {
+  watch: false,
+  noCache: true
+})
 env.addFilter('md', markdownFilter)
+env.addFilter('shuffle', arr => shuffle(arr))
 
 Metalsmith(source)
   .source(path.join(source, 'content'))
@@ -26,25 +35,35 @@ Metalsmith(source)
   .clean(true)
   .metadata(require(path.join(source, 'metadata.json')))
   .use(debug())
-  .use(writemetadata({
-    childIgnorekeys: ['next', 'previous', 'content']
-  }))
-  .use(metadataDir({
-    directory: path.join(source, 'data')
-  }))
-  .use(collections({
-    docs: 'docs/**/*.md'
-  }))
+  .use(
+    writemetadata({
+      childIgnorekeys: ['next', 'previous', 'content']
+    })
+  )
+  .use(
+    metadataDir({
+      directory: path.join(source, 'data')
+    })
+  )
+  .use(
+    collections({
+      docs: 'docs/**/*.md'
+    })
+  )
   .use(markdown())
-  .use(permalinks({
-    relative: false
-  }))
-  .use(layouts({
-    engine: 'nunjucks',
-    pattern: '**/*.html',
-    directory: 'layouts',
-    rename: true
-  }))
-  .build((err) => {
+  .use(
+    permalinks({
+      relative: false
+    })
+  )
+  .use(
+    layouts({
+      engine: 'nunjucks',
+      pattern: '**/*.html',
+      directory: 'layouts',
+      rename: true
+    })
+  )
+  .build(err => {
     if (err) throw err
   })

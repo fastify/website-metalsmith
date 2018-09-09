@@ -19,7 +19,7 @@
       <div class="columns is-centered">
         <div class="column is-12">
           <ul class="organisations-list align-start">
-            {% for organization in data.organisations %}
+            {% for organization in data.organisations | shuffle %}
               <li>
                 <a href="{{ organization.link }}" target="_blank" rel="nofollow">
                   <img src="/images/organisations/{{ organization.image }}" alt="{{ organization.name }} is using fastify"/>
