@@ -9,6 +9,9 @@ const nunjucks = require('nunjucks')
 const markdown = require('metalsmith-markdown')
 const permalinks = require('metalsmith-permalinks')
 const writemetadata = require('metalsmith-writemetadata')
+const htmlMinifier = require('metalsmith-html-minifier')
+const cleanCSS = require('metalsmith-clean-css')
+const contenthash = require('metalsmith-contenthash')
 const markdownFilter = require('nunjucks-markdown-filter')
 const { shuffle } = require('lodash')
 const metadataDir = require('../plugins/metalsmith-metadata-dir')
@@ -25,6 +28,13 @@ console.log(`Building website from ${source} into ${dest}`)
 const env = nunjucks.configure(path.join(source, 'layouts'), {
   watch: false,
   noCache: true
+})
+var first = true
+env.addGlobal('getContext', function () {
+  if (first) {
+    console.log(Object.keys(this.env.globals))
+    first = false
+  }
 })
 env.addFilter('md', markdownFilter)
 env.addFilter('shuffle', arr => shuffle(arr))
@@ -57,6 +67,11 @@ Metalsmith(source)
     })
   )
   .use(
+    contenthash({
+      pattern: ['**/*.{js,css,png,jpg,svg}']
+    })
+  )
+  .use(
     layouts({
       engine: 'nunjucks',
       pattern: '**/*.html',
@@ -64,6 +79,8 @@ Metalsmith(source)
       rename: true
     })
   )
+  .use(htmlMinifier())
+  .use(cleanCSS())
   .build(err => {
     if (err) throw err
   })
