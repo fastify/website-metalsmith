@@ -34,6 +34,10 @@
   image: "jamessons.svg"
   link: "https://example.com"
 
+- name: "Mr Porter"
+  image: "mrp.svg"
+  link: "https://www.mrporter.com"
+
 - name: "pete blinds"
   image: "peteblinds.svg"
   link: "https://example.com"
@@ -41,6 +45,10 @@
 - name: "space cube"
   image: "spacecube.svg"
   link: "https://example.com"
+
+- name: "Vectra"
+  image: "vectra.svg"
+  link: "https://vectra.ai"
 
 - name: "web works"
   image: "webworks.svg"
