@@ -1,59 +1,15 @@
-- name: "Auto Speed"
-  image: "autospeed.svg"
-  link: "https://auto-speed.com"
+- name: "Knock"
+  image: "knock.svg"
+  link: "https://www.knock.com"
 
-- name: "Baby Swim"
-  image: "babyswim.svg"
-  link: "https://baby-swim.com"
-
-- name: "BeautyBox"
-  image: "beautybox.svg"
-  link: "https://bbox.com"
-
-- name: "cheshire"
-  image: "cheshire.svg"
-  link: "https://example.com"
-
-- name: "croft"
-  image: "croft.svg"
-  link: "https://example.com"
-
-- name: "dance studio"
-  image: "dancestudio.svg"
-  link: "https://example.com"
-
-- name: "fast BANANA"
-  image: "fastbanana.svg"
-  link: "https://example.com"
-
-- name: "green food"
-  image: "greensfood.svg"
-  link: "https://example.com"
-
-- name: "James & Sons"
-  image: "jamessons.svg"
-  link: "https://example.com"
+- name: "MIA Platform"
+  image: "mia-platform.svg"
+  link: "https://www.mia-platform.eu"
 
 - name: "Mr Porter"
   image: "mrp.svg"
   link: "https://www.mrporter.com"
 
-- name: "pete blinds"
-  image: "peteblinds.svg"
-  link: "https://example.com"
-
-- name: "space cube"
-  image: "spacecube.svg"
-  link: "https://example.com"
-
 - name: "Vectra"
   image: "vectra.svg"
   link: "https://vectra.ai"
-
-- name: "web works"
-  image: "webworks.svg"
-  link: "https://example.com"
-
-- name: "yoga baby"
-  image: "yogababy.svg"
-  link: "https://example.com"
