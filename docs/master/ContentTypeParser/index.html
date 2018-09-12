@@ -534,6 +534,33 @@ fastify.addContentTypeParser(&#39;application/jsoff&#39;, async function (req) {
 })
 </code></pre>
 <p>In this way, all of the requests that do not have a corresponding content type parser will be handled by the specified function.</p>
+<p>This is also useful for piping the request stream. You can define a content parser like</p>
+<pre><code class="lang-js">fastify.addContentTypeParser(&#39;*&#39;, function (req, done) {
+  done()
+})
+</code></pre>
+<p>and then access the core HTTP request directly for piping it where you want:</p>
+<pre><code class="lang-js">app.post(&#39;/hello&#39;, (request, reply) =&gt; {
+  reply.send(request.req)
+})
+</code></pre>
+<p>Here is a complete example that logs incoming <a href="http://jsonlines.org/">json line</a> objects:</p>
+<pre><code class="lang-js">const split2 = require(&#39;split2&#39;)
+const pump = require(&#39;pump&#39;)
+
+fastify.addContentTypeParser(&#39;*&#39;, (req, done) =&gt; {
+  done(null, pump(req, split2(JSON.parse)))
+})
+
+fastify.route({
+  method: &#39;POST&#39;,
+  url: &#39;/api/log/jsons&#39;,
+  handler: (req, res) =&gt; {
+    req.body.on(&#39;data&#39;, d =&gt; console.log(d)) // log every incoming object
+  }
+})
+</code></pre>
+<p>For piping file uploads you may want to checkout <a href="https://github.com/fastify/fastify-multipart">this plugin</a></p>
 
         </div>
 
