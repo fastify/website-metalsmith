@@ -1,0 +1,19 @@
+- name: "Knock"
+  image: "knock.svg"
+  link: "https://www.knock.com"
+
+- name: "MIA Platform"
+  image: "mia-platform.svg"
+  link: "https://www.mia-platform.eu"
+
+- name: "Mr Porter"
+  image: "mrp.svg"
+  link: "https://www.mrporter.com"
+
+- name: "Nearform"
+  image: "nearform.svg"
+  link: "https://nearform.com"
+
+- name: "Vectra"
+  image: "vectra.svg"
+  link: "https://vectra.ai"
