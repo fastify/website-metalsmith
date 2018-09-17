@@ -25,6 +25,110 @@ server.get(&#39;/ping&#39;, opts, (request, reply) =&gt; {
   console.log(reply.res) // this is the http.ServerResponse with correct typings!
   reply.code(200).send({ pong: &#39;it worked!&#39; })
 })
+</code></pre><p><a id=generic-parameters></a></p><h2 id=generic-parameters>Generic Parameters</h2><p>Since you can validate the querystring, params, body, and headers, you can also override the default types of those values on the request interface:</p><pre><code class=lang-ts>import * as fastify from &#39;fastify&#39;
+
+const server = fastify({})
+
+interface Query {
+  foo?: number
+}
+
+interface Params {
+  bar?: string
+}
+
+interface Body {
+  baz?: string
+}
+
+interface Headers {
+  a?: string
+}
+
+const opts: fastify.RouteShorthandOptions = {
+  schema: {
+    querystring: {
+      type: &#39;object&#39;,
+      properties: {
+        foo: {
+          type: &#39;number&#39;
+        }
+      }
+    },
+    params: {
+      type: &#39;object&#39;,
+      properties: {
+        bar: {
+          type: &#39;string&#39;
+        }
+      }
+    },
+    body: {
+      type: &#39;object&#39;,
+      properties: {
+        baz: {
+          type: &#39;string&#39;
+        }
+      }
+    },
+    headers: {
+      type: &#39;object&#39;,
+      properties: {
+        a: {
+          type: &#39;string&#39;
+        }
+      }
+    }
+  }
+}
+
+server.get&lt;Query, Params, Body, Headers&gt;(&#39;/ping/:bar&#39;, opts, (request, reply) =&gt; {
+  console.log(request.query) // this is of type Query!
+  console.log(request.params) // this is of type Params!
+  console.log(request.body) // this is of type Body!
+  console.log(request.headers) // this is of type Headers!
+  reply.code(200).send({ pong: &#39;it worked!&#39; })
+})
+</code></pre><p>All generic types are optional, so you can also pass types for the parts you validate with schemas:</p><pre><code class=lang-ts>import * as fastify from &#39;fastify&#39;
+
+const server = fastify({})
+
+interface Params {
+  bar?: string
+}
+
+const opts: fastify.RouteShorthandOptions = {
+  schema: {
+    params: {
+      type: &#39;object&#39;,
+      properties: {
+        bar: {
+          type: &#39;string&#39;
+        }
+      }
+    },
+  }
+}
+
+server.get&lt;fastify.DefaultQuery, Params, unknown&gt;(&#39;/ping/:bar&#39;, opts, (request, reply) =&gt; {
+  console.log(request.query) // this is of type fastify.DefaultQuery!
+  console.log(request.params) // this is of type Params!
+  console.log(request.body) // this is of type unknown!
+  console.log(request.headers) // this is of type fastify.DefaultHeader because typescript will use the default type value!
+  reply.code(200).send({ pong: &#39;it worked!&#39; })
+})
+
+// Given that you haven&#39;t validated the querystring, body, or headers, it would be best
+// to type those params as &#39;unknown&#39;. However, it&#39;s up to you. The example below is the
+// best way to prevent you from shooting yourself in the foot. In other words, don&#39;t
+// use values you haven&#39;t validated.
+server.get&lt;unknown, Params, unknown, unknown&gt;(&#39;/ping/:bar&#39;, opts, (request, reply) =&gt; {
+  console.log(request.query) // this is of type unknown!
+  console.log(request.params) // this is of type Params!
+  console.log(request.body) // this is of type unknown!
+  console.log(request.headers) // this is of type unknown!
+  reply.code(200).send({ pong: &#39;it worked!&#39; })
+})
 </code></pre><p><a id=http-prototypes></a></p><h2 id=http-prototypes>HTTP Prototypes</h2><p>By default, fastify will determine which version of http is being used based on the options you pass to it. If for any reason you need to override this you can do so as shown below:</p><pre><code class=lang-ts>interface CustomIncomingMessage extends http.IncomingMessage {
   getClientDeviceType: () =&gt; string
 }
