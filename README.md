@@ -66,7 +66,7 @@ In order for this to work, Circle CI will need to be configured correctly provid
 
 Everyone is very welcome to contribute to this project.
 You can contribute just by submitting bugs or suggesting improvements by
-[opening an issue](issues) or by [sending a pull request](pulls).
+[opening an issue](/../../issues) or by [sending a pull request](/../../pulls).
 
 
 ## License
