@@ -17,3 +17,8 @@
 - name: "Vectra"
   image: "vectra.svg"
   link: "https://vectra.ai"
+
+- name: "GEOLYTIX"
+  image: "geolytix.svg"
+  link: "https://geolytix.co.uk"
+  
