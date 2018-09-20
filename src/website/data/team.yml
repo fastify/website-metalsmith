@@ -17,13 +17,6 @@
 
 - name: Collaborators
   people:
-  - name: Çağatay Çalı
-    sortname: Çalı Çağatay
-    picture: "https://avatars1.githubusercontent.com/u/9213230?v=4&s=460"
-    links:
-      github: https://github.com/cagataycali
-      npm: https://www.npmjs.com/~cagataycali
-      twitter: https://twitter.com/cagataycali
   - name: Dustin Deus
     sortname: Deus Dustin
     picture: "https://avatars3.githubusercontent.com/u/1764424?v=4&s=460"
@@ -73,3 +66,13 @@
       github: https://github.com/allevo
       npm: https://www.npmjs.com/~allevo
       twitter: https://twitter.com/allevitommaso
+
+- name: Past Collaborators
+  people:
+  - name: Çağatay Çalı
+    sortname: Çalı Çağatay
+    picture: "https://avatars1.githubusercontent.com/u/9213230?v=4&s=460"
+    links:
+      github: https://github.com/cagataycali
+      npm: https://www.npmjs.com/~cagataycali
+      twitter: https://twitter.com/cagataycali
