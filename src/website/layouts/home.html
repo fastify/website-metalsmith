@@ -313,6 +313,14 @@ start()</code></pre>
               </li>
             {% endfor %}
           </ul>
+          <p>Past Sponsors:</p>
+          <ul>
+            {% for link in data.acknowledgements.past_sponsors %}
+              <li>
+                <a href="{{ link.url }}" target="_blank">{{ link.name }}</a>{% if link.reason %} ({{ link.reason }}){% endif %}
+              </li>
+            {% endfor %}
+          </ul>
           <p>Also thanks to:</p>
           <ul>
             {% for link in data.acknowledgements.others %}
