@@ -21,4 +21,8 @@
 - name: "GEOLYTIX"
   image: "geolytix.svg"
   link: "https://geolytix.co.uk"
-  
+
+- name: "car2go"
+  image: "car2go.svg"
+  link: "https://www.car2go.com"
+
