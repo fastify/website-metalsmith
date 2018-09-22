@@ -14,6 +14,10 @@
   image: "nearform.svg"
   link: "https://nearform.com"
 
+- name: "Nucleode"
+  image: "nucleode.svg"
+  link: "https://www.nucleode.com"
+
 - name: "Vectra"
   image: "vectra.svg"
   link: "https://vectra.ai"
