@@ -15,6 +15,7 @@ const contenthash = require('metalsmith-contenthash')
 const markdownFilter = require('nunjucks-markdown-filter')
 const { shuffle } = require('lodash')
 const metadataDir = require('../plugins/metalsmith-metadata-dir')
+const svgOptimizer = require('../plugins/metalsmith-svg-optimizer')
 
 const source = path.resolve(
   process.argv[2] || path.join(__dirname, '..', 'website')
@@ -77,6 +78,12 @@ Metalsmith(source)
       pattern: '**/*.html',
       directory: 'layouts',
       rename: true
+    })
+  )
+  .use(
+    svgOptimizer({
+      pretty: true,
+      plugins: [{ removeScriptElement: true }]
     })
   )
   .use(htmlMinifier())
