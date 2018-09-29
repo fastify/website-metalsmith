@@ -16,10 +16,8 @@ function plugin (opts) {
 
   return (files, metalsmith, done) => {
     each(
-      Object.keys(files),
+      Object.keys(files).filter(svg),
       (filepath, callback) => {
-        if (!svg(filepath)) return
-
         debug('Optimize file: %s', filepath)
         const file = files[filepath]
 
