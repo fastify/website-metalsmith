@@ -82,7 +82,6 @@ Metalsmith(source)
   )
   .use(
     svgOptimizer({
-      pretty: true,
       plugins: [{ removeScriptElement: true }]
     })
   )
