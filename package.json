@@ -58,6 +58,7 @@
     "request": "^2.88.0",
     "request-promise-native": "^1.0.4",
     "rimraf": "^2.6.1",
+    "svgo": "^1.1.1",
     "unzip-stream": "^0.1.2"
   },
   "devDependencies": {
