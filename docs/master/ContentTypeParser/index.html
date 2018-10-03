@@ -31,7 +31,7 @@ fastify.addContentTypeParser(&#39;application/jsoff&#39;, async function (req) {
   req.on(&#39;end&#39;, () =&gt; {
     done(null, data)
   })
-})</code></pre><p>In this way, all of the requests that do not have a corresponding content type parser will be handled by the specified function.</p><p>This is also useful for piping the request stream. You can define a content parser like</p><pre><code class=language-js>fastify.addContentTypeParser(&#39;*&#39;, function (req, done) {
+})</code></pre><p>In this way, all of the requests that do not have a corresponding content type parser will be handled by the specified function.</p><p>This is also useful for piping the request stream. You can define a content parser like:</p><pre><code class=language-js>fastify.addContentTypeParser(&#39;*&#39;, function (req, done) {
   done()
 })</code></pre><p>and then access the core HTTP request directly for piping it where you want:</p><pre><code class=language-js>app.post(&#39;/hello&#39;, (request, reply) =&gt; {
   reply.send(request.req)
@@ -48,7 +48,7 @@ fastify.route({
   handler: (req, res) =&gt; {
     req.body.on(&#39;data&#39;, d =&gt; console.log(d)) // log every incoming object
   }
-})</code></pre><p>For piping file uploads you may want to checkout <a href=https://github.com/fastify/fastify-multipart>this plugin</a></p></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/master/Error-Handling class="button prev">≪ Error Handling</a></div></div><div class=level-right><div class=level-item><a href=/docs/master/Plugins class="button next">Plugins ≫</a></div></div></nav></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+})</code></pre><p>For piping file uploads you may want to checkout <a href=https://github.com/fastify/fastify-multipart>this plugin</a>.</p></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/master/Error-Handling class="button prev">≪ Error Handling</a></div></div><div class=level-right><div class=level-item><a href=/docs/master/Plugins class="button next">Plugins ≫</a></div></div></nav></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
     var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
     var currentMenu = document.getElementById('doc-menu-section')
     if (titles.length && currentMenu) {
