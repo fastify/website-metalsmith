@@ -5,15 +5,50 @@
   port: 3000
 })</code></pre><p>Once you decorate the instance, you can access the value by using the name you passed as a parameter:</p><pre><code class=language-js>fastify.utility()
 
-console.log(fastify.conf.db)</code></pre><p>Decorators are not <em>overwritable</em>. If you try to declare a decorator that was previously declared <em>(in other words, use the same name)</em>, <code>decorate</code> will throw an exception.</p><p>Decorators accept special &quot;getter/setter&quot; objects. These objects have functions named <code>getter</code> and <code>setter</code> (though, the <code>setter</code> function is optional). This allows defining properties via decorators. For example:</p><pre><code class=language-js>fastify.decorate(&#39;foo&#39;, {
-  getter () {
-    return &#39;a getter&#39;
-  }
-})</code></pre><p>Will define the <code>foo</code> property on the <em>Fastify</em> instance:</p><pre><code class=language-js>console.log(fastify.foo) // &#39;a getter&#39;</code></pre><p><a name=decorate-reply></a> <strong>decorateReply</strong> As the name suggests, this API is needed if you want to add new methods to the <code>Reply</code> core object. Just call the <code>decorateReply</code> API and pass the name of the new property and its value:</p><pre><code class=language-js>fastify.decorateReply(&#39;utility&#39;, function () {
+console.log(fastify.conf.db)</code></pre><p><a name=decorate-reply></a> <strong>decorateReply</strong> As the name suggests, this API is needed if you want to add new methods to the <code>Reply</code> core object. Just call the <code>decorateReply</code> API and pass the name of the new property and its value:</p><pre><code class=language-js>fastify.decorateReply(&#39;utility&#39;, function () {
   // something very useful
 })</code></pre><p>Note: using an arrow function will break the binding of <code>this</code> to the Fastify <code>reply</code> instance.</p><p><a name=decorate-request></a> <strong>decorateRequest</strong> As above, this API is needed if you want to add new methods to the <code>Request</code> core object. Just call the <code>decorateRequest</code> API and pass the name of the new property and its value:</p><pre><code class=language-js>fastify.decorateRequest(&#39;utility&#39;, function () {
   // something very useful
-})</code></pre><p>Note: using an arrow function will break the binding of <code>this</code> to the Fastify <code>request</code> instance.</p><p><a name=usage_notes></a></p><h4 id=usage-notes>Usage Notes</h4><p><code>decorateReply</code> and <code>decorateRequest</code> are used to modify the <code>Reply</code> and <code>Request</code> constructors respectively by adding methods or properties. To update these properties you should directly access the desired property of the <code>Reply</code> or <code>Request</code> object.</p><p>As an example let&#39;s add a user property to the <code>Request</code> object:</p><pre><code class=language-js>// Decorate request with a &#39;user&#39; property
+})</code></pre><p>Note: using an arrow function will break the binding of <code>this</code> to the Fastify <code>request</code> instance.</p><p><a name=decorators-encapsulation></a></p><h4 id=decorators-and-encapsulation>Decorators and encapsulation</h4><p>Decorators are not <em>overwritable</em> within the same encapsulated plugin. If you try to declare a decorator that was previously declared <em>(in other words, use the same name)</em>, <code>decorate</code>, <code>decorateRequest</code> and <code>decorateReply</code> will throw an exception.</p><p>As an example, the following will throw:</p><pre><code class="language-`js">const server = require(&#39;fastify&#39;)()
+
+server.decorateReply(&#39;view&#39;, function (template, args) {
+  // Amazing vew rendering engine.
+})
+
+server.get(&#39;/&#39;, (req, reply) =&gt; {
+  reply.view(&#39;/index.html&#39;, { hello: &#39;world&#39; })
+})
+
+// Somewhere else in our codebase, we define another
+// view decorator. This throws.
+server.decorateReply(&#39;view&#39;, function (template, args) {
+  // another rendering engine
+})
+
+server.listen(3000)</code></pre><p>But this will not:</p><pre><code class=language-js>const server = require(&#39;fastify&#39;)()
+
+server.decorateReply(&#39;view&#39;, function (template, args) {
+  // Amazing vew rendering engine.
+})
+
+server.register(async function (server, opts) {
+  // We add a view decorator to the current encapsulated
+  // plugin. This will not throw as outside of this encapsulated
+  // plugin view is the old one, while inside it is the new one.
+  server.decorateReply(&#39;view&#39;, function (template, args) {
+    // another rendering engine
+  })
+
+  server.get(&#39;/&#39;, (req, reply) =&gt; {
+    reply.view(&#39;/index.page&#39;, { hello: &#39;world&#39; })
+  })
+}, { prefix: &#39;/bar&#39; })
+
+server.listen(3000)</code></pre><p><a name=getters-setters></a></p><h4 id=getters-and-setters>Getters and Setters</h4><p>Decorators accept special &quot;getter/setter&quot; objects. These objects have functions named <code>getter</code> and <code>setter</code> (though, the <code>setter</code> function is optional). This allows defining properties via decorators. For example:</p><pre><code class=language-js>fastify.decorate(&#39;foo&#39;, {
+  getter () {
+    return &#39;a getter&#39;
+  }
+})</code></pre><p>Will define the <code>foo</code> property on the <em>Fastify</em> instance:</p><pre><code class=language-js>console.log(fastify.foo) // &#39;a getter&#39;</code></pre><p><a name=usage_notes></a></p><h4 id=usage-notes>Usage Notes</h4><p><code>decorateReply</code> and <code>decorateRequest</code> are used to modify the <code>Reply</code> and <code>Request</code> constructors respectively by adding methods or properties. To update these properties you should directly access the desired property of the <code>Reply</code> or <code>Request</code> object.</p><p>As an example let&#39;s add a user property to the <code>Request</code> object:</p><pre><code class=language-js>// Decorate request with a &#39;user&#39; property
 fastify.decorateRequest(&#39;user&#39;, &#39;&#39;)
 
 // Update our property
