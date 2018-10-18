@@ -5,7 +5,7 @@
 fastify.get(&#39;/&#39;, options, function (request, reply) {
   request.log.info(&#39;Some info about the current request&#39;)
   reply.send({ hello: &#39;world&#39; })
-})</code></pre><p>If you want to pass some options to the logger, just pass the logger option to Fastify. You can find all the options in the <a href=https://github.com/pinojs/pino/blob/master/docs/API.md#pinooptions-stream>Pino documentation</a>. If you want to pass a custom stream to the Pino instance, just add the stream field to the logger object.</p><pre><code class=language-js>const split = require(&#39;split2&#39;)
+})</code></pre><p>If you want to pass some options to the logger, just pass the logger option to Fastify. You can find all the options in the <a href=https://github.com/pinojs/pino/blob/master/docs/api.md#pinooptions-stream>Pino documentation</a>. If you want to pass a custom stream to the Pino instance, just add the stream field to the logger object.</p><pre><code class=language-js>const split = require(&#39;split2&#39;)
 const stream = split(JSON.parse)
 
 const fastify = require(&#39;fastify&#39;)({
