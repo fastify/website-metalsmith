@@ -12,7 +12,7 @@ console.log(fastify.conf.db)</code></pre><p><a name=decorate-reply></a> <strong>
 })</code></pre><p>Note: using an arrow function will break the binding of <code>this</code> to the Fastify <code>request</code> instance.</p><p><a name=decorators-encapsulation></a></p><h4 id=decorators-and-encapsulation>Decorators and encapsulation</h4><p>If you define a decorator (using decorate, decorateRequest or decorateReply) with the same name more than once in the same <strong>encapsulated</strong> plugin, fastify will throw an exception.</p><p>As an example, the following will throw:</p><pre><code class=language-js>const server = require(&#39;fastify&#39;)()
 
 server.decorateReply(&#39;view&#39;, function (template, args) {
-  // Amazing vew rendering engine.
+  // Amazing view rendering engine.
 })
 
 server.get(&#39;/&#39;, (req, reply) =&gt; {
@@ -28,7 +28,7 @@ server.decorateReply(&#39;view&#39;, function (template, args) {
 server.listen(3000)</code></pre><p>But this will not:</p><pre><code class=language-js>const server = require(&#39;fastify&#39;)()
 
 server.decorateReply(&#39;view&#39;, function (template, args) {
-  // Amazing vew rendering engine.
+  // Amazing view rendering engine.
 })
 
 server.register(async function (server, opts) {
