@@ -29,7 +29,7 @@
   }
 }
 
-fastify.post(&#39;/the/url&#39;, { schema }, handler)</code></pre><p><em>Note that Ajv will try to <a href=https://github.com/epoberezkin/ajv#coercing-data-types>coerce</a> the values to the types specified in your schema <code>type</code> keywords, both to pass the validation and to use the correctly typed data afterwards.</em></p><p><a name=shared-schema></a></p><h4 id=adding-a-shared-schema>Adding a shared schema</h4><p>Thanks to the <code>addSchema</code> API, you can add multiple schemas to the Fastify instance and then reuse them in multiple parts of your application. <em>(Note that this API is not encapsulated)</em></p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
+fastify.post(&#39;/the/url&#39;, { schema }, handler)</code></pre><p><em>Note that Ajv will try to <a href=https://github.com/epoberezkin/ajv#coercing-data-types>coerce</a> the values to the types specified in your schema <code>type</code> keywords, both to pass the validation and to use the correctly typed data afterwards.</em></p><p><a name=shared-schema></a></p><h4 id=adding-a-shared-schema>Adding a shared schema</h4><p>Thanks to the <code>addSchema</code> API, you can add multiple schemas to the Fastify instance and then reuse them in multiple parts of your application. As usual, this API is encapsulated.</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
 
 fastify.addSchema({
   $id: &#39;greetings&#39;,
@@ -46,6 +46,33 @@ fastify.route({
     body: &#39;greetings#&#39;
   },
   handler: () =&gt; {}
+})
+
+fastify.register((instance, opts, next) =&gt; {
+
+  /**
+   * In children&#39;s scope can use schemas defined in upper scope like &#39;greetings&#39;.
+   * Parent scope can&#39;t use the children schemas.
+   */
+  instance.addSchema({
+    $id: &#39;framework&#39;,
+    type: &#39;object&#39;,
+    properties: {
+      fastest: { type: &#39;string&#39; },
+      hi: &#39;greetings#&#39;
+    }
+  })
+
+  instance.route({
+    method: &#39;POST&#39;,
+    url: &#39;/sub&#39;,
+    schema: {
+      body: &#39;framework#&#39;
+    },
+    handler: () =&gt; {}
+  })
+
+  next()
 })</code></pre><p>You can use the shared schema everywhere, as top level schema or nested inside other schemas:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
 
 fastify.addSchema({
@@ -69,7 +96,20 @@ fastify.route({
     }
   },
   handler: () =&gt; {}
-})</code></pre><p><a name=get-shared-schema></a></p><h4 id=retrieving-a-copy-of-all-shared-schemas>Retrieving a copy of all shared schemas</h4><p>The function <code>getSchemas</code> returns all shared schemas that were added by <code>addSchema</code> method.</p><p><a name=schema-compiler></a></p><h4 id=schema-compiler>Schema Compiler</h4><p>The <code>schemaCompiler</code> is a function that returns a function that validates the body, url parameters, headers, and query string. The default <code>schemaCompiler</code> returns a function that implements the <a href=https://ajv.js.org/ >ajv</a> validation interface. Fastify uses it internally to speed the validation up.</p><p>Fastify&#39;s <a href=https://github.com/epoberezkin/ajv#options-to-modify-validated-data>baseline ajv configuration</a> is:</p><pre><code class=language-js>{
+})</code></pre><p><a name=get-shared-schema></a></p><h4 id=retrieving-a-copy-of-shared-schemas>Retrieving a copy of shared schemas</h4><p>The function <code>getSchemas</code> returns the shared schemas available in the selected scope:</p><pre><code class=language-js>fastify.addSchema({ $id: &#39;one&#39;, my: &#39;hello&#39; })
+fastify.get(&#39;/&#39;, (request, reply) =&gt; { reply.send(fastify.getSchemas()) })
+
+fastify.register((instance, opts, next) =&gt; {
+  instance.addSchema({ $id: &#39;two&#39;, my: &#39;ciao&#39; })
+  instance.get(&#39;/sub&#39;, (request, reply) =&gt; { reply.send(instance.getSchemas()) })
+
+  instance.register((subinstance, opts, next) =&gt; {
+    subinstance.addSchema({ $id: &#39;three&#39;, my: &#39;hola&#39; })
+    subinstance.get(&#39;/deep&#39;, (request, reply) =&gt; { reply.send(subinstance.getSchemas()) })
+    next()
+  })
+  next()
+})</code></pre><p>This example will returns:</p><table><thead><tr><th>URL</th><th>Schemas</th></tr></thead><tbody><tr><td>/</td><td>one</td></tr><tr><td>/sub</td><td>one, two</td></tr><tr><td>/deep</td><td>one, two, three</td></tr></tbody></table><p><a name=schema-compiler></a></p><h4 id=schema-compiler>Schema Compiler</h4><p>The <code>schemaCompiler</code> is a function that returns a function that validates the body, url parameters, headers, and query string. The default <code>schemaCompiler</code> returns a function that implements the <a href=https://ajv.js.org/ >ajv</a> validation interface. Fastify uses it internally to speed the validation up.</p><p>Fastify&#39;s <a href=https://github.com/epoberezkin/ajv#options-to-modify-validated-data>baseline ajv configuration</a> is:</p><pre><code class=language-js>{
   removeAdditional: true, // remove additional properties
   useDefaults: true, // replace missing properties and items with the values from corresponding default keyword
   coerceTypes: true  // change data type of data to match type keyword
