@@ -112,14 +112,16 @@ fastify.register((instance, opts, next) =&gt; {
 })</code></pre><p>This example will returns:</p><table><thead><tr><th>URL</th><th>Schemas</th></tr></thead><tbody><tr><td>/</td><td>one</td></tr><tr><td>/sub</td><td>one, two</td></tr><tr><td>/deep</td><td>one, two, three</td></tr></tbody></table><p><a name=schema-compiler></a></p><h4 id=schema-compiler>Schema Compiler</h4><p>The <code>schemaCompiler</code> is a function that returns a function that validates the body, url parameters, headers, and query string. The default <code>schemaCompiler</code> returns a function that implements the <a href=https://ajv.js.org/ >ajv</a> validation interface. Fastify uses it internally to speed the validation up.</p><p>Fastify&#39;s <a href=https://github.com/epoberezkin/ajv#options-to-modify-validated-data>baseline ajv configuration</a> is:</p><pre><code class=language-js>{
   removeAdditional: true, // remove additional properties
   useDefaults: true, // replace missing properties and items with the values from corresponding default keyword
-  coerceTypes: true  // change data type of data to match type keyword
+  coerceTypes: true, // change data type of data to match type keyword
+  allErrors: true    // check for all errors
 }</code></pre><p>This baseline configuration cannot be modified. If you want to change or set additional config options, you will need to create your own instance and override the existing one like:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
 const Ajv = require(&#39;ajv&#39;)
 const ajv = new Ajv({
   // the fastify defaults (if needed)
   removeAdditional: true,
   useDefaults: true,
-  coerceTypes: true
+  coerceTypes: true,
+  allErrors: true
   // any other options
   // ...
 })
