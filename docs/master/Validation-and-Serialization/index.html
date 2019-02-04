@@ -181,7 +181,7 @@ fastify.post(&#39;/the/url&#39;, { schema }, handler)</code></pre><p><em>If you 
 }</code></pre><p>If you want to handle errors inside the route, you can specify the <code>attachValidation</code> option for your route. If there is a validation error, the <code>validationError</code> property of the request will contain the <code>Error</code> object with the raw <code>validation</code> result as shown below</p><pre><code class=language-js>const fastify = Fastify()
 
 fastify.post(&#39;/&#39;, { schema, attachValidation: true }, function (req, reply) {
-  if (req.validation) {
+  if (req.validationError) {
     // `req.validationError.validation` contains the raw validation error
     reply.code(400).send(req.validationError)
   }
