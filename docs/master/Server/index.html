@@ -41,6 +41,23 @@ const fastify = require(&#39;fastify&#39;)({
 })</code></pre><p><a name=plugin-timeout></a></p><h3 id=plugintimeout><code>pluginTimeout</code></h3><p>The maximum amount of time in <em>milliseconds</em> in which a plugin can load. If not, <a href=/docs/master/Server#ready><code>ready</code></a> will complete with an <code>Error</code> with code <code>&#39;ERR_AVVIO_PLUGIN_TIMEOUT&#39;</code>.</p><ul><li>Default: <code>10000</code></li></ul><p><a name=factory-querystring-parser></a></p><h3 id=querystringparser><code>querystringParser</code></h3><p>The default query string parser that Fastify uses is the Node.js&#39;s core <code>querystring</code> module.<br>You can change this default setting by passing the option <code>querystringParser</code> and use a custom one, such as <a href=https://www.npmjs.com/package/qs><code>qs</code></a>.</p><pre><code class=language-js>const qs = require(&#39;qs&#39;)
 const fastify = require(&#39;fastify&#39;)({
   querystringParser: str =&gt; qs.parse(str)
+})</code></pre><p><a name=versioning></a></p><h3 id=versioning><code>versioning</code></h3><p>By default you can version your routes with <a href=/docs/master/Routes#version>semver versioning</a>, which is provided by <code>find-my-way</code>. There is still an option to provide custom versioning strategy. You can find more information in the <a href=https://github.com/delvedor/find-my-way#versioned-routes>find-my-way</a> documentation.</p><pre><code class=language-js>const versioning = {
+  storage: function () {
+    let versions = {}
+    return {
+      get: (version) =&gt; { return versions[version] || null },
+      set: (version, store) =&gt; { versions[version] = store },
+      del: (version) =&gt; { delete versions[version] },
+      empty: () =&gt; { versions = {} }
+    }
+  },
+  deriveVersion: (req, ctx) =&gt; {
+    return req.headers[&#39;accept&#39;]
+  }
+}
+
+const fastify = require(&#39;fastify&#39;)({
+  versioning
 })</code></pre><h2 id=instance>Instance</h2><h3 id=server-methods>Server Methods</h3><p><a name=server></a></p><h4 id=server>server</h4><p><code>fastify.server</code>: The Node core <a href=https://nodejs.org/api/http.html#http_class_http_server>server</a> object as returned by the <a href=/docs/master/Server><strong><code>Fastify factory function</code></strong></a>.</p><p><a name=after></a></p><h4 id=after>after</h4><p>Invoked when the current plugin and all the plugins that have been registered within it have finished loading. It is always executed before the method <code>fastify.ready</code>.</p><pre><code class=language-js>fastify
   .register((instance, opts, next) =&gt; {
     console.log(&#39;Current plugin&#39;)
@@ -117,7 +134,7 @@ const fastify = require(&#39;fastify&#39;)({
   preHandler: (req, reply, next) =&gt; {
     // your code
     next()
-  }  
+  }
 }, function (request, reply) {
     // Default not found handler with preValidation and preHandler hooks
 })

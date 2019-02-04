@@ -93,7 +93,7 @@ function handler (req, reply) {
 fastify.get(&#39;/en&#39;, { config: { output: &#39;hello world!&#39; } }, handler)
 fastify.get(&#39;/it&#39;, { config: { output: &#39;ciao mondo!&#39; } }, handler)
 
-fastify.listen(3000)</code></pre><p><a name=version></a></p><h3 id=version>Version</h3><p>If needed you can provide a version option, which will allow you to declare multiple versions of the same route. The versioning should follow the <a href=http://semver.org/ >semver</a> specification.<br>Fastify will automatically detect the <code>Accept-Version</code> header and route the request accordingly (advanced ranges and pre-releases currently are not supported).<br><em>Be aware that using this feature will cause a degradation of the overall performances of the router.</em></p><pre><code class=language-js>fastify.route({
+fastify.listen(3000)</code></pre><p><a name=version></a></p><h3 id=version>Version</h3><h4 id=default>Default</h4><p>If needed you can provide a version option, which will allow you to declare multiple versions of the same route. The versioning should follow the <a href=http://semver.org/ >semver</a> specification.<br>Fastify will automatically detect the <code>Accept-Version</code> header and route the request accordingly (advanced ranges and pre-releases currently are not supported).<br><em>Be aware that using this feature will cause a degradation of the overall performances of the router.</em></p><pre><code class=language-js>fastify.route({
   method: &#39;GET&#39;,
   url: &#39;/&#39;,
   version: &#39;1.2.0&#39;,
@@ -110,7 +110,7 @@ fastify.inject({
   }
 }, (err, res) =&gt; {
   // { hello: &#39;world&#39; }
-})</code></pre><p>If you declare multiple versions with the same major or minor, Fastify will always choose the highest compatible with the <code>Accept-Version</code> header value.<br>If the request will not have the <code>Accept-Version</code> header, a 404 error will be returned.</p></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/master/Server class="button prev">≪ Server</a></div></div><div class=level-right><div class=level-item><a href=/docs/master/Logging class="button next">Logging ≫</a></div></div></nav></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+})</code></pre><p>If you declare multiple versions with the same major or minor, Fastify will always choose the highest compatible with the <code>Accept-Version</code> header value.<br>If the request will not have the <code>Accept-Version</code> header, a 404 error will be returned.</p><h4 id=custom>Custom</h4><p>It&#39;s possible to define a custom versioning logic. This can be done through the <a href=/docs/master/Server#versioning><code>versioning</code></a> configuration, when creating a fastify server instance.</p></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/master/Server class="button prev">≪ Server</a></div></div><div class=level-right><div class=level-item><a href=/docs/master/Logging class="button next">Logging ≫</a></div></div></nav></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
     var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
     var currentMenu = document.getElementById('doc-menu-section')
     if (titles.length && currentMenu) {
