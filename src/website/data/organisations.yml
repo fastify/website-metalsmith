@@ -1,3 +1,7 @@
+- name: "hotstar"
+  image: "hotstar.svg"
+  link: "https://tech.hotstar.com/"
+
 - name: "Knock"
   image: "knock.svg"
   link: "https://www.knock.com"
