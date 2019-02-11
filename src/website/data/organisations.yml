@@ -34,3 +34,10 @@
   image: "car2go.svg"
   link: "https://www.car2go.com"
 
+- name: "MV Labs"
+  image: "mvlabs.svg"
+  link: "https://www.mvlabs.it"
+
+- name: "RuneAudio"
+  image: "runeaudio.svg"
+  link: "http://www.runeaudio.com"
