@@ -80,7 +80,7 @@
             </div>
           </div>
           <pre class="no-async swappable-async-await-code"><code class="javascript">// Require the framework and instantiate it
-const fastify = require('fastify')()
+const fastify = require('fastify')({ logger: true })
 
 // Declare a route
 fastify.get('/', (request, reply) => {
@@ -96,7 +96,7 @@ fastify.listen(3000, (err) => {
   fastify.log.info(`server listening on ${fastify.server.address().port}`)
 })</code></pre>
           <pre class="async swappable-async-await-code"><code class="javascript">// Require the framework and instantiate it
-const fastify = require('fastify')()
+const fastify = require('fastify')({ logger: true })
 
 // Declare a route
 fastify.get('/', async (request, reply) => {
@@ -136,7 +136,7 @@ start()
               <label for="async-await-swap-2"></label>
             </div>
           </div>
-          <pre class="no-async swappable-async-await-code"><code class="javascript">const fastify = require('fastify')()
+          <pre class="no-async swappable-async-await-code"><code class="javascript">const fastify = require('fastify')({ logger: true })
 
 fastify.route({
   method: 'GET',
@@ -173,7 +173,7 @@ fastify.listen(3000, (err) => {
   }
   fastify.log.info(`server listening on ${fastify.server.address().port}`)
 })</code></pre>
-          <pre class="async swappable-async-await-code"><code class="javascript">const fastify = require('fastify')()
+          <pre class="async swappable-async-await-code"><code class="javascript">const fastify = require('fastify')({ logger: true })
 
 fastify.route({
   method: 'GET',
