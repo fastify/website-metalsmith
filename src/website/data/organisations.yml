@@ -33,6 +33,10 @@
 - name: "car2go"
   image: "car2go.svg"
   link: "https://www.car2go.com"
+  
+- name: "Codecks"
+  image: "codecks.svg"
+  link: "https://www.codecks.io/"
 
 - name: "MV Labs"
   image: "mvlabs.svg"
