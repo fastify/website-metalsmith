@@ -45,3 +45,7 @@
 - name: "RuneAudio"
   image: "runeaudio.svg"
   link: "http://www.runeaudio.com"
+
+- name: "Commons Host"
+  image: "commonshost.svg"
+  link: "https://commons.host"
