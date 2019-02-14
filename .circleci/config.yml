@@ -6,7 +6,7 @@ jobs:
         - gh-pages
 
     docker:
-      - image: circleci/node:8.3
+      - image: circleci/node:11
 
     working_directory: ~/fastify-website
 
@@ -15,8 +15,8 @@ jobs:
 
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
 
       - run:
           name: Install dependencies
