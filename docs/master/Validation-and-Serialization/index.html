@@ -29,7 +29,25 @@
   }
 }
 
-fastify.post(&#39;/the/url&#39;, { schema }, handler)</code></pre><p><em>Note that Ajv will try to <a href=https://github.com/epoberezkin/ajv#coercing-data-types>coerce</a> the values to the types specified in your schema <code>type</code> keywords, both to pass the validation and to use the correctly typed data afterwards.</em></p><p><a name=shared-schema></a></p><h4 id=adding-a-shared-schema>Adding a shared schema</h4><p>Thanks to the <code>addSchema</code> API, you can add multiple schemas to the Fastify instance and then reuse them in multiple parts of your application. As usual, this API is encapsulated.</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
+fastify.post(&#39;/the/url&#39;, { schema }, handler)</code></pre><p><em>Note that Ajv will try to <a href=https://github.com/epoberezkin/ajv#coercing-data-types>coerce</a> the values to the types specified in your schema <code>type</code> keywords, both to pass the validation and to use the correctly typed data afterwards.</em></p><p><a name=shared-schema></a></p><h4 id=adding-a-shared-schema>Adding a shared schema</h4><p>Thanks to the <code>addSchema</code> API, you can add multiple schemas to the Fastify instance and then reuse them in multiple parts of your application. As usual, this API is encapsulated.</p><p>There are two ways to reuse your shared schemas:</p><ul><li><strong><code>$ref-way</code></strong>: as described in the <a href=https://tools.ietf.org/html/draft-handrews-json-schema-01#section-8>standard</a>, you can refer to an external schema. To use it you have to <code>addSchema</code> with a valid <code>$id</code> absolute URI.</li></ul><pre><code class=language-js>fastify.addSchema({
+  $id: &#39;http://example.com/common.json&#39;,
+  type: &#39;object&#39;,
+  properties: {
+    hello: { type: &#39;string&#39; }
+  }
+})
+
+fastify.route({
+  method: &#39;POST&#39;,
+  url: &#39;/&#39;,
+  schema: {
+    body: {
+      type: &#39;array&#39;,
+      items: { $ref: &#39;http://example.com/common.json#/properties/hello&#39; }
+    }
+  },
+  handler: () =&gt; {}
+})</code></pre><ul><li><strong><code>replace-way</code></strong>: this is a Fastify utility that lets you to substitute some fields with a shared schema. To use it you have to <code>addSchema</code> with an <code>$id</code> having a relative URI fragment which is a simple string that applies only to alphanumeric chars <code>[A-Za-z0-9]</code>.</li></ul><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
 
 fastify.addSchema({
   $id: &#39;greetings&#39;,
@@ -189,7 +207,7 @@ fastify.post(&#39;/&#39;, { schema, attachValidation: true }, function (req, rep
   if (error.validation) {
      reply.status(422).send(new Error(&#39;validation failed&#39;))
   }
-})</code></pre><h3 id=json-schema-and-shared-schema-support>JSON Schema and Shared Schema support</h3><p>JSON Schema has some type of utilities in order to optimize your schemas that, in conjuction with the Fastify&#39;s shared schema, let you reuse all your schemas easily.</p><table><thead><tr><th>Use Case</th><th>Validator</th><th>Serializer</th></tr></thead><tbody><tr><td>shared schema</td><td>✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to <code>$id</code></td><td>✔</td><td>✔️</td></tr><tr><td><code>$ref</code> to <code>/definitions</code></td><td>✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to shared schema <code>$id</code></td><td>❌</td><td>✔️</td></tr><tr><td><code>$ref</code> to shared schema <code>/definitions</code></td><td>❌</td><td>✔️</td></tr></tbody></table><h4 id=examples>Examples</h4><pre><code class=language-js>// Usage of the Shared Schema feature
+})</code></pre><h3 id=json-schema-and-shared-schema-support>JSON Schema and Shared Schema support</h3><p>JSON Schema has some type of utilities in order to optimize your schemas that, in conjuction with the Fastify&#39;s shared schema, let you reuse all your schemas easily.</p><table><thead><tr><th>Use Case</th><th>Validator</th><th>Serializer</th></tr></thead><tbody><tr><td>shared schema</td><td>✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to <code>$id</code></td><td>✔</td><td>✔️</td></tr><tr><td><code>$ref</code> to <code>/definitions</code></td><td>✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to shared schema <code>$id</code></td><td>✔</td><td>✔️</td></tr><tr><td><code>$ref</code> to shared schema <code>/definitions</code></td><td>✔</td><td>✔️</td></tr></tbody></table><h4 id=examples>Examples</h4><pre><code class=language-js>// Usage of the Shared Schema feature
 fastify.addSchema({
   $id: &#39;sharedAddress&#39;,
   type: &#39;object&#39;,
