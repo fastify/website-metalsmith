@@ -17,6 +17,13 @@
 
 - name: Collaborators
   people:
+  - name: Ethan Arrowood
+    sortname: Arrowood Ethan
+    picture: "https://avatars3.githubusercontent.com/u/16144158?s=460&v=4"
+    links:
+      github: https://github.com/Ethan-Arrowood
+      npm: https://www.npmjs.com/~ethan_arrowood
+      twitter: https://twitter.com/arrowoodtech
   - name: Dustin Deus
     sortname: Deus Dustin
     picture: "https://avatars3.githubusercontent.com/u/1764424?v=4&s=460"
