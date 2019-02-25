@@ -147,7 +147,95 @@ fastify.post(&#39;/&#39;, { schema, attachValidation: true }, function (req, rep
   if (error.validation) {
      reply.status(422).send(new Error(&#39;validation failed&#39;))
   }
-})</code></pre><p><a name=resources></a></p><h3 id=resources>Resources</h3><ul><li><a href=http://json-schema.org/ >JSON Schema</a></li><li><a href=https://spacetelescope.github.io/understanding-json-schema/ >Understanding JSON schema</a></li><li><a href=https://github.com/fastify/fast-json-stringify>fast-json-stringify documentation</a></li><li><a href=https://github.com/epoberezkin/ajv/blob/master/README.md>Ajv documentation</a></li></ul></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v1.14.x/Decorators class="button prev">≪ Decorators</a></div></div><div class=level-right><div class=level-item><a href=/docs/v1.14.x/Lifecycle class="button next">Lifecycle ≫</a></div></div></nav></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+})</code></pre><h3 id=json-schema-and-shared-schema-support>JSON Schema and Shared Schema support</h3><p>JSON Schema has some type of utilities in order to optimize your schemas that, in conjuction with the Fastify&#39;s shared schema, let you reuse all your schemas easily.</p><table><thead><tr><th>Use Case</th><th>Validator</th><th>Serializer</th></tr></thead><tbody><tr><td>shared schema</td><td>✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to <code>$id</code></td><td>✔</td><td>✔️</td></tr><tr><td><code>$ref</code> to <code>/definitions</code></td><td>✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to shared schema <code>$id</code></td><td>❌</td><td>✔️</td></tr><tr><td><code>$ref</code> to shared schema <code>/definitions</code></td><td>❌</td><td>✔️</td></tr></tbody></table><h4 id=examples>Examples</h4><pre><code class=language-js>// Usage of the Shared Schema feature
+fastify.addSchema({
+  $id: &#39;sharedAddress&#39;,
+  type: &#39;object&#39;,
+  properties: {
+    city: { &#39;type&#39;: &#39;string&#39; }
+  }
+})
+
+const sharedSchema = {
+  type: &#39;object&#39;,
+  properties: {
+    home: &#39;sharedAddress#&#39;,
+    work: &#39;sharedAddress#&#39;
+  }
+}</code></pre><pre><code class=language-js>// Usage of $ref to $id in same JSON Schema
+const refToId = {
+  type: &#39;object&#39;,
+  definitions: {
+    foo: {
+      $id: &#39;#address&#39;,
+      type: &#39;object&#39;,
+      properties: {
+        city: { &#39;type&#39;: &#39;string&#39; }
+      }
+    }
+  },
+  properties: {
+    home: { $ref: &#39;#address&#39; },
+    work: { $ref: &#39;#address&#39; }
+  }
+}</code></pre><pre><code class=language-js>// Usage of $ref to /definitions in same JSON Schema
+const refToDefinitions = {
+  type: &#39;object&#39;,
+  definitions: {
+    foo: {
+      $id: &#39;#address&#39;,
+      type: &#39;object&#39;,
+      properties: {
+        city: { &#39;type&#39;: &#39;string&#39; }
+      }
+    }
+  },
+  properties: {
+    home: { $ref: &#39;#/definitions/foo&#39; },
+    work: { $ref: &#39;#/definitions/foo&#39; }
+  }
+}</code></pre><pre><code class=language-js>// Usage $ref to a shared schema $id as external schema
+fastify.addSchema({
+  $id: &#39;http://foo/common.json&#39;,
+  type: &#39;object&#39;,
+  definitions: {
+    foo: {
+      $id: &#39;#address&#39;,
+      type: &#39;object&#39;,
+      properties: {
+        city: { &#39;type&#39;: &#39;string&#39; }
+      }
+    }
+  }
+})
+
+const refToSharedSchemaId = {
+  type: &#39;object&#39;,
+  properties: {
+    home: { $ref: &#39;http://foo/common.json#address&#39; },
+    work: { $ref: &#39;http://foo/common.json#address&#39; }
+  }
+}</code></pre><pre><code class=language-js>// Usage $ref to a shared schema /definitions as external schema
+fastify.addSchema({
+  $id: &#39;http://foo/common.json&#39;,
+  type: &#39;object&#39;,
+  definitions: {
+    foo: {
+      type: &#39;object&#39;,
+      properties: {
+        city: { &#39;type&#39;: &#39;string&#39; }
+      }
+    }
+  }
+})
+
+const refToSharedSchemaDefinitions = {
+  type: &#39;object&#39;,
+  properties: {
+    home: { $ref: &#39;http://foo/common.json#/definitions/foo&#39; },
+    work: { $ref: &#39;http://foo/common.json#/definitions/foo&#39; }
+  }
+}</code></pre><p><a name=resources></a></p><h3 id=resources>Resources</h3><ul><li><a href=http://json-schema.org/ >JSON Schema</a></li><li><a href=https://spacetelescope.github.io/understanding-json-schema/ >Understanding JSON schema</a></li><li><a href=https://github.com/fastify/fast-json-stringify>fast-json-stringify documentation</a></li><li><a href=https://github.com/epoberezkin/ajv/blob/master/README.md>Ajv documentation</a></li></ul></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v1.14.x/Decorators class="button prev">≪ Decorators</a></div></div><div class=level-right><div class=level-item><a href=/docs/v1.14.x/Lifecycle class="button next">Lifecycle ≫</a></div></div></nav></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
     var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
     var currentMenu = document.getElementById('doc-menu-section')
     if (titles.length && currentMenu) {
