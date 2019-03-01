@@ -1,0 +1,12 @@
+<meta property="og:url" content="{{ website_url | escape }}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{{ title | escape }}" />
+<meta property="og:description" content="{{ pexcerpt | default(description) | striptags | truncate(160) | escape }}" />
+<meta property="og:image" content="{{ website_url + hashes['images/fastify-fb-share-image.png'] }}" />
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="{{ twitter_account | escape}}">
+<meta name="twitter:creator" content="{{ twitter_account | escape}}">
+<meta name="twitter:title" content="{{ title | escape }}">
+<meta name="twitter:description" content="{{ pexcerpt | default(description) | striptags | truncate(160) | escape }}">
+<meta name="twitter:image" content="{{ website_url + hashes['images/fastify-twitter-share-image.png'] }}">

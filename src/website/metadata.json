@@ -3,6 +3,8 @@
   "description": "Fast and low overhead web framework, for Node.js",
   "generator": "Metalsmith",
   "url": "https://github.com/fastify/fastify",
+  "website_url": "https://www.fastify.io/",
   "lang": "en",
+  "twitter_account": "@fastifyjs",
   "google_analytics": null
 }
