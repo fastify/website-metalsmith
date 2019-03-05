@@ -80,6 +80,13 @@
       github: https://github.com/allevo
       npm: https://www.npmjs.com/~allevo
       twitter: https://twitter.com/allevitommaso
+  - name: Manuel Spigolon
+    sortname: Spigolon Manuel
+    picture: "https://avatars3.githubusercontent.com/u/11404065?s=460&v=4"
+    links:
+      github: https://github.com/eomm
+      npm: https://www.npmjs.com/~eomm
+      twitter: https://twitter.com/manueomm
 
 - name: Past Collaborators
   people:
