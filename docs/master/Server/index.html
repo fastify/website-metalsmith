@@ -58,7 +58,13 @@ const fastify = require(&#39;fastify&#39;)({
 
 const fastify = require(&#39;fastify&#39;)({
   versioning
-})</code></pre><h2 id=instance>Instance</h2><h3 id=server-methods>Server Methods</h3><p><a name=server></a></p><h4 id=server>server</h4><p><code>fastify.server</code>: The Node core <a href=https://nodejs.org/api/http.html#http_class_http_server>server</a> object as returned by the <a href=/docs/master/Server><strong><code>Fastify factory function</code></strong></a>.</p><p><a name=after></a></p><h4 id=after>after</h4><p>Invoked when the current plugin and all the plugins that have been registered within it have finished loading. It is always executed before the method <code>fastify.ready</code>.</p><pre><code class=language-js>fastify
+})</code></pre><p><a name=factory-modify-core-objects></a></p><h3 id=modifycoreobjects><code>modifyCoreObjects</code></h3><p>By enabling the <code>modifyCoreObjects</code> option, Fastify will set <code>ip</code>, <code>ips</code>, and <code>hostname</code> to Node&#39;s request object. And set <code>log</code> to Node&#39;s request and response objects for logging. The consequence of enabling this option is these properties will be available in the <code>raw</code> object of Fastify&#39;s Request. For example, <code>ip</code>, <code>ips</code>, and <code>hostname</code> values can be accessed from raw <code>request</code>.</p><pre><code class=language-js>const fastify = Fastify({ modifyCoreObjects: true })
+
+fastify.get(&#39;/&#39;, (request, reply) =&gt; {
+  console.log(request.raw.ip)
+  console.log(request.raw.ips)
+  console.log(request.raw.hostname)
+})</code></pre><ul><li>Default: <code>false</code></li><li><code>true/false</code>: add properties <code>ip</code>, <code>ips</code>, <code>hostname</code>, and <code>log</code> to Node&#39;s request object and only <code>log</code> to Node&#39;s response object (<code>true</code>) or leave Node&#39;s request and response objects alone (<code>false</code>).</li></ul><h2 id=instance>Instance</h2><h3 id=server-methods>Server Methods</h3><p><a name=server></a></p><h4 id=server>server</h4><p><code>fastify.server</code>: The Node core <a href=https://nodejs.org/api/http.html#http_class_http_server>server</a> object as returned by the <a href=/docs/master/Server><strong><code>Fastify factory function</code></strong></a>.</p><p><a name=after></a></p><h4 id=after>after</h4><p>Invoked when the current plugin and all the plugins that have been registered within it have finished loading. It is always executed before the method <code>fastify.ready</code>.</p><pre><code class=language-js>fastify
   .register((instance, opts, next) =&gt; {
     console.log(&#39;Current plugin&#39;)
     next()
