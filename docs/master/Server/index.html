@@ -35,9 +35,10 @@ const fastify = require(&#39;fastify&#39;)({
   genReqId: function (req) { return i++ }
 })</code></pre><p><a name=factory-trust-proxy></a></p><h3 id=trustproxy><code>trustProxy</code></h3><p>By enabling the <code>trustProxy</code> option, Fastify will have knowledge that it&#39;s sitting behind a proxy and that the <code>X-Forwarded-*</code> header fields may be trusted, which otherwise may be easily spoofed.</p><pre><code class=language-js>const fastify = Fastify({ trustProxy: true })</code></pre><ul><li>Default: <code>false</code></li><li><code>true/false</code>: Trust all proxies (<code>true</code>) or do not trust any proxies (<code>false</code>).</li><li><code>string</code>: Trust only given IP/CIDR (e.g. <code>&#39;127.0.0.1&#39;</code>). May be a list of comma separated values (e.g. <code>&#39;127.0.0.1,192.168.1.1/24&#39;</code>).</li><li><code>Array&lt;string&gt;</code>: Trust only given IP/CIDR list (e.g. <code>[&#39;127.0.0.1&#39;]</code>).</li><li><code>number</code>: Trust the nth hop from the front-facing proxy server as the client.</li><li><code>Function</code>: Custom trust function that takes <code>address</code> as first arg<pre><code class=language-js>  function myTrustFn(address, hop) {
     return address === &#39;1.2.3.4&#39; || hop === 1
-  }</code></pre></li></ul><p>For more examples refer to <a href=https://www.npmjs.com/package/proxy-addr>proxy-addr</a> package.</p><p>You may also access <code>ip</code> and <code>hostname</code> values from raw <code>request</code>.</p><pre><code class=language-js>fastify.get(&#39;/&#39;, (request, reply) =&gt; {
-  console.log(request.raw.ip)
-  console.log(request.raw.hostname)
+  }</code></pre></li></ul><p>For more examples refer to <a href=https://www.npmjs.com/package/proxy-addr>proxy-addr</a> package.</p><p>You may access the <code>ip</code>, <code>ips</code>, and <code>hostname</code> values on the <a href=/docs/master/Request><code>request</code></a> object.</p><pre><code class=language-js>fastify.get(&#39;/&#39;, (request, reply) =&gt; {
+  console.log(request.ip)
+  console.log(request.ips)
+  console.log(request.hostname)
 })</code></pre><p><a name=plugin-timeout></a></p><h3 id=plugintimeout><code>pluginTimeout</code></h3><p>The maximum amount of time in <em>milliseconds</em> in which a plugin can load. If not, <a href=/docs/master/Server#ready><code>ready</code></a> will complete with an <code>Error</code> with code <code>&#39;ERR_AVVIO_PLUGIN_TIMEOUT&#39;</code>.</p><ul><li>Default: <code>10000</code></li></ul><p><a name=factory-querystring-parser></a></p><h3 id=querystringparser><code>querystringParser</code></h3><p>The default query string parser that Fastify uses is the Node.js&#39;s core <code>querystring</code> module.<br>You can change this default setting by passing the option <code>querystringParser</code> and use a custom one, such as <a href=https://www.npmjs.com/package/qs><code>qs</code></a>.</p><pre><code class=language-js>const qs = require(&#39;qs&#39;)
 const fastify = require(&#39;fastify&#39;)({
   querystringParser: str =&gt; qs.parse(str)
@@ -58,13 +59,23 @@ const fastify = require(&#39;fastify&#39;)({
 
 const fastify = require(&#39;fastify&#39;)({
   versioning
-})</code></pre><p><a name=factory-modify-core-objects></a></p><h3 id=modifycoreobjects><code>modifyCoreObjects</code></h3><p>By enabling the <code>modifyCoreObjects</code> option, Fastify will set <code>ip</code>, <code>ips</code>, and <code>hostname</code> to Node&#39;s request object. And set <code>log</code> to Node&#39;s request and response objects for logging. The consequence of enabling this option is these properties will be available in the <code>raw</code> object of Fastify&#39;s Request. For example, <code>ip</code>, <code>ips</code>, and <code>hostname</code> values can be accessed from raw <code>request</code>.</p><pre><code class=language-js>const fastify = Fastify({ modifyCoreObjects: true })
+})</code></pre><p><a name=factory-modify-core-objects></a></p><h3 id=modifycoreobjects><code>modifyCoreObjects</code></h3><ul><li>Default: <code>true</code></li></ul><p>By default, Fastify will add the <code>ip</code>, <code>ips</code>, <code>hostname</code>, and <code>log</code> <a href=/docs/master/Request><code>Request</code></a> properties to Node&#39;s raw request object and the <code>log</code> property to Node&#39;s raw response object. Set to <code>false</code> to prevent these properties from being added to the Node core objects.</p><pre><code class=language-js>const fastify = Fastify({ modifyCoreObjects: true }) // the default
 
 fastify.get(&#39;/&#39;, (request, reply) =&gt; {
   console.log(request.raw.ip)
   console.log(request.raw.ips)
   console.log(request.raw.hostname)
-})</code></pre><ul><li>Default: <code>false</code></li><li><code>true/false</code>: add properties <code>ip</code>, <code>ips</code>, <code>hostname</code>, and <code>log</code> to Node&#39;s request object and only <code>log</code> to Node&#39;s response object (<code>true</code>) or leave Node&#39;s request and response objects alone (<code>false</code>).</li></ul><h2 id=instance>Instance</h2><h3 id=server-methods>Server Methods</h3><p><a name=server></a></p><h4 id=server>server</h4><p><code>fastify.server</code>: The Node core <a href=https://nodejs.org/api/http.html#http_class_http_server>server</a> object as returned by the <a href=/docs/master/Server><strong><code>Fastify factory function</code></strong></a>.</p><p><a name=after></a></p><h4 id=after>after</h4><p>Invoked when the current plugin and all the plugins that have been registered within it have finished loading. It is always executed before the method <code>fastify.ready</code>.</p><pre><code class=language-js>fastify
+  request.raw.log(&#39;Hello&#39;)
+  reply.res.log(&#39;World&#39;)
+})</code></pre><p><strong>Note that these properties are deprecated and will be removed in the next major version of Fastify along with this option.</strong> It is recommended to use the same properties on Fastify&#39;s <a href=/docs/master/Request><code>Request</code></a> and <a href=/docs/master/Reply><code>Reply</code></a> objects instead.</p><pre><code class=language-js>const fastify = Fastify({ modifyCoreObjects: false }) 
+
+fastify.get(&#39;/&#39;, (request, reply) =&gt; {
+  console.log(request.ip)
+  console.log(request.ips)
+  console.log(request.hostname)
+  request.log(&#39;Hello&#39;)
+  reply.log(&#39;World&#39;)
+})</code></pre><h2 id=instance>Instance</h2><h3 id=server-methods>Server Methods</h3><p><a name=server></a></p><h4 id=server>server</h4><p><code>fastify.server</code>: The Node core <a href=https://nodejs.org/api/http.html#http_class_http_server>server</a> object as returned by the <a href=/docs/master/Server><strong><code>Fastify factory function</code></strong></a>.</p><p><a name=after></a></p><h4 id=after>after</h4><p>Invoked when the current plugin and all the plugins that have been registered within it have finished loading. It is always executed before the method <code>fastify.ready</code>.</p><pre><code class=language-js>fastify
   .register((instance, opts, next) =&gt; {
     console.log(&#39;Current plugin&#39;)
     next()
