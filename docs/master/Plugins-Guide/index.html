@@ -128,7 +128,21 @@ function dbPlugin (fastify, opts, next) {
   })
 }
 
-module.exports = fp(dbPlugin)</code></pre><p>You can also tell to <code>fastify-plugin</code> to check the installed version of Fastify, in case of you need a specific api.</p><p><a name=handle-errors></a></p><h2 id=handle-errors>Handle errors</h2><p>It can happen that one of your plugins could fail during the startup. Maybe you expect it and you have a custom logic that will be triggered in that case. How can you do this? The <code>after</code> api is what you need. <code>after</code> simply registers a callback that will be executed just after a register, and it can take up to three parameters.<br>The callback changes based on the parameters your are giving:</p><ol><li>If no parameter is given to the callback and there is an error, that error will be passed to the next error handler.</li><li>If one parameter is given to the callback, that parameter will be the error object.</li><li>If two parameters are given to the callback, the first will be the error object, the second will be the done callback.</li><li>If three parameters are given to the callback, the first will be the error object, the second will be the top level context unless you have specified both server and override, in that case the context will be what the override returns, and the third the done callback.</li></ol><p>Let&#39;s see how to use it:</p><pre><code class=language-js>fastify
+module.exports = fp(dbPlugin)</code></pre><p>You can also tell to <code>fastify-plugin</code> to check the installed version of Fastify, in case of you need a specific api.</p><p>As we mentioned earlier, Fastify starts loading its plugins <strong>after</strong> <code>.listen()</code>, <code>.inject()</code> or <code>.ready()</code> are called and as such, <strong>after</strong> they have been declared. This means that, even though the plugin may inject variables to the external fastify instance via <a href=/docs/master/Decorators><code>decorate</code></a>, the decorated variables will not be accessible before calling <code>.listen()</code>, <code>.inject()</code> or <code>.ready()</code>.</p><p>In case you rely on a variable injected by a preceding plugin and want to pass that in the <code>options</code> argument of <code>register</code>, you can do so by using a function instead of an object:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
+const fp = require(&#39;fastify-plugin&#39;)
+const dbClient = require(&#39;db-client&#39;)
+
+function dbPlugin (fastify, opts, next) {
+  dbClient.connect(opts.url, (err, conn) =&gt; {
+    fastify.decorate(&#39;db&#39;, conn)
+    next()
+  })
+}
+
+fastify.register(fp(dbPlugin), { url: &#39;https://example.com&#39; })
+fastify.register(require(&#39;your-plugin&#39;), parent =&gt; {
+  return { connection: parent.db, otherOption: &#39;foo-bar&#39; }
+})</code></pre><p>In the above example, the <code>parent</code> variable of the function passed in as the second argument of <code>register</code> is a copy of the <strong>external fastify instance</strong> that the plugin was registered at. This means that we are able to access any variables that were injected by preceding plugins in the order of declaration.</p><p><a name=handle-errors></a></p><h2 id=handle-errors>Handle errors</h2><p>It can happen that one of your plugins could fail during the startup. Maybe you expect it and you have a custom logic that will be triggered in that case. How can you do this? The <code>after</code> api is what you need. <code>after</code> simply registers a callback that will be executed just after a register, and it can take up to three parameters.<br>The callback changes based on the parameters your are giving:</p><ol><li>If no parameter is given to the callback and there is an error, that error will be passed to the next error handler.</li><li>If one parameter is given to the callback, that parameter will be the error object.</li><li>If two parameters are given to the callback, the first will be the error object, the second will be the done callback.</li><li>If three parameters are given to the callback, the first will be the error object, the second will be the top level context unless you have specified both server and override, in that case the context will be what the override returns, and the third the done callback.</li></ol><p>Let&#39;s see how to use it:</p><pre><code class=language-js>fastify
   .register(require(&#39;./database-connector&#39;))
   .after(err =&gt; {
     if (err) throw err
