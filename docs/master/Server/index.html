@@ -182,6 +182,62 @@ fastify.ready(() =&gt; {
   //   ├── test (GET)
   //   │   └── /hello (GET)
   //   └── hello/world (GET)
+})</code></pre><p><a name=initial-config></a></p><h4 id=initialconfig>initialConfig</h4><p><code>fastify.initialConfig</code>: Exposes a frozen read-only object registering the initial options passed down by the user to the fastify instance.</p><p>Currently the properties that can be exposed are:</p><ul><li>bodyLimit</li><li>caseSensitive</li><li>http2</li><li>https (it will return <code>false</code>/<code>true</code> or <code>{ allowHTTP1: true/false }</code> if explicitly passed)</li><li>ignoreTrailingSlash</li><li>maxParamLength</li><li>onProtoPoisoning</li><li>pluginTimeout</li><li>requestIdHeader</li></ul><pre><code class=language-js>const { readFileSync } = require(&#39;fs&#39;)
+const Fastify = require(&#39;fastify&#39;)
+
+const fastify = Fastify({
+  https: {
+    allowHTTP1: true,
+    key: readFileSync(&#39;./fastify.key&#39;),
+    cert: readFileSync(&#39;./fastify.cert&#39;)
+  },
+  logger: { level: &#39;trace&#39;},
+  ignoreTrailingSlash: true,
+  maxParamLength: 200,
+  caseSensitive: true,
+  trustProxy: &#39;127.0.0.1,192.168.1.1/24&#39;,
+})
+
+console.log(fastify.initialConfig)
+/*
+will log :
+{
+  caseSensitive: true,
+  https: { allowHTTP1: true },
+  ignoreTrailingSlash: true,
+  maxParamLength: 200
+}
+*/
+
+fastify.register(async (instance, opts) =&gt; {
+  instance.get(&#39;/&#39;, async (request, reply) =&gt; {
+    return instance.initialConfig
+    /*
+    will return :
+    {
+      caseSensitive: true,
+      https: { allowHTTP1: true },
+      ignoreTrailingSlash: true,
+      maxParamLength: 200
+    }
+    */
+  })
+
+  instance.get(&#39;/error&#39;, async (request, reply) =&gt; {
+    // will throw an error because initialConfig is read-only
+    // and can not be modified
+    instance.initialConfig.https.allowHTTP1 = false
+
+    return instance.initialConfig
+  })
+})
+
+// Start listening.
+fastify.listen(3000, (err) =&gt; {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
 })</code></pre></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/master/Getting-Started class="button prev">≪ Getting Started</a></div></div><div class=level-right><div class=level-item><a href=/docs/master/Routes class="button next">Routes ≫</a></div></div></nav></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
     var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
     var currentMenu = document.getElementById('doc-menu-section')
