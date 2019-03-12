@@ -1,3 +1,7 @@
+- name: 'heply'
+  image: 'heply.svg'
+  link: 'https://heply.it/'
+
 - name: "hotstar"
   image: "hotstar.svg"
   link: "https://tech.hotstar.com/"
