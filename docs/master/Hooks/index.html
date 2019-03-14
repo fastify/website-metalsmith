@@ -157,7 +157,7 @@ fastify.addHook(&#39;preHandler&#39;, async (request, reply) =&gt; {
 })</code></pre><p>If you want to respond with a stream, you should avoid using an <code>async</code> function for the hook. If you must use an <code>async</code> function, your code will need to follow the pattern in <a href=https://github.com/fastify/fastify/blob/94ea67ef2d8dce8a955d510cd9081aabd036fa85/test/hooks-async.js#L269-L275>test/hooks-async.js</a>.</p><pre><code class=language-js>fastify.addHook(&#39;onRequest&#39;, (request, reply, next) =&gt; {
   const stream = fs.createReadStream(&#39;some-file&#39;, &#39;utf8&#39;)
   reply.send(stream)
-})</code></pre><h2 id=application-hooks>Application Hooks</h2><p>You are able to hook into the application-lifecycle as well. It&#39;s important to note that these hooks aren&#39;t fully encapsulated. The <code>this</code> inside the hooks are encapsulated but the handlers can respond to an event outside the encapsulation boundaries.</p><ul><li><code>&#39;onClose&#39;</code></li><li><code>&#39;onRoute&#39;</code></li></ul><p><a name=on-close></a> <strong>&#39;onClose&#39;</strong><br>Triggered when <code>fastify.close()</code> is invoked to stop the server. It is useful when <a href=/docs/master/Plugins>plugins</a> need a &quot;shutdown&quot; event, such as a connection to a database.<br>The first argument is the Fastify instance, the second one the <code>done</code> callback.</p><pre><code class=language-js>fastify.addHook(&#39;onClose&#39;, (instance, done) =&gt; {
+})</code></pre><h2 id=application-hooks>Application Hooks</h2><p>You are able to hook into the application-lifecycle as well. It&#39;s important to note that these hooks aren&#39;t fully encapsulated. The <code>this</code> inside the hooks are encapsulated but the handlers can respond to an event outside the encapsulation boundaries.</p><ul><li><code>&#39;onClose&#39;</code></li><li><code>&#39;onRoute&#39;</code></li><li><code>&#39;onRegister&#39;&#39;</code></li></ul><p><a name=on-close></a> <strong>&#39;onClose&#39;</strong><br>Triggered when <code>fastify.close()</code> is invoked to stop the server. It is useful when <a href=/docs/master/Plugins>plugins</a> need a &quot;shutdown&quot; event, such as a connection to a database.<br>The first argument is the Fastify instance, the second one the <code>done</code> callback.</p><pre><code class=language-js>fastify.addHook(&#39;onClose&#39;, (instance, done) =&gt; {
   // some code
   done()
 })</code></pre><p><a name=on-route></a> <strong>&#39;onRoute&#39;</strong><br>Triggered when a new route is registered. Listeners are passed a <code>routeOptions</code> object as the sole parameter. The interface is synchronous, and, as such, the listeners do not get passed a callback.</p><pre><code class=language-js>fastify.addHook(&#39;onRoute&#39;, (routeOptions) =&gt; {
@@ -168,6 +168,28 @@ fastify.addHook(&#39;preHandler&#39;, async (request, reply) =&gt; {
   routeOptions.bodyLimit
   routeOptions.logLevel
   routeOptions.prefix
+})</code></pre><p><a name=on-register></a> <strong>&#39;onRegister&#39;</strong><br>Triggered when a new plugin function is registered, and a new encapsulation context is created, the hook will be executed <strong>before</strong> the plugin code.<br>This hook can be useful if you are developing a plugin that needs to know when a plugin context is formed, and you want to operate in that specific context.<br><strong>Note:</strong> This hook will not be called if a plugin is wrapped inside <a href=https://github.com/fastify/fastify-plugin><code>fastify-plugin</code></a>.</p><pre><code class=language-js>fastify.decorate(&#39;data&#39;, [])
+
+fastify.register(async (instance, opts) =&gt; {
+  instance.data.push(&#39;hello&#39;)
+  console.log(instance.data) // [&#39;hello&#39;]
+
+  instance.register(async (instance, opts) =&gt; {
+    instance.data.push(&#39;world&#39;)
+    console.log(instance.data) // [&#39;hello&#39;, &#39;world&#39;]
+  })
+})
+
+fastify.register(async (instance, opts) =&gt; {
+  console.log(instance.data) // []
+})
+
+fastify.addHook(&#39;onRegister&#39;, (instance) =&gt; {
+  // create a new array from the old one
+  // but without keeping the reference
+  // allowing the user to have encapsulated
+  // instances of the `data` property
+  instance.data = instance.data.slice()
 })</code></pre><p><a name=scope></a></p><h3 id=scope>Scope</h3><p>Except for <a href=#application-hooks>Application Hooks</a>, all hooks are encapsulated. This means that you can decide where your hooks should run by using <code>register</code> as explained in the <a href=/docs/master/Plugins-Guide>plugins guide</a>. If you pass a function, that function is bound to the right Fastify context and from there you have full access to the Fastify API.</p><pre><code class=language-js>fastify.addHook(&#39;onRequest&#39;, function (request, reply, next) {
   const self = this // Fastify context
   next()
