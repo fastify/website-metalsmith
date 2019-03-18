@@ -13,11 +13,30 @@
 <div class="container">
   <section class="section">
     <div class="content">
-      <h2>Currently, there are <strong>{{ data.ecosystem.plugins | length }}</strong> officially recognized plugins</h2>
+      <h2>Currently, there are <strong>{{ data.ecosystem.plugins.corePlugins | length }}</strong> officially recognized plugins</h2>
 
       <p>Can't you find the plugin you are looking for? No problem, <a href="/docs/master/Plugins">it's very easy to write one</a>!</p>
 
       {{ contents | safe }}
+      
+      <table class="table is-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for plugin in data.ecosystem.plugins.corePlugins %}
+          <tr>
+            <td><a href="{{ plugin.url }}" target="_blank">{{ plugin.name }}</a></td>
+            <td>{{ plugin.description | md | safe }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+
+      <h2>And, there are <strong>{{ data.ecosystem.plugins.communityPlugins | length }}</strong> community plugins</h2>
 
       <table class="table is-striped">
         <thead>
@@ -27,7 +46,7 @@
           </tr>
         </thead>
         <tbody>
-        {% for plugin in data.ecosystem.plugins %}
+        {% for plugin in data.ecosystem.plugins.communityPlugins %}
           <tr>
             <td><a href="{{ plugin.url }}" target="_blank">{{ plugin.name }}</a></td>
             <td>{{ plugin.description | md | safe }}</td>
