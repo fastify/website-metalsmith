@@ -243,40 +243,54 @@ const createDocSources = () => new Promise((resolve, reject) => {
   })
 })
 
+const extractPlugins = (pluginContent) => {
+  const lines = pluginContent
+    .split('\n')
+    .filter(Boolean) // remove empty lines
+  
+  // if a line doesn't start with "-" merge it back with the previous item
+  const mergedLines = lines.reduce((acc, curr) => {
+    if (curr[0] === '-') {
+      acc.push(curr)
+    } else {
+      acc[acc.length - 1] += ' ' + curr
+    }
+    return acc
+  }, [])
+  const re = /\[`([-a-zA-Z0-9]+)`\]\(([^)]+)\)(\s*(.+))?/
+  const plugins = mergedLines.map((line) => {
+    const match = re.exec(line)
+  
+    const name = match[1]
+    const url = match[2]
+    const description = match[3] ? match[3].trim() : ''
+  
+    return {name, url, description}
+  })
+  return plugins
+}
+
 const extractEcosystemFromFile = (file, cb) => {
   readFile(file, 'utf8', (err, data) => {
     if (err) return cb(err)
 
     const content = data.toString()
-    const lines = content
+    const corePluginsContent = content
       .split('#### [Core](#core)\n')[1]
-      .split('\n')
-      .filter((line) => !line.match(/^#### \[Community\]/)) // remove header
-      .filter(Boolean) // remove empty lines
+      .split('#### [Community](#community)')[0]
 
-    // if a line doesn't start with "-" merge it back with the previous item
-    const mergedLines = lines.reduce((acc, curr) => {
-      if (curr[0] === '-') {
-        acc.push(curr)
-      } else {
-        acc[acc.length - 1] += ' ' + curr
-      }
-      return acc
-    }, [])
-    const re = /\[`([-a-zA-Z0-9]+)`\]\(([^)]+)\)(\s*(.+))?/
-    const plugins = mergedLines.map((line) => {
-      const match = re.exec(line)
+    const communityPluginsContent = content
+      .split('#### [Core](#core)\n')[1]
+      .split('#### [Community](#community)')[1]
 
-      const name = match[1]
-      const url = match[2]
-      const description = match[3] ? match[3].trim() : ''
-
-      return {name, url, description}
-    })
-
+    const plugins = {
+      corePlugins: extractPlugins(corePluginsContent),
+      communityPlugins: extractPlugins(communityPluginsContent)
+    }
     cb(null, { plugins })
   })
 }
+
 
 const createEcosystemDataFile = () => new Promise((resolve, reject) => {
   const versionFolder = join(sourceFolder, 'master')
