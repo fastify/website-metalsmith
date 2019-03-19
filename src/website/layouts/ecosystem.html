@@ -3,40 +3,35 @@
 {% block content %}
 <section class="hero is-primary" style="background-image: url(/{{ hashes['images/bg-pattern-dark.png'] }})">
   <div class="hero-body">
-      <div class="container">
-        <h1 class="title">
-          {{ title }}
-        </h1>
-      </div>
+    <div class="container">
+      <h1 class="title">
+        {{ title }}
+      </h1>
+    </div>
   </div>
 </section>
 <div class="container">
   <section class="section">
     <div class="content">
-      <h2>Currently, there are <strong>{{ data.ecosystem.plugins.corePlugins | length }}</strong> officially recognized plugins</h2>
-
-      <p>Can't you find the plugin you are looking for? No problem, <a href="/docs/master/Plugins">it's very easy to write one</a>!</p>
+      <ul>
+        <li>There are 
+          <a href="#Core Plugins"><strong>{{ data.ecosystem.plugins.corePlugins | length }}</strong> core plugins</a> and 
+          <a href="#Community Plugins"><strong>{{ data.ecosystem.plugins.communityPlugins | length }}</strong> community plugins</a> 
+        </li>
+        <li>A core plugin is a plugin maintained by the fastify team, and we make our best to maintain them according
+          to <a href="https://github.com/fastify/fastify/blob/master/docs/LTS.md">https://github.com/fastify/fastify/blob/master/docs/LTS.md.</a></li>
+        <li>We guarantee that every community plugin respects Fastify best practices (tests, etc) at the time they have
+          been added to the list. We offer no guarantee on their maintenance.</li>
+        <li>
+            Can't you find the plugin you are looking for? No problem, <a href="/docs/master/Plugins">it's very easy to
+              write one</a>!
+        </li>
+      </ul>
+    </div>
+    <div class="content">
+      <h2 id="Core Plugins">Core Plugins</h2>
 
       {{ contents | safe }}
-      
-      <table class="table is-striped">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for plugin in data.ecosystem.plugins.corePlugins %}
-          <tr>
-            <td><a href="{{ plugin.url }}" target="_blank">{{ plugin.name }}</a></td>
-            <td>{{ plugin.description | md | safe }}</td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-
-      <h2>And, there are <strong>{{ data.ecosystem.plugins.communityPlugins | length }}</strong> community plugins</h2>
 
       <table class="table is-striped">
         <thead>
@@ -46,16 +41,36 @@
           </tr>
         </thead>
         <tbody>
-        {% for plugin in data.ecosystem.plugins.communityPlugins %}
+          {% for plugin in data.ecosystem.plugins.corePlugins %}
           <tr>
             <td><a href="{{ plugin.url }}" target="_blank">{{ plugin.name }}</a></td>
             <td>{{ plugin.description | md | safe }}</td>
           </tr>
-        {% endfor %}
+          {% endfor %}
         </tbody>
       </table>
 
-      <p>Did you create a fastify plugin and want to list it here? <a href=" https://github.com/fastify/fastify/blob/master/docs/Ecosystem.md">Submit a PR</a> and we will check it out!</p>
+      <h2 id="Community Plugins">Community Plugins</h2>
+
+      <table class="table is-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for plugin in data.ecosystem.plugins.communityPlugins %}
+          <tr>
+            <td><a href="{{ plugin.url }}" target="_blank">{{ plugin.name }}</a></td>
+            <td>{{ plugin.description | md | safe }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <p>Did you create a fastify plugin and want to list it here? <a href=" https://github.com/fastify/fastify/blob/master/docs/Ecosystem.md">Submit
+          a PR</a> and we will check it out!</p>
     </div>
   </section>
 </div>
