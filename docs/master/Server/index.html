@@ -59,7 +59,7 @@ const fastify = require(&#39;fastify&#39;)({
 
 const fastify = require(&#39;fastify&#39;)({
   versioning
-})</code></pre><p><a name=factory-modify-core-objects></a></p><h3 id=modifycoreobjects><code>modifyCoreObjects</code></h3><ul><li>Default: <code>true</code></li></ul><p>By default, Fastify will add the <code>ip</code>, <code>ips</code>, <code>hostname</code>, and <code>log</code> <a href=/docs/master/Request><code>Request</code></a> properties to Node&#39;s raw request object and the <code>log</code> property to Node&#39;s raw response object. Set to <code>false</code> to prevent these properties from being added to the Node core objects.</p><pre><code class=language-js>const fastify = Fastify({ modifyCoreObjects: true }) // the default
+})</code></pre><p><a name=factory-modify-core-objects></a></p><h3 id=modifycoreobjects><code>modifyCoreObjects</code></h3><ul><li>Default: <code>true</code></li></ul><p>By default, Fastify will add the <code>ip</code>, <code>ips</code>, <code>hostname</code>, and <code>log</code> properties to Node&#39;s raw request object (see <a href=/docs/master/Request><code>Request</code></a>) and the <code>log</code> property to Node&#39;s raw response object. Set to <code>false</code> to prevent these properties from being added to the Node core objects.</p><pre><code class=language-js>const fastify = Fastify({ modifyCoreObjects: true }) // the default
 
 fastify.get(&#39;/&#39;, (request, reply) =&gt; {
   console.log(request.raw.ip)
