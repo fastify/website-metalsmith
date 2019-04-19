@@ -139,6 +139,10 @@ a.anchor:hover {
   color: #4a4a4a;
 }
 
+a > code {
+  text-decoration: underline;
+}
+
 #main-navbar .control.has-icons-left .icon.is-left {
   left: 18px;
   top: 18px;
