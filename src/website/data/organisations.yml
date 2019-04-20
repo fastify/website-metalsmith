@@ -37,7 +37,7 @@
 - name: "car2go"
   image: "car2go.svg"
   link: "https://www.car2go.com"
-  
+
 - name: "Codecks"
   image: "codecks.svg"
   link: "https://www.codecks.io/"
@@ -53,3 +53,7 @@
 - name: "Commons Host"
   image: "commonshost.svg"
   link: "https://commons.host"
+
+- name: "Unhandled"
+  image: "unhandled.svg"
+  link: "https://unhandled.net"
