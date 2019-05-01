@@ -23,7 +23,7 @@ const fastify = require(&#39;fastify&#39;)({
     level: &#39;info&#39;,
     stream: stream
   }
-})</code></pre><a name=logging-request-id><p>By default fastify adds an id to every request for easier tracking. If the &quot;request-id&quot; header is present its value is used, otherwise a new incremental id is generated. See Fastify Factory <a href=/docs/master/Server#factory-request-id-header><code>requestIdHeader</code></a> and Fastify Factory <a href=/docs/master/Server#gen-request-id><code>genReqId</code></a> for customization options.</p><p>The default logger is configured with a set of standard serializers that serialize objects with <code>req</code>, <code>res</code>, and <code>err</code> properties. This behavior can be customized by specifying custom serializers.</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+})</code></pre><p><a name=logging-request-id></a></p><p>By default fastify adds an id to every request for easier tracking. If the &quot;request-id&quot; header is present its value is used, otherwise a new incremental id is generated. See Fastify Factory <a href=/docs/master/Server#factory-request-id-header><code>requestIdHeader</code></a> and Fastify Factory <a href=/docs/master/Server#gen-request-id><code>genReqId</code></a> for customization options.</p><p>The default logger is configured with a set of standard serializers that serialize objects with <code>req</code>, <code>res</code>, and <code>err</code> properties. This behavior can be customized by specifying custom serializers.</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   logger: {
     serializers: {
       req: function (req) {
