@@ -29,7 +29,16 @@ const customLogger = {
   },
 };
 
-const fastify = require(&#39;fastify&#39;)({logger: customLogger});</code></pre></li></ul><p><a name=custom-http-server></a></p><h3 id=serverfactory><code>serverFactory</code></h3><p>You can pass a custom http server to Fastify by using the <code>serverFactory</code> option.<br><code>serverFactory</code> is a function that takes an <code>handler</code> parameter, which takes the <code>request</code> and <code>response</code> objects as parameters, and an options object, which is the same you have passed to Fastify.</p><pre><code class=language-js>const serverFactory = (handler, opts) =&gt; {
+const fastify = require(&#39;fastify&#39;)({logger: customLogger});</code></pre></li></ul><p><a name=factory-disable-request-logging></a></p><h3 id=disablerequestlogging><code>disableRequestLogging</code></h3><p>By default, when logging is enabled, Fastify will issue an <code>info</code> level log message when a request is received and when the response for that request has been sent. By setting this option to <code>true</code>, these log messages will be disabled. This allows for more flexible request start and end logging by attaching custom <code>onRequest</code> and <code>onResponse</code> hooks.</p><ul><li>Default: <code>false</code></li></ul><pre><code class=language-js>// Examples of hooks to replicate the disabled functionality.
+fastify.addHook(&#39;onRequest&#39;, (req, reply, next) =&gt; {
+  req.log.info({ url: req.req.url, id: req.id }, &#39;received request&#39;)
+  next()
+})
+
+fastify.addHook(&#39;onResponse&#39;, (req, reply, next) =&gt; {
+  req.log.info({ url: req.req.originalUrl, statusCode: res.res.statusCode }, &#39;request completed&#39;)
+  next()
+})</code></pre><p><a name=custom-http-server></a></p><h3 id=serverfactory><code>serverFactory</code></h3><p>You can pass a custom http server to Fastify by using the <code>serverFactory</code> option.<br><code>serverFactory</code> is a function that takes an <code>handler</code> parameter, which takes the <code>request</code> and <code>response</code> objects as parameters, and an options object, which is the same you have passed to Fastify.</p><pre><code class=language-js>const serverFactory = (handler, opts) =&gt; {
   const server = http.createServer((req, res) =&gt; {
     handler(req, res)
   })
