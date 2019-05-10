@@ -57,3 +57,7 @@
 - name: "Unhandled"
   image: "unhandled.svg"
   link: "https://unhandled.net"
+
+- name: "Gumlet"
+  image: "gumlet.svg"
+  link: "https://www.gumlet.com"
