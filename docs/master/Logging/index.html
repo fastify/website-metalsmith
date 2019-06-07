@@ -47,17 +47,21 @@ const fastify = require(&#39;fastify&#39;)({
           url: req.url,
           path: req.path,
           parameters: req.parameters,
-          // Including the body and headers in the log could be in violation 
+          // Including the headers in the log could be in violation 
           // of privacy laws, e.g. GDPR. You should use the &quot;redact&quot; option to
           // remove sensitive fields. It could also leak authentication data in
           // the logs.
-          body: req.body,
           headers: req.headers
         };
       }
     }
   }
-});</code></pre><p><em>This option will be ignored by any logger other than Pino.</em></p><p>You can also supply your own logger instance. Instead of passing configuration options, simply pass the instance. The logger you supply must conform to the Pino interface; that is, it must have the following methods: <code>info</code>, <code>error</code>, <code>debug</code>, <code>fatal</code>, <code>warn</code>, <code>trace</code>, <code>child</code>.</p><p>Example:</p><pre><code class=language-js>const log = require(&#39;pino&#39;)({ level: &#39;info&#39; })
+});</code></pre><p><strong>Note</strong>: The body not can serialize inside <code>req</code> method, because the request is serialized when we create the child logger. At that time, the body is not parsed yet.</p><p>See a approach to log <code>req.body</code></p><pre><code class=language-js>app.addHook(&#39;preHandler&#39;, function (req, reply, next) {
+  if (req.body) {
+    req.log.info({ body: req.body }, &#39;parsed body&#39;)
+  }
+  next()
+})</code></pre><p><em>This option will be ignored by any logger other than Pino.</em></p><p>You can also supply your own logger instance. Instead of passing configuration options, simply pass the instance. The logger you supply must conform to the Pino interface; that is, it must have the following methods: <code>info</code>, <code>error</code>, <code>debug</code>, <code>fatal</code>, <code>warn</code>, <code>trace</code>, <code>child</code>.</p><p>Example:</p><pre><code class=language-js>const log = require(&#39;pino&#39;)({ level: &#39;info&#39; })
 const fastify = require(&#39;fastify&#39;)({ logger: log })
 
 log.info(&#39;does not have request information&#39;)
