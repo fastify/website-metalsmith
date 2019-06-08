@@ -262,7 +262,7 @@ start()</code></pre>
         </p>
         <div class="block">
           <!-- The number of plugins are by mistakenly returned 2 although there are 36 core and 72 community plugins  -->
-          <a class="button is-primary is-large is-flex-mobile" href="/ecosystem">Explore {{ data.ecosystem.plugins | length }} plugins</a>
+          <a class="button is-primary is-large is-flex-mobile" href="/ecosystem">Explore {{ data.ecosystem.plugins.corePlugins | length + data.ecosystem.plugins.communityPlugins | length }} plugins</a>
         </div>
       </div>
     </div>
