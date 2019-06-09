@@ -261,7 +261,8 @@ start()</code></pre>
           Can't you find the plugin you are looking for? No problem, <a href="/docs/master/Plugins">it's very easy to write one</a>!
         </p>
         <div class="block">
-          <a class="button is-primary is-large is-flex-mobile" href="/ecosystem">Explore {{ data.ecosystem.plugins | length }} plugins</a>
+	  <!-- TAG: "Changed the statement to count plugins" -->
+          <a class="button is-primary is-large is-flex-mobile" href="/ecosystem">Explore {{ data.ecosystem.plugins.corePlugins | length + data.ecosystem.plugins.communityPlugins | length }} plugins</a>
         </div>
       </div>
     </div>
