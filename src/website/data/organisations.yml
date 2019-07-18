@@ -61,3 +61,7 @@
 - name: "Gumlet"
   image: "gumlet.svg"
   link: "https://www.gumlet.com"
+
+- name: "evilfactorylabs"
+  image: "evilfactorylabs.svg"
+  link: "https://evilfactory.id"
