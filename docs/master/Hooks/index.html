@@ -193,7 +193,7 @@ fastify.addHook(&#39;onRegister&#39;, (instance) =&gt; {
 })</code></pre><p><a name=scope></a></p><h3 id=scope>Scope</h3><p>Except for <a href=#application-hooks>Application Hooks</a>, all hooks are encapsulated. This means that you can decide where your hooks should run by using <code>register</code> as explained in the <a href=/docs/master/Plugins-Guide>plugins guide</a>. If you pass a function, that function is bound to the right Fastify context and from there you have full access to the Fastify API.</p><pre><code class=language-js>fastify.addHook(&#39;onRequest&#39;, function (request, reply, next) {
   const self = this // Fastify context
   next()
-})</code></pre><p>Note: using an arrow function will break the binding of this to the Fastify instance.</p><p><a name=route-hooks></a></p><h2 id=route-level-hooks>Route level hooks</h2><p>You can declare one or more custom <code>onRequest</code>, <code>preParsing</code>, <code>preValidation</code>, <code>preHandler</code> and <code>preSerialization</code> hook(s) that will be unique for the route. If you do so, those hooks always be executed as last hook in their category.<br>This can be useful if you need to run the authentication, and the <code>preParsing</code> or <code>preValidation</code> hooks are exactly what you need for doing that. Multiple route-level hooks can also be specified as an array.</p><p>Let&#39;s make an example:</p><pre><code class=language-js>fastify.addHook(&#39;onRequest&#39;, (request, reply, done) =&gt; {
+})</code></pre><p>Note: using an arrow function will break the binding of this to the Fastify instance.</p><p><a name=route-hooks></a></p><h2 id=route-level-hooks>Route level hooks</h2><p>You can declare one or more custom <code>onRequest</code>, <code>preParsing</code>, <code>preValidation</code>, <code>preHandler</code> and <code>preSerialization</code> hook(s) that will be <strong>unique</strong> for the route. If you do so, those hooks always be executed as last hook in their category.<br>This can be useful if you need to run the authentication, and the <code>preParsing</code> or <code>preValidation</code> hooks are exactly what you need for doing that. Multiple route-level hooks can also be specified as an array.</p><p>Let&#39;s make an example:</p><pre><code class=language-js>fastify.addHook(&#39;onRequest&#39;, (request, reply, done) =&gt; {
   // your code
   done()
 })
@@ -213,7 +213,7 @@ fastify.addHook(&#39;preHandler&#39;, (request, reply, done) =&gt; {
   done()
 })
 
-fastify.addHook(&#39;preSerialization&#39;, (request, reply, done) =&gt; {
+fastify.addHook(&#39;preSerialization&#39;, (request, reply, payload, done) =&gt; {
   // your code
   done()
 })
@@ -244,7 +244,7 @@ fastify.route({
   //   // this hook will always be executed after the shared `preHandler` hooks
   //   done()
   // }],
-  preSerialization: (request, reply, payload, next) =&gt; {
+  preSerialization: (request, reply, payload, done) =&gt; {
     // manipulate the payload
     next(null, payload)
   },
