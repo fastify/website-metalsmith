@@ -23,7 +23,7 @@
           <ul class="menu-list">
             {% for item in data.docs.toc[version] %}
               <li {% if item.link == '/' + path %}id="doc-menu-section"{% endif %}>
-                <a {% if item.link == '/' + path %}class="is-active"{% endif %} href="{{ item.link }}">{{ item.name }}</a>
+                <a title="{{ item.name | striptags }}" {% if item.link == '/' + path %}class="is-active"{% endif %} href="{{ item.link }}">{{ item.name }}</a>
               </li>
             {% endfor %}
           </ul>
@@ -122,6 +122,7 @@
         var currentSubmenuItem = document.createElement('li')
         var currentSubmenuLink = document.createElement('a')
         currentSubmenuLink.href = '#' + el.id
+        currentSubmenuLink.title = el.textContent
         currentSubmenuLink.append(document.createTextNode(el.textContent))
         currentSubmenuItem.append(currentSubmenuLink)
         submenu.append(currentSubmenuItem)

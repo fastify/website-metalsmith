@@ -188,3 +188,9 @@ a > code {
   filter: none;
   -webkit-filter: none;
 }
+
+.menu-list a {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
