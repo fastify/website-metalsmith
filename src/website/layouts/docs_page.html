@@ -122,6 +122,7 @@
         var currentSubmenuItem = document.createElement('li')
         var currentSubmenuLink = document.createElement('a')
         currentSubmenuLink.href = '#' + el.id
+        currentSubmenuLink.title = el.textContent
         currentSubmenuLink.append(document.createTextNode(el.textContent))
         currentSubmenuItem.append(currentSubmenuLink)
         submenu.append(currentSubmenuItem)
