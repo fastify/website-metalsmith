@@ -23,7 +23,7 @@
           <ul class="menu-list">
             {% for item in data.docs.toc[version] %}
               <li {% if item.link == '/' + path %}id="doc-menu-section"{% endif %}>
-                <a {% if item.link == '/' + path %}class="is-active"{% endif %} href="{{ item.link }}">{{ item.name }}</a>
+                <a title="{{ item.name | striptags }}" {% if item.link == '/' + path %}class="is-active"{% endif %} href="{{ item.link }}">{{ item.name }}</a>
               </li>
             {% endfor %}
           </ul>
