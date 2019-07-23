@@ -10,10 +10,10 @@
   fooOption2: &#39;value&#39;
 })</code></pre><p>The <code>options</code> parameter can also be a <code>Function</code> which will be evaluated at the time the plugin is registered while giving access to the fastify instance via the first positional argument:</p><pre><code class=language-js>const fp = require(&#39;fastify-plugin&#39;)
 
-fastify.register(fp((fastify, opts, next) =&gt; {
+fastify.register(fp((fastify, opts, done) =&gt; {
   fastify.decorate(&#39;foo_bar&#39;, { hello: &#39;world&#39; })
 
-  next()
+  done()
 }))
 
 // The opts argument of fastify-foo will be { hello: &#39;world&#39; }
@@ -35,28 +35,28 @@ fastify.listen(3000, (err, address) =&gt; {
 
 await fastify.ready()
 
-await fastify.listen(3000)</code></pre><p><a name=create-plugin></a></p><h3 id=create-a-plugin>Create a plugin</h3><p>Creating a plugin is very easy, you just need to create a function that takes three parameters, the <code>fastify</code> instance, an options object and the next callback.<br>Example:</p><pre><code class=language-js>module.exports = function (fastify, opts, next) {
+await fastify.listen(3000)</code></pre><p><a name=create-plugin></a></p><h3 id=create-a-plugin>Create a plugin</h3><p>Creating a plugin is very easy, you just need to create a function that takes three parameters, the <code>fastify</code> instance, an options object and the next callback.<br>Example:</p><pre><code class=language-js>module.exports = function (fastify, opts, done) {
   fastify.decorate(&#39;utility&#39;, () =&gt; {})
 
   fastify.get(&#39;/&#39;, handler)
 
-  next()
-}</code></pre><p>You can also use <code>register</code> inside another <code>register</code>:</p><pre><code class=language-js>module.exports = function (fastify, opts, next) {
+  done()
+}</code></pre><p>You can also use <code>register</code> inside another <code>register</code>:</p><pre><code class=language-js>module.exports = function (fastify, opts, done) {
   fastify.decorate(&#39;utility&#39;, () =&gt; {})
 
   fastify.get(&#39;/&#39;, handler)
 
   fastify.register(require(&#39;./other-plugin&#39;))
 
-  next()
+  done()
 }</code></pre><p>Sometimes, you will need to know when the server is about to close, for example because you must close a connection to a database. To know when this is going to happen, you can use the <a href=/docs/master/Hooks#on-close><code>&#39;onClose&#39;</code></a> hook.</p><p>Do not forget that <code>register</code> will always create a new Fastify scope, if you don&#39;t need that, read the following section.</p><p><a name=handle-scope></a></p><h3 id=handle-the-scope>Handle the scope</h3><p>If you are using <code>register</code> only for extending the functionality of the server with <a href=/docs/master/Decorators><code>decorate</code></a>, it is your responsibility to tell Fastify to not create a new scope, otherwise your changes will not be accessible by the user in the upper scope.</p><p>You have two ways to tell Fastify to avoid the creation of a new context:</p><ul><li>Use the <a href=https://github.com/fastify/fastify-plugin><code>fastify-plugin</code></a> module</li><li>Use the <code>&#39;skip-override&#39;</code> hidden property</li></ul><p>We recommend to using the <code>fastify-plugin</code> module, because it solves this problem for you, and you can pass a version range of Fastify as a parameter that your plugin will support.</p><pre><code class=language-js>const fp = require(&#39;fastify-plugin&#39;)
 
-module.exports = fp(function (fastify, opts, next) {
+module.exports = fp(function (fastify, opts, done) {
   fastify.decorate(&#39;utility&#39;, () =&gt; {})
-  next()
-}, &#39;0.x&#39;)</code></pre><p>Check the <a href=https://github.com/fastify/fastify-plugin><code>fastify-plugin</code></a> documentation to know more about how use this module.</p><p>If you don&#39;t use the <code>fastify-plugin</code> module, you can use the <code>&#39;skip-override&#39;</code> hidden property, but we do not recommend it. If in the future the Fastify API changes it will be a your responsibility update the module, while if you use <code>fastify-plugin</code>, you can be sure about backwards compatibility.</p><pre><code class=language-js>function yourPlugin (fastify, opts, next) {
+  done()
+}, &#39;0.x&#39;)</code></pre><p>Check the <a href=https://github.com/fastify/fastify-plugin><code>fastify-plugin</code></a> documentation to know more about how use this module.</p><p>If you don&#39;t use the <code>fastify-plugin</code> module, you can use the <code>&#39;skip-override&#39;</code> hidden property, but we do not recommend it. If in the future the Fastify API changes it will be a your responsibility update the module, while if you use <code>fastify-plugin</code>, you can be sure about backwards compatibility.</p><pre><code class=language-js>function yourPlugin (fastify, opts, done) {
   fastify.decorate(&#39;utility&#39;, () =&gt; {})
-  next()
+  done()
 }
 yourPlugin[Symbol.for(&#39;skip-override&#39;)] = true
 module.exports = yourPlugin</code></pre></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/master/ContentTypeParser class="button prev">≪ Content Type Parser</a></div></div><div class=level-right><div class=level-item><a href=/docs/master/Testing class="button next">Testing ≫</a></div></div></nav></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers

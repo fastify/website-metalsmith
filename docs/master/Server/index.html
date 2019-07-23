@@ -30,14 +30,14 @@ const customLogger = {
 };
 
 const fastify = require(&#39;fastify&#39;)({logger: customLogger});</code></pre></li></ul><p><a name=factory-disable-request-logging></a></p><h3 id=disablerequestlogging><code>disableRequestLogging</code></h3><p>By default, when logging is enabled, Fastify will issue an <code>info</code> level log message when a request is received and when the response for that request has been sent. By setting this option to <code>true</code>, these log messages will be disabled. This allows for more flexible request start and end logging by attaching custom <code>onRequest</code> and <code>onResponse</code> hooks.</p><ul><li>Default: <code>false</code></li></ul><pre><code class=language-js>// Examples of hooks to replicate the disabled functionality.
-fastify.addHook(&#39;onRequest&#39;, (req, reply, next) =&gt; {
+fastify.addHook(&#39;onRequest&#39;, (req, reply, done) =&gt; {
   req.log.info({ url: req.req.url, id: req.id }, &#39;received request&#39;)
-  next()
+  done()
 })
 
-fastify.addHook(&#39;onResponse&#39;, (req, reply, next) =&gt; {
+fastify.addHook(&#39;onResponse&#39;, (req, reply, done) =&gt; {
   req.log.info({ url: req.req.originalUrl, statusCode: res.res.statusCode }, &#39;request completed&#39;)
-  next()
+  done()
 })</code></pre><p><a name=custom-http-server></a></p><h3 id=serverfactory><code>serverFactory</code></h3><p>You can pass a custom http server to Fastify by using the <code>serverFactory</code> option.<br><code>serverFactory</code> is a function that takes an <code>handler</code> parameter, which takes the <code>request</code> and <code>response</code> objects as parameters, and an options object, which is the same you have passed to Fastify.</p><pre><code class=language-js>const serverFactory = (handler, opts) =&gt; {
   const server = http.createServer((req, res) =&gt; {
     handler(req, res)
@@ -101,16 +101,16 @@ fastify.get(&#39;/&#39;, (request, reply) =&gt; {
   request.log(&#39;Hello&#39;)
   reply.log(&#39;World&#39;)
 })</code></pre><p><a name=factory-return-503-on-closing></a></p><h3 id=return503onclosing><code>return503OnClosing</code></h3><p>Returns 503 after calling <code>close</code> server method. If <code>false</code>, the server routes the incoming request as usual.</p><ul><li>Default: <code>true</code></li></ul><h2 id=instance>Instance</h2><h3 id=server-methods>Server Methods</h3><p><a name=server></a></p><h4 id=server>server</h4><p><code>fastify.server</code>: The Node core <a href=https://nodejs.org/api/http.html#http_class_http_server>server</a> object as returned by the <a href=/docs/master/Server><strong><code>Fastify factory function</code></strong></a>.</p><p><a name=after></a></p><h4 id=after>after</h4><p>Invoked when the current plugin and all the plugins that have been registered within it have finished loading. It is always executed before the method <code>fastify.ready</code>.</p><pre><code class=language-js>fastify
-  .register((instance, opts, next) =&gt; {
+  .register((instance, opts, done) =&gt; {
     console.log(&#39;Current plugin&#39;)
-    next()
+    done()
   })
   .after(err =&gt; {
     console.log(&#39;After current plugin&#39;)
   })
-  .register((instance, opts, next) =&gt; {
+  .register((instance, opts, done) =&gt; {
     console.log(&#39;Next plugin&#39;)
-    next()
+    done()
   })
   .ready(err =&gt; {
     console.log(&#39;Everything has been loaded&#39;)
@@ -171,46 +171,46 @@ fastify.get(&#39;/&#39;, (request, reply) =&gt; {
   console.log(&#39;successfully closed!&#39;)
 }, (err) =&gt; {
   console.log(&#39;an error happened&#39;, err)
-})</code></pre><p><a name=decorate></a></p><h4 id=decorate->decorate*</h4><p>Function useful if you need to decorate the fastify instance, Reply or Request, check <a href=/docs/master/Decorators>here</a>.</p><p><a name=register></a></p><h4 id=register>register</h4><p>Fastify allows the user to extend its functionality with plugins. A plugin can be a set of routes, a server decorator or whatever, check <a href=/docs/master/Plugins>here</a>.</p><p><a name=use></a></p><h4 id=use>use</h4><p>Function to add middlewares to Fastify, check <a href=/docs/master/Middlewares>here</a>.</p><p><a name=addHook></a></p><h4 id=addhook>addHook</h4><p>Function to add a specific hook in the lifecycle of Fastify, check <a href=/docs/master/Hooks>here</a>.</p><p><a name=prefix></a></p><h4 id=prefix>prefix</h4><p>The full path that will be prefixed to a route.</p><p>Example:</p><pre><code class=language-js>fastify.register(function (instance, opts, next) {
+})</code></pre><p><a name=decorate></a></p><h4 id=decorate->decorate*</h4><p>Function useful if you need to decorate the fastify instance, Reply or Request, check <a href=/docs/master/Decorators>here</a>.</p><p><a name=register></a></p><h4 id=register>register</h4><p>Fastify allows the user to extend its functionality with plugins. A plugin can be a set of routes, a server decorator or whatever, check <a href=/docs/master/Plugins>here</a>.</p><p><a name=use></a></p><h4 id=use>use</h4><p>Function to add middlewares to Fastify, check <a href=/docs/master/Middlewares>here</a>.</p><p><a name=addHook></a></p><h4 id=addhook>addHook</h4><p>Function to add a specific hook in the lifecycle of Fastify, check <a href=/docs/master/Hooks>here</a>.</p><p><a name=prefix></a></p><h4 id=prefix>prefix</h4><p>The full path that will be prefixed to a route.</p><p>Example:</p><pre><code class=language-js>fastify.register(function (instance, opts, done) {
   instance.get(&#39;/foo&#39;, function (request, reply) {
     // Will log &quot;prefix: /v1&quot;
     request.log.info(&#39;prefix: %s&#39;, instance.prefix)
     reply.send({ prefix: instance.prefix })
   })
 
-  instance.register(function (instance, opts, next) {
+  instance.register(function (instance, opts, done) {
     instance.get(&#39;/bar&#39;, function (request, reply) {
       // Will log &quot;prefix: /v1/v2&quot;
       request.log.info(&#39;prefix: %s&#39;, instance.prefix)
       reply.send({ prefix: instance.prefix })
     })
 
-    next()
+    done()
   }, { prefix: &#39;/v2&#39; })
 
-  next()
+  done()
 }, { prefix: &#39;/v1&#39; })</code></pre><p><a name=log></a></p><h4 id=log>log</h4><p>The logger instance, check <a href=/docs/master/Logging>here</a>.</p><p><a name=inject></a></p><h4 id=inject>inject</h4><p>Fake http injection (for testing purposes) <a href=/docs/master/Testing#inject>here</a>.</p><p><a name=add-schema></a></p><h4 id=addschema>addSchema</h4><p><code>fastify.addSchema(schemaObj)</code>, adds a shared schema to the Fastify instance. This allows you to reuse it everywhere in your application just by writing the schema id that you need.<br>To learn more, see <a href=/docs/master/Validation-and-Serialization#shared-schema>shared schema example</a> in the <a href=/docs/master/Validation-and-Serialization>Validation and Serialization</a> documentation.</p><p><a name=set-reply-serializer></a></p><h4 id=setreplyserializer>setReplySerializer</h4><p>Set the reply serializer for all the routes. This will used as default if a <a href=/docs/master/Reply#serializerfunc>Reply.serializer(func)</a> has not been set. The handler is fully encapsulated, so different plugins can set different error handlers. Note: the function parameter is called only for status <code>2xx</code>. Checkout the <a href=/docs/master/Server#seterrorhandler><code>setErrorHandler</code></a> for errors.</p><pre><code class=language-js>fastify.setReplySerializer(function (payload, statusCode){
   // serialize the payload with a sync function
   return `my serialized ${statusCode} content: ${payload}`
 })</code></pre><p><a name=set-schema-compiler></a></p><h4 id=setschemacompiler>setSchemaCompiler</h4><p>Set the schema compiler for all routes <a href=/docs/master/Validation-and-Serialization#schema-compiler>here</a>.</p><p><a name=schema-compiler></a></p><h4 id=schemacompiler>schemaCompiler</h4><p>This property can be used to set the schema compiler, it is a shortcut for the <code>setSchemaCompiler</code> method, and get the schema compiler back for all routes.</p><p><a name=set-not-found-handler></a></p><h4 id=setnotfoundhandler>setNotFoundHandler</h4><p><code>fastify.setNotFoundHandler(handler(request, reply))</code>: set the 404 handler. This call is encapsulated by prefix, so different plugins can set different not found handlers if a different <a href=/docs/master/Plugins#route-prefixing-option><code>prefix</code> option</a> is passed to <code>fastify.register()</code>. The handler is treated like a regular route handler so requests will go through the full <a href=/docs/master/Lifecycle#lifecycle>Fastify lifecycle</a>.</p><p>You can also register a <a href=https://www.fastify.io/docs/latest/Hooks/#route-hooks><code>preValidation</code></a> and <a href=https://www.fastify.io/docs/latest/Hooks/#route-hooks>preHandler</a> hook for the 404 handler.</p><pre><code class=language-js>fastify.setNotFoundHandler({
-  preValidation: (req, reply, next) =&gt; {
+  preValidation: (req, reply, done) =&gt; {
     // your code
-    next()
+    done()
   },
-  preHandler: (req, reply, next) =&gt; {
+  preHandler: (req, reply, done) =&gt; {
     // your code
-    next()
+    done()
   }
 }, function (request, reply) {
     // Default not found handler with preValidation and preHandler hooks
 })
 
-fastify.register(function (instance, options, next) {
+fastify.register(function (instance, options, done) {
   instance.setNotFoundHandler(function (request, reply) {
     // Handle not found request without preValidation and preHandler hooks
     // to URLs that begin with &#39;/v1&#39;
   })
-  next()
+  done()
 }, { prefix: &#39;/v1&#39; })</code></pre><p><a name=set-error-handler></a></p><h4 id=seterrorhandler>setErrorHandler</h4><p><code>fastify.setErrorHandler(handler(error, request, reply))</code>: Set a function that will be called whenever an error happens. The handler is fully encapsulated, so different plugins can set different error handlers. <em>async-await</em> is supported as well.<br><em>Note: If the error <code>statusCode</code> is less than 400, Fastify will automatically set it at 500 before calling the error handler.</em></p><pre><code class=language-js>fastify.setErrorHandler(function (error, request, reply) {
   // Log error
   // Send error response

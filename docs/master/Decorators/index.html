@@ -52,9 +52,9 @@ server.listen(3000)</code></pre><p><a name=getters-setters></a></p><h4 id=getter
 fastify.decorateRequest(&#39;user&#39;, &#39;&#39;)
 
 // Update our property
-fastify.addHook(&#39;preHandler&#39;, (req, reply, next) =&gt; {
+fastify.addHook(&#39;preHandler&#39;, (req, reply, done) =&gt; {
   req.user = &#39;Bob Dylan&#39;
-  next()
+  done()
 })
 // And finally access it
 fastify.get(&#39;/&#39;, (req, reply) =&gt; {

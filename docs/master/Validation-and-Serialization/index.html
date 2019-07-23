@@ -95,7 +95,7 @@ fastify.route({
   handler: () =&gt; {}
 })
 
-fastify.register((instance, opts, next) =&gt; {
+fastify.register((instance, opts, done) =&gt; {
 
   /**
    * In children&#39;s scope can use schemas defined in upper scope like &#39;greetings&#39;.
@@ -119,7 +119,7 @@ fastify.register((instance, opts, next) =&gt; {
     handler: () =&gt; {}
   })
 
-  next()
+  done()
 })</code></pre><p>You can use the shared schema everywhere, as top level schema or nested inside other schemas:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
 
 fastify.addSchema({
@@ -146,16 +146,16 @@ fastify.route({
 })</code></pre><p><a name=get-shared-schema></a></p><h4 id=retrieving-a-copy-of-shared-schemas>Retrieving a copy of shared schemas</h4><p>The function <code>getSchemas</code> returns the shared schemas available in the selected scope:</p><pre><code class=language-js>fastify.addSchema({ $id: &#39;one&#39;, my: &#39;hello&#39; })
 fastify.get(&#39;/&#39;, (request, reply) =&gt; { reply.send(fastify.getSchemas()) })
 
-fastify.register((instance, opts, next) =&gt; {
+fastify.register((instance, opts, done) =&gt; {
   instance.addSchema({ $id: &#39;two&#39;, my: &#39;ciao&#39; })
   instance.get(&#39;/sub&#39;, (request, reply) =&gt; { reply.send(instance.getSchemas()) })
 
-  instance.register((subinstance, opts, next) =&gt; {
+  instance.register((subinstance, opts, done) =&gt; {
     subinstance.addSchema({ $id: &#39;three&#39;, my: &#39;hola&#39; })
     subinstance.get(&#39;/deep&#39;, (request, reply) =&gt; { reply.send(subinstance.getSchemas()) })
-    next()
+    done()
   })
-  next()
+  done()
 })</code></pre><p>This example will returns:</p><table><thead><tr><th>URL</th><th>Schemas</th></tr></thead><tbody><tr><td>/</td><td>one</td></tr><tr><td>/sub</td><td>one, two</td></tr><tr><td>/deep</td><td>one, two, three</td></tr></tbody></table><p><a name=schema-compiler></a></p><h4 id=schema-compiler>Schema Compiler</h4><p>The <code>schemaCompiler</code> is a function that returns a function that validates the body, url parameters, headers, and query string. The default <code>schemaCompiler</code> returns a function that implements the <a href=https://ajv.js.org/ >ajv</a> validation interface. Fastify uses it internally to speed the validation up.</p><p>Fastify&#39;s <a href=https://github.com/epoberezkin/ajv#options-to-modify-validated-data>baseline ajv configuration</a> is:</p><pre><code class=language-js>{
   removeAdditional: true, // remove additional properties
   useDefaults: true, // replace missing properties and items with the values from corresponding default keyword
