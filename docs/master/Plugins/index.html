@@ -35,7 +35,7 @@ fastify.listen(3000, (err, address) =&gt; {
 
 await fastify.ready()
 
-await fastify.listen(3000)</code></pre><p><a name=create-plugin></a></p><h3 id=create-a-plugin>Create a plugin</h3><p>Creating a plugin is very easy, you just need to create a function that takes three parameters, the <code>fastify</code> instance, an options object and the next callback.<br>Example:</p><pre><code class=language-js>module.exports = function (fastify, opts, done) {
+await fastify.listen(3000)</code></pre><p><a name=create-plugin></a></p><h3 id=create-a-plugin>Create a plugin</h3><p>Creating a plugin is very easy, you just need to create a function that takes three parameters, the <code>fastify</code> instance, an <code>options</code> object and the <code>done</code> callback.<br>Example:</p><pre><code class=language-js>module.exports = function (fastify, opts, done) {
   fastify.decorate(&#39;utility&#39;, () =&gt; {})
 
   fastify.get(&#39;/&#39;, handler)
