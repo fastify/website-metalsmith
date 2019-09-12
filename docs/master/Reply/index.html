@@ -33,9 +33,10 @@ fastify.get(&#39;/streams&#39;, function (request, reply) {
   })
 })</code></pre><p><a name=errors></a></p><h4 id=errors>Errors</h4><p>If you pass to <em>send</em> an object that is an instance of <em>Error</em>, Fastify will automatically create an error structured as the following:</p><pre><code class=language-js>{
   error: String        // the http error message
+  code: String         // the Fastify error code
   message: String      // the user error message
   statusCode: Number   // the http status code
-}</code></pre><p>You can add some custom property to the Error object, such as <code>statusCode</code> and <code>headers</code>, that will be used to enhance the http response.<br><em>Note: If you are passing an error to <code>send</code> and the statusCode is less than 400, Fastify will automatically set it at 500.</em></p><p>Tip: you can simplify errors by using the <a href=https://npm.im/http-errors><code>http-errors</code></a> module or <a href=https://github.com/fastify/fastify-sensible><code>fastify-sensible</code></a> plugin to generate errors:</p><pre><code class=language-js>fastify.get(&#39;/&#39;, function (request, reply) {
+}</code></pre><p>You can add some custom property to the Error object, such as <code>headers</code>, that will be used to enhance the http response.<br><em>Note: If you are passing an error to <code>send</code> and the statusCode is less than 400, Fastify will automatically set it at 500.</em></p><p>Tip: you can simplify errors by using the <a href=https://npm.im/http-errors><code>http-errors</code></a> module or <a href=https://github.com/fastify/fastify-sensible><code>fastify-sensible</code></a> plugin to generate errors:</p><pre><code class=language-js>fastify.get(&#39;/&#39;, function (request, reply) {
   reply.send(httpErrors.Gone())
 })</code></pre><p>If you want to completely customize the error handling, checkout <a href=/docs/master/Server#seterrorhandler><code>setErrorHandler</code></a> API.<br><em>Note: you are responsibile for logging when customizing the error handler</em></p><p>API:</p><pre><code class=language-js>fastify.setErrorHandler(function (error, request, reply) {
   request.log.warn(error)
