@@ -189,7 +189,55 @@ fastify.post(&#39;/the/url&#39;, {
     }).required()
   },
   schemaCompiler: schema =&gt; data =&gt; Joi.validate(data, schema)
-}, handler)</code></pre><p>In that case the function returned by <code>schemaCompiler</code> returns an object like:</p><ul><li><code>error</code>: filled with an instance of <code>Error</code> or a string that describes the validation error</li><li><code>value</code>: the coerced value that passed the validation</li></ul><p><a name=serialization></a></p><h3 id=serialization>Serialization</h3><p>Usually you will send your data to the clients via JSON, and Fastify has a powerful tool to help you, <a href=https://www.npmjs.com/package/fast-json-stringify>fast-json-stringify</a>, which is used if you have provided an output schema in the route options. We encourage you to use an output schema, as it will increase your throughput by 100-400% depending on your payload and will prevent accidental disclosure of sensitive information.</p><p>Example:</p><pre><code class=language-js>const schema = {
+}, handler)</code></pre><p>In that case the function returned by <code>schemaCompiler</code> returns an object like:</p><ul><li><code>error</code>: filled with an instance of <code>Error</code> or a string that describes the validation error</li><li><code>value</code>: the coerced value that passed the validation</li></ul><p><a name=schema-resolver></a></p><h4 id=schema-resolver>Schema Resolver</h4><p>The <code>schemaResolver</code> is a function that works together with the <code>schemaCompiler</code>: you can&#39;t use it with the default schema compiler. This feature is useful when you use complex schemas with <code>$ref</code> keyword in your routes and a custom validator.</p><p>This is needed because all the schemas you add to your custom compiler are unknown to Fastify but it need to resolve the <code>$ref</code> paths.</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
+const Ajv = require(&#39;ajv&#39;)
+const ajv = new Ajv()
+
+ajv.addSchema({
+  $id: &#39;urn:schema:foo&#39;,
+  definitions: {
+    foo: { type: &#39;string&#39; }
+  },
+  type: &#39;object&#39;,
+  properties: {
+    foo: { $ref: &#39;#/definitions/foo&#39; }
+  }
+})
+ajv.addSchema({
+  $id: &#39;urn:schema:response&#39;,
+  type: &#39;object&#39;,
+  required: [&#39;foo&#39;],
+  properties: {
+    foo: { $ref: &#39;urn:schema:foo#/definitions/foo&#39; }
+  }
+})
+ajv.addSchema({
+  $id: &#39;urn:schema:request&#39;,
+  type: &#39;object&#39;,
+  required: [&#39;foo&#39;],
+  properties: {
+    foo: { $ref: &#39;urn:schema:foo#/definitions/foo&#39; }
+  }
+})
+
+fastify.setSchemaCompiler(schema =&gt; ajv.compile(schema))
+fastify.setSchemaResolver((ref) =&gt; {
+  return ajv.getSchema(ref).schema
+})
+
+fastify.route({
+  method: &#39;POST&#39;,
+  url: &#39;/&#39;,
+  schema: {
+    body: ajv.getSchema(&#39;urn:schema:request&#39;).schema,
+    response: {
+      &#39;2xx&#39;: ajv.getSchema(&#39;urn:schema:response&#39;).schema
+    }
+  },
+  handler (req, reply) {
+    reply.send({ foo: &#39;bar&#39; })
+  }
+})</code></pre><p><a name=serialization></a></p><h3 id=serialization>Serialization</h3><p>Usually you will send your data to the clients via JSON, and Fastify has a powerful tool to help you, <a href=https://www.npmjs.com/package/fast-json-stringify>fast-json-stringify</a>, which is used if you have provided an output schema in the route options. We encourage you to use an output schema, as it will increase your throughput by 100-400% depending on your payload and will prevent accidental disclosure of sensitive information.</p><p>Example:</p><pre><code class=language-js>const schema = {
   response: {
     200: {
       type: &#39;object&#39;,
