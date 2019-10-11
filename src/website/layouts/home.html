@@ -158,7 +158,7 @@ fastify.route({
     }
   },
   // this function is executed for every request before the handler is executed
-  beforeHandler: (request, reply, done) => {
+  preHandler: (request, reply, done) => {
     // E.g. check authentication
     done()
   },
