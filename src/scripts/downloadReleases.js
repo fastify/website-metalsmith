@@ -38,7 +38,7 @@ request(Object.assign(requestConfig, { url: `https://api.github.com/repos/${repo
         }
       })
       // removes release prior to a given release
-      .filter(({version}) => {
+      .filter(({ version }) => {
         const [major, minor, patch] = minRelease.substr(1).split('.').map(Number)
         return (
           version.major > major ||

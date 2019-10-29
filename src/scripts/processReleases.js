@@ -223,7 +223,7 @@ const createDocSources = () => new Promise((resolve, reject) => {
           return acc
         }, {})
 
-        createDocsDataFile(join(destFolder, 'data', 'docs.yml'), {versions: data.versions, toc: indexedToc}, (err) => {
+        createDocsDataFile(join(destFolder, 'data', 'docs.yml'), { versions: data.versions, toc: indexedToc }, (err) => {
           if (err) return reject(err)
 
           const latestVersion = data.versions[1]
@@ -265,7 +265,7 @@ const extractPlugins = (pluginContent) => {
     const url = match[2]
     const description = match[3] ? match[3].trim() : ''
 
-    return {name, url, description}
+    return { name, url, description }
   })
   return plugins
 }
