@@ -13,6 +13,7 @@ const htmlMinifier = require('metalsmith-html-minifier')
 const cleanCSS = require('metalsmith-clean-css')
 const contenthash = require('metalsmith-contenthash')
 const markdownFilter = require('nunjucks-markdown-filter')
+const sass = require('metalsmith-sass')
 const { shuffle } = require('lodash')
 const metadataDir = require('../plugins/metalsmith-metadata-dir')
 const svgOptimizer = require('../plugins/metalsmith-svg-optimizer')
@@ -46,6 +47,9 @@ Metalsmith(source)
   .clean(true)
   .metadata(require(path.join(source, 'metadata.json')))
   .use(debug())
+  .use(sass({
+    outputDir: 'css/'
+  }))
   .use(
     writemetadata({
       childIgnorekeys: ['next', 'previous', 'content']

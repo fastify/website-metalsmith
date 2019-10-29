@@ -1,3 +1,10 @@
+@charset "utf-8";
+
+$link: #008571;
+$primary: #008571;
+
+@import "../../../../node_modules/bulma/bulma.sass";
+
 #main-navbar {
   border-bottom: 1px solid #ccc;
 }
@@ -193,4 +200,14 @@ a > code {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.container .breadcrumb .select {
+  height: auto;
+}
+
+.container .breadcrumb .select select {
+  height: auto;
+  padding-top: 0;
+  padding-bottom: 0;
 }
