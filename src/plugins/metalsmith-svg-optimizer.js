@@ -6,7 +6,7 @@ const SVGO = require('svgo')
 const svg = (file) => /\.svg$/.test(extname(file))
 
 function plugin (opts) {
-  debug(`Initialized metalsmith-svg-optimizer`)
+  debug('Initialized metalsmith-svg-optimizer')
   debug('Options: %o', opts)
 
   const svgo = new SVGO({
