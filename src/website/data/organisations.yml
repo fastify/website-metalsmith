@@ -65,3 +65,7 @@
 - name: "evilfactorylabs"
   image: "evilfactorylabs.svg"
   link: "https://evilfactory.id"
+
+- name: "UNIQ"
+  image: "uniq.svg"
+  link: "https://www.uniq.id/"
