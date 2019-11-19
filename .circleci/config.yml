@@ -6,7 +6,7 @@ jobs:
         - gh-pages
 
     docker:
-      - image: circleci/node:11
+      - image: circleci/node:12
 
     working_directory: ~/fastify-website
 
