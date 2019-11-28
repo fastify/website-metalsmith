@@ -109,8 +109,8 @@ fastify.addHook(&#39;preHandler&#39;, async (request, reply) =&gt; {
     // Your code
     done(null, payload)
   }
-
-  routeOptions.preSerialization = [...routeOptions.preSerialization, onPreSerialization]
+  // preSerialization can be an array or undefined
+  routeOptions.preSerialization = [...(routeOptions.preSerialization || []), onPreSerialization]
 })</code></pre><p><a name=on-register></a></p><h3 id=onregister>onRegister</h3><p>Triggered when a new plugin is registered and a new encapsulation context is created. The hook will be executed <strong>before</strong> the registered code.<br>This hook can be useful if you are developing a plugin that needs to know when a plugin context is formed, and you want to operate in that specific context.<br><strong>Note:</strong> This hook will not be called if a plugin is wrapped inside <a href=https://github.com/fastify/fastify-plugin><code>fastify-plugin</code></a>.</p><pre><code class=language-js>fastify.decorate(&#39;data&#39;, [])
 
 fastify.register(async (instance, opts) =&gt; {
