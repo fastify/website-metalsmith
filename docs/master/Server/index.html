@@ -100,7 +100,28 @@ fastify.get(&#39;/&#39;, (request, reply) =&gt; {
   console.log(request.hostname)
   request.log(&#39;Hello&#39;)
   reply.log(&#39;World&#39;)
-})</code></pre><p><a name=factory-return-503-on-closing></a></p><h3 id=return503onclosing><code>return503OnClosing</code></h3><p>Returns 503 after calling <code>close</code> server method. If <code>false</code>, the server routes the incoming request as usual.</p><ul><li>Default: <code>true</code></li></ul><h2 id=instance>Instance</h2><h3 id=server-methods>Server Methods</h3><p><a name=server></a></p><h4 id=server>server</h4><p><code>fastify.server</code>: The Node core <a href=https://nodejs.org/api/http.html#http_class_http_server>server</a> object as returned by the <a href=/docs/master/Server><strong><code>Fastify factory function</code></strong></a>.</p><p><a name=after></a></p><h4 id=after>after</h4><p>Invoked when the current plugin and all the plugins that have been registered within it have finished loading. It is always executed before the method <code>fastify.ready</code>.</p><pre><code class=language-js>fastify
+})</code></pre><p><a name=factory-return-503-on-closing></a></p><h3 id=return503onclosing><code>return503OnClosing</code></h3><p>Returns 503 after calling <code>close</code> server method. If <code>false</code>, the server routes the incoming request as usual.</p><ul><li>Default: <code>true</code></li></ul><p><a name=factory-ajv></a></p><h3 id=ajv><code>ajv</code></h3><p>Configure the ajv instance used by Fastify without providing a custom one.</p><ul><li>Default:</li></ul><pre><code class=language-js>{
+  customOptions: {
+    removeAdditional: true,
+    useDefaults: true,
+    coerceTypes: true,
+    allErrors: true,
+    nullable: true
+  },
+  plugins: []
+}</code></pre><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+  ajv: {
+    customOptions: {
+      nullable: false // Refer to [ajv options](https://ajv.js.org/#options)
+    },
+    plugins: [
+      require(&#39;ajv-merge-patch&#39;)
+      [require(&#39;ajv-keywords&#39;), &#39;instanceof&#39;];
+      // Usage: [plugin, pluginOptions] - Plugin with options
+      // Usage: plugin - Plugin without options
+    ]
+  }
+})</code></pre><h2 id=instance>Instance</h2><h3 id=server-methods>Server Methods</h3><p><a name=server></a></p><h4 id=server>server</h4><p><code>fastify.server</code>: The Node core <a href=https://nodejs.org/api/http.html#http_class_http_server>server</a> object as returned by the <a href=/docs/master/Server><strong><code>Fastify factory function</code></strong></a>.</p><p><a name=after></a></p><h4 id=after>after</h4><p>Invoked when the current plugin and all the plugins that have been registered within it have finished loading. It is always executed before the method <code>fastify.ready</code>.</p><pre><code class=language-js>fastify
   .register((instance, opts, done) =&gt; {
     console.log(&#39;Current plugin&#39;)
     done()

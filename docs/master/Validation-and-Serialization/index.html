@@ -156,13 +156,73 @@ fastify.register((instance, opts, done) =&gt; {
     done()
   })
   done()
-})</code></pre><p>This example will returns:</p><table><thead><tr><th>URL</th><th>Schemas</th></tr></thead><tbody><tr><td>/</td><td>one</td></tr><tr><td>/sub</td><td>one, two</td></tr><tr><td>/deep</td><td>one, two, three</td></tr></tbody></table><p><a name=schema-compiler></a></p><h4 id=schema-compiler>Schema Compiler</h4><p>The <code>schemaCompiler</code> is a function that returns a function that validates the body, url parameters, headers, and query string. The default <code>schemaCompiler</code> returns a function that implements the <a href=https://ajv.js.org/ >ajv</a> validation interface. Fastify uses it internally to speed the validation up.</p><p>Fastify&#39;s <a href=https://github.com/epoberezkin/ajv#options-to-modify-validated-data>baseline ajv configuration</a> is:</p><pre><code class=language-js>{
+})</code></pre><p>This example will returns:</p><table><thead><tr><th>URL</th><th>Schemas</th></tr></thead><tbody><tr><td>/</td><td>one</td></tr><tr><td>/sub</td><td>one, two</td></tr><tr><td>/deep</td><td>one, two, three</td></tr></tbody></table><p><a name=ajv-plugins></a></p><h4 id=ajv-plugins>Ajv Plugins</h4><p>You can provide a list of plugins you want to use with Ajv:</p><blockquote><p>Refer to <a href=/docs/master/Server#factory-ajv><code>ajv options</code></a> to check plugins format</p></blockquote><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+  ajv: {
+    plugins: [
+      require(&#39;ajv-merge-patch&#39;)
+    ]
+  }
+})
+
+fastify.route({
+  method: &#39;POST&#39;,
+  url: &#39;/&#39;,
+  schema: {
+    body: {
+      $patch: {
+        source: {
+          type: &#39;object&#39;,
+          properties: {
+            q: {
+              type: &#39;string&#39;
+            }
+          }
+        },
+        with: [
+          {
+            op: &#39;add&#39;,
+            path: &#39;/properties/q&#39;,
+            value: { type: &#39;number&#39; }
+          }
+        ]
+      }
+    }
+  },
+  handler (req, reply) {
+    reply.send({ ok: 1 })
+  }
+})
+
+fastify.route({
+  method: &#39;POST&#39;,
+  url: &#39;/&#39;,
+  schema: {
+    body: {
+      $merge: {
+        source: {
+          type: &#39;object&#39;,
+          properties: {
+            q: {
+              type: &#39;string&#39;
+            }
+          }
+        },
+        with: {
+          required: [&#39;q&#39;]
+        }
+      }
+    }
+  },
+  handler (req, reply) {
+    reply.send({ ok: 1 })
+  }
+})</code></pre><p><a name=schema-compiler></a></p><h4 id=schema-compiler>Schema Compiler</h4><p>The <code>schemaCompiler</code> is a function that returns a function that validates the body, url parameters, headers, and query string. The default <code>schemaCompiler</code> returns a function that implements the <a href=https://ajv.js.org/ >ajv</a> validation interface. Fastify uses it internally to speed the validation up.</p><p>Fastify&#39;s <a href=https://github.com/epoberezkin/ajv#options-to-modify-validated-data>baseline ajv configuration</a> is:</p><pre><code class=language-js>{
   removeAdditional: true, // remove additional properties
   useDefaults: true, // replace missing properties and items with the values from corresponding default keyword
   coerceTypes: true, // change data type of data to match type keyword
   allErrors: true,   // check for all errors
   nullable: true     // support keyword &quot;nullable&quot; from Open API 3 specification.
-}</code></pre><p>This baseline configuration cannot be modified. If you want to change or set additional config options, you will need to create your own instance and override the existing one like:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
+}</code></pre><p>This baseline configuration can be modified by providing <a href=/docs/master/Server#factory-ajv><code>ajv.customOptions</code></a> to your Fastify factory.</p><p>If you want to change or set additional config options, you will need to create your own instance and override the existing one like:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
 const Ajv = require(&#39;ajv&#39;)
 const ajv = new Ajv({
   // the fastify defaults (if needed)
