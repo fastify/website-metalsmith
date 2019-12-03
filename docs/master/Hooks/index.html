@@ -120,19 +120,22 @@ fastify.register(async (instance, opts) =&gt; {
   instance.register(async (instance, opts) =&gt; {
     instance.data.push(&#39;world&#39;)
     console.log(instance.data) // [&#39;hello&#39;, &#39;world&#39;]
-  })
-})
+  }, { prefix: &#39;/hola&#39; })
+}, { prefix: &#39;/ciao&#39; })
 
 fastify.register(async (instance, opts) =&gt; {
   console.log(instance.data) // []
-})
+}, { prefix: &#39;/hello&#39; })
 
-fastify.addHook(&#39;onRegister&#39;, (instance) =&gt; {
+fastify.addHook(&#39;onRegister&#39;, (instance, opts) =&gt; {
   // Create a new array from the old one
   // but without keeping the reference
   // allowing the user to have encapsulated
   // instances of the `data` property
   instance.data = instance.data.slice()
+
+  // the options of the new registered instance
+  console.log(opts.prefix)
 })</code></pre><p><a name=scope></a></p><h3 id=scope>Scope</h3><p>Except for <a href=#application-hooks>Application Hooks</a>, all hooks are encapsulated. This means that you can decide where your hooks should run by using <code>register</code> as explained in the <a href=/docs/master/Plugins-Guide>plugins guide</a>. If you pass a function, that function is bound to the right Fastify context and from there you have full access to the Fastify API.</p><pre><code class=language-js>fastify.addHook(&#39;onRequest&#39;, function (request, reply, done) {
   const self = this // Fastify context
   done()
