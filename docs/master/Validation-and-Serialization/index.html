@@ -240,16 +240,98 @@ fastify.setSchemaCompiler(function (schema) {
 
 // -------
 // Alternatively, you can set the schema compiler using the setter property:
-fastify.schemaCompiler = function (schema) { return ajv.compile(schema) })</code></pre><p><em><strong>Note:</strong> If you use a custom instance of any validator (even Ajv), you have to add schemas to the validator instead of fastify, since fastify&#39;s default validator is no longer used, and fastify&#39;s <code>addSchema</code> method has no idea what validator you are using.</em></p><p>But maybe you want to change the validation library. Perhaps you like <code>Joi</code>. In this case, you can use it to validate the url parameters, body, and query string!</p><pre><code class=language-js>const Joi = require(&#39;joi&#39;)
+fastify.schemaCompiler = function (schema) { return ajv.compile(schema) })</code></pre><p><em><strong>Note:</strong> If you use a custom instance of any validator (even Ajv), you have to add schemas to the validator instead of fastify, since fastify&#39;s default validator is no longer used, and fastify&#39;s <code>addSchema</code> method has no idea what validator you are using.</em></p><p><a name=using-other-validation-libraries></a></p><h4 id=using-other-validation-libraries>Using other validation libraries</h4><p>The <code>schemaCompiler</code> function makes it easy to substitute <code>ajv</code> with almost any Javascript validation library (<a href=https://github.com/hapijs/joi/ >joi</a>, <a href=https://github.com/jquense/yup/ >yup</a>, ...).</p><p>However, in order to make your chosen validation engine play well with Fastify&#39;s request/response pipeline, the function returned by your <code>schemaCompiler</code> function should return an object with either :</p><ul><li>in case of validation failure: an <code>error</code> property, filled with an instance of <code>Error</code> or a string that describes the validation error</li><li>in case of validation success: an <code>value</code> property, filled with the coerced value that passed the validation</li></ul><p>The examples below are therefore equivalent:</p><pre><code class=language-js>const joi = require(&#39;joi&#39;)
+
+// Validation options to match ajv&#39;s baseline options used in Fastify
+const joiOptions = {
+  abortEarly: false, // return all errors
+  convert: true, // change data type of data to match type keyword
+  allowUnknown : false, // remove additional properties
+  noDefaults: false
+}
+
+const joiBodySchema = joi.object().keys({
+  age: joi.number().integer().required(),
+  sub: joi.object().keys({
+    name: joi.string().required()
+  }).required()
+})
+
+const joiSchemaCompiler = schema =&gt; data =&gt; {
+  // joi `validate` function returns an object with an error property (if validation failed) and a value property (always present, coerced value if validation was successful)
+  const { error, value } = joiSchema.validate(data, joiOptions)
+  if (error) {
+    return { error }
+  } else {
+    return { value }
+  }
+}
+
+// or more simply...
+const joiSchemaCompiler = schema =&gt; data =&gt; joiSchema.validate(data, joiOptions)
 
 fastify.post(&#39;/the/url&#39;, {
   schema: {
-    body: Joi.object().keys({
-      hello: Joi.string().required()
-    }).required()
+    body: joiBodySchema
   },
-  schemaCompiler: schema =&gt; data =&gt; Joi.validate(data, schema)
-}, handler)</code></pre><p>In that case the function returned by <code>schemaCompiler</code> returns an object like:</p><ul><li><code>error</code>: filled with an instance of <code>Error</code> or a string that describes the validation error</li><li><code>value</code>: the coerced value that passed the validation</li></ul><p><a name=schema-resolver></a></p><h4 id=schema-resolver>Schema Resolver</h4><p>The <code>schemaResolver</code> is a function that works together with the <code>schemaCompiler</code>: you can&#39;t use it with the default schema compiler. This feature is useful when you use complex schemas with <code>$ref</code> keyword in your routes and a custom validator.</p><p>This is needed because all the schemas you add to your custom compiler are unknown to Fastify but it need to resolve the <code>$ref</code> paths.</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
+  schemaCompiler: joiSchemaCompiler
+}, handler)</code></pre><pre><code class=language-js>const yup = require(&#39;yup&#39;)
+
+// Validation options to match ajv&#39;s baseline options used in Fastify
+const yupOptions = {
+  strict: false,
+  abortEarly: false, // return all errors
+  stripUnknown: true, // remove additional properties
+  recursive: true
+}
+
+const yupBodySchema = yup.object({
+  age: yup.number().integer().required(),
+  sub: yup.object().shape({
+    name: yup.string().required()
+  }).required()
+})
+
+const yupSchemaCompiler = schema =&gt; data =&gt; {
+  // with option strict = false, yup `validateSync` function returns the coerced value if validation was successful, or throws if validation failed
+  try {
+    const result = schema.validateSync(data, yupOptions)
+    return { value: result }
+  } catch (e) {
+    return { error: e }
+  }
+}
+
+fastify.post(&#39;/the/url&#39;, {
+  schema: {
+    body: yupBodySchema
+  },
+  schemaCompiler: yupSchemaCompiler
+}, handler)</code></pre><h5 id=validation-messages-with-other-validation-libraries>Validation messages with other validation libraries</h5><p>Fastify&#39;s validation error messages are tightly coupled to the default validation engine: errors returned from <code>ajv</code> are eventually run through the <code>schemaErrorsText</code> function which is responsible for building human-friendly error messages. However, the <code>schemaErrorsText</code> function is written with <code>ajv</code> in mind : as a result, you may run into odd or incomplete error messages when using other validation librairies.</p><p>To circumvent this issue, you have 2 main options :</p><ol><li>make sure your validation function (returned by your custom <code>schemaCompiler</code>) returns errors in the exact same structure and format as <code>ajv</code> (although this could prove to be difficult and tricky due to differences between validation engines)</li><li>or use a custom <code>errorHandler</code> to intercept and format your &#39;custom&#39; validation errors</li></ol><p>To help you in writing a custom <code>errorHandler</code>, Fastify adds 2 properties to all validation errors:</p><ul><li>validation: the content of the <code>error</code> property of the object returned by the validation function (returned by your custom <code>schemaCompiler</code>)</li><li>validationContext: the &#39;context&#39; (body, params, query, headers) where the validation error occurred</li></ul><p>A very contrived example of such a custom <code>errorHandler</code> handling validation errors is shown below:</p><pre><code class=language-js>const errorHandler = (error, request, reply) =&gt; {
+
+  const statusCode = error.statusCode
+  let response
+
+  const { validation, validationContext } = error
+
+  // check if we have a validation error
+  if (validation) {
+    response = {
+      message: `A validation error occured when validating the ${validationContext}...`, // validationContext will be &#39;body&#39; or &#39;params&#39; or &#39;headers&#39; or &#39;query&#39;
+      errors: validation // this is the result of your validation library...
+    }
+  } else {
+    response = {
+      message: &#39;An error occurred...&#39;
+    }
+  }
+
+  // any additional work here, eg. log error
+  // ...
+
+  reply.status(statusCode).send(response)
+
+}</code></pre><p><a name=schema-resolver></a></p><h4 id=schema-resolver>Schema Resolver</h4><p>The <code>schemaResolver</code> is a function that works together with the <code>schemaCompiler</code>: you can&#39;t use it with the default schema compiler. This feature is useful when you use complex schemas with <code>$ref</code> keyword in your routes and a custom validator.</p><p>This is needed because all the schemas you add to your custom compiler are unknown to Fastify but it need to resolve the <code>$ref</code> paths.</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
 const Ajv = require(&#39;ajv&#39;)
 const ajv = new Ajv()
 
@@ -335,10 +417,10 @@ fastify.post(&#39;/the/url&#39;, { schema }, handler)</code></pre><p><em>If you 
     },
     required: [&#39;name&#39;]
   }
-}</code></pre><p>and fail to satisfy it, the route will immediately return a response with the following payload</p><pre><code class=language-js>{ 
+}</code></pre><p>and fail to satisfy it, the route will immediately return a response with the following payload</p><pre><code class=language-js>{
   &quot;statusCode&quot;: 400,
   &quot;error&quot;: &quot;Bad Request&quot;,
-  &quot;message&quot;: &quot;body should have required property &#39;name&#39;&quot; 
+  &quot;message&quot;: &quot;body should have required property &#39;name&#39;&quot;
 }</code></pre><p>If you want to handle errors inside the route, you can specify the <code>attachValidation</code> option for your route. If there is a validation error, the <code>validationError</code> property of the request will contain the <code>Error</code> object with the raw <code>validation</code> result as shown below</p><pre><code class=language-js>const fastify = Fastify()
 
 fastify.post(&#39;/&#39;, { schema, attachValidation: true }, function (req, reply) {
@@ -348,7 +430,8 @@ fastify.post(&#39;/&#39;, { schema, attachValidation: true }, function (req, rep
   }
 })</code></pre><p>You can also use <a href=https://www.fastify.io/docs/latest/Server/#seterrorhandler>setErrorHandler</a> to define a custom response for validation errors such as</p><pre><code class=language-js>fastify.setErrorHandler(function (error, request, reply) {
   if (error.validation) {
-     reply.status(422).send(new Error(&#39;validation failed&#39;))
+     // error.validationContext can be on of [body, params, querystring, headers]
+     reply.status(422).send(new Error(`validation failed of the ${error.validationContext}`))
   }
 })</code></pre><p>If you want custom error response in schema without headaches and quickly, you can take a look at <a href=https://github.com/epoberezkin/ajv-errors>here</a></p><h3 id=json-schema-and-shared-schema-support>JSON Schema and Shared Schema support</h3><p>JSON Schema has some type of utilities in order to optimize your schemas that, in conjuction with the Fastify&#39;s shared schema, let you reuse all your schemas easily.</p><table><thead><tr><th>Use Case</th><th>Validator</th><th>Serializer</th></tr></thead><tbody><tr><td>shared schema</td><td>✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to <code>$id</code></td><td>️️✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to <code>/definitions</code></td><td>✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to shared schema <code>$id</code></td><td>✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to shared schema <code>/definitions</code></td><td>✔️</td><td>✔️</td></tr></tbody></table><h4 id=examples>Examples</h4><pre><code class=language-js>// Usage of the Shared Schema feature
 fastify.addSchema({
