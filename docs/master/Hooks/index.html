@@ -9,7 +9,7 @@
     throw new Error(&#39;Some errors occurred.&#39;)
   }
   return
-})</code></pre><p><strong>Notice:</strong> in the <a href=#onRequest>onRequest</a> hook, <code>request.body</code> will always be <code>null</code>, because the body parsing happens before the <a href=#preHandler>preHandler</a> hook.</p><h3 id=preparsing>preParsing</h3><pre><code class=language-js>fastify.addHook(&#39;preParsing&#39;, (request, reply, done) =&gt; {
+})</code></pre><p><strong>Notice:</strong> in the <a href=#onRequest>onRequest</a> hook, <code>request.body</code> will always be <code>null</code>, because the body parsing happens before the <a href=#preValidation>preValidation</a> hook.</p><h3 id=preparsing>preParsing</h3><pre><code class=language-js>fastify.addHook(&#39;preParsing&#39;, (request, reply, done) =&gt; {
   // Some code
   done()
 })</code></pre><p>Or <code>async/await</code>:</p><pre><code class=language-js>fastify.addHook(&#39;preParsing&#39;, async (request, reply) =&gt; {
@@ -20,7 +20,7 @@
     throw new Error(&#39;Some errors occurred.&#39;)
   }
   return
-})</code></pre><h3 id=prevalidation>preValidation</h3><pre><code class=language-js>fastify.addHook(&#39;preValidation&#39;, (request, reply, done) =&gt; {
+})</code></pre><p><strong>Notice:</strong> in the <a href=#preParsing>preParsing</a> hook, <code>request.body</code> will always be <code>null</code>, because the body parsing happens before the <a href=#preValidation>preValidation</a> hook.</p><h3 id=prevalidation>preValidation</h3><pre><code class=language-js>fastify.addHook(&#39;preValidation&#39;, (request, reply, done) =&gt; {
   // Some code
   done()
 })</code></pre><p>Or <code>async/await</code>:</p><pre><code class=language-js>fastify.addHook(&#39;preValidation&#39;, async (request, reply) =&gt; {
@@ -31,7 +31,7 @@
     throw new Error(&#39;Some errors occurred.&#39;)
   }
   return
-})</code></pre><p><strong>Notice:</strong> in the <a href=#preValidation>preValidation</a> hook, <code>request.body</code> will always be <code>null</code>, because the body parsing happens before the <a href=#preHandler>preHandler</a> hook.</p><h3 id=prehandler>preHandler</h3><pre><code class=language-js>fastify.addHook(&#39;preHandler&#39;, (request, reply, done) =&gt; {
+})</code></pre><h3 id=prehandler>preHandler</h3><pre><code class=language-js>fastify.addHook(&#39;preHandler&#39;, (request, reply, done) =&gt; {
   // some code
   done()
 })</code></pre><p>Or <code>async/await</code>:</p><pre><code class=language-js>fastify.addHook(&#39;preHandler&#39;, async (request, reply) =&gt; {
