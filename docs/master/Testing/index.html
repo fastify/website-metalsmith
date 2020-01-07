@@ -3,7 +3,8 @@
   url: String,
   query: Object,
   payload: Object,
-  headers: Object
+  headers: Object,
+  cookies: Object
 }, (error, response) =&gt; {
   // your tests
 })</code></pre><p>or in the promisified version</p><pre><code class=language-js>fastify
@@ -12,7 +13,8 @@
     url: String,
     query: Object,
     payload: Object,
-    headers: Object
+    headers: Object,
+    cookies: Object
   })
   .then(response =&gt; {
     // your tests
@@ -55,7 +57,7 @@ tap.test(&#39;GET `/` route&#39;, t =&gt; {
     t.error(err)
     t.strictEqual(response.statusCode, 200)
     t.strictEqual(response.headers[&#39;content-type&#39;], &#39;application/json; charset=utf-8&#39;)
-    t.deepEqual(JSON.parse(response.payload), { hello: &#39;world&#39; })
+    t.deepEqual(response.json(), { hello: &#39;world&#39; })
   })
 })</code></pre><h3 id=testing-with-a-running-server>Testing with a running server</h3><p>Fastify can also be tested after starting the server with <code>fastify.listen()</code> or after initializing routes and plugins with <code>fastify.ready()</code>.</p><h4 id=example-1>Example:</h4><p>Uses <strong>app.js</strong> from the previous example.</p><p><strong>test-listen.js</strong> (testing with <a href=https://www.npmjs.com/package/request><code>Request</code></a>)</p><pre><code class=language-js>const tap = require(&#39;tap&#39;)
 const request = require(&#39;request&#39;)
