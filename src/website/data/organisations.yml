@@ -46,6 +46,10 @@
   image: "mvlabs.svg"
   link: "https://www.mvlabs.it"
 
+- name: "Radity"
+  image: "radity.svg"
+  link: "http://www.radity.com"
+
 - name: "RuneAudio"
   image: "runeaudio.svg"
   link: "http://www.runeaudio.com"
