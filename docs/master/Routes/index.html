@@ -132,7 +132,8 @@ fastify.register(context1, {
 
 async function context1 (fastify, opts) {
   fastify.get(&#39;/&#39;, (req, reply) =&gt; {
-    req.log.info({ user: &#39;call father serializer&#39;, key: &#39;another key&#39; }) // shows: { user: &#39;My serializer father - call father  serializer&#39;, key: &#39;another key&#39; }
+    req.log.info({ user: &#39;call father serializer&#39;, key: &#39;another key&#39; })
+    // shows: { user: &#39;My serializer father - call father  serializer&#39;, key: &#39;another key&#39; }
     reply.send({})
   })
 }
