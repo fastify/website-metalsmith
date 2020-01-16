@@ -287,13 +287,13 @@ start()</code></pre>
               <div class="column is-one-third">
                 <div class="media">
                   <div class="media-left">
-                    <figure class="image is-48x48">
+                    <figure class="image is-96x96 contributor-picture">
                       <img src="{{ member.picture }}" alt="{{ member.name }}'s profile picture">
                     </figure>
                   </div>
                   <div class="media-content">
                     <p class="title is-5">{{ member.name }}</p>
-                    <p class="subtitle is-6">
+                    <p class="subtitle is-6 contributor-links">
                       {% for label, link in member.links %}
                         <a href="{{ link }}" target="_blank">{{ label }}</a>
                       {% endfor %}

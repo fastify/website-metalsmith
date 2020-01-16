@@ -31,7 +31,7 @@ const env = nunjucks.configure(path.join(source, 'layouts'), {
   watch: false,
   noCache: true
 })
-var first = true
+let first = true
 env.addGlobal('getContext', function () {
   if (first) {
     console.log(Object.keys(this.env.globals))
