@@ -38,6 +38,7 @@ env.addGlobal('getContext', function () {
     first = false
   }
 })
+env.addGlobal('currentYear', new Date().getFullYear())
 env.addFilter('md', markdownFilter)
 env.addFilter('shuffle', arr => shuffle(arr))
 
