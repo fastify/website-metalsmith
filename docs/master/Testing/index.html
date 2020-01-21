@@ -7,7 +7,14 @@
   cookies: Object
 }, (error, response) =&gt; {
   // your tests
-})</code></pre><p>or in the promisified version</p><pre><code class=language-js>fastify
+})</code></pre><p><code>.inject</code> methods can also be chained by omitting the callback function:</p><pre><code class=language-js>fastify
+  .inject()
+  .get(&#39;/&#39;)
+  .headers({ foo: &#39;bar&#39; })
+  .query({ foo: &#39;bar&#39; })
+  .end((err, res) =&gt; { // the .end call will trigger the request
+    console.log(res.payload)
+  })</code></pre><p>or in the promisified version</p><pre><code class=language-js>fastify
   .inject({
     method: String,
     url: String,
