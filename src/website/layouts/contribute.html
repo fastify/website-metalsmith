@@ -1,0 +1,37 @@
+{% extends "default.html" %}
+
+{% block content %}
+<section class="hero is-primary" style="background-image: url(/{{ hashes['images/bg-pattern-dark.png'] }})">
+  <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          {{ title }}
+        </h1>
+      </div>
+  </div>
+</section>
+<div class="container">
+  <section class="section">
+    <div class="content">
+      Catchy content to encourage contributions will go here...
+
+      If you don't know where to start you can have a look at the list of <em>good first issues</em> below.
+
+      <h2 class="title">Good first issues</h2>
+
+      <div id="good-first-issues">
+          ... Loading
+          <!-- This wil be replaced by the async request (we should also add a NOSCRIPT tag to mention that this feature is available only if js is enabled) -->
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}
+
+{% block extraScripts %}
+<script type="text/javascript">
+  (function() {
+    // code for client side request(s) to GitHub will go here
+  })()
+</script>
+{% endblock %}
