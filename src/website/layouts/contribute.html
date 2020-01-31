@@ -5,7 +5,7 @@
   <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          {{ title }}
+          {{ title }} 🚀
         </h1>
       </div>
   </div>
@@ -13,15 +13,17 @@
 <div class="container">
   <section class="section">
     <div class="content">
-      Catchy content to encourage contributions will go here...
-
+			Fastify is a growing and friendly community, and would be lucky to have your contributions! 🙇‍♂️
+			<br/>
+			Contributions are always welcome, we only ask you follow the <a href="https://github.com/fastify/fastify/blob/master/CONTRIBUTING.md">Contribution Guidelines</a> and the <a href="https://github.com/fastify/fastify/blob/master/CODE_OF_CONDUCT.md">Code Of Conduct</a>.
+			<br/>
       If you don't know where to start you can have a look at the list of <em>good first issues</em> below.
-
       <h2 class="title">Good first issues</h2>
 
       <div id="good-first-issues">
-          ... Loading
-          <!-- This wil be replaced by the async request (we should also add a NOSCRIPT tag to mention that this feature is available only if js is enabled) -->
+					<noscript>
+						This feature is only available where JavaScript is enabled in your browser.
+					</noscript>
       </div>
     </div>
   </section>
@@ -31,7 +33,69 @@
 {% block extraScripts %}
 <script type="text/javascript">
   (function() {
-    // code for client side request(s) to GitHub will go here
-  })()
+		var container = document.getElementById('good-first-issues')
+
+		var spinner = document.createElement('div')
+		spinner.className = 'spinner'
+		container.appendChild(spinner)
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+    	if (xhr.readyState !== 4) return;
+    	if (xhr.status >= 200 && xhr.status < 300) {
+				try {
+					var results = JSON.parse(xhr.responseText).results
+					handleResults(results);
+				} catch (e) {
+					handleError(e)
+				}
+    	}
+    };
+
+    xhr.open('GET', 'https://gh-issue-finder.glentiki.now.sh/api/findIssues?org=fastify');
+    xhr.send();
+
+
+		function handleResults(results) {
+			resetContainer()
+			if (results.length > 0) {
+				results.sort((a, b) => b.comments - a.comments)
+				for(var i = 0; i < results.length; i++) {
+				  var result = results[i]
+				  var issueNode = document.createElement('div')
+			    issueNode.className = "good-issue"
+				  issueNode.innerHTML = '<div class="img"><a href="'+result.author.acc_url+'"><img src="'+result.author.avatar_url+'" alt="Author profile picture" /></a></div>'+
+				  	'<div class="details">'+
+				  	  '<h3><a href="'+result.url+'">'+result.title+' (Comments: '+result.comments+')</a></h3>'+
+				  	  '<p><a href="'+result.author.acc_url+'">'+result.author.name+'</a><p>'+
+				  	'</div>'
+			    container.appendChild(issueNode)
+			  }
+			} else {
+				var noResultsNode = document.createElement('div')
+			  noResultsNode.className = "no-issues"
+				noResultsNode.innerHTML = '<h3>No issues found! 🚀</h3><p>Try <a href="https://github.com/fastify/fastify">checking the issues on GitHub</a> or <a href="https://gitter.im/fastify/Lobby">joining us on Gitter to join in the conversation</a></p>'
+			  container.appendChild(noResultsNode)
+			}
+		}
+
+		function handleError(error) {
+			resetContainer()
+			var errorNode = document.createElement('div')
+			errorNode.className = "error-result"
+			errorNode.innerHTML = "<h3>There was an unexpected error fetching issues to contribute to. :( </h3>" +
+			                        "<h4>Error message: " + error.toString() + "</h4>" +
+			                        "<p>If this is unexpected please report an issue <a href=\"https://github.com/fastify/website/issues\">here.</a></p>"
+			container.appendChild(errorNode)
+    }
+
+		function resetContainer() {
+			var child = container.lastChild;
+      while (child) {
+				container.removeChild(child);
+        child = container.lastChild;
+      }
+		}
+	})()
 </script>
 {% endblock %}
