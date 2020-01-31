@@ -66,6 +66,27 @@
   <div class="container content">
     <div class="columns is-centered">
       <div class="column is-10">
+        <h1 class="title">Core features</h1>
+
+        <p>These are the main features and principles on which fastify has been built:</p>
+
+        <ul>
+          <li><strong>Highly performant:</strong> as far as we know, Fastify is one of the fastest web frameworks in town, depending on the code complexity we can serve up to 30 thousand requests per second.</li>
+          <li><strong>Extendible:</strong> Fastify is fully extensible via its hooks, plugins and decorators.</li>
+          <li><strong>Schema based:</strong> even if it is not mandatory we recommend to use <a href="http://json-schema.org/" target="_blank">JSON Schema</a> to validate your routes and serialize your outputs, internally Fastify compiles the schema in an highly performant function.</li>
+          <li><strong>Logging:</strong> logs are extremely important but are costly; we chose the best logger to almost remove this cost, <a href="https://github.com/pinojs/pino" target="_blank">Pino</a>!</li>
+          <li><strong>Developer friendly:</strong> the framework is built to be very expressive and to help developers in their daily use, without sacrificing performance and security.</li>
+          <li><strong>TypeScript ready:</strong> we work hard to maintain a <a href="https://www.typescriptlang.org/" aria-label="Link to TypeScript website">TypeScript</a> type declaration file so we can support the growing TypeScript community.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container content">
+    <div class="columns is-centered">
+      <div class="column is-10">
         <h1 class="title">Quick start</h1>
         <p>Get fastify with NPM:</p>
         <pre><code class="shell">npm install fastify</code></pre>
@@ -213,30 +234,89 @@ const start = async () => {
   }
 }
 start()</code></pre>
-        </div>
+				</div>
+
+				<h2>TypeScript Support</h2>
+				<p>Fastify is shipped with a typings file, but you may need to install <code class="shell">@types/node</code>, depending on the Node.js version you are using.</p>
+				<p>The following example creates a http server.</p>
+				<p>We pass the relevant typings for our http version used.</p>
+				<p>By passing types we get correctly typed access to the underlying http objects in routes.</p>
+				<p>If using http2 we'd pass <code class="typescript">&#60;http2.Http2Server, http2.Http2ServerRequest, http2.Http2ServerResponse&#62;</code>.</p>
+				<p>For https pass <code class="typescript">http2.Http2SecureServer</code> or <code class="typescript">http.SecureServer</code> instead of Server.</p>
+				<p>This ensures within the server handler we also get <code class="typescript">http.ServerResponse</code> with correct typings on <code class="javascript">reply.res</code>.</p>
+				<div class="swappable-async-await">
+          <div class="swap-button-box">
+            <label for="async-await-swap-3">async/await</label>
+            <div class="toggle-checkbox">
+              <input type="checkbox" class="swappable-async-await-checkbox" id="async-await-swap-3" value="0" checked="" name="async-await-swap-3">
+							<label for="async-await-swap-3"></label>
+            </div>
+          </div>
+          <pre class="no-async swappable-async-await-code"><code class="javascript">import * as fastify from 'fastify'
+import { Server, IncomingMessage, ServerResponse } from 'http'
+
+const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({})
+
+const opts: fastify.RouteShorthandOptions = {
+  schema: {
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          pong: {
+            type: 'string'
+          }
+        }
+      }
+    }
+  }
+}
+
+server.get('/ping', opts, (request, reply) => {
+  reply.send({ pong: 'it worked!' })
+})
+
+server.listen(3000, (err) => {
+  if (err) {
+    server.log.error(err)
+    process.exit(1)
+  }
+  server.log.info(`server listening on ${server.server.address().port}`)
+})</code></pre>
+          <pre class="async swappable-async-await-code"><code class="javascript">import * as fastify from 'fastify'
+import { Server, IncomingMessage, ServerResponse } from 'http'
+
+const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({})
+
+const opts: fastify.RouteShorthandOptions = {
+  schema: {
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          pong: {
+            type: 'string'
+          }
+        }
+      }
+    }
+  }
+}
+
+server.get('/ping', opts, async (request, reply) => {
+  return { pong: 'it worked!' }
+})
+
+server.listen(3000, (err) => {
+  if (err) {
+    server.log.error(err)
+    process.exit(1)
+  }
+  server.log.info(`server listening on ${server.server.address().port}`)
+})</code></pre>
+				</div>
 
         <p>Visit the <a href="/docs">Documentation</a> to learn more about all the features that Fastify has to offer.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container content">
-    <div class="columns is-centered">
-      <div class="column is-10">
-        <h1 class="title">Core features</h1>
-
-        <p>These are the main features and principles on which fastify has been built:</p>
-
-        <ul>
-          <li><strong>Highly performant:</strong> as far as we know, Fastify is one of the fastest web frameworks in town, depending on the code complexity we can serve up to 30 thousand requests per second.</li>
-          <li><strong>Extendible:</strong> Fastify is fully extensible via its hooks, plugins and decorators.</li>
-          <li><strong>Schema based:</strong> even if it is not mandatory we recommend to use <a href="http://json-schema.org/" target="_blank">JSON Schema</a> to validate your routes and serialize your outputs, internally Fastify compiles the schema in an highly performant function.</li>
-          <li><strong>Logging:</strong> logs are extremely important but are costly; we chose the best logger to almost remove this cost, <a href="https://github.com/pinojs/pino" target="_blank">Pino</a>!</li>
-          <li><strong>Developer friendly:</strong> the framework is built to be very expressive and to help developers in their daily use, without sacrificing performance and security.</li>
-          <li><strong>TypeScript ready:</strong> we work hard to maintain a <a href="https://www.typescriptlang.org/" aria-label="Link to TypeScript website">TypeScript</a> type declaration file so we can support the growing TypeScript community.</li>
-        </ul>
       </div>
     </div>
   </div>
