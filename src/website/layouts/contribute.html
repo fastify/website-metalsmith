@@ -13,11 +13,10 @@
 <div class="container">
   <section class="section">
     <div class="content">
-			Fastify is a growing and friendly community, and would be lucky to have your contributions! 🙇‍♂️
-			<br/>
-			Contributions are always welcome, we only ask you follow the <a href="https://github.com/fastify/fastify/blob/master/CONTRIBUTING.md">Contribution Guidelines</a> and the <a href="https://github.com/fastify/fastify/blob/master/CODE_OF_CONDUCT.md">Code Of Conduct</a>.
-			<br/>
-      If you don't know where to start you can have a look at the list of <em>good first issues</em> below.
+			<p>Fastify is a growing and friendly community, and would be lucky to have your contributions! 🙇‍♂️</p>
+			<p>Contributions are always welcome, we only ask you follow the <a href="https://github.com/fastify/fastify/blob/master/CONTRIBUTING.md">Contribution Guidelines</a> and the <a href="https://github.com/fastify/fastify/blob/master/CODE_OF_CONDUCT.md">Code Of Conduct</a>.</p>
+			<p>If you don't know where to start you can have a look at the list of <em>good first issues</em> below.</p>
+			
       <h2 class="title">Good first issues</h2>
 
       <div id="good-first-issues">
@@ -34,6 +33,16 @@
 <script type="text/javascript">
   (function() {
 		var container = document.getElementById('good-first-issues')
+		var projectRegex = /https:\/\/github\.com\/fastify\/([a-zA-Z0-9\-_]+)\/issues\/(\d+)/
+
+		function mapProject(url) {
+			var match = url.match(projectRegex)
+			if (!match || !match[1]) {
+				return 'fastify'
+			}
+
+			return match[1]
+		}
 
 		var spinner = document.createElement('div')
 		spinner.className = 'spinner'
@@ -44,7 +53,9 @@
     	if (xhr.readyState !== 4) return;
     	if (xhr.status >= 200 && xhr.status < 300) {
 				try {
-					var results = JSON.parse(xhr.responseText).results
+					var results = JSON.parse(xhr.responseText).results.map((r) => {
+						return Object.assign({}, r, {project: mapProject(r.url)})
+					})
 					handleResults(results);
 				} catch (e) {
 					handleError(e)
@@ -55,7 +66,6 @@
     xhr.open('GET', 'https://gh-issue-finder.glentiki.now.sh/api/findIssues?org=fastify');
     xhr.send();
 
-
 		function handleResults(results) {
 			resetContainer()
 			if (results.length > 0) {
@@ -64,11 +74,28 @@
 				  var result = results[i]
 				  var issueNode = document.createElement('div')
 			    issueNode.className = "good-issue"
-				  issueNode.innerHTML = '<div class="img"><a href="'+result.author.acc_url+'"><img src="'+result.author.avatar_url+'" alt="Author profile picture" /></a></div>'+
-				  	'<div class="details">'+
-				  	  '<h3><a href="'+result.url+'">'+result.title+' (Comments: '+result.comments+')</a></h3>'+
-				  	  '<p><a href="'+result.author.acc_url+'">'+result.author.name+'</a><p>'+
-				  	'</div>'
+				  issueNode.innerHTML = '<div class="card">' +
+  							'<div class="card-content">' +
+    							'<div class="media">' +
+      							'<div class="media-left">' +
+											'<a href="'+result.author.acc_url+'">' +
+        								'<figure class="image is-96x96 contributor-picture">' +
+													'<img src="'+result.author.avatar_url+'" alt="'+ e(result.author.name) +'\'s profile picture"/>' +
+												'</figure>' +
+											'</a>' +
+      							'</div>' +
+      							'<div class="media-content">' +
+											'<p class="title is-4">' +
+												'<a href="'+result.url+'">'+e(result.title)+'</a>' +
+											'</p>' +
+											'<p class="subtitle is-6">' +
+												'<a href="https://github.com/fastify/'+result.project+'">'+e(result.project)+'</a>' +
+											'</p>' +
+  										'<p><strong>'+result.comments+'</strong> Comments</p>' +
+      							'</div>' +
+    							'</div>' +
+  							'</div>' +
+      				'</div>'
 			    container.appendChild(issueNode)
 			  }
 			} else {
@@ -96,6 +123,15 @@
         child = container.lastChild;
       }
 		}
+
+		function e(unsafe) {
+    return unsafe
+			.replace(/&/g, "&amp;")
+			.replace(/</g, "&lt;")
+			.replace(/>/g, "&gt;")
+			.replace(/"/g, "&quot;")
+			.replace(/'/g, "&#039;");
+    }
 	})()
 </script>
 {% endblock %}

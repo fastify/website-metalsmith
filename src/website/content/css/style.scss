@@ -243,27 +243,11 @@ a > code {
     height: 24px;
 	  border-radius: 50%;
 	  margin: 0 auto;
-	}
-
-	.good-issue {
-		border-top: 1px solid #ccc;
-		display: flex;
-		width: 100%;
-		flex-direction: row;
-		align-items: center;
-		padding: .5rem;
-
-		img {
-			max-width: 80px;
-			margin-right: .5rem;
-		}
-
-		details {
-			display: flex;
-			flex-direction: column;
-			justify-content: space-around;
-		}
-	}
+  }
+  
+  .good-issue {
+    margin: 0 0 .5em 0;
+  }
 
 	.error-result, .no-issues {
 		padding: 1rem;
