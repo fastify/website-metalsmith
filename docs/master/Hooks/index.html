@@ -62,16 +62,31 @@ fastify.addHook(&#39;onResponse&#39;, (request, reply, done) =&gt; {
 })</code></pre><p>If you want to pass a custom error code to the user, just use <code>reply.code()</code>:</p><pre><code class=language-js>fastify.addHook(&#39;preHandler&#39;, (request, reply, done) =&gt; {
   reply.code(400)
   done(new Error(&#39;Some error&#39;))
-})</code></pre><p><em>The error will be handled by <a href=/docs/master/Reply#errors><code>Reply</code></a>.</em></p><h3 id=respond-to-a-request-from-a-hook>Respond to a request from a hook</h3><p>If needed, you can respond to a request before you reach the route handler, for example when implementing an authentication hook. If you are using <code>onRequest</code> or <code>preHandler</code> use <code>reply.send</code>; if you are using a middleware, use <code>res.end</code>.</p><pre><code class=language-js>fastify.addHook(&#39;onRequest&#39;, (request, reply, done) =&gt; {
+})</code></pre><p><em>The error will be handled by <a href=/docs/master/Reply#errors><code>Reply</code></a>.</em></p><h3 id=respond-to-a-request-from-a-hook>Respond to a request from a hook</h3><p>If needed, you can respond to a request before you reach the route handler, for example when implementing an authentication hook. Replying from an hook implies that the hook chain is <strong>stopped</strong> and the rest of hooks and the handlers are not executed. If the hook is using the callback approach, i.e. it is not an <code>async</code> function or it returns a <code>Promise</code>, it is as simple as calling <code>reply.send()</code> and avoiding calling the callback. If the hook is <code>async</code>, <code>reply.send()</code> <strong>must</strong> be called <em>before</em> the function returns or the promise resolves, otherwise the request will proceed. When <code>reply.send()</code> is called outside of the promise chain, it is important to <code>return reply</code> otherwise the request will be executed twice.</p><p>It is important to <strong>not mix callbacks and <code>async</code>/<code>Promise</code></strong>, otherwise the hook chain will be executed twice.</p><p>If you are using <code>onRequest</code> or <code>preHandler</code> use <code>reply.send</code>; if you are using a middleware, use <code>res.end</code>.</p><pre><code class=language-js>fastify.addHook(&#39;onRequest&#39;, (request, reply, done) =&gt; {
   reply.send(&#39;Early response&#39;)
 })
 
 // Works with async functions too
 fastify.addHook(&#39;preHandler&#39;, async (request, reply) =&gt; {
+  await something()
   reply.send({ hello: &#39;world&#39; })
+  return reply // optional in this case, but it is a good practice
 })</code></pre><p>If you want to respond with a stream, you should avoid using an <code>async</code> function for the hook. If you must use an <code>async</code> function, your code will need to follow the pattern in <a href=https://github.com/fastify/fastify/blob/94ea67ef2d8dce8a955d510cd9081aabd036fa85/test/hooks-async.js#L269-L275>test/hooks-async.js</a>.</p><pre><code class=language-js>fastify.addHook(&#39;onRequest&#39;, (request, reply, done) =&gt; {
   const stream = fs.createReadStream(&#39;some-file&#39;, &#39;utf8&#39;)
   reply.send(stream)
+})</code></pre><p>If you are sending a response without <code>await</code> on it, make sure to always <code>return reply</code>:</p><pre><code class=language-js>fastify.addHook(&#39;preHandler&#39;, async (request, reply) =&gt; {
+  setImmediate(() =&gt; { reply.send(&#39;hello&#39;) })
+
+  // This is needed to signal the handler to wait for a response
+  // to be sent outside of the promise chain
+  return reply
+})
+
+fastify.addHook(&#39;preHandler&#39;, async (request, reply) =&gt; {
+  // the fastify-static plugin will send a file asynchronously,
+  // so we should return reply
+  reply.sendFile(&#39;myfile&#39;)
+  return reply
 })</code></pre><h2 id=application-hooks>Application Hooks</h2><p>You can hook into the application-lifecycle as well. It&#39;s important to note that these hooks aren&#39;t fully encapsulated. The <code>this</code> inside the hooks are encapsulated but the handlers can respond to an event outside the encapsulation boundaries.</p><ul><li><a href=#onclose>onClose</a></li><li><a href=#onroute>onRoute</a></li><li><a href=#onregister>onRegister</a></li></ul><p><a name=on-close></a></p><h3 id=onclose>onClose</h3><p>Triggered when <code>fastify.close()</code> is invoked to stop the server. It is useful when <a href=/docs/master/Plugins>plugins</a> need a &quot;shutdown&quot; event, for example to close an open connection to a database.<br>The first argument is the Fastify instance, the second one the <code>done</code> callback.</p><pre><code class=language-js>fastify.addHook(&#39;onClose&#39;, (instance, done) =&gt; {
   // Some code
   done()
