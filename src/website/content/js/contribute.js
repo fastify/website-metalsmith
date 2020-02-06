@@ -2,8 +2,56 @@
   const { Component, h, render } = window.preact
   const dataURL = 'https://gh-issue-finder.glentiki.now.sh/api/findIssues?org=fastify'
 
-  const Debug = (props) => h('pre', null, JSON.stringify(props.data, null, 2))
   const Spinner = () => h('div', { className: 'spinner' })
+  const ErrorBox = (props) => h('article', { className: 'message is-danger' },
+    [
+      h('div', { className: 'message-header' },
+        h('p', null, 'Error')
+      ),
+      h('div', { className: 'message-body' }, props.message)
+    ]
+  )
+  const Issue = (props) => h('div', { className: 'good-issue' }, [
+    h('div', { className: 'card' }, [
+      h('div', { className: 'card-content' }, [
+        h('div', { className: 'media' }, [
+          h('div', { className: 'media-left' }, [
+            h('a', { href: props.author.acc_url }, [
+              h('figure', { className: 'image is-96x96 contributor-picture' }, [
+                h('img', { src: props.author.avatar_url, alt: props.author.name + '\'s profile picture' })
+              ])
+            ])
+          ]),
+          h('div', { className: 'media-content' }, [
+            h('p', { className: 'title is-4' }, [
+              h('a', { href: props.url }, props.title)
+            ]),
+            h('p', { className: 'subtitle is-6' }, [
+              h('a', { href: props.project.url }, props.project.name)
+            ]),
+            h('p', null, [
+              h('strong', null, props.comments),
+              h('span', null, ' Comments')
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
+  const Issues = (props) => {
+    let content = 'No issue available 😱'
+    if (props.issues && props.issues.length > 0) {
+      content = props.issues.map((issue) => h(Issue, issue))
+    }
+    return h('div', { className: 'issues' }, content)
+  }
+  const ProjectFilter = (props) => h('a', {
+    className: 'tag' + (props.selected ? ' is-primary' : ''),
+    onClick: (e) => {
+      e.preventDefault()
+      props.toggle && props.toggle()
+    }
+  }, props.name + ' (' + props.count + ')')
 
   class App extends Component {
     constructor () {
@@ -12,19 +60,42 @@
         loading: false,
         error: null,
         issues: [],
-        projects: [],
+        projects: {},
         filteredIssues: []
       }
+      this.toggleProject = this._toggleProject.bind(this)
+    }
+
+    _toggleProject (name) {
+      const projects = this.state.projects
+      if (projects[name]) {
+        projects[name].selected = !projects[name].selected
+      }
+      const filteredIssues = this.state.issues.filter((issue) => {
+        return projects[issue.project.name].selected
+      })
+      this.setState({ projects, filteredIssues })
     }
 
     componentDidMount () {
       this.setState({ loading: true })
       fetch(dataURL)
-        .then((resp) => {
-          return resp.json()
-        })
+        .then((resp) => resp.json())
         .then((data) => {
-          this.setState({ loading: false, issues: data })
+          const issues = data.results
+          const projects = data.results.reduce((acc, curr) => {
+            acc[curr.project.name] = {
+              count: typeof acc[curr.project.name] === 'undefined' ? 1 : acc[curr.project.name].count + 1,
+              selected: true,
+              name: curr.project.name
+            }
+            return acc
+          }, {})
+          const filteredIssues = issues.filter((issue) => {
+            return projects[issue.project.name].selected
+          })
+
+          this.setState({ loading: false, issues, projects, filteredIssues })
         })
         .catch((err) => {
           this.setState({ loading: false, error: err })
@@ -36,111 +107,21 @@
         return h(Spinner)
       }
 
-      return h('div', null, h(Debug, { data: this.state }))
+      if (this.state.error) {
+        return h(ErrorBox, { message: this.state.error.toString() })
+      }
+
+      return h('div', null, [
+        h('div', { className: 'filters' }, Object.values(this.state.projects).sort(byCount).map((project) => [h(ProjectFilter, { ...project, toggle: this.toggleProject.bind(this, [project.name]) }), ' '])),
+        h(Issues, { issues: this.state.filteredIssues })
+      ])
     }
+  }
+
+  function byCount (a, b) {
+    return b.count - a.count
   }
 
   const app = h(App)
   render(app, document.getElementById('good-first-issues'))
-
-  // var container = document.getElementById('good-first-issues')
-  // var projectRegex = /https:\/\/github\.com\/fastify\/([a-zA-Z0-9\-_]+)\/issues\/(\d+)/
-
-  // function mapProject (url) {
-  //   var match = url.match(projectRegex)
-  //   if (!match || !match[1]) {
-  //     return 'fastify'
-  //   }
-
-  //   return match[1]
-  // }
-
-  // var spinner = document.createElement('div')
-  // spinner.className = 'spinner'
-  // container.appendChild(spinner)
-
-  // var xhr = new XMLHttpRequest()
-  // xhr.onreadystatechange = function () {
-  //   if (xhr.readyState !== 4) return
-  //   if (xhr.status >= 200 && xhr.status < 300) {
-  //     try {
-  //       var results = JSON.parse(xhr.responseText).results.map((r) => {
-  //         return Object.assign({}, r, { project: mapProject(r.url) })
-  //       })
-  //       handleResults(results)
-  //     } catch (e) {
-  //       handleError(e)
-  //     }
-  //   }
-  // }
-
-  // xhr.open('GET', 'https://gh-issue-finder.glentiki.now.sh/api/findIssues?org=fastify')
-  // xhr.send()
-
-  // function handleResults (results) {
-  //   resetContainer()
-  //   if (results.length > 0) {
-  //     results.sort((a, b) => b.comments - a.comments)
-  //     for (var i = 0; i < results.length; i++) {
-  //       var result = results[i]
-  //       var issueNode = document.createElement('div')
-  //       issueNode.className = 'good-issue'
-  //       issueNode.innerHTML = '<div class="card">' +
-  //                         '<div class="card-content">' +
-  //                           '<div class="media">' +
-  //                             '<div class="media-left">' +
-  //                                       '<a href="' + result.author.acc_url + '">' +
-  //                                   '<figure class="image is-96x96 contributor-picture">' +
-  //                                               '<img src="' + result.author.avatar_url + '" alt="' + e(result.author.name) + '\'s profile picture"/>' +
-  //                                           '</figure>' +
-  //                                       '</a>' +
-  //                             '</div>' +
-  //                             '<div class="media-content">' +
-  //                                       '<p class="title is-4">' +
-  //                                           '<a href="' + result.url + '">' + e(result.title) + '</a>' +
-  //                                       '</p>' +
-  //                                       '<p class="subtitle is-6">' +
-  //                                           '<a href="https://github.com/fastify/' + result.project + '">' + e(result.project) + '</a>' +
-  //                                       '</p>' +
-  //                                     '<p><strong>' + result.comments + '</strong> Comments</p>' +
-  //                             '</div>' +
-  //                           '</div>' +
-  //                         '</div>' +
-  //                 '</div>'
-  //       container.appendChild(issueNode)
-  //     }
-  //   } else {
-  //     var noResultsNode = document.createElement('div')
-  //     noResultsNode.className = 'no-issues'
-  //     noResultsNode.innerHTML = '<h3>No issues found! 🚀</h3><p>Try <a href="https://github.com/fastify/fastify">checking the issues on GitHub</a> or <a href="https://gitter.im/fastify/Lobby">joining us on Gitter to join in the conversation</a></p>'
-  //     container.appendChild(noResultsNode)
-  //   }
-  // }
-
-  // function handleError (error) {
-  //   resetContainer()
-  //   var errorNode = document.createElement('div')
-  //   errorNode.className = 'error-result'
-  //   errorNode.innerHTML = '<h3>There was an unexpected error fetching issues to contribute to. :( </h3>' +
-  //                               '<h4>Error message: ' + error.toString() + '</h4>' +
-  //                               '<p>If this is unexpected please report an issue <a href="https://github.com/fastify/website/issues">here.</a></p>'
-  //   container.appendChild(errorNode)
-  // }
-
-  // function resetContainer () {
-  //   var child = container.lastChild
-  //   while (child) {
-  //     container.removeChild(child)
-  //     child = container.lastChild
-  //   }
-  // }
-
-  // function e (unsafe) {
-  //   return unsafe
-  //     .replace(/&/g, '&amp;')
-  //     .replace(/</g, '&lt;')
-  //     .replace(/>/g, '&gt;')
-  //     .replace(/"/g, '&quot;')
-  //     .replace(/'/g, '&#039;')
-  // }
 })()

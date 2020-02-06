@@ -228,7 +228,11 @@ a > code {
 
 #good-first-issues {
 	display: flex;
-	flex-direction: column;
+  flex-direction: column;
+  
+  .filters {
+    margin: 0 0 1em 0;
+  }
 
 	.spinner {
 		animation: rotate360 1s linear infinite;
