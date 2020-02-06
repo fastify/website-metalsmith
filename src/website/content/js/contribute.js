@@ -15,13 +15,6 @@
     h('div', { className: 'card' }, [
       h('div', { className: 'card-content' }, [
         h('div', { className: 'media' }, [
-          h('div', { className: 'media-left' }, [
-            h('a', { href: props.author.acc_url }, [
-              h('figure', { className: 'image is-96x96 contributor-picture' }, [
-                h('img', { src: props.author.avatar_url, alt: props.author.name + '\'s profile picture' })
-              ])
-            ])
-          ]),
           h('div', { className: 'media-content' }, [
             h('p', { className: 'title is-4' }, [
               h('a', { href: props.url }, props.title)
@@ -45,13 +38,23 @@
     }
     return h('div', { className: 'issues' }, content)
   }
-  const ProjectFilter = (props) => h('a', {
-    className: 'tag' + (props.selected ? ' is-primary' : ''),
-    onClick: (e) => {
-      e.preventDefault()
-      props.toggle && props.toggle()
-    }
-  }, props.name + ' (' + props.count + ')')
+  const ProjectFilter = (props) =>
+    h('label', {
+      className: 'panel-block checkbox'
+    }, [
+      h('input', {
+        type: 'checkbox',
+        checked: Boolean(props.selected),
+        onChange: (e) => {
+          e.preventDefault()
+          props.toggle && props.toggle(e.currentTarget.checked)
+        }
+      }),
+      h('span', null, [
+        props.name + ' ',
+        h('span', { className: 'has-text-grey-light' }, '(' + props.count + ')')
+      ])
+    ])
 
   class App extends Component {
     constructor () {
@@ -64,13 +67,26 @@
         filteredIssues: []
       }
       this.toggleProject = this._toggleProject.bind(this)
+      this.toggleProjects = this._toggleProjects.bind(this)
     }
 
-    _toggleProject (name) {
+    _toggleProject (name, selected) {
       const projects = this.state.projects
       if (projects[name]) {
-        projects[name].selected = !projects[name].selected
+        projects[name].selected = typeof selected === 'undefined' ? !projects[name].selected : selected
       }
+      const filteredIssues = this.state.issues.filter((issue) => {
+        return projects[issue.project.name].selected
+      })
+      this.setState({ projects, filteredIssues })
+    }
+
+    _toggleProjects (selected) {
+      const projects = Object.fromEntries(
+        Object.entries(this.state.projects).map(([k, p]) => {
+          p.selected = selected
+          return [k, p]
+        }))
       const filteredIssues = this.state.issues.filter((issue) => {
         return projects[issue.project.name].selected
       })
@@ -111,9 +127,34 @@
         return h(ErrorBox, { message: this.state.error.toString() })
       }
 
-      return h('div', null, [
-        h('div', { className: 'filters' }, Object.values(this.state.projects).sort(byCount).map((project) => [h(ProjectFilter, { ...project, toggle: this.toggleProject.bind(this, [project.name]) }), ' '])),
-        h(Issues, { issues: this.state.filteredIssues })
+      return h('div', { className: 'columns' }, [
+        h('div', { className: 'column is-one-third' }, [
+          h('nav', { className: 'panel' }, [
+            h('p', { className: 'panel-heading' }, 'Projects'),
+            Object.values(this.state.projects).sort(byCount).map((project) => h(ProjectFilter, { ...project, toggle: this.toggleProject.bind(this, project.name) })),
+            h('div', { className: 'panel-block' }, [
+              h('p', { className: 'is-size-7' }, [
+                'Select: ',
+                h('a', {
+                  onClick: (e) => {
+                    e.preventDefault()
+                    this.toggleProjects(true)
+                  }
+                }, 'All'),
+                ' - ',
+                h('a', {
+                  onClick: (e) => {
+                    e.preventDefault()
+                    this.toggleProjects(false)
+                  }
+                }, 'None')
+              ])
+            ])
+          ])
+        ]),
+        h('div', { className: 'column is-two-thirds' }, [
+          h(Issues, { issues: this.state.filteredIssues })
+        ])
       ])
     }
   }
