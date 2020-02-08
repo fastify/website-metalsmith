@@ -1,6 +1,10 @@
-- name: 'heply'
-  image: 'heply.svg'
-  link: 'https://heply.it/'
+- name: "heply"
+  image: "heply.svg"
+  link: "https://heply.it/"
+
+- name: "HospitalRun"
+  image: "hospitalrun.svg"
+  link: "https://hospitalrun.io/"
 
 - name: "hotstar"
   image: "hotstar.svg"
