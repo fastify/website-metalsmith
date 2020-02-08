@@ -54,7 +54,7 @@
     "metalsmith-sass": "^1.7.0",
     "metalsmith-writemetadata": "^0.4.5",
     "mkdirp": "^0.5.1",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "nunjucks": "^3.2.0",
     "nunjucks-markdown-filter": "^0.1.0",
     "request": "^2.88.0",

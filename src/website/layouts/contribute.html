@@ -1,0 +1,35 @@
+{% extends "default.html" %}
+
+{% block content %}
+<section class="hero is-primary" style="background-image: url(/{{ hashes['images/bg-pattern-dark.png'] }})">
+  <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          {{ title }} 🚀
+        </h1>
+      </div>
+  </div>
+</section>
+<div class="container">
+  <section class="section">
+    <div class="content">
+			<p>Fastify is a growing and friendly community, and would be lucky to have your contributions! 🙇‍♂️</p>
+			<p>Contributions are always welcome, we only ask you follow the <a href="https://github.com/fastify/fastify/blob/master/CONTRIBUTING.md">Contribution Guidelines</a> and the <a href="https://github.com/fastify/fastify/blob/master/CODE_OF_CONDUCT.md">Code Of Conduct</a>.</p>
+			<p>If you don't know where to start you can have a look at the list of <em>good first issues</em> below.</p>
+			
+      <h2 class="title">Good first issues</h2>
+
+      <div id="good-first-issues">
+					<noscript>
+						This feature is only available where JavaScript is enabled in your browser.
+					</noscript>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}
+
+{% block extraScripts %}
+<script src="/{{ hashes['js/preact.min.js']}}"></script>
+<script src="/{{ hashes['js/contribute.js']}}"></script>
+{% endblock %}

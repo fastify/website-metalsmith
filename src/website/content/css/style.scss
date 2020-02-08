@@ -225,3 +225,43 @@ a > code {
 .contributor-links {
   padding: .5em 0 0 0;
 }
+
+#good-first-issues {
+	display: flex;
+  flex-direction: column;
+
+	.spinner {
+		animation: rotate360 1s linear infinite;
+    transform: translateZ(0);
+
+    border-top: 3px solid $primary;
+    border-right: 3px solid $primary;
+    border-bottom: 3px solid $primary;
+    border-left: 3px solid #333;
+    background: transparent;
+    width: 24px;
+    height: 24px;
+	  border-radius: 50%;
+	  margin: 0 auto;
+  }
+  
+  .good-issue {
+    margin: 0 0 .5em 0;
+  }
+
+	.error-result, .no-issues {
+		padding: 1rem;
+		width: 100%;
+		text-align: center;
+		border-top: 1px solid #ccc;
+	}
+}
+
+@keyframes rotate360 {
+	from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
