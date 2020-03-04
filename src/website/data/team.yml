@@ -24,6 +24,13 @@
       github: https://github.com/Ethan-Arrowood
       npm: https://www.npmjs.com/~ethan_arrowood
       twitter: https://twitter.com/arrowoodtech
+  - name: David Clements
+    sortname: Clements David
+    picture: "https://avatars1.githubusercontent.com/u/1190716?s=460&v=4"
+    links:
+      github: https://github.com/davidmarkclements
+      npm: https://www.npmjs.com/~davidmarkclements
+      twitter: https://twitter.com/davidmarkclem
   - name: Dustin Deus
     sortname: Deus Dustin
     picture: "https://avatars3.githubusercontent.com/u/1764424?v=4&s=460"
