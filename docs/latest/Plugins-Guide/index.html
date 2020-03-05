@@ -77,7 +77,7 @@ fastify.addHook(&#39;preHandler&#39;, (request, reply, done) =&gt; {
 
 fastify.get(&#39;/happiness&#39;, (request, reply) =&gt; {
   reply.send({ happy: request.isHappy })
-})</code></pre><p>We&#39;ve seen how to extend server functionality and how to handle the encapsulation system, but what if you need to add a function that must be executed every time when the server &quot;<a href=/docs/latest/Lifecycle>emits</a>&quot; an event?</p><p><a name=hooks></a></p><h2 id=hooks>Hooks</h2><p>You just built an amazing utility, but now you need to execute that for every request, this is what you will likely do:</p><pre><code class=language-js>fastify.decorate(&#39;util&#39;, (request, key, value) =&gt; { request.key = value })
+})</code></pre><p>We&#39;ve seen how to extend server functionality and how to handle the encapsulation system, but what if you need to add a function that must be executed every time when the server &quot;<a href=/docs/latest/Lifecycle>emits</a>&quot; an event?</p><p><a name=hooks></a></p><h2 id=hooks>Hooks</h2><p>You just built an amazing utility, but now you need to execute that for every request, this is what you will likely do:</p><pre><code class=language-js>fastify.decorate(&#39;util&#39;, (request, key, value) =&gt; { request[key] = value })
 
 fastify.get(&#39;/plugin1&#39;, (request, reply) =&gt; {
   fastify.util(request, &#39;timestamp&#39;, new Date())

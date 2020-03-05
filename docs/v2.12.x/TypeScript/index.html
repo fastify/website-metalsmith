@@ -85,8 +85,8 @@ const opts: fastify.RouteShorthandOptions = {
 server.get&lt;Query, Params, Headers, Body&gt;(&#39;/ping/:bar&#39;, opts, (request, reply) =&gt; {
   console.log(request.query) // this is of type Query!
   console.log(request.params) // this is of type Params!
-  console.log(request.body) // this is of type Body!
   console.log(request.headers) // this is of type Headers!
+  console.log(request.body) // this is of type Body!
   reply.code(200).send({ pong: &#39;it worked!&#39; })
 })</code></pre><p>All generic types are optional, so you can also pass types for the parts you validate with schemas:</p><pre><code class=language-ts>import * as fastify from &#39;fastify&#39;
 
@@ -112,8 +112,8 @@ const opts: fastify.RouteShorthandOptions = {
 server.get&lt;fastify.DefaultQuery, Params, unknown&gt;(&#39;/ping/:bar&#39;, opts, (request, reply) =&gt; {
   console.log(request.query) // this is of type fastify.DefaultQuery!
   console.log(request.params) // this is of type Params!
-  console.log(request.body) // this is of type unknown!
-  console.log(request.headers) // this is of type fastify.DefaultHeader because typescript will use the default type value!
+  console.log(request.headers) // this is of type unknown!
+  console.log(request.body) // this is of type fastify.DefaultBody because typescript will use the default type value!
   reply.code(200).send({ pong: &#39;it worked!&#39; })
 })
 
@@ -124,8 +124,8 @@ server.get&lt;fastify.DefaultQuery, Params, unknown&gt;(&#39;/ping/:bar&#39;, op
 server.get&lt;unknown, Params, unknown, unknown&gt;(&#39;/ping/:bar&#39;, opts, (request, reply) =&gt; {
   console.log(request.query) // this is of type unknown!
   console.log(request.params) // this is of type Params!
-  console.log(request.body) // this is of type unknown!
   console.log(request.headers) // this is of type unknown!
+  console.log(request.body) // this is of type unknown!
   reply.code(200).send({ pong: &#39;it worked!&#39; })
 })</code></pre><p><a id=http-prototypes></a></p><h2 id=http-prototypes>HTTP Prototypes</h2><p>By default, fastify will determine which version of http is being used based on the options you pass to it. If for any reason you need to override this you can do so as shown below:</p><pre><code class=language-ts>interface CustomIncomingMessage extends http.IncomingMessage {
   getClientDeviceType: () =&gt; string
