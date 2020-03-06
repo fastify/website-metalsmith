@@ -121,7 +121,16 @@ fastify.get(&#39;/&#39;, (request, reply) =&gt; {
       // Usage: plugin - Plugin without options
     ]
   }
-})</code></pre><p><a name=http2-session-timeout></a></p><h3 id=http2sessiontimeout><code>http2SessionTimeout</code></h3><p>Set a default <a href=https://nodejs.org/api/http2.html#http2_http2session_settimeout_msecs_callback>timeout</a> to every incoming http2 session. The session will be closed on the timeout. Default: <code>5000</code> ms.</p><p>Note that this is needed to offer the graceful &quot;close&quot; experience when using http2. Node core defaults this to <code>0</code>.</p><h2 id=instance>Instance</h2><h3 id=server-methods>Server Methods</h3><p><a name=server></a></p><h4 id=server>server</h4><p><code>fastify.server</code>: The Node core <a href=https://nodejs.org/api/http.html#http_class_http_server>server</a> object as returned by the <a href=/docs/master/Server><strong><code>Fastify factory function</code></strong></a>.</p><p><a name=after></a></p><h4 id=after>after</h4><p>Invoked when the current plugin and all the plugins that have been registered within it have finished loading. It is always executed before the method <code>fastify.ready</code>.</p><pre><code class=language-js>fastify
+})</code></pre><p><a name=http2-session-timeout></a></p><h3 id=http2sessiontimeout><code>http2SessionTimeout</code></h3><p>Set a default <a href=https://nodejs.org/api/http2.html#http2_http2session_settimeout_msecs_callback>timeout</a> to every incoming http2 session. The session will be closed on the timeout. Default: <code>5000</code> ms.</p><p>Note that this is needed to offer the graceful &quot;close&quot; experience when using http2. Node core defaults this to <code>0</code>.</p><p><a name=framework-errors></a></p><h3 id=frameworkerrors><code>frameworkErrors</code></h3><ul><li>Default: <code>null</code></li></ul><p>Fastify provides default error handlers for the most common use cases. Using this option it is possible to override one or more of those handlers with custom code.</p><p><em>Note: Only <code>FST_ERR_BAD_URL</code> is implemented at the moment.</em></p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+  frameworkErrors: function (error, req, res) {
+    if (error instanceof FST_ERR_BAD_URL) {
+      res.code(400)
+      return res.send(&quot;Provided url is not valid&quot;)
+    } else {
+      res.send(err)
+    }
+  }
+})</code></pre><h2 id=instance>Instance</h2><h3 id=server-methods>Server Methods</h3><p><a name=server></a></p><h4 id=server>server</h4><p><code>fastify.server</code>: The Node core <a href=https://nodejs.org/api/http.html#http_class_http_server>server</a> object as returned by the <a href=/docs/master/Server><strong><code>Fastify factory function</code></strong></a>.</p><p><a name=after></a></p><h4 id=after>after</h4><p>Invoked when the current plugin and all the plugins that have been registered within it have finished loading. It is always executed before the method <code>fastify.ready</code>.</p><pre><code class=language-js>fastify
   .register((instance, opts, done) =&gt; {
     console.log(&#39;Current plugin&#39;)
     done()
