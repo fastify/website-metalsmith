@@ -64,7 +64,7 @@ fastify.get(&#39;/promises&#39;, options, function (request, reply) {
 fastify.get(&#39;/async-await&#39;, options, async function (request, reply) {
   await delay(200)
   return { hello: &#39;world&#39; }
-})</code></pre><p>Rejected promises default to a <code>500</code> HTTP status code. Reject the promise, or <code>throw</code> in an <code>async function</code>, with an object that has <code>statusCode</code> (or <code>status</code>) and <code>message</code> properties to modify the reply.</p><pre><code class=language-js>fastify.get(&#39;/teapot&#39;, async function (request, reply) =&gt; {
+})</code></pre><p>Rejected promises default to a <code>500</code> HTTP status code. Reject the promise, or <code>throw</code> in an <code>async function</code>, with an <em>Error</em> object that has <code>statusCode</code> (or <code>status</code>) and <code>message</code> properties to modify the reply. Throwing plain objects is not supported, it must be an instance of <em>Error</em>, see:</p><pre><code class=language-js>fastify.get(&#39;/teapot&#39;, async function (request, reply) =&gt; {
   const err = new Error()
   err.statusCode = 418
   err.message = &#39;short and stout&#39;
