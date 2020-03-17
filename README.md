@@ -70,4 +70,4 @@ You can contribute just by submitting bugs or suggesting improvements by
 
 
 ## License
-Licensed under [MIT License](LICENSE). © [The Fastify team](https://github.com/fastify/fastify#team).
+Licensed under [MIT License](LICENSE). © [OpenJS Foundation](https://openjsf.org/) and [The Fastify team](https://github.com/fastify/fastify#team).
