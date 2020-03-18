@@ -77,3 +77,7 @@
 - name: "UNIQ"
   image: "uniq.svg"
   link: "https://www.uniq.id/"
+  
+- name: "Swiss Dev Jobs"
+  image: "swissdev-javascript-jobs-200-200.svg"
+  link: "https://swissdevjobs.ch/"
