@@ -6,9 +6,9 @@
       <div class="container">
         <h1 class="title">
           {% set versionTitle = version %}
-            {% if version == 'latest' %}
-              {% set versionTitle = 'latest — ' + data.docs.releases[0].label %}
-            {% endif %}
+          {% if version == 'latest' %}
+            {% set versionTitle = 'latest — ' + data.docs.releases[0].label %}
+          {% endif %}
           Documentation ({{ versionTitle }})
         </h1>
       </div>
@@ -27,7 +27,7 @@
               <div class="select">
                 <select onchange="if (this.value) window.location.href=this.value" style="border: none;">
                   {% for v in data.docs.versions %}
-                    <option {% if version == v %}selected="selected"{% endif %} value="/docs/{{ v }}">{{ v }}</option>
+                    <option {% if docsPath == v %}selected="selected"{% endif %} value="/docs/{{ v }}">{{ v }}</option>
                   {% endfor %}
                 </select>
               </div>
@@ -40,7 +40,7 @@
     <div class="content">
       <h2>Table of contents</h2>
       <ul>
-        {% for item in data.docs.toc[version] %}
+        {% for item in data.docs.toc[docsPath] %}
           <li>
             <a href="{{ item.link }}">{{ item.name }}</a>
           </li>

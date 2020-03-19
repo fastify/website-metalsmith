@@ -62,7 +62,9 @@ async function extractTOCFromFile (file, release) {
       sourceFile,
       destinationFile,
       slug,
-      link
+      link,
+      docsPath: release.docsPath,
+      label: release.label
     }
   })
 
@@ -79,8 +81,8 @@ async function getTOCForRelease (release) {
 }
 
 function createDocsDataFile (destination, docsInfo) {
-  // remove sourceFile and destinationFile keys from toc
   const toDump = clone(docsInfo)
+  // remove sourceFile and destinationFile keys from toc
   Object.keys(toDump.toc).forEach((version) => {
     toDump.toc[version].forEach((entry, i) => {
       delete toDump.toc[version][i].sourceFile
@@ -111,6 +113,7 @@ async function processDocFiles (docs, latestRelease) {
     const buffer = await fs.readFile(item.sourceFile, 'utf8')
 
     let content = buffer.toString()
+
     // removes doc header from github
     content = content.replace(/<h1 align="center">Fastify<\/h1>\n/, '')
 
@@ -124,6 +127,8 @@ title: ${item.name}
 layout: docs_page.html
 path: ${item.link}
 version: ${item.version}
+label: ${item.label}
+docsPath: ${item.docsPath}
 ${item.version === 'latest' ? `canonical: "${item.link.replace(/latest/, latestRelease.label)}"` : ''}
 ${item.version === 'master' ? `github_url: https://github.com/fastify/fastify/blob/master/docs/${item.fileName}` : ''}
 ---
@@ -165,6 +170,8 @@ title: Documentation - ${release.name}
 layout: docs_version_index.html
 path: /docs/${release.docsPath}
 version: ${release.name}
+label: ${release.label}
+docsPath: ${release.docsPath}
 ${release.name === 'latest' ? `canonical: "/docs/${release.label}"` : ''}
 github_url: "https://github.com/fastify/website/blob/master/src/website/layouts/docs_version_index.html"
 ---`
