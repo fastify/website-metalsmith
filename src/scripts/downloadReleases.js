@@ -8,6 +8,7 @@ const axios = require('axios')
 const unzip = require('unzip-stream')
 const parseLinkHeader = require('parse-link-header')
 const compareVersions = require('compare-versions')
+const { fileExists } = require('./utils')
 
 const repository = process.argv[2] || 'fastify/fastify'
 const dest = resolve(process.argv[3] || 'releases')
@@ -15,20 +16,6 @@ const minRelease = process.argv[4] || 'v1.13.0'
 
 function md5 (str) {
   return crypto.createHash('md5').update(str).digest('hex')
-}
-
-function fileExists (path) {
-  return new Promise((resolve, reject) => {
-    fs.access(path, function (err) {
-      if (err) {
-        if (err.code === 'ENOENT') {
-          return resolve(false)
-        }
-        return reject(err)
-      }
-      return resolve(true)
-    })
-  })
 }
 
 async function getAllReleases (repository, requestConfig) {
@@ -109,6 +96,7 @@ async function main () {
         url: release.zipball_url,
         dest: md5(release.zipball_url),
         label: `v${major}.${minor}.x`,
+        docsPath: `v${major}.${minor}.x`,
         version: { major, minor, patch, annotation }
       }
     })
@@ -135,13 +123,14 @@ async function main () {
     .find((r) => r.version.annotation === '')
 
   // Create an alias of the latest release as `latest`
-  selectedReleases.latest = { ...latestRelease, name: 'latest' }
+  selectedReleases.latest = { ...latestRelease, name: 'latest', docsPath: 'latest' }
 
-  // Adds current master
+  // Add current master
   const masterUrl = `https://github.com/${repository}/archive/master.zip`
   selectedReleases.master = {
     label: 'master',
     name: 'master',
+    docsPath: 'master',
     url: masterUrl,
     dest: md5(masterUrl),
     ignoreCache: true
@@ -149,6 +138,17 @@ async function main () {
 
   // downloads the releases
   const manifest = await downloadReleases(selectedReleases, requestConfig)
+  // sort the releases by version and makes sure latest and then master are the first 2 entries
+  manifest.sort(({ name: a }, { name: b }) => {
+    switch (true) {
+      case a === 'latest' && b === 'master': return -1 // latest always goes first
+      case b === 'latest' && a === 'master': return 1
+      case a === 'latest' || a === 'master': return -1 // master is the second
+      case b === 'latest' || b === 'master': return 1
+      default:
+        return compareVersions(a, b) * -1 // otherwise compare by versions descendant
+    }
+  })
   console.log(`Completed: downloaded ${Object.keys(selectedReleases).length} releases`)
   // saves a manifest with all the current releases in the dest folder
   await fs.promises.writeFile(join(dest, 'releases.json'), JSON.stringify(manifest, null, 2))
