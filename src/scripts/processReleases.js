@@ -35,7 +35,7 @@ async function createDocSources (releases) {
     return acc
   }, {})
   const versions = releases.map(r => r.docsPath)
-  await createDocsDataFile(join(destFolder, 'data', 'docs.yml'), { versions, toc: indexedToc })
+  await createDocsDataFile(join(destFolder, 'data', 'docs.yml'), { versions, toc: indexedToc, releases })
   await processDocFiles(indexedToc, latestRelease)
   await createIndexFiles(releases)
 }
