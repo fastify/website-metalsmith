@@ -365,7 +365,7 @@ server.listen(3000, (err) => {
           <div class="columns is-multiline">
             {% for member in section.people | sort(false, false, 'sortname') %}
               <div class="column is-one-third">
-                <div class="media">
+                <div class="media v-center">
                   <div class="media-left">
                     <figure class="image is-96x96 contributor-picture">
                       <img src="{{ member.picture }}" alt="{{ member.name }}'s profile picture">
