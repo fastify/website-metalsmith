@@ -7,7 +7,7 @@ This project is used to build the website for [fastify web framework](https://gi
 
 ## Requirements
 
- - Node 8.3.0+
+ - Node 12+
  - Install dependencies with `npm install`
 
 

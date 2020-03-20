@@ -5,7 +5,11 @@
   <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          Documentation
+          {% set versionTitle = fullVersion %}
+          {% if version == 'latest' %}
+            {% set versionTitle = 'latest — ' + data.docs.releases[0].fullVersion %}
+          {% endif %}
+          Documentation ({{ versionTitle }})
         </h1>
       </div>
   </div>
@@ -34,13 +38,7 @@
                 <div class="select">
                   <select onchange="if (this.value) window.location.href=this.value">
                     {% for v in data.docs.versions %}
-                      {% if v !== 'latest' %}
-                        {% set versionName = v %}
-                        {% if v == data.docs.versions[1] %}
-                          {% set versionName = versionName + ' (latest)' %}
-                        {% endif %}
-                          <option {% if version == v or (version == 'latest' and v == data.docs.versions[1]) %}selected="selected"{% endif %} value="/docs/{{ v }}">{{ v }}</option>
-                      {% endif %}
+                      <option {% if docsPath == v %}selected="selected"{% endif %} value="/docs/{{ v }}">{{ v }}</option>
                     {% endfor %}
                   </select>
                 </div>
@@ -61,10 +59,7 @@
                   <div class="select">
                     <select onchange="if (this.value) window.location.href=this.value" style="border: none;">
                       {% for v in data.docs.versions %}
-                        {% if v !== 'latest' %}
-                          {% set versionName = v %}
-                          <option {% if version == v or (version == 'latest' and v == data.docs.versions[1]) %}selected="selected"{% endif %} value="/docs/{{ v }}">{{ versionName }}</option>
-                        {% endif %}
+                        <option {% if docsPath == v %}selected="selected"{% endif %} value="/docs/{{ v }}">{{ v }}</option>
                       {% endfor %}
                     </select>
                   </div>

@@ -23,15 +23,13 @@
       <h2>Select version</h2>
       <ul>
         {% for v in data.docs.versions %}
-          {% if v !== 'latest' %}
-            {% set versionName = v %}
-            {% if v === data.docs.versions[1] %}
-              {% set versionName = versionName + ' (latest)' %}
-            {% endif %}
-            <li>
-              <a href="/docs/{{ v }}">{{ versionName }}</a>
-            </li>
+          {% set versionName = v %}
+          {% if v === 'latest' %}
+            {% set versionName = versionName + ' (' + data.docs.releases[0].label + ')' %}
           {% endif %}
+          <li>
+            <a href="/docs/{{ v }}">{{ versionName }}</a>
+          </li>
         {% endfor %}
       </ul>
     </div>

@@ -5,10 +5,10 @@
   <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          {% set versionTitle = version %}
-            {% if version == 'latest' or version == data.docs.versions[1] %}
-              {% set versionTitle = data.docs.versions[1] + ' — latest' %}
-            {% endif %}
+          {% set versionTitle = fullVersion %}
+          {% if version == 'latest' %}
+            {% set versionTitle = 'latest — ' + data.docs.releases[0].fullVersion %}
+          {% endif %}
           Documentation ({{ versionTitle }})
         </h1>
       </div>
@@ -27,10 +27,7 @@
               <div class="select">
                 <select onchange="if (this.value) window.location.href=this.value" style="border: none;">
                   {% for v in data.docs.versions %}
-                    {% if v !== 'latest' %}
-                      {% set versionName = v %}
-                      <option {% if version == v or (version == 'latest' and v == data.docs.versions[1]) %}selected="selected"{% endif %} value="/docs/{{ v }}">{{ versionName }}</option>
-                    {% endif %}
+                    <option {% if docsPath == v %}selected="selected"{% endif %} value="/docs/{{ v }}">{{ v }}</option>
                   {% endfor %}
                 </select>
               </div>
@@ -43,7 +40,7 @@
     <div class="content">
       <h2>Table of contents</h2>
       <ul>
-        {% for item in data.docs.toc[version] %}
+        {% for item in data.docs.toc[docsPath] %}
           <li>
             <a href="{{ item.link }}">{{ item.name }}</a>
           </li>
