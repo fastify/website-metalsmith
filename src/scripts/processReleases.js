@@ -63,6 +63,7 @@ async function extractTOCFromFile (file, release) {
       destinationFile,
       slug,
       link,
+      fullVersion: release.fullVersion,
       docsPath: release.docsPath,
       label: release.label
     }
@@ -127,6 +128,7 @@ title: ${item.name}
 layout: docs_page.html
 path: ${item.link}
 version: ${item.version}
+fullVersion: ${item.fullVersion}
 label: ${item.label}
 docsPath: ${item.docsPath}
 ${item.version === 'latest' ? `canonical: "${item.link.replace(/latest/, latestRelease.label)}"` : ''}
@@ -170,6 +172,7 @@ title: Documentation - ${release.name}
 layout: docs_version_index.html
 path: /docs/${release.docsPath}
 version: ${release.name}
+fullVersion: ${release.fullVersion}
 label: ${release.label}
 docsPath: ${release.docsPath}
 ${release.name === 'latest' ? `canonical: "/docs/${release.label}"` : ''}

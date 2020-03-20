@@ -69,18 +69,6 @@ async function main () {
   const releases = await getAllReleases(repository, requestConfig)
   console.log(`Found ${releases.length} releases`)
   const selectedReleases = releases
-    // TODO: ----------------------------------------------------------------------- debug
-    .concat([
-      {
-        name: 'v3.0.0-alpha',
-        zipball_url: 'https://api.github.com/repos/fastify/fastify/zipball/v1.13.3'
-      },
-      {
-        name: 'v3.0.0-alpha.2',
-        zipball_url: 'https://api.github.com/repos/fastify/fastify/zipball/v1.13.3'
-      }
-    ])
-    // TODO: ----------------------------------------------------------------------- end of debug
     // removes draft releases and pre-releases
     .filter((release) => !release.draft && !release.prerelease)
     // removes releases with invalid names (e.g. 0.2.0 did not have a release name)
@@ -97,6 +85,7 @@ async function main () {
         dest: md5(release.zipball_url),
         label: `v${major}.${minor}.x`,
         docsPath: `v${major}.${minor}.x`,
+        fullVersion: release.name,
         version: { major, minor, patch, annotation }
       }
     })
@@ -131,6 +120,7 @@ async function main () {
     label: 'master',
     name: 'master',
     docsPath: 'master',
+    fullVersion: 'master',
     url: masterUrl,
     dest: md5(masterUrl),
     ignoreCache: true
@@ -149,9 +139,12 @@ async function main () {
         return compareVersions(a, b) * -1 // otherwise compare by versions descendant
     }
   })
-  console.log(`Completed: downloaded ${Object.keys(selectedReleases).length} releases`)
   // saves a manifest with all the current releases in the dest folder
-  await fs.promises.writeFile(join(dest, 'releases.json'), JSON.stringify(manifest, null, 2))
+  const manifestFile = join(dest, 'releases.json')
+  await fs.promises.writeFile(manifestFile, JSON.stringify(manifest, null, 2))
+  console.log(`Manifest file created: ${manifestFile}`)
+
+  console.log(`Completed: downloaded ${Object.keys(selectedReleases).length} releases`)
 }
 
 main().catch((err) => {

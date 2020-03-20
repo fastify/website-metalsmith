@@ -5,9 +5,9 @@
   <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          {% set versionTitle = version %}
+          {% set versionTitle = fullVersion %}
           {% if version == 'latest' %}
-            {% set versionTitle = 'latest — ' + data.docs.releases[0].label %}
+            {% set versionTitle = 'latest — ' + data.docs.releases[0].fullVersion %}
           {% endif %}
           Documentation ({{ versionTitle }})
         </h1>
