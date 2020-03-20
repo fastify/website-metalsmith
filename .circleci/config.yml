@@ -17,6 +17,7 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
+            - v1-releases-cache
 
       - run:
           name: Install dependencies
@@ -26,6 +27,11 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+
+      - save_cache:
+          paths:
+            - build-temp/releases
+          key: v1-releases-cache
 
       - run:
           name: Test
