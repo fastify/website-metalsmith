@@ -81,3 +81,7 @@
 - name: "Swiss Dev Jobs"
   image: "swissdev-javascript-jobs-200-200.svg"
   link: "https://swissdevjobs.ch/"
+  
+- name: "localistars"
+  image: "localistars.svg"
+  link: "https://localistars.com"
