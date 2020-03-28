@@ -81,3 +81,8 @@
 - name: "Swiss Dev Jobs"
   image: "swissdev-javascript-jobs-200-200.svg"
   link: "https://swissdevjobs.ch/"
+  
+- name: "locize"
+  image: "locize.svg"
+  link: "https://locize.com"
+
