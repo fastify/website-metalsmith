@@ -386,9 +386,9 @@ fastify.route({
   method: &#39;POST&#39;,
   url: &#39;/&#39;,
   schema: {
-    body: ajv.getSchema(&#39;urn:schema:request&#39;).schema,
+    body: { $ref: &#39;urn:schema:request#&#39; },
     response: {
-      &#39;2xx&#39;: ajv.getSchema(&#39;urn:schema:response&#39;).schema
+      &#39;2xx&#39;: { $ref: &#39;urn:schema:response#&#39; }
     }
   },
   handler (req, reply) {
