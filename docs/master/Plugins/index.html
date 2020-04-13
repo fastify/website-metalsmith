@@ -31,7 +31,9 @@ fastify.ready(err =&gt; console.log(err))
 // so it behaves in the same way
 fastify.listen(3000, (err, address) =&gt; {
   if (err) console.log(err)
-})</code></pre><p><em>async-await</em> is supported only by <code>ready</code> and <code>listen</code>.</p><pre><code class=language-js>fastify.register(require(&#39;my-plugin&#39;))
+})</code></pre><p><a name=async-await></a></p><h3 id=asyncawait>async/await</h3><p><em>async/await</em> is supported by <code>after</code>, <code>ready</code> and <code>listen</code>, as well as <code>fastify</code> being a <a href=https://promisesaplus.com/ >Thenable</a>.</p><pre><code class=language-js>await fastify.register(require(&#39;my-plugin&#39;))
+
+await fastify.after()
 
 await fastify.ready()
 

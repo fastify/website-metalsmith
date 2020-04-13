@@ -23,11 +23,11 @@ const fastify = require(&#39;fastify&#39;)({
     level: &#39;info&#39;,
     stream: stream
   }
-})</code></pre><p><a name=logging-request-id></a></p><p>By default, fastify adds an id to every request for easier tracking. If the &quot;request-id&quot; header is present its value is used, otherwise a new incremental id is generated. See Fastify Factory <a href=/docs/master/Server#factory-request-id-header><code>requestIdHeader</code></a> and Fastify Factory <a href=/docs/master/Server#gen-request-id><code>genReqId</code></a> for customization options.</p><p>The default logger is configured with a set of standard serializers that serialize objects with <code>req</code>, <code>res</code>, and <code>err</code> properties. This behaviour can be customized by specifying custom serializers.</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+})</code></pre><p><a name=logging-request-id></a></p><p>By default, fastify adds an id to every request for easier tracking. If the &quot;request-id&quot; header is present its value is used, otherwise a new incremental id is generated. See Fastify Factory <a href=/docs/master/Server#factory-request-id-header><code>requestIdHeader</code></a> and Fastify Factory <a href=/docs/master/Server#gen-request-id><code>genReqId</code></a> for customization options.</p><p>The default logger is configured with a set of standard serializers that serialize objects with <code>req</code>, <code>res</code>, and <code>err</code> properties. The object received by <code>req</code> is the Fastify <a href=/docs/master/Request><code>Request</code></a> object, while the object received by <code>res</code> is the Fastify <a href=/docs/master/Reply><code>Reply</code></a> object.<br>This behaviour can be customized by specifying custom serializers.</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   logger: {
     serializers: {
-      req: function (req) {
-        return { url: req.url }
+      req (request) {
+        return { url: request.url }
       }
     }
   }
@@ -35,28 +35,28 @@ const fastify = require(&#39;fastify&#39;)({
   logger: {
     prettyPrint: true,
     serializers: {
-      res(res) {
+      res (reply) {
         // The default
         return {
-          statusCode: res.statusCode
+          statusCode: reply.statusCode
         }
       },
-      req(req) {
+      req (request) {
         return {
-          method: req.method,
-          url: req.url,
-          path: req.path,
-          parameters: req.parameters,
-          // Including the headers in the log could be in violation 
+          method: request.method,
+          url: request.url,
+          path: request.path,
+          parameters: request.parameters,
+          // Including the headers in the log could be in violation
           // of privacy laws, e.g. GDPR. You should use the &quot;redact&quot; option to
           // remove sensitive fields. It could also leak authentication data in
           // the logs.
-          headers: req.headers
+          headers: request.headers
         };
       }
     }
   }
-});</code></pre><p><strong>Note</strong>: The body cannot be serialized inside <code>req</code> method because the request is serialized when we create the child logger. At that time, the body is not yet parsed.</p><p>See an approach to log <code>req.body</code></p><pre><code class=language-js>app.addHook(&#39;preHandler&#39;, function (req, reply, done) {
+});</code></pre><p><strong>Note</strong>: The body not can serialize inside <code>req</code> method, because the request is serialized when we create the child logger. At that time, the body is not parsed yet.</p><p>See an approach to log <code>req.body</code></p><pre><code class=language-js>app.addHook(&#39;preHandler&#39;, function (req, reply, done) {
   if (req.body) {
     req.log.info({ body: req.body }, &#39;parsed body&#39;)
   }
@@ -75,14 +75,14 @@ fastify.get(&#39;/&#39;, function (request, reply) {
     redact: [&#39;req.headers.authorization&#39;],
     level: &#39;info&#39;,
     serializers: {
-      req (req) {
+      req (request) {
         return {
-          method: req.method,
-          url: req.url,
-          headers: req.headers,
-          hostname: req.hostname,
-          remoteAddress: req.ip,
-          remotePort: req.connection.remotePort
+          method: request.method,
+          url: request.url,
+          headers: request.headers,
+          hostname: request.hostname,
+          remoteAddress: request.ip,
+          remotePort: request.connection.remotePort
         }
       }
     }
