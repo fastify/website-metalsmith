@@ -56,7 +56,7 @@ const fastify = require(&#39;fastify&#39;)({
       }
     }
   }
-});</code></pre><p><strong>Note</strong>: The body not can serialize inside <code>req</code> method, because the request is serialized when we create the child logger. At that time, the body is not parsed yet.</p><p>See an approach to log <code>req.body</code></p><pre><code class=language-js>app.addHook(&#39;preHandler&#39;, function (req, reply, done) {
+});</code></pre><p><strong>Note</strong>: The body cannot be serialized inside <code>req</code> method because the request is serialized when we create the child logger. At that time, the body is not yet parsed.</p><p>See an approach to log <code>req.body</code></p><pre><code class=language-js>app.addHook(&#39;preHandler&#39;, function (req, reply, done) {
   if (req.body) {
     req.log.info({ body: req.body }, &#39;parsed body&#39;)
   }
