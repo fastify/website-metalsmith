@@ -11,35 +11,35 @@
   </div>
 </section>
 
-<div class="container">
-  <section class="section">
-    <div class="content">
-      <p>Fastify is proudly powering a large ecosystem of organisations and products out there.</p>
-      <p>Find here a list of some of the organisations adopting Fastify.</p>
-      <div class="columns is-centered">
-        <div class="column is-12">
-          <ul class="organisations-list align-start">
-            {% for organization in data.organisations | shuffle %}
-              <li>
-                <a href="{{ organization.link }}" target="_blank" rel="nofollow">
-                  <img src="/{{ hashes['images/organisations/' + organization.image] }}" alt="{{ organization.name }} is using Fastify"/>
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-          <hr/>
-          <small>The logos displayed in this page are property of the respective organisations and they are
-          not distributed under the same license as Fastify (MIT).</small>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="section" id="how-to-be-featured">
-    <div class="content">
-      <h2>How to be featured here</h2>
-      <div class="columns">
-        <div class="column is-10">
-          <p>Is your organisation using Fastify? That's great!</p>
+<section class="section">
+	<div class="container content">
+    <div class="columns is-centered">
+		  <div class="column is-12">
+				<p>Fastify is proudly powering a large ecosystem of organisations and products out there.</p>
+				<p>Below is a list of some of the organisations adopting Fastify.</p>
+				<ul class="organisations-list align-start">
+					{% for organization in data.organisations | shuffle %}
+						<li>
+							<a href="{{ organization.link }}" target="_blank" rel="nofollow">
+								<img src="/{{ hashes['images/organisations/' + organization.image] }}" alt="{{ organization.name }} is using Fastify"/>
+							</a>
+						</li>
+					{% endfor %}
+				</ul>
+				<hr/>
+				<small>The logos displayed in this page are property of the respective organisations and they are
+				not distributed under the same license as Fastify (MIT).</small>
+		  </div>
+	  </div>
+	</div>
+</section>
+
+<section class="section" id="how-to-be-featured">
+	<div class="container content">
+    <div class="columns is-centered">
+		  <div class="column is-12">
+				<h2>How to be featured here</h2>
+				<p>Is your organisation using Fastify? That's great!</p>
           <p>If you would like your organisation to have its logo featured in this list, here's how you do it!</p>
           <p>You can submit your organisation, your logo and other few relevant details by following these steps:</p>
           <ol>
@@ -65,9 +65,9 @@
             <li>Submit a PR!</li>
           </ol>
           <p>As soon as your PR is reviewed and merged, your awesome logo will appear in this page.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
+		  </div>
+	  </div>
+	</div>
+</section>
+
 {% endblock %}

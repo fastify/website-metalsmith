@@ -18,7 +18,7 @@
 <section class="section">
   <div class="container content">
     <div class="columns is-centered">
-      <div class="column is-10">
+      <div class="column is-12">
         <h1 class="title">Why</h1>
         <p>
           An efficient server implies a lower cost of the infrastructure, a better responsiveness under load and happy users.
@@ -36,7 +36,7 @@
 <section class="section">
   <div class="container content">
     <div class="columns is-centered">
-      <div class="column is-10">
+      <div class="column is-12">
         <h1 class="title">Who is using Fastify?</h1>
         <p>Fastify is proudly powering a large ecosystem of organisations and products out there.</p>
         <p>Discover <a href="/organisations">more organisations using Fastify</a>. Do want your organisation to <a href="/organisations#how-to-be-featured">be featured here</a>?</p>
@@ -46,7 +46,7 @@
       <div class="column is-12">
         <ul class="organisations-list">
           {% set shuffledOrganisations = data.organisations | shuffle %}
-          {% for organizationIndex in range(0, 6) %}
+          {% for organizationIndex in range(0, 12) %}
             {% set organization = shuffledOrganisations[organizationIndex] %}
             {% if organization %}
             <li>
@@ -65,7 +65,7 @@
 <section class="section alternate">
   <div class="container content">
     <div class="columns is-centered">
-      <div class="column is-10">
+      <div class="column is-12">
         <h1 class="title">Core features</h1>
 
         <p>These are the main features and principles on which fastify has been built:</p>
@@ -86,7 +86,7 @@
 <section class="section">
   <div class="container content">
     <div class="columns is-centered">
-      <div class="column is-10">
+      <div class="column is-12">
         <h1 class="title">Quick start</h1>
         <p>Get fastify with NPM:</p>
         <pre><code class="shell">npm install fastify</code></pre>
@@ -350,14 +350,11 @@ server.listen(3000, (err) => {
 </section>
 
 <section class="section team">
-  <div class="container">
+  <div class="container content">
     <div class="columns is-centered">
-      <div class="column is-10">
-
-        <div class="content">
-          <h1 class="title">The team</h1>
-          <p>In alphabetical order</p>
-        </div>
+      <div class="column is-12">
+        <h1 class="title">The team</h1>
+        <p>In alphabetical order</p>
         {% for section in data.team %}
           <div class="content">
             <h2>{{ section.name }}</h2>
@@ -383,48 +380,50 @@ server.listen(3000, (err) => {
               </div>
             {% endfor %}
           </div>
-        {% endfor %}
-
-        <div class="content">
-            <hr/>
-            <h1 class="title">Hosted by</h1>
-            <p>We are currently an incubated project at the <a href="https://openjsf.org/" target="_blank">OpenJS Foundation</a>.</p>
-            <p>
-              <a href="https://openjsf.org/" target="_blank">
-                <img id="openjs-logo" src="/{{ hashes['images/openjsf-knockout.svg'] }}" alt="OpenJS Logo"/>
-              </a>
-            </p>
-        </div>
-
-        <div class="content">
-          <hr/>
-          <h1 class="title">Acknowledgments</h1>
-          <p>This project is kindly <strong>sponsored by</strong>:</p>
-          <ul>
-            {% for link in data.acknowledgements.sponsors %}
-              <li>
-                <a href="{{ link.url }}" target="_blank">{{ link.name }}</a>
-              </li>
-            {% endfor %}
-          </ul>
-          <p>Past Sponsors:</p>
-          <ul>
-            {% for link in data.acknowledgements.past_sponsors %}
-              <li>
-                <a href="{{ link.url }}" target="_blank">{{ link.name }}</a>{% if link.reason %} ({{ link.reason }}){% endif %}
-              </li>
-            {% endfor %}
-          </ul>
-          <p>Also thanks to:</p>
-          <ul>
-            {% for link in data.acknowledgements.others %}
-              <li>
-                <a href="{{ link.url }}" target="_blank">{{ link.name }}</a>{% if link.reason %} ({{ link.reason }}){% endif %}
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
+				{% endfor %}
+			</div>
+    </div>
+  </div>
+</section>
+<section class="section alternate">
+	<div class="container content">
+		<div class="columns is-centered">
+			<div class="column is-6">
+        <h1 class="title">Acknowledgments</h1>
+        <p>This project is kindly <strong>sponsored by</strong>:</p>
+        <ul>
+          {% for link in data.acknowledgements.sponsors %}
+            <li>
+              <a href="{{ link.url }}" target="_blank">{{ link.name }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+        <p>Past Sponsors:</p>
+        <ul>
+          {% for link in data.acknowledgements.past_sponsors %}
+            <li>
+              <a href="{{ link.url }}" target="_blank">{{ link.name }}</a>{% if link.reason %} ({{ link.reason }}){% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+        <p>Also thanks to:</p>
+        <ul>
+          {% for link in data.acknowledgements.others %}
+            <li>
+              <a href="{{ link.url }}" target="_blank">{{ link.name }}</a>{% if link.reason %} ({{ link.reason }}){% endif %}
+            </li>
+          {% endfor %}
+        </ul>
       </div>
+			<div class="column is-6">
+        <h1 class="title">Hosted by</h1>
+        <p>We are currently an incubated project at the <a href="https://openjsf.org/" target="_blank">OpenJS Foundation</a>.</p>
+        <p>
+          <a href="https://openjsf.org/" target="_blank">
+            <img id="openjs-logo" src="/{{ hashes['images/openjsf-knockout.svg'] }}" alt="OpenJS Logo"/>
+          </a>
+        </p>
+			</div>
     </div>
   </div>
 </section>

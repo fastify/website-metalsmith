@@ -10,13 +10,13 @@
     </div>
   </div>
 </section>
-<div class="container">
-  <section class="section">
+<section class="section">
+	<div class="container">
     <div class="content">
       <ul>
-        <li>There are 
-          <a href="#Core Plugins"><strong>{{ data.ecosystem.plugins.corePlugins | length }}</strong> core plugins</a> and 
-          <a href="#Community Plugins"><strong>{{ data.ecosystem.plugins.communityPlugins | length }}</strong> community plugins</a> 
+        <li>There are
+          <a href="#Core Plugins"><strong>{{ data.ecosystem.plugins.corePlugins | length }}</strong> core plugins</a> and
+          <a href="#Community Plugins"><strong>{{ data.ecosystem.plugins.communityPlugins | length }}</strong> community plugins</a>
         </li>
         <li>A core plugin is a plugin maintained by the fastify team, and we make our best to maintain them according
           to <a href="https://github.com/fastify/fastify/blob/master/docs/LTS.md">https://github.com/fastify/fastify/blob/master/docs/LTS.md.</a></li>
@@ -72,6 +72,6 @@
       <p>Did you create a fastify plugin and want to list it here? <a href=" https://github.com/fastify/fastify/blob/master/docs/Ecosystem.md">Submit
           a PR</a> and we will check it out!</p>
     </div>
-  </section>
-</div>
+  </div>
+</section>
 {% endblock %}
