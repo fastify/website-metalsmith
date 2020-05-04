@@ -135,6 +135,29 @@ const fastify = require(&#39;fastify&#39;)({
       res.send(err)
     }
   }
+})</code></pre><p><a name=client-error-handler></a></p><h3 id=clienterrorhandler><code>clientErrorHandler</code></h3><p>Set a <a href=https://nodejs.org/api/http.html#http_event_clienterror>clientErrorHandler</a> that listens to <code>error</code> events emitted by client connections and responds with a <code>400</code>.</p><p>Using this option it is possible to override the default <code>clientErrorHandler</code>.</p><ul><li>Default:<pre><code class=language-js>function defaultClientErrorHandler (err, socket) {
+const body = JSON.stringify({
+  error: http.STATUS_CODES[&#39;400&#39;],
+  message: &#39;Client Error&#39;,
+  statusCode: 400
+})
+this.log.trace({ err }, &#39;client error&#39;)
+socket.end(`HTTP/1.1 400 Bad Request\r\nContent-Length: ${body.length}\r\nContent-Type: application/json\r\n\r\n${body}`)
+}</code></pre></li></ul><p><em>Note: <code>clientErrorHandler</code> operates with raw socket. The handler is expected to return a properly formed HTTP response that includes a status line, HTTP headers and a message body.</em></p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+  clientErrorHandler: function (err, socket) {
+    const body = JSON.stringify({
+      error: {
+        message: &#39;Client error&#39;,
+        code: &#39;400&#39;
+      }
+    })
+
+    // `this` is bound to fastify instance
+    this.log.trace({ err }, &#39;client error&#39;)
+
+    // the handler is responsible for generating a valid HTTP response
+    socket.end(`HTTP/1.1 400 Bad Request\r\nContent-Length: ${body.length}\r\nContent-Type: application/json\r\n\r\n${body}`)
+  }
 })</code></pre><h2 id=instance>Instance</h2><h3 id=server-methods>Server Methods</h3><p><a name=server></a></p><h4 id=server>server</h4><p><code>fastify.server</code>: The Node core <a href=https://nodejs.org/api/http.html#http_class_http_server>server</a> object as returned by the <a href=/docs/master/Server><strong><code>Fastify factory function</code></strong></a>.</p><p><a name=after></a></p><h4 id=after>after</h4><p>Invoked when the current plugin and all the plugins that have been registered within it have finished loading. It is always executed before the method <code>fastify.ready</code>.</p><pre><code class=language-js>fastify
   .register((instance, opts, done) =&gt; {
     console.log(&#39;Current plugin&#39;)
