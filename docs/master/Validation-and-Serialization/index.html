@@ -310,7 +310,78 @@ fastify.post(&#39;/&#39;, { schema, attachValidation: true }, function (req, rep
   if (error.validation) {
      reply.status(422).send(new Error(&#39;validation failed&#39;))
   }
-})</code></pre><p>If you want custom error response in schema without headaches and quickly, you can take a look at <a href=https://github.com/epoberezkin/ajv-errors>here</a></p><h3 id=json-schema-support>JSON Schema support</h3><p>JSON Schema has some type of utilities in order to optimize your schemas that, in conjunction with the Fastify&#39;s shared schema, let you reuse all your schemas easily.</p><table><thead><tr><th>Use Case</th><th>Validator</th><th>Serializer</th></tr></thead><tbody><tr><td><code>$ref</code> to <code>$id</code></td><td>️️✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to <code>/definitions</code></td><td>✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to shared schema <code>$id</code></td><td>✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to shared schema <code>/definitions</code></td><td>✔️</td><td>✔️</td></tr></tbody></table><h4 id=examples>Examples</h4><h5 id=usage-of-ref-to-id-in-same-json-schema>Usage of <code>$ref</code> to <code>$id</code> in same JSON Schema</h5><pre><code class=language-js>const refToId = {
+})</code></pre><p>If you want custom error response in schema without headaches and quickly, you can take a look at <a href=https://github.com/epoberezkin/ajv-errors><code>ajv-errors</code></a>. Checkout the <a href=https://github.com/fastify/example/blob/master/validation-messages/custom-errors-messages.js>example</a> usage.</p><p>Below is an example showing how to add <strong>custom error messages for each property</strong> of a schema by supplying custom AJV options. Inline comments in the schema below describe how to configure it to show a different error message for each case:</p><pre><code class=language-js>const fastify = Fastify({
+  ajv: {
+    customOptions: { allErrors: true, jsonPointers: true },
+    plugins: [
+      require(&#39;ajv-errors&#39;)
+    ]
+  }
+})
+
+const schema = {
+  body: {
+    type: &#39;object&#39;,
+    properties: {
+      name: {
+        type: &#39;string&#39;,
+        errorMessage: {
+          type: &#39;Bad name&#39;
+        }
+      },
+      age: {
+        type: &#39;number&#39;,
+        errorMessage: {
+          type: &#39;Bad age&#39;, // specify custom message for
+          min: &#39;Too young&#39; // all constraints except required
+        }
+      }
+    },
+    required: [&#39;name&#39;, &#39;age&#39;],
+    errorMessage: {
+      required: {
+        name: &#39;Why no name!&#39;, // specify error message for when the
+        age: &#39;Why no age!&#39; // property is missing from input
+      }
+    }
+  }
+}
+
+fastify.post(&#39;/&#39;, { schema, }, (request, reply) =&gt; {
+  reply.send({
+    hello: &#39;world&#39;
+  })
+})</code></pre><p>If you want to return localized error messages, take a look at <a href=https://github.com/epoberezkin/ajv-i18n>ajv-i18n</a></p><pre><code class=language-js>const localize = require(&#39;ajv-i18n&#39;)
+
+const fastify = Fastify({
+  ajv: {
+    customOptions: { allErrors: true }
+  }
+})
+
+const schema = {
+  body: {
+    type: &#39;object&#39;,
+    properties: {
+      name: {
+        type: &#39;string&#39;,
+      },
+      age: {
+        type: &#39;number&#39;,
+      }
+    },
+    required: [&#39;name&#39;, &#39;age&#39;],
+  }
+}
+
+fastify.setErrorHandler(function (error, request, reply) {
+  if (error.validation) {
+    localize.ru(error.validation)
+    reply.status(400).send(error.validation)
+    return
+  }
+  reply.send(error)
+})</code></pre><h3 id=json-schema-support>JSON Schema support</h3><p>JSON Schema has some type of utilities in order to optimize your schemas that, in conjunction with the Fastify&#39;s shared schema, let you reuse all your schemas easily.</p><table><thead><tr><th>Use Case</th><th>Validator</th><th>Serializer</th></tr></thead><tbody><tr><td><code>$ref</code> to <code>$id</code></td><td>️️✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to <code>/definitions</code></td><td>✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to shared schema <code>$id</code></td><td>✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to shared schema <code>/definitions</code></td><td>✔️</td><td>✔️</td></tr></tbody></table><h4 id=examples>Examples</h4><h5 id=usage-of-ref-to-id-in-same-json-schema>Usage of <code>$ref</code> to <code>$id</code> in same JSON Schema</h5><pre><code class=language-js>const refToId = {
   type: &#39;object&#39;,
   definitions: {
     foo: {
