@@ -135,15 +135,22 @@ const fastify = require(&#39;fastify&#39;)({
       res.send(err)
     }
   }
-})</code></pre><p><a name=client-error-handler></a></p><h3 id=clienterrorhandler><code>clientErrorHandler</code></h3><p>Set a <a href=https://nodejs.org/api/http.html#http_event_clienterror>clientErrorHandler</a> that listens to <code>error</code> events emitted by client connections and responds with a <code>400</code>.</p><p>Using this option it is possible to override the default <code>clientErrorHandler</code>.</p><ul><li>Default:<pre><code class=language-js>function defaultClientErrorHandler (err, socket) {
+})</code></pre><p><a name=client-error-handler></a></p><h3 id=clienterrorhandler><code>clientErrorHandler</code></h3><p>Set a <a href=https://nodejs.org/api/http.html#http_event_clienterror>clientErrorHandler</a> that listens to <code>error</code> events emitted by client connections and responds with a <code>400</code>.</p><p>Using this option it is possible to override the default <code>clientErrorHandler</code>.</p><ul><li><p>Default:</p><pre><code class=language-js>function defaultClientErrorHandler (err, socket) {
+if (err.code === &#39;ECONNRESET&#39;) {
+  return
+}
+
 const body = JSON.stringify({
   error: http.STATUS_CODES[&#39;400&#39;],
   message: &#39;Client Error&#39;,
   statusCode: 400
 })
 this.log.trace({ err }, &#39;client error&#39;)
-socket.end(`HTTP/1.1 400 Bad Request\r\nContent-Length: ${body.length}\r\nContent-Type: application/json\r\n\r\n${body}`)
-}</code></pre></li></ul><p><em>Note: <code>clientErrorHandler</code> operates with raw socket. The handler is expected to return a properly formed HTTP response that includes a status line, HTTP headers and a message body.</em></p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+
+if (socket.writable) {
+  socket.end(`HTTP/1.1 400 Bad Request\r\nContent-Length: ${body.length}\r\nContent-Type: application/json\r\n\r\n${body}`)
+}
+}</code></pre></li></ul><p><em>Note: <code>clientErrorHandler</code> operates with raw socket. The handler is expected to return a properly formed HTTP response that includes a status line, HTTP headers and a message body. Before attempting to write the socket, the handler should check if the socket it&#39;s still writable as it may already have been destroyed.</em></p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   clientErrorHandler: function (err, socket) {
     const body = JSON.stringify({
       error: {
