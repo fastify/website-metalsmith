@@ -105,27 +105,6 @@ const fastify = require(&#39;fastify&#39;)({
       // Usage: plugin - Plugin without options
     ]
   }
-})</code></pre><p><a name=factory-return-503-on-closing></a></p><h3 id=return503onclosing-1><code>return503OnClosing</code></h3><p>Returns 503 after calling <code>close</code> server method. If <code>false</code>, the server routes the incoming request as usual.</p><ul><li>Default: <code>true</code></li></ul><p><a name=factory-ajv></a></p><h3 id=ajv-1><code>ajv</code></h3><p>Configure the ajv instance used by Fastify without providing a custom one.</p><ul><li>Default:</li></ul><pre><code class=language-js>{
-  customOptions: {
-    removeAdditional: true,
-    useDefaults: true,
-    coerceTypes: true,
-    allErrors: true,
-    nullable: true
-  },
-  plugins: []
-}</code></pre><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
-  ajv: {
-    customOptions: {
-      nullable: false // Refer to [ajv options](https://ajv.js.org/#options)
-    },
-    plugins: [
-      require(&#39;ajv-merge-patch&#39;)
-      [require(&#39;ajv-keywords&#39;), &#39;instanceof&#39;];
-      // Usage: [plugin, pluginOptions] - Plugin with options
-      // Usage: plugin - Plugin without options
-    ]
-  }
 })</code></pre><p><a name=http2-session-timeout></a></p><h3 id=http2sessiontimeout><code>http2SessionTimeout</code></h3><p>Set a default <a href=https://nodejs.org/api/http2.html#http2_http2session_settimeout_msecs_callback>timeout</a> to every incoming http2 session. The session will be closed on the timeout. Default: <code>5000</code> ms.</p><p>Note that this is needed to offer the graceful &quot;close&quot; experience when using http2. Node core defaults this to <code>0</code>.</p><p><a name=framework-errors></a></p><h3 id=frameworkerrors><code>frameworkErrors</code></h3><ul><li>Default: <code>null</code></li></ul><p>Fastify provides default error handlers for the most common use cases. Using this option it is possible to override one or more of those handlers with custom code.</p><p><em>Note: Only <code>FST_ERR_BAD_URL</code> is implemented at the moment.</em></p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   frameworkErrors: function (error, req, res) {
     if (error instanceof FST_ERR_BAD_URL) {
