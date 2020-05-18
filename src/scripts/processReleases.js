@@ -46,11 +46,11 @@ async function extractTOCFromFile (file, release) {
   // searches for the beginning of the ToC in the file (between '## Documentation' and '\n\n')
   const lines = fileContent.split('## Documentation')[1].split('\n\n')[0].split('\n').filter(Boolean)
   // every line is a ToC entry
-  const re = /master\/docs\/([a-zA-Z-0-9]+\.md)"><code><b>(.+)<\/b>/
+  const re = /(master|.)\/docs\/([a-zA-Z-0-9]+\.md)"><code><b>(.+)<\/b>/
   const toc = lines.map((line) => {
     const match = re.exec(line)
-    const fileName = match[1]
-    const name = match[2]
+    const fileName = match[2]
+    const name = match[3]
     const sourceFile = join(dirname(file), 'docs', fileName)
     const destinationFile = join(destFolder, 'content', 'docs', release.docsPath, fileName)
     const slug = basename(sourceFile, '.md')
