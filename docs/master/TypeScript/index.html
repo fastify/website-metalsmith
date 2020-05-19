@@ -246,12 +246,14 @@ const server = fastify&lt;http.Server, customRequest&gt;()
 server.get(&#39;/&#39;, async (request, reply) =&gt; {
   const someValue = request.mySpecialProp // TS knows this is a string, because of the `customRequest` interface
   return someValue.toUpperCase()
-})</code></pre><h6 id=example-5-specifying-logger-types>Example 5: Specifying logger types</h6><p>Fastify uses the <a href=http://getpino.io/#/ >Pino</a> logging library under the hood. While the Fastify type system does provide the necessary types for you to use the included logger, if you&#39;d like the specificity of the Pino types install them from <code>@types/pino</code> and pass the <code>pino.Logger</code> type to the fourth generic parameter. This generic also supports custom logging utilities such as creating custom serializers. See the <a href="">Logging</a> documentation for more info.</p><pre><code class=language-typescript>import fastify from &#39;fastify&#39;
+})</code></pre><h6 id=example-5-specifying-logger-types>Example 5: Specifying logger types</h6><p>Fastify uses the <a href=http://getpino.io/#/ >Pino</a> logging library under the hood. While the Fastify type system does provide the necessary types for you to use the included logger, if you&#39;d like the specificity of the Pino types install them from <code>@types/pino</code> and pass the <code>pino.Logger</code> type to the fourth generic parameter. This generic also supports custom logging utilities such as creating custom serializers. See the <a href=./Logging.md>Logging</a> documentation for more info.</p><pre><code class=language-typescript>import fastify from &#39;fastify&#39;
 import http from &#39;http&#39;
 import pino from &#39;pino&#39;
 
 const server = fastify&lt;http.Server, http.IncomingMessage, http.ServerResponse, pino.Logger&gt;({
-  logger: true
+  logger: {
+    messageKey: &#39;message&#39;
+  }
 })
 
 server.get(&#39;/&#39;, async (request, reply) =&gt; {
