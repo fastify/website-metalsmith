@@ -5,21 +5,21 @@
   // Some code
   await asyncMethod()
   return
-})</code></pre><p><strong>Notice:</strong> in the <a href=#onRequest>onRequest</a> hook, <code>request.body</code> will always be <code>null</code>, because the body parsing happens before the <a href=#preValidation>preValidation</a> hook.</p><h3 id=preparsing>preParsing</h3><pre><code class=language-js>fastify.addHook(&#39;preParsing&#39;, (request, reply, done) =&gt; {
+})</code></pre><p><strong>Notice:</strong> in the <a href=#onRequest>onRequest</a> hook, <code>request.body</code> will always be <code>null</code>, because the body parsing happens before the <a href=#preValidation>preValidation</a> hook.</p><h3 id=preparsing>preParsing</h3><p>If you are using the <code>preParsing</code> hook, you can transform the request payload stream before it is parsed. It receives the request and reply objects as other hooks, and a stream with the current request payload.</p><p>If it returns a value (via <code>return</code> or via the callback function), it must return a stream.</p><p>For instance, you can uncompress the request body:</p><pre><code class=language-js>fastify.addHook(&#39;preParsing&#39;, (request, reply, payload, done) =&gt; {
   // Some code
-  done()
-})</code></pre><p>Or <code>async/await</code>:</p><pre><code class=language-js>fastify.addHook(&#39;preParsing&#39;, async (request, reply) =&gt; {
+  done(null, newPayload)
+})</code></pre><p>Or <code>async/await</code>:</p><pre><code class=language-js>fastify.addHook(&#39;preParsing&#39;, async (request, reply, payload) =&gt; {
   // Some code
   await asyncMethod()
-  return
-})</code></pre><p><strong>Notice:</strong> in the <a href=#preParsing>preParsing</a> hook, <code>request.body</code> will always be <code>null</code>, because the body parsing happens before the <a href=#preValidation>preValidation</a> hook.</p><h3 id=prevalidation>preValidation</h3><pre><code class=language-js>fastify.addHook(&#39;preValidation&#39;, (request, reply, done) =&gt; {
+  return newPayload
+})</code></pre><p><strong>Notice:</strong> in the <a href=#preParsing>preParsing</a> hook, <code>request.body</code> will always be <code>null</code>, because the body parsing happens before the <a href=#preValidation>preValidation</a> hook.</p><p><strong>Notice:</strong> you should also add <code>receivedEncodedLength</code> property to the returned stream. This property is used to correctly match the request payload with the <code>Content-Length</code> header value. Ideally, this property should be updated on each received chunk.</p><p><strong>Notice</strong>: The old syntaxes <code>function(request, reply, done)</code> and <code>async function(request, reply)</code> for the parser are still supported but they are deprecated.</p><h3 id=prevalidation>preValidation</h3><pre><code class=language-js>fastify.addHook(&#39;preValidation&#39;, (request, reply, done) =&gt; {
   // Some code
   done()
 })</code></pre><p>Or <code>async/await</code>:</p><pre><code class=language-js>fastify.addHook(&#39;preValidation&#39;, async (request, reply) =&gt; {
   // Some code
   await asyncMethod()
   return
-})</code></pre><p><strong>Notice:</strong> in the <a href=#preValidation>preValidation</a> hook, <code>request.body</code> will always be <code>null</code>, because the body parsing happens before the <a href=#preHandler>preValidation</a> hook.</p><h3 id=prehandler>preHandler</h3><pre><code class=language-js>fastify.addHook(&#39;preHandler&#39;, (request, reply, done) =&gt; {
+})</code></pre><h3 id=prehandler>preHandler</h3><pre><code class=language-js>fastify.addHook(&#39;preHandler&#39;, (request, reply, done) =&gt; {
   // some code
   done()
 })</code></pre><p>Or <code>async/await</code>:</p><pre><code class=language-js>fastify.addHook(&#39;preHandler&#39;, async (request, reply) =&gt; {
@@ -30,7 +30,7 @@
   const err = null
   const newPayload = { wrapped: payload }
   done(err, newPayload)
-})</code></pre><p>Or <code>async/await</code></p><pre><code class=language-js>fastify.addHook(&#39;preSerialization&#39;, async (request, reply, payload) =&gt; {
+})</code></pre><p>Or <code>async/await</code>:</p><pre><code class=language-js>fastify.addHook(&#39;preSerialization&#39;, async (request, reply, payload) =&gt; {
   return { wrapped: payload }
 })</code></pre><p>Note: the hook is NOT called if the payload is a <code>string</code>, a <code>Buffer</code>, a <code>stream</code> or <code>null</code>.</p><h3 id=onerror>onError</h3><pre><code class=language-js>fastify.addHook(&#39;onError&#39;, (request, reply, error, done) =&gt; {
   // Some code
