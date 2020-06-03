@@ -1,212 +1,47 @@
-<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Fastify, Fast and low overhead web framework, for Node.js</title><meta name=description content="Fast and low overhead web framework, for Node.js"><link rel=apple-touch-icon sizes=57x57 href=/images/apple-icon-57x57.ed24c0a19503e080.png><link rel=apple-touch-icon sizes=60x60 href=/images/apple-icon-60x60.60c285c424d50738.png><link rel=apple-touch-icon sizes=72x72 href=/images/apple-icon-72x72.e49b27cfe1ab1461.png><link rel=apple-touch-icon sizes=76x76 href=/images/apple-icon-76x76.752f43fc91b8c1f7.png><link rel=apple-touch-icon sizes=114x114 href=/images/apple-icon-114x114.61739fa1d5a7059a.png><link rel=apple-touch-icon sizes=120x120 href=/images/apple-icon-120x120.7c25de37c5ce2ec1.png><link rel=apple-touch-icon sizes=144x144 href=/images/apple-icon-144x144.04d88fb27bd92cbe.png><link rel=apple-touch-icon sizes=152x152 href=/images/apple-icon-152x152.9364781175671626.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-icon-180x180.67579100928bfcd2.png><link rel=icon type=image/png sizes=192x192 href=/images/android-icon-192x192.37eb7f1ae3853740.png><link rel=icon type=image/png sizes=32x32 href=/images/favicon-32x32.1e22f0e774bc3cce.png><link rel=icon type=image/png sizes=96x96 href=/images/favicon-96x96.7e8a68b1b80c1799.png><link rel=icon type=image/png sizes=16x16 href=/images/favicon-16x16.e534ce05cb727f1a.png><link rel=manifest href=/manifest.json><meta name=msapplication-TileColor content=#ffffff><meta name=msapplication-TileImage content=/images/ms-icon-144x144.png><meta name=theme-color content=#ffffff><meta property=og:url content=https://www.fastify.io/ ><meta property=og:type content=website><meta property=og:title content="Fastify, Fast and low overhead web framework, for Node.js"><meta property=og:description content="Fast and low overhead web framework, for Node.js"><meta property=og:image content=https://www.fastify.io/images/fastify-fb-share-image.07b6e6860853c758.png><meta name=twitter:card content=summary_large_image><meta name=twitter:site content=@fastifyjs><meta name=twitter:creator content=@fastifyjs><meta name=twitter:title content="Fastify, Fast and low overhead web framework, for Node.js"><meta name=twitter:description content="Fast and low overhead web framework, for Node.js"><meta name=twitter:image content=https://www.fastify.io/images/fastify-twitter-share-image.cd9f217b360af3e2.png><link rel=stylesheet href=/css/style.42436a2c03b7960f.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css crossorigin=anonymous></head><body><nav id=main-navbar class=navbar><div class=navbar-brand><a class=navbar-item href=/ ><img src=/images/fastify-logo-menu.d13f8da7a965c800.png alt="Fastify: Fast and low overhead web framework, for Node.js" height=28> </a><a class="navbar-item is-hidden-desktop" href=https://github.com/fastify/fastify target=_blank><span class=icon style="color: #333;"><i class="fa fa-github"></i></span></a><div class="navbar-burger burger" data-target=mobileMenu><span></span> <span></span> <span></span></div></div><div class=navbar-menu id=mobileMenu><div class=navbar-start><a class=navbar-item href=/ >Home</a> <a class=navbar-item href=/docs/latest>Docs</a> <a class=navbar-item href=/ecosystem>Ecosystem</a> <a class=navbar-item href=/benchmarks>Benchmarks</a> <a class=navbar-item href=/contribute>Contribute</a> <a class=navbar-item href=https://medium.com/@fastifyjs/ >Blog</a> <a class=navbar-item href=https://github.com/fastify/help>Help</a></div><div class=navbar-end><span class="control has-icons-left navbar-item"><input id=algolia-search-input class=input type=search placeholder=""> <span class="icon is-medium is-left"><i class="fa fa-search"></i> </span></span><a class=navbar-item href=https://github.com/fastify/fastify target=_blank><span class="fa fa-github"></span>&nbsp;GitHub </a><a class=navbar-item href=https://twitter.com/fastifyjs target=_blank><span class="fa fa-twitter"></span>&nbsp;Twitter</a></div></div></nav><main class=page-content aria-label=Content><div class=hero style="background-image: url(/images/bg-pattern-dark.3f8cda863b3bbf52.png)"><div class=hero-body><div class=container><h1 class=title><img class=logo src=/images/fastify-logo-inverted.2180cc6b1919d47a.png alt=Fastify></h1><h2 class=subtitle>Fast and low overhead web framework, for Node.js</h2><div class=github-buttons><a class=github-button href=https://github.com/fastify/fastify data-icon=octicon-star data-size=large data-show-count=true aria-label="Star fastify/fastify on GitHub">Star</a> <a class=github-button href=https://github.com/fastify/fastify/fork data-icon=octicon-repo-forked data-size=large aria-label="Fork fastify/fastify on GitHub">Fork</a><script async defer src=https://buttons.github.io/buttons.js></script></div></div></div></div><section class=section><div class="container content"><div class="columns is-centered"><div class="column is-12"><h1 class=title>Why</h1><p>An efficient server implies a lower cost of the infrastructure, a better responsiveness under load and happy users. How can you efficiently handle the resources of your server, knowing that you are serving the highest number of requests possible, without sacrificing security validations and handy development?</p><p>Enter Fastify. Fastify is a web framework highly focused on providing the best developer experience with the least overhead and a powerful plugin architecture. It is inspired by Hapi and Express and as far as we know, it is one of the fastest web frameworks in town.</p></div></div></div></section><section class=section><div class="container content"><div class="columns is-centered"><div class="column is-12"><h1 class=title>Who is using Fastify?</h1><p>Fastify is proudly powering a large ecosystem of organisations and products out there.</p><p>Discover <a href=/organisations>more organisations using Fastify</a>. Do want your organisation to <a href=/organisations#how-to-be-featured>be featured here</a>?</p></div></div><div class="columns is-centered"><div class="column is-12"><ul class=organisations-list><li><a href=https://locize.com target=_blank rel=nofollow><img src=/images/organisations/locize.9b19dc307df24454.svg alt="locize is using Fastify"></a></li><li><a href=https://unhandled.net target=_blank rel=nofollow><img src=/images/organisations/unhandled.0adcf4d71ee5c5be.svg alt="Unhandled is using Fastify"></a></li><li><a href=https://heply.it/ target=_blank rel=nofollow><img src=/images/organisations/heply.438e7a0dabae0ec9.svg alt="heply is using Fastify"></a></li><li><a href=https://geolytix.co.uk target=_blank rel=nofollow><img src=/images/organisations/geolytix.565c4f347c06a8a1.svg alt="GEOLYTIX is using Fastify"></a></li><li><a href=https://www.uniq.id/ target=_blank rel=nofollow><img src=/images/organisations/uniq.758aa7a874269fb9.svg alt="UNIQ is using Fastify"></a></li><li><a href=https://www.gumlet.com target=_blank rel=nofollow><img src=/images/organisations/gumlet.b3a9b7404bda3d05.svg alt="Gumlet is using Fastify"></a></li><li><a href=https://www.codecks.io/ target=_blank rel=nofollow><img src=/images/organisations/codecks.124ea8f0997a813c.svg alt="Codecks is using Fastify"></a></li><li><a href=https://vectra.ai target=_blank rel=nofollow><img src=/images/organisations/vectra.a534f094fb7ce797.svg alt="Vectra is using Fastify"></a></li><li><a href=https://www.mrporter.com target=_blank rel=nofollow><img src=/images/organisations/mrp.366c52cf20c7664b.svg alt="Mr Porter is using Fastify"></a></li><li><a href=https://www.mvlabs.it target=_blank rel=nofollow><img src=/images/organisations/mvlabs.99a335b05938f37d.svg alt="MV Labs is using Fastify"></a></li><li><a href=https://www.nucleode.com target=_blank rel=nofollow><img src=/images/organisations/nucleode.fc9b4dd4588c1716.svg alt="Nucleode is using Fastify"></a></li><li><a href=https://hospitalrun.io/ target=_blank rel=nofollow><img src=/images/organisations/hospitalrun.bd866427c97dd1bd.svg alt="HospitalRun is using Fastify"></a></li></ul></div></div></div></section><section class="section alternate"><div class="container content"><div class="columns is-centered"><div class="column is-12"><h1 class=title>Core features</h1><p>These are the main features and principles on which fastify has been built:</p><ul><li><strong>Highly performant:</strong> as far as we know, Fastify is one of the fastest web frameworks in town, depending on the code complexity we can serve up to 30 thousand requests per second.</li><li><strong>Extendible:</strong> Fastify is fully extensible via its hooks, plugins and decorators.</li><li><strong>Schema based:</strong> even if it is not mandatory we recommend to use <a href=http://json-schema.org/ target=_blank>JSON Schema</a> to validate your routes and serialize your outputs, internally Fastify compiles the schema in an highly performant function.</li><li><strong>Logging:</strong> logs are extremely important but are costly; we chose the best logger to almost remove this cost, <a href=https://github.com/pinojs/pino target=_blank>Pino</a>!</li><li><strong>Developer friendly:</strong> the framework is built to be very expressive and to help developers in their daily use, without sacrificing performance and security.</li><li><strong>TypeScript ready:</strong> we work hard to maintain a <a href=https://www.typescriptlang.org/ aria-label="Link to TypeScript website">TypeScript</a> type declaration file so we can support the growing TypeScript community.</li></ul></div></div></div></section><section class=section><div class="container content"><div class="columns is-centered"><div class="column is-12"><h1 class=title>Quick start</h1><p>Get fastify with NPM:</p><pre><code class=shell>npm install fastify</code></pre><p>Then create <code>server.js</code> and add the following content:</p><div class=swappable-async-await><div class=swap-button-box><label for=async-await-swap-1>async/await</label><div class=toggle-checkbox><input type=checkbox class=swappable-async-await-checkbox id=async-await-swap-1 value=0 checked name=async-await-swap-1> <label for=async-await-swap-1></label></div></div><pre class="no-async swappable-async-await-code"><code class=javascript>// Require the framework and instantiate it
-const fastify = require('fastify')({ logger: true })
-
-// Declare a route
-fastify.get('/', (request, reply) => {
-  reply.send({ hello: 'world' })
-})
-
-// Run the server!
-fastify.listen(3000, (err) => {
-  if (err) {
-    fastify.log.error(err)
-    process.exit(1)
-  }
-  fastify.log.info(`server listening on ${fastify.server.address().port}`)
-})</code></pre><pre class="async swappable-async-await-code"><code class=javascript>// Require the framework and instantiate it
-const fastify = require('fastify')({ logger: true })
-
-// Declare a route
-fastify.get('/', async (request, reply) => {
-  return { hello: 'world' }
-})
-
-// Run the server!
-const start = async () => {
-  try {
-    await fastify.listen(3000)
-    fastify.log.info(`server listening on ${fastify.server.address().port}`)
-  } catch (err) {
-    fastify.log.error(err)
-    process.exit(1)
-  }
-}
-start()
-</code></pre></div><p>Finally, launch the server with:</p><pre><code class=shell>node server</code></pre><p>and you can test it with:</p><pre><code class=shell>curl http://localhost:3000</code></pre><h2>Request/Response validation and hooks</h2><p>Of course, Fastify can do much more than this.</p><p>For example, you can easily provide input and output validation using JSON Schema and perform specific operation before the handler is executed:</p><div class=swappable-async-await><div class=swap-button-box><label for=async-await-swap-2>async/await</label><div class=toggle-checkbox><input type=checkbox class=swappable-async-await-checkbox id=async-await-swap-2 value=0 checked name=async-await-swap-2> <label for=async-await-swap-2></label></div></div><pre class="no-async swappable-async-await-code"><code class=javascript>const fastify = require('fastify')({ logger: true })
-
-fastify.route({
-  method: 'GET',
-  url: '/',
-  schema: {
-    // request needs to have a querystring with a `name` parameter
-    querystring: {
-      name: { type: 'string' }
-    },
-    // the response needs to be an object with an `hello` property of type 'string'
-    response: {
-      200: {
-        type: 'object',
-        properties: {
-          hello: { type: 'string' }
-        }
-      }
-    }
-  },
-  // this function is executed for every request before the handler is executed
-  preHandler: (request, reply, done) => {
-    // E.g. check authentication
-    done()
-  },
-  handler: (request, reply) => {
-    reply.send({ hello: 'world' })
-  }
-})
-
-fastify.listen(3000, (err) => {
-  if (err) {
-    fastify.log.error(err)
-    process.exit(1)
-  }
-  fastify.log.info(`server listening on ${fastify.server.address().port}`)
-})</code></pre><pre class="async swappable-async-await-code"><code class=javascript>const fastify = require('fastify')({ logger: true })
-
-fastify.route({
-  method: 'GET',
-  url: '/',
-  schema: {
-    // request needs to have a querystring with a `name` parameter
-    querystring: {
-      name: { type: 'string' }
-    },
-    // the response needs to be an object with an `hello` property of type 'string'
-    response: {
-      200: {
-        type: 'object',
-        properties: {
-          hello: { type: 'string' }
-        }
-      }
-    }
-  },
-  // this function is executed for every request before the handler is executed
-  preHandler: async (request, reply) => {
-    // E.g. check authentication
-  },
-  handler: async (request, reply) => {
-    return { hello: 'world' }
-  }
-})
-
-const start = async () => {
-  try {
-    await fastify.listen(3000)
-    fastify.log.info(`server listening on ${fastify.server.address().port}`)
-  } catch (err) {
-    fastify.log.error(err)
-    process.exit(1)
-  }
-}
-start()</code></pre></div><h2>TypeScript Support</h2><p>Fastify is shipped with a typings file, but you may need to install <code class=shell>@types/node</code>, depending on the Node.js version you are using.</p><p>The following example creates a http server.</p><p>We pass the relevant typings for our http version used.</p><p>By passing types we get correctly typed access to the underlying http objects in routes.</p><p>If using http2 we'd pass <code class=typescript>&#60;http2.Http2Server, http2.Http2ServerRequest, http2.Http2ServerResponse&#62;</code>.</p><p>For https pass <code class=typescript>http2.Http2SecureServer</code> or <code class=typescript>http.SecureServer</code> instead of Server.</p><p>This ensures within the server handler we also get <code class=typescript>http.ServerResponse</code> with correct typings on <code class=javascript>reply.res</code>.</p><div class=swappable-async-await><div class=swap-button-box><label for=async-await-swap-3>async/await</label><div class=toggle-checkbox><input type=checkbox class=swappable-async-await-checkbox id=async-await-swap-3 value=0 checked name=async-await-swap-3> <label for=async-await-swap-3></label></div></div><pre class="no-async swappable-async-await-code"><code class=javascript>import * as fastify from 'fastify'
-import { Server, IncomingMessage, ServerResponse } from 'http'
-
-const server: fastify.FastifyInstance<server , incomingmessage, serverresponse> = fastify({})
-
-const opts: fastify.RouteShorthandOptions = {
-  schema: {
-    response: {
-      200: {
-        type: 'object',
-        properties: {
-          pong: {
-            type: 'string'
-          }
-        }
-      }
-    }
-  }
-}
-
-server.get('/ping', opts, (request, reply) => {
-  reply.send({ pong: 'it worked!' })
-})
-
-server.listen(3000, (err) => {
-  if (err) {
-    server.log.error(err)
-    process.exit(1)
-  }
-  server.log.info(`server listening on ${server.server.address().port}`)
-})</server></code></pre><pre class="async swappable-async-await-code"><code class=javascript>import * as fastify from 'fastify'
-import { Server, IncomingMessage, ServerResponse } from 'http'
-
-const server: fastify.FastifyInstance<server , incomingmessage, serverresponse> = fastify({})
-
-const opts: fastify.RouteShorthandOptions = {
-  schema: {
-    response: {
-      200: {
-        type: 'object',
-        properties: {
-          pong: {
-            type: 'string'
-          }
-        }
-      }
-    }
-  }
-}
-
-server.get('/ping', opts, async (request, reply) => {
-  return { pong: 'it worked!' }
-})
-
-server.listen(3000, (err) => {
-  if (err) {
-    server.log.error(err)
-    process.exit(1)
-  }
-  server.log.info(`server listening on ${server.server.address().port}`)
-})</server></code></pre></div><p>Visit the <a href=/docs>Documentation</a> to learn more about all the features that Fastify has to offer.</p></div></div></div></section><section class="section alternate"><div class="container content"><div class=columns><div class="column is-6"><h1 class=title>A fast web framework</h1><p>Leveraging our experience with Node.js performance, Fastify has been built from the ground up to be <strong>as fast as possible</strong>. Have a look at our <a href=/benchmarks>benchmarks section</a> to compare fastify performance to other common web frameworks.</p><div class=block><p><a class="button is-primary is-large is-flex-mobile" href=/benchmarks>Checkout our benchmarks</a></p></div></div><div class="column is-6"><h1 class=title>Ecosystem</h1><p>Fastify has an ever-growing ecosystem of plugins. Probably there is already a plugin for your favourite database or template language. Have a look at the <a href=/ecosystem>Ecosystem page</a> to navigate through the currently available plugins. Can't you find the plugin you are looking for? No problem, <a href=/docs/master/Plugins>it's very easy to write one</a>!</p><div class=block><a class="button is-primary is-large is-flex-mobile" href=/ecosystem>Explore 135 plugins</a></div></div></div></div></section><section class="section team"><div class="container content"><div class="columns is-centered"><div class="column is-12"><h1 class=title>The team</h1><p>In alphabetical order</p><div class=content><h2>Lead Maintainers</h2></div><div class="columns is-multiline"><div class="column is-one-third"><div class="media v-center"><div class=media-left><figure class="image is-96x96 contributor-picture"><img src="https://avatars1.githubusercontent.com/u/52195?v=4&amp;s=460" alt="Matteo Collina's profile picture"></figure></div><div class=media-content><p class="title is-5">Matteo Collina</p><p class="subtitle is-6 contributor-links"><a href=https://github.com/mcollina target=_blank>github</a> <a href=https://www.npmjs.com/~matteo.collina target=_blank>npm</a> <a href=https://twitter.com/matteocollina target=_blank>twitter</a></p></div></div></div><div class="column is-one-third"><div class="media v-center"><div class=media-left><figure class="image is-96x96 contributor-picture"><img src="https://avatars0.githubusercontent.com/u/4865608?v=4&amp;s=460" alt="Tomas Della Vedova's profile picture"></figure></div><div class=media-content><p class="title is-5">Tomas Della Vedova</p><p class="subtitle is-6 contributor-links"><a href=https://github.com/delvedor target=_blank>github</a> <a href=https://www.npmjs.com/~delvedor target=_blank>npm</a> <a href=https://twitter.com/delvedor target=_blank>twitter</a></p></div></div></div></div><div class=content><h2>Collaborators</h2></div><div class="columns is-multiline"><div class="column is-one-third"><div class="media v-center"><div class=media-left><figure class="image is-96x96 contributor-picture"><img src="https://avatars0.githubusercontent.com/u/1054125?v=4&amp;s=460" alt="Tommaso Allevi's profile picture"></figure></div><div class=media-content><p class="title is-5">Tommaso Allevi</p><p class="subtitle is-6 contributor-links"><a href=https://github.com/allevo target=_blank>github</a> <a href=https://www.npmjs.com/~allevo target=_blank>npm</a> <a href=https://twitter.com/allevitommaso target=_blank>twitter</a></p></div></div></div><div class="column is-one-third"><div class="media v-center"><div class=media-left><figure class="image is-96x96 contributor-picture"><img src="https://avatars3.githubusercontent.com/u/16144158?s=460&amp;v=4" alt="Ethan Arrowood's profile picture"></figure></div><div class=media-content><p class="title is-5">Ethan Arrowood</p><p class="subtitle is-6 contributor-links"><a href=https://github.com/Ethan-Arrowood target=_blank>github</a> <a href=https://www.npmjs.com/~ethan_arrowood target=_blank>npm</a> <a href=https://twitter.com/arrowoodtech target=_blank>twitter</a></p></div></div></div><div class="column is-one-third"><div class="media v-center"><div class=media-left><figure class="image is-96x96 contributor-picture"><img src="https://avatars3.githubusercontent.com/u/1297759?v=4&amp;s=460" alt="Cemre Mengu's profile picture"></figure></div><div class=media-content><p class="title is-5">Cemre Mengu</p><p class="subtitle is-6 contributor-links"><a href=https://github.com/cemremengu target=_blank>github</a> <a href=https://www.npmjs.com/~cemremengu target=_blank>npm</a> <a href=https://twitter.com/cemremengu target=_blank>twitter</a></p></div></div></div><div class="column is-one-third"><div class="media v-center"><div class=media-left><figure class="image is-96x96 contributor-picture"><img src="https://avatars1.githubusercontent.com/u/1190716?s=460&amp;v=4" alt="David Clements's profile picture"></figure></div><div class=media-content><p class="title is-5">David Clements</p><p class="subtitle is-6 contributor-links"><a href=https://github.com/davidmarkclements target=_blank>github</a> <a href=https://www.npmjs.com/~davidmarkclements target=_blank>npm</a> <a href=https://twitter.com/davidmarkclem target=_blank>twitter</a></p></div></div></div><div class="column is-one-third"><div class="media v-center"><div class=media-left><figure class="image is-96x96 contributor-picture"><img src="https://avatars3.githubusercontent.com/u/1764424?v=4&amp;s=460" alt="Dustin Deus's profile picture"></figure></div><div class=media-content><p class="title is-5">Dustin Deus</p><p class="subtitle is-6 contributor-links"><a href=https://github.com/StarpTech target=_blank>github</a> <a href=https://www.npmjs.com/~starptech target=_blank>npm</a> <a href=https://twitter.com/dustindeus target=_blank>twitter</a></p></div></div></div><div class="column is-one-third"><div class="media v-center"><div class=media-left><figure class="image is-96x96 contributor-picture"><img src="https://avatars3.githubusercontent.com/u/205629?v=4&amp;s=460" alt="Luciano Mammino's profile picture"></figure></div><div class=media-content><p class="title is-5">Luciano Mammino</p><p class="subtitle is-6 contributor-links"><a href=https://github.com/lmammino target=_blank>github</a> <a href=https://www.npmjs.com/~lmammino target=_blank>npm</a> <a href=https://twitter.com/loige target=_blank>twitter</a></p></div></div></div><div class="column is-one-third"><div class="media v-center"><div class=media-left><figure class="image is-96x96 contributor-picture"><img src="https://avatars3.githubusercontent.com/u/1303687?v=4&amp;s=400" alt="Evan Shortiss's profile picture"></figure></div><div class=media-content><p class="title is-5">Evan Shortiss</p><p class="subtitle is-6 contributor-links"><a href=https://github.com/evanshortiss target=_blank>github</a> <a href=https://www.npmjs.com/~evanshortiss target=_blank>npm</a> <a href=https://twitter.com/evanshortiss target=_blank>twitter</a></p></div></div></div><div class="column is-one-third"><div class="media v-center"><div class=media-left><figure class="image is-96x96 contributor-picture"><img src="https://avatars3.githubusercontent.com/u/11404065?s=460&amp;v=4" alt="Manuel Spigolon's profile picture"></figure></div><div class=media-content><p class="title is-5">Manuel Spigolon</p><p class="subtitle is-6 contributor-links"><a href=https://github.com/eomm target=_blank>github</a> <a href=https://www.npmjs.com/~eomm target=_blank>npm</a> <a href=https://twitter.com/manueomm target=_blank>twitter</a></p></div></div></div><div class="column is-one-third"><div class="media v-center"><div class=media-left><figure class="image is-96x96 contributor-picture"><img src="https://avatars0.githubusercontent.com/u/321201?v=4&amp;s=460" alt="James Sumners's profile picture"></figure></div><div class=media-content><p class="title is-5">James Sumners</p><p class="subtitle is-6 contributor-links"><a href=https://github.com/jsumners target=_blank>github</a> <a href=https://www.npmjs.com/~jsumners target=_blank>npm</a> <a href=https://twitter.com/jsumners79 target=_blank>twitter</a></p></div></div></div><div class="column is-one-third"><div class="media v-center"><div class=media-left><figure class="image is-96x96 contributor-picture"><img src="https://avatars0.githubusercontent.com/u/5128013?v=4&amp;s=460" alt="Nathan Woltman's profile picture"></figure></div><div class=media-content><p class="title is-5">Nathan Woltman</p><p class="subtitle is-6 contributor-links"><a href=https://github.com/nwoltman target=_blank>github</a> <a href=https://www.npmjs.com/~nwoltman target=_blank>npm</a> <a href=https://twitter.com/NathanWoltman target=_blank>twitter</a></p></div></div></div></div><div class=content><h2>Past Collaborators</h2></div><div class="columns is-multiline"><div class="column is-one-third"><div class="media v-center"><div class=media-left><figure class="image is-96x96 contributor-picture"><img src="https://avatars1.githubusercontent.com/u/16024985?s=400&amp;v=4" alt="Trivikram Kamat's profile picture"></figure></div><div class=media-content><p class="title is-5">Trivikram Kamat</p><p class="subtitle is-6 contributor-links"><a href=https://github.com/trivikr target=_blank>github</a> <a href=https://www.npmjs.com/~trivikr target=_blank>npm</a> <a href=https://twitter.com/trivikram target=_blank>twitter</a></p></div></div></div><div class="column is-one-third"><div class="media v-center"><div class=media-left><figure class="image is-96x96 contributor-picture"><img src="https://avatars1.githubusercontent.com/u/9213230?v=4&amp;s=460" alt="Çağatay Çalı's profile picture"></figure></div><div class=media-content><p class="title is-5">Çağatay Çalı</p><p class="subtitle is-6 contributor-links"><a href=https://github.com/cagataycali target=_blank>github</a> <a href=https://www.npmjs.com/~cagataycali target=_blank>npm</a> <a href=https://twitter.com/cagataycali target=_blank>twitter</a></p></div></div></div></div></div></div></div></section><section class="section alternate"><div class="container content"><div class="columns is-centered"><div class="column is-6"><h1 class=title>Acknowledgments</h1><p>This project is kindly <strong>sponsored by</strong>:</p><ul><li><a href=http://nearform.com target=_blank>NearForm</a></li></ul><p>Past Sponsors:</p><ul><li><a href=http://www.letzdoitapp.com target=_blank>LetzDoIt</a></li></ul><p>Also thanks to:</p><ul><li><a href=https://github.com/fastify/fastify/graphs/contributors target=_blank>The amazing Fastify community</a></li></ul></div><div class="column is-6"><h1 class=title>Hosted by</h1><p>We are currently an incubated project at the <a href=https://openjsf.org/ target=_blank>OpenJS Foundation</a>.</p><p><a href=https://openjsf.org/ target=_blank><img id=openjs-logo src=/images/openjsf-knockout.2e1aee2e40559fa4.svg alt="OpenJS Logo"></a></p></div></div></div></section></main><footer class="grey is-primary footer"><div class=container><div class="content has-text-centered"><p><em>Found a typo or want to improve this page?</em> <a href=https://github.com/fastify/website/blob/master/src/website/layouts/home.html>Submit a PR on GitHub</a></p><p>Fastify, Copyright &copy; 2016-2020 <a href=https://openjsf.org/ target=_blank>OpenJS Foundation</a> and <a href=https://github.com/fastify/fastify#team target=_blank>The Fastify team</a>, Licensed under <a href=https://github.com/fastify/fastify/blob/master/LICENSE target=_blank>MIT</a></p></div></div></footer><script src=/js/main.97eeabf1df4ff87e.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin=anonymous></script><script>hljs.initHighlightingOnLoad();</script><script type=text/javascript>(function() {
-    var state = { preferAsync: true }
-    function getAsyncToggles() {
-      return document.getElementsByClassName('swappable-async-await-checkbox')
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Fastify, Fast and low overhead web framework, for Node.js</title><meta name=description content="Fast and low overhead web framework, for Node.js"><link rel=apple-touch-icon sizes=57x57 href=/images/apple-icon-57x57.ed24c0a19503e080.png><link rel=apple-touch-icon sizes=60x60 href=/images/apple-icon-60x60.60c285c424d50738.png><link rel=apple-touch-icon sizes=72x72 href=/images/apple-icon-72x72.e49b27cfe1ab1461.png><link rel=apple-touch-icon sizes=76x76 href=/images/apple-icon-76x76.752f43fc91b8c1f7.png><link rel=apple-touch-icon sizes=114x114 href=/images/apple-icon-114x114.61739fa1d5a7059a.png><link rel=apple-touch-icon sizes=120x120 href=/images/apple-icon-120x120.7c25de37c5ce2ec1.png><link rel=apple-touch-icon sizes=144x144 href=/images/apple-icon-144x144.04d88fb27bd92cbe.png><link rel=apple-touch-icon sizes=152x152 href=/images/apple-icon-152x152.9364781175671626.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-icon-180x180.67579100928bfcd2.png><link rel=icon type=image/png sizes=192x192 href=/images/android-icon-192x192.37eb7f1ae3853740.png><link rel=icon type=image/png sizes=32x32 href=/images/favicon-32x32.1e22f0e774bc3cce.png><link rel=icon type=image/png sizes=96x96 href=/images/favicon-96x96.7e8a68b1b80c1799.png><link rel=icon type=image/png sizes=16x16 href=/images/favicon-16x16.e534ce05cb727f1a.png><link rel=manifest href=/manifest.json><meta name=msapplication-TileColor content=#ffffff><meta name=msapplication-TileImage content=/images/ms-icon-144x144.png><meta name=theme-color content=#ffffff><meta property=og:url content=https://www.fastify.io/ ><meta property=og:type content=website><meta property=og:title content="Fastify, Fast and low overhead web framework, for Node.js"><meta property=og:description content="Fast and low overhead web framework, for Node.js"><meta property=og:image content=https://www.fastify.io/images/fastify-fb-share-image.07b6e6860853c758.png><meta name=twitter:card content=summary_large_image><meta name=twitter:site content=@fastifyjs><meta name=twitter:creator content=@fastifyjs><meta name=twitter:title content="Fastify, Fast and low overhead web framework, for Node.js"><meta name=twitter:description content="Fast and low overhead web framework, for Node.js"><meta name=twitter:image content=https://www.fastify.io/images/fastify-twitter-share-image.cd9f217b360af3e2.png><link rel=stylesheet href=/css/style.d15a109af4abe61e.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css crossorigin=anonymous></head><link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Zilla+Slab:wght@600&display=swap" rel=stylesheet><style type=text/css>html, body {
+      background-color: #1d1d1d;
     }
 
-    function getCodeBlocks() {
-      return document.getElementsByClassName('swappable-async-await-code')
+    .logo {
+      width: 100%;
+      max-width: 160px;
     }
 
-    function initAsyncToggle() {
-      var toggles = getAsyncToggles()
-      for (var i=0; i < toggles.length; i++) {
-        toggles.item(i).addEventListener('change', function (e) {
-          state.preferAsync = e.target.checked
-          updateView()
-        })
-      }
+    .content {
+      color: #fff;
+      font-family: 'Noto Sans', sans-serif;
     }
 
-    function updateView() {
-      var toggles = getAsyncToggles()
-      for (var i=0; i < toggles.length; i++) {
-        toggles.item(i).checked = state.preferAsync
-      }
-
-      var codeBlocks = getCodeBlocks()
-      for (var i=0; i < codeBlocks.length; i++) {
-        var block = codeBlocks.item(i)
-        var show = (block.className.indexOf('async') === 0 && state.preferAsync) ||
-          (block.className.indexOf('no-async') === 0 && !state.preferAsync)
-        block.style.display = show ? 'block' : 'none'
-      }
+    .content h1 {
+      font-weight: bolder;
+      font-family: 'Zilla Slab', serif;
+      font-size: 3em;
+      color: #fff;
     }
 
-    initAsyncToggle()
-    updateView()
-  })()</script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js></script><script type=text/javascript>docsearch({
-        apiKey: 'f7c62ddab40e653f67a6e15be761d951',
-        indexName: 'fastify',
-        inputSelector: '#algolia-search-input',
-        algoliaOptions: { 'facetFilters': ["version:latest", "tags:docs"] },
-        debug: false // Set debug to true if you want to inspect the dropdown
-      });</script></body></html>
+    .content p {
+      line-height: 1.25em;
+    }
+
+    .content p strong {
+      color: #fafafa;
+    }
+
+    .content .people {
+      font-size: 1.2em;
+      line-height: 1.75em;
+    }
+
+    .content a {
+      color: #fdeeb3;
+      border-bottom: 1px solid #404040;
+    }
+
+    .content a:hover {
+      color: #ffdd57;
+      border-bottom: 1px solid #fdeeb3;
+    }
+
+    .reason-and-links {
+      margin-top: 2em;
+    }</style><body><main class=page-content aria-label=Content><section class=section><div class="container content"><div class="columns is-centered"><div class="column is-12"><p><img class=logo src=/images/fastify-logo-inverted.2180cc6b1919d47a.png alt=Fastify></p><h1>George Floyd</h1><p class=people>Natosha McDade, Yassin Mohamed, Finan H. Berhe, Sean Reed, Steven Demarco Taylor, Breonna Taylor, Ariane McCree, Terrance Franklin, Miles Hall, Darius Tarver, William Green, Samuel David Mallard, Kwame Jones, De’von Bailey, Christopher Whitfield, Anthony Hill, De’Von Bailey, Eric Logan, Jamarion Robinson, Gregory Hill Jr, JaQuavion Slaton, Ryan Twyman, Brandon Webber, Jimmy Atchison, Willie McCoy, Emantic Fitzgerald Bradford J, D’ettrick Griffin, Jemel Roberson, DeAndre Ballard, Botham Shem Jean, Robert Lawrence White, Anthony Lamar Smith, Ramarley Graham, Manuel Loggins Jr, Trayvon Martin, Wendell Allen, Kendrec McDade, Larry Jackson Jr, Jonathan Ferrell, Jordan Baker, Victor White III, Dontre Hamilton, Eric Garner, John Crawford III, Michael Brown, Ezell Ford, Dante Parker, Kajieme Powell, Laquan McDonald, Akai Gurley, Tamir Rice, Rumain Brisbon, Jerame Reid, Charly Keunang, Tony Robinson, Walter Scott, Freddie Gray, Brendon Glenn, Samuel DuBose, Christian Taylor, Jamar Clark, Mario Woods, Quintonio LeGrier, Gregory Gunn, Akiel Denkins, Alton Sterling, Philando Castile, Terrence Sterling, Terence Crutcher, Keith Lamont Scott, Alfred Olango, Jordan Edwards, Stephon Clark, Danny Ray Thomas, DeJuan Guillory, Patrick Harmon, Jonathan Hart, Maurice Granton, Julius Johnson, Jamee Johnson, Michael Dean, and too many more to list here...</p><div class=reason-and-links><p>This site is currently offline, as a small mark of <strong>respect</strong>, and expression of <strong>solidarity</strong>.<br>The Fastify <a href=/docs/latest/ >documentation</a>, <a href=/ecosystem/ >ecosystem</a>, and <a href=/contribute/ >contribution notes</a> remain available.</p><p>Organizations that could use your support include <a href=https://blacklivesmatter.com/ >Black Lives Matter</a>, <a href=https://www.naacpldf.org>The NAACP Legal Defense and Educational Fund</a>, <a href=https://eji.org>The Equal Justice Initiative</a>, <a href=https://www.wetheprotesters.org>We The Protesters</a>, and the <a href=https://www.gofundme.com/f/georgefloyd>George Floyd Memorial Fund</a>.</p></div></div></div></div></section></main></body></html>
