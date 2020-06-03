@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="{{ lang | default('en') }}">
+
+  {% include 'partials/head.html' %}
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Zilla+Slab:wght@600&display=swap" rel="stylesheet">
+  <style type="text/css">
+    html, body {
+      background-color: #1d1d1d;
+    }
+
+    .logo {
+      width: 100%;
+      max-width: 160px;
+    }
+
+    .content {
+      color: #fff;
+      font-family: 'Noto Sans', sans-serif;
+    }
+
+    .content h1 {
+      font-weight: bolder;
+      font-family: 'Zilla Slab', serif;
+      font-size: 3em;
+      color: #fff;
+    }
+
+    .content p {
+      line-height: 1.25em;
+    }
+
+    .content p strong {
+      color: #fafafa;
+    }
+
+    .content .people {
+      font-size: 1.2em;
+      line-height: 1.75em;
+    }
+
+    .content a {
+      color: #fdeeb3;
+      border-bottom: 1px solid #404040;
+    }
+
+    .content a:hover {
+      color: #ffdd57;
+      border-bottom: 1px solid #fdeeb3;
+    }
+
+    .reason-and-links {
+      margin-top: 2em;
+    }
+  </style>
+
+  <body>
+    <main class="page-content" aria-label="Content">
+      <section class="section">
+        <div class="container content">
+          <div class="columns is-centered">
+            <div class="column is-12">
+              <p>
+                <img class="logo" src="/{{ hashes['images/fastify-logo-inverted.png'] }}" alt="Fastify"/>
+              </p>
+
+              <h1>George Floyd</h1>
+
+              <p class="people">Natosha McDade, Yassin Mohamed, Finan H. Berhe, Sean Reed, Steven Demarco Taylor,
+  Breonna Taylor, Ariane McCree, Terrance Franklin, Miles Hall, Darius Tarver, William Green, Samuel David
+  Mallard, Kwame Jones, De’von Bailey, Christopher Whitfield, Anthony Hill, De’Von Bailey, Eric Logan, Jamarion
+  Robinson, Gregory Hill Jr, JaQuavion Slaton, Ryan Twyman, Brandon Webber, Jimmy Atchison, Willie McCoy,
+  Emantic Fitzgerald Bradford J, D’ettrick Griffin, Jemel Roberson, DeAndre Ballard, Botham Shem Jean, Robert
+  Lawrence White, Anthony Lamar Smith, Ramarley Graham, Manuel Loggins Jr, Trayvon Martin, Wendell Allen,
+  Kendrec McDade, Larry Jackson Jr, Jonathan Ferrell, Jordan Baker, Victor White III, Dontre Hamilton, Eric
+  Garner, John Crawford III, Michael Brown, Ezell Ford, Dante Parker, Kajieme Powell, Laquan McDonald, Akai
+  Gurley, Tamir Rice, Rumain Brisbon, Jerame Reid, Charly Keunang, Tony Robinson, Walter Scott, Freddie Gray,
+  Brendon Glenn, Samuel DuBose, Christian Taylor, Jamar Clark, Mario Woods, Quintonio LeGrier, Gregory Gunn,
+  Akiel Denkins, Alton Sterling, Philando Castile, Terrence Sterling, Terence Crutcher, Keith Lamont Scott,
+  Alfred Olango, Jordan Edwards, Stephon Clark, Danny Ray Thomas, DeJuan Guillory, Patrick Harmon, Jonathan
+  Hart, Maurice Granton, Julius Johnson, Jamee Johnson, Michael Dean, and too many more to list here...</p>
+
+              <div class="reason-and-links">
+                <p>This site is currently offline, as a small mark of <strong>respect</strong>, and expression of <strong>solidarity</strong>.<br>The Fastify <a href="/docs/latest/">documentation</a>, <a href="/ecosystem/">ecosystem</a>, and <a href="/contribute/">contribution notes</a> remain available.</p>
+                <p>Organizations that could use your support include <a href="https://blacklivesmatter.com/">Black
+        Lives Matter</a>, <a href="https://www.naacpldf.org">The NAACP Legal Defense and Educational Fund</a>, <a href="https://eji.org">The Equal Justice Initiative</a>, <a href="https://www.wetheprotesters.org">We The
+        Protesters</a>, and the <a href="https://www.gofundme.com/f/georgefloyd">George Floyd Memorial Fund</a>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
