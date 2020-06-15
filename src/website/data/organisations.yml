@@ -1,3 +1,7 @@
+- name: "fabfitfun"
+  image: "fabfitfun.svg"
+  link: "http://fabfitfun.com/"
+
 - name: "heply"
   image: "heply.svg"
   link: "https://heply.it/"
