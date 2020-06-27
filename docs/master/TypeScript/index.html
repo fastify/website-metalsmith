@@ -39,7 +39,7 @@ server.listen(8080, (err, address) =&gt; {
    Querystring: IQuerystring,
    Headers: IHeaders
  }&gt;(&#39;/auth&#39;, {
-   preValidation: (request, reply) =&gt; {
+   preValidation: (request, reply, done) =&gt; {
      const { username, password } = request.query
      done(username !== &#39;admin&#39; ? new Error(&#39;Must be admin&#39;) : undefined) // only validate `admin` account
    }
