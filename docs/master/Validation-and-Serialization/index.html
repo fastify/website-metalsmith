@@ -163,7 +163,6 @@ fastify.post(&#39;/foo&#39;, {
   removeAdditional: true, // remove additional properties
   useDefaults: true, // replace missing properties and items with the values from corresponding default keyword
   coerceTypes: true, // change data type of data to match type keyword
-  allErrors: true,   // check for all errors
   nullable: true     // support keyword &quot;nullable&quot; from Open API 3 specification.
 }</code></pre><p>This baseline configuration can be modified by providing <a href=./Server.md#factory-ajv><code>ajv.customOptions</code></a> to your Fastify factory.</p><p>If you want to change or set additional config options, you will need to create your own instance and override the existing one like:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
 const Ajv = require(&#39;ajv&#39;)
@@ -172,7 +171,6 @@ const ajv = new Ajv({
   removeAdditional: true,
   useDefaults: true,
   coerceTypes: true,
-  allErrors: true,
   nullable: true,
   // any other options
   // ...
@@ -312,7 +310,7 @@ fastify.post(&#39;/&#39;, { schema, attachValidation: true }, function (req, rep
   }
 })</code></pre><p>If you want custom error response in schema without headaches and quickly, you can take a look at <a href=https://github.com/epoberezkin/ajv-errors><code>ajv-errors</code></a>. Checkout the <a href=https://github.com/fastify/example/blob/master/validation-messages/custom-errors-messages.js>example</a> usage.</p><p>Below is an example showing how to add <strong>custom error messages for each property</strong> of a schema by supplying custom AJV options. Inline comments in the schema below describe how to configure it to show a different error message for each case:</p><pre><code class=language-js>const fastify = Fastify({
   ajv: {
-    customOptions: { allErrors: true, jsonPointers: true },
+    customOptions: { jsonPointers: true },
     plugins: [
       require(&#39;ajv-errors&#39;)
     ]
@@ -353,11 +351,7 @@ fastify.post(&#39;/&#39;, { schema, }, (request, reply) =&gt; {
   })
 })</code></pre><p>If you want to return localized error messages, take a look at <a href=https://github.com/epoberezkin/ajv-i18n>ajv-i18n</a></p><pre><code class=language-js>const localize = require(&#39;ajv-i18n&#39;)
 
-const fastify = Fastify({
-  ajv: {
-    customOptions: { allErrors: true }
-  }
-})
+const fastify = Fastify()
 
 const schema = {
   body: {
