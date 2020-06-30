@@ -80,7 +80,51 @@ COPY . .
 CMD [ &quot;npm&quot;, &quot;start&quot; ]</code></pre><h3 id=add-a-dockerignore>Add a .dockerignore</h3><p>To keep build artifacts out of your container (which keeps it small and improves build times), add a <code>.dockerignore</code> file like the one below:</p><pre><code class=language-.dockerignore>Dockerfile
 README.md
 node_modules
-npm-debug.log</code></pre><h3 id=submit-build>Submit build</h3><p>Next, submit your app to be built into a Docker image by running the following command (replacing <code>PROJECT-ID</code> and <code>APP-NAME</code> with your GCP project id and an app name):</p><pre><code class=language-bash>gcloud builds submit --tag gcr.io/PROJECT-ID/APP-NAME</code></pre><h3 id=deploy-image>Deploy Image</h3><p>After your image has built, you can deploy it with the following command:</p><pre><code class=language-bash>gcloud beta run deploy --image gcr.io/PROJECT-ID/APP-NAME --platform managed</code></pre><p>Your app will be accessible from the URL GCP provides.</p><h2 id=vercel>Vercel</h2><p><a href=https://vercel.com>Vercel</a> provides zero configuration deployment for Node.js applications. In order to use now, it is as simple as configuring your <code>now.json</code> file like the following:</p><pre><code class=language-json>{
+npm-debug.log</code></pre><h3 id=submit-build>Submit build</h3><p>Next, submit your app to be built into a Docker image by running the following command (replacing <code>PROJECT-ID</code> and <code>APP-NAME</code> with your GCP project id and an app name):</p><pre><code class=language-bash>gcloud builds submit --tag gcr.io/PROJECT-ID/APP-NAME</code></pre><h3 id=deploy-image>Deploy Image</h3><p>After your image has built, you can deploy it with the following command:</p><pre><code class=language-bash>gcloud beta run deploy --image gcr.io/PROJECT-ID/APP-NAME --platform managed</code></pre><p>Your app will be accessible from the URL GCP provides.</p><h2 id=netlify-lambda>netlify-lambda</h2><p>First, please do all preparation steps related to <strong>AWS Lambda</strong>.</p><p>Create folder called <code>functions</code> then create <code>server.js</code> (and your endpoint path will be <code>server.js</code>) inside <code>functions</code> folder.</p><h3 id=functionsserverjs>functions/server.js</h3><pre><code class=language-js>export { handler } from &#39;../lambda.js&#39;; // Change `lambda.js` path to your `lambda.js` path</code></pre><h3 id=netlifytoml>netlify.toml</h3><pre><code class=language-toml>[build]
+  # This will be run the site build
+  command = &quot;npm run build:functions&quot;
+  # This is the directory is publishing to netlify&#39;s CDN
+  # and this is directory of your front of your app
+  # publish = &quot;build&quot;
+  # functions build directory
+  functions = &quot;functions-build&quot; # always appends `-build` folder to your `functions` folder for builds</code></pre><h3 id=webpackconfignetlifyjs>webpack.config.netlify.js</h3><p><strong>Don&#39;t forget add this Webpack config, else a lot of problems can occur</strong></p><pre><code class=language-js>const nodeExternals = require(&#39;webpack-node-externals&#39;);
+const dotenv = require(&#39;dotenv-safe&#39;);
+const webpack = require(&#39;webpack&#39;);
+
+const env = process.env.NODE_ENV || &#39;production&#39;;
+const dev = env === &#39;development&#39;;
+
+if (dev) {
+  dotenv.config({ allowEmptyValues: true });
+}
+
+module.exports = {
+  mode: env,
+  devtool: dev ? &#39;eval-source-map&#39; : &#39;none&#39;,
+  externals: [nodeExternals()],
+  devServer: {
+    proxy: {
+      &#39;/.netlify&#39;: {
+        target: &#39;http://localhost:9000&#39;,
+        pathRewrite: { &#39;^/.netlify/functions&#39;: &#39;&#39; }
+      }
+    }
+  },
+  module: {
+    rules: []
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      &#39;process.env.APP_ROOT_PATH&#39;: JSON.stringify(&#39;/&#39;),
+      &#39;process.env.NETLIFY_ENV&#39;: true,
+      &#39;process.env.CONTEXT&#39;: env
+    })
+  ]
+};</code></pre><h3 id=scripts>Scripts</h3><p>Add this command to your <code>package.json</code> <em>scripts</em></p><pre><code class=language-json>&quot;scripts&quot;: {
+...
+&quot;build:functions&quot;: &quot;netlify-lambda build functions --config ./webpack.config.netlify.js&quot;
+...
+}</code></pre><p>Then it should work fine</p><h2 id=vercel>Vercel</h2><p><a href=https://vercel.com>Vercel</a> provides zero configuration deployment for Node.js applications. In order to use now, it is as simple as configuring your <code>now.json</code> file like the following:</p><pre><code class=language-json>{
   &quot;version&quot;: 2,
   &quot;builds&quot;: [
     {
