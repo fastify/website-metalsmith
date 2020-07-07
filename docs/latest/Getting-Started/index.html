@@ -35,7 +35,7 @@ start()</code></pre><p>Awesome, that was easy.<br>Unfortunately, writing a compl
     process.exit(1)
   }
   fastify.log.info(`server listening on ${address}`)
-})</code></pre><p>Similarly, specify <code>::1</code> to accept only local connections via IPv6. Or specify <code>::</code> to accept connections on all IPv6 addresses, and, if the operating system supports it, also on all IPv4 addresses.</p><p>When deploying to a Docker (or other type of) container using <code>0.0.0.0</code> or <code>::</code> would be the easiest method for exposing the application.</p></blockquote><p><a name=first-plugin></a></p><h3 id=your-first-plugin>Your first plugin</h3><p>As with JavaScript, where everything is an object, with Fastify everything is a plugin.<br>Before digging into it, let&#39;s see how it works!<br>Let&#39;s declare our basic server, but instead of declaring the route inside the entry point, we&#39;ll declare it in an external file (check out the <a href=./Routes.md>route declaration</a> docs).</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+})</code></pre><p>Similarly, specify <code>::1</code> to accept only local connections via IPv6. Or specify <code>::</code> to accept connections on all IPv6 addresses, and, if the operating system supports it, also on all IPv4 addresses.</p><p>When deploying to a Docker (or other type of) container using <code>0.0.0.0</code> or <code>::</code> would be the easiest method for exposing the application.</p></blockquote><p><a name=first-plugin></a></p><h3 id=your-first-plugin>Your first plugin</h3><p>As with JavaScript, where everything is an object, with Fastify everything is a plugin.<br>Before digging into it, let&#39;s see how it works!<br>Let&#39;s declare our basic server, but instead of declaring the route inside the entry point, we&#39;ll declare it in an external file (check out the <a href=/docs/latest/Routes>route declaration</a> docs).</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   logger: true
 })
 
@@ -55,11 +55,13 @@ async function routes (fastify, options) {
   })
 }
 
-module.exports = routes</code></pre><p>In this example, we used the <code>register</code> API, which is the core of the Fastify framework. It is the only way to add routes, plugins, et cetera.</p><p>At the beginning of this guide, we noted that Fastify provides a foundation that assists with asynchronous bootstrapping of your application. Why is this important? Consider the scenario where a database connection is needed to handle data storage. Obviously, the database connection needs to be available before the server is accepting connections. How do we address this problem?<br>A typical solution is to use a complex callback, or promises - a system that will mix the framework API with other libraries and the application code.<br>Fastify handles this internally, with minimum effort!</p><p>Let&#39;s rewrite the above example with a database connection.<br></p><p>First, install <code>fastify-plugin</code> and <code>fastify-mongodb</code>:</p><pre><code>npm i --save fastify-plugin fastify-mongodb</code></pre><p><strong>server.js</strong></p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+module.exports = routes</code></pre><p>In this example, we used the <code>register</code> API, which is the core of the Fastify framework. It is the only way to add routes, plugins, et cetera.</p><p>At the beginning of this guide, we noted that Fastify provides a foundation that assists with asynchronous bootstrapping of your application. Why is this important? Consider the scenario where a database connection is needed to handle data storage. Obviously, the database connection needs to be available before the server is accepting connections. How do we address this problem?<br>A typical solution is to use a complex callback, or promises - a system that will mix the framework API with other libraries and the application code.<br>Fastify handles this internally, with minimum effort!</p><p>Let&#39;s rewrite the above example with a database connection.<br><em>(we will use a simple example, for a robust solution consider using <a href=https://github.com/fastify/fastify-mongodb><code>fastify-mongo</code></a> or another in the Fastify <a href=/ecosystem>ecosystem</a>)</em></p><p>First, install <code>fastify-plugin</code>:</p><pre><code>npm install --save fastify-plugin</code></pre><p><strong>server.js</strong></p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   logger: true
 })
 
-fastify.register(require(&#39;./our-db-connector&#39;))
+fastify.register(require(&#39;./our-db-connector&#39;), {
+  url: &#39;mongodb://localhost:27017/&#39;
+})
 fastify.register(require(&#39;./our-first-route&#39;))
 
 fastify.listen(3000, function (err, address) {
@@ -68,64 +70,58 @@ fastify.listen(3000, function (err, address) {
     process.exit(1)
   }
   fastify.log.info(`server listening on ${address}`)
-})
-</code></pre><p><strong>our-db-connector.js</strong></p><pre><code class=language-js>const fastifyPlugin = require(&#39;fastify-plugin&#39;)
+})</code></pre><p><strong>our-db-connector.js</strong></p><pre><code class=language-js>const fastifyPlugin = require(&#39;fastify-plugin&#39;)
+const MongoClient = require(&#39;mongodb&#39;).MongoClient
 
 async function dbConnector (fastify, options) {
-  fastify.register(require(&#39;fastify-mongodb&#39;), {
-    url: &#39;mongodb://localhost:27017/test_database&#39;
-  })
+  const url = options.url
+  delete options.url
+
+  const db = await MongoClient.connect(url, options)
+  fastify.decorate(&#39;mongo&#39;, db)
 }
 
-// Wrapping a plugin function with fastify-plugin exposes the decorators    
-// and hooks, declared inside the plugin to the parent scope.
-module.exports = fastifyPlugin(dbConnector)
-</code></pre><p><strong>our-first-route.js</strong></p><pre><code class=language-js>async function routes (fastify, options) {
-  const collection = fastify.mongo.db.collection(&#39;test_collection&#39;)
+// Wrapping a plugin function with fastify-plugin exposes the decorators,
+// hooks, and middlewares declared inside the plugin to the parent scope.
+module.exports = fastifyPlugin(dbConnector)</code></pre><p><strong>our-first-route.js</strong></p><pre><code class=language-js>async function routes (fastify, options) {
+  const database = fastify.mongo.db(&#39;db&#39;)
+  const collection = database.collection(&#39;test&#39;)
 
   fastify.get(&#39;/&#39;, async (request, reply) =&gt; {
     return { hello: &#39;world&#39; }
   })
 
-  fastify.get(&#39;/animals&#39;, async (request, reply) =&gt; {
-    const result = await collection.find().toArray()
-    if (result.length === 0) {
-      throw new Error(&#39;No documents found&#39;)
-    }
-    return result
-  })
-
-  fastify.get(&#39;/animals/:animal&#39;, async (request, reply) =&gt; {
-    const result = await collection.findOne({ animal: request.params.animal })
-    if (result === null) {
+  fastify.get(&#39;/search/:id&#39;, async (request, reply) =&gt; {
+    const result = await collection.findOne({ id: request.params.id })
+    if (result.value === null) {
       throw new Error(&#39;Invalid value&#39;)
     }
-    return result
+    return result.value
   })
 }
 
-module.exports = routes</code></pre><p>Wow, that was fast!<br>Let&#39;s recap what we have done here since we&#39;ve introduced some new concepts.<br>As you can see, we used <code>register</code> both for the database connector and the registration of the routes. This is one of the best features of Fastify, it will load your plugins in the same order you declare them, and it will load the next plugin only once the current one has been loaded. In this way, we can register the database connector in the first plugin and use it in the second <em>(read <a href=./Plugins.md#handle-the-scope>here</a> to understand how to handle the scope of a plugin)</em>. Plugin loading starts when you call <code>fastify.listen()</code>, <code>fastify.inject()</code> or <code>fastify.ready()</code></p><p>We have also used the <code>decorate</code> API to add custom objects to the Fastify namespace, making them available for use everywhere. Use of this API is encouraged to facilitate easy code reuse and to decrease code or logic duplication.</p><p>To dig deeper into how Fastify plugins work, how to develop new plugins, and for details on how to use the whole Fastify API to deal with the complexity of asynchronously bootstrapping an application, read <a href=./Plugins-Guide.md>the hitchhiker&#39;s guide to plugins</a>.</p><p><a name=plugin-loading-order></a></p><h3 id=loading-order-of-your-plugins>Loading order of your plugins</h3><p>To guarantee a consistent and predictable behaviour of your application, we highly recommend to always load your code as shown below:</p><pre><code>└── plugins (from the Fastify ecosystem)
+module.exports = routes</code></pre><p>Wow, that was fast!<br>Let&#39;s recap what we have done here since we&#39;ve introduced some new concepts.<br>As you can see, we used <code>register</code> both for the database connector and the registration of the routes. This is one of the best features of Fastify, it will load your plugins in the same order you declare them, and it will load the next plugin only once the current one has been loaded. In this way, we can register the database connector in the first plugin and use it in the second <em>(read <a href=/docs/latest/Plugins#handle-the-scope>here</a> to understand how to handle the scope of a plugin)</em>. Plugin loading starts when you call <code>fastify.listen()</code>, <code>fastify.inject()</code> or <code>fastify.ready()</code></p><p>We have also used the <code>decorate</code> API to add custom objects to the Fastify namespace, making them available for use everywhere. Use of this API is encouraged to faciliate easy code reuse and to decrease code or logic duplication.</p><p>To dig deeper into how Fastify plugins work, how to develop new plugins, and for details on how to use the whole Fastify API to deal with the complexity of asynchronously bootstrapping an application, read <a href=/docs/latest/Plugins-Guide>the hitchhiker&#39;s guide to plugins</a>.</p><p><a name=plugin-loading-order></a></p><h3 id=loading-order-of-your-plugins>Loading order of your plugins</h3><p>To guarantee a consistent and predictable behaviour of your application, we highly recommend to always load your code as shown below:</p><pre><code>└── plugins (from the Fastify ecosystem)
 └── your plugins (your custom plugins)
 └── decorators
-└── hooks
+└── hooks and middlewares
 └── your services</code></pre><p>In this way, you will always have access to all of the properties declared in the current scope.<br>As discussed previously, Fastify offers a solid encapsulation model, to help you build your application as single and independent services. If you want to register a plugin only for a subset of routes, you just have to replicate the above structure.</p><pre><code>└── plugins (from the Fastify ecosystem)
 └── your plugins (your custom plugins)
 └── decorators
-└── hooks
+└── hooks and middlewares
 └── your services
     │
     └──  service A
     │     └── plugins (from the Fastify ecosystem)
     │     └── your plugins (your custom plugins)
     │     └── decorators
-    │     └── hooks
+    │     └── hooks and middlewares
     │     └── your services
     │
     └──  service B
           └── plugins (from the Fastify ecosystem)
           └── your plugins (your custom plugins)
           └── decorators
-          └── hooks
+          └── hooks and middlewares
           └── your services</code></pre><p><a name=validate-data></a></p><h3 id=validate-your-data>Validate your data</h3><p>Data validation is extremely important and a core concept of the framework.<br>To validate incoming requests, Fastify uses <a href=http://json-schema.org/ >JSON Schema</a>. Let&#39;s look at an example demonstrating validation for routes:</p><pre><code class=language-js>const opts = {
   schema: {
     body: {
@@ -140,7 +136,7 @@ module.exports = routes</code></pre><p>Wow, that was fast!<br>Let&#39;s recap wh
 
 fastify.post(&#39;/&#39;, opts, async (request, reply) =&gt; {
   return { hello: &#39;world&#39; }
-})</code></pre><p>This example shows how to pass an options object to the route, which accepts a <code>schema</code> key, that contains all of the schemas for route, <code>body</code>, <code>querystring</code>, <code>params</code> and <code>headers</code>.<br>Read <a href=./Validation-and-Serialization.md>Validation and Serialization</a> to learn more.</p><p><a name=serialize-data></a></p><h3 id=serialize-your-data>Serialize your data</h3><p>Fastify has first class support for JSON. It is extremely optimized to parse JSON bodies and to serialize JSON output.<br>To speed up JSON serialization (yes, it is slow!) use the <code>response</code> key of the schema option as shown in the following example:</p><pre><code class=language-js>const opts = {
+})</code></pre><p>This example shows how to pass an options object to the route, which accepts a <code>schema</code> key, that contains all of the schemas for route, <code>body</code>, <code>querystring</code>, <code>params</code> and <code>headers</code>.<br>Read <a href=/docs/latest/Validation-and-Serialization>Validation and Serialization</a> to learn more.</p><p><a name=serialize-data></a></p><h3 id=serialize-your-data>Serialize your data</h3><p>Fastify has first class support for JSON. It is extremely optimized to parse JSON bodies and to serialize JSON output.<br>To speed up JSON serialization (yes, it is slow!) use the <code>response</code> key of the schema option as shown in the following example:</p><pre><code class=language-js>const opts = {
   schema: {
     response: {
       200: {
@@ -155,7 +151,7 @@ fastify.post(&#39;/&#39;, opts, async (request, reply) =&gt; {
 
 fastify.get(&#39;/&#39;, opts, async (request, reply) =&gt; {
   return { hello: &#39;world&#39; }
-})</code></pre><p>Simply by specifying a schema as shown, you can speed up serialization by a factor of 2-3. This also helps to protect against leakage of potentially sensitive data, since Fastify will serialize only the data present in the response schema. Read <a href=./Validation-and-Serialization.md>Validation and Serialization</a> to learn more.</p><p><a name=extend-server></a></p><h3 id=extend-your-server>Extend your server</h3><p>Fastify is built to be extremely extensible and minimal, we believe that a bare bones framework is all that is necessary to make great applications possible.<br>In other words, Fastify is not a &quot;batteries included&quot; framework, and relies on an amazing <a href=./Ecosystem.md>ecosystem</a>!</p><p><a name=test-server></a></p><h3 id=test-your-server>Test your server</h3><p>Fastify does not offer a testing framework, but we do recommend a way to write your tests that uses the features and architecture of Fastify.<br>Read the <a href=./Testing.md>testing</a> documentation to learn more!</p><p><a name=cli></a></p><h3 id=run-your-server-from-cli>Run your server from CLI</h3><p>Fastify also has CLI integration thanks to <a href=https://github.com/fastify/fastify-cli>fastify-cli</a>.</p><p>First, install <code>fastify-cli</code>:</p><pre><code>npm i fastify-cli</code></pre><p>You can also install it globally with <code>-g</code>.</p><p>Then, add the following lines to <code>package.json</code>:</p><pre><code class=language-json>{
+})</code></pre><p>Simply by specifying a schema as shown, you can speed up serialization by a factor of 2-3. This also helps to protect against leakage of potentially sensitive data, since Fastify will serialize only the data present in the response schema. Read <a href=/docs/latest/Validation-and-Serialization>Validation and Serialization</a> to learn more.</p><p><a name=extend-server></a></p><h3 id=extend-your-server>Extend your server</h3><p>Fastify is built to be extremely extensible and minimal, we believe that a bare bones framework is all that is necessary to make great applications possible.<br>In other words, Fastify is not a &quot;batteries included&quot; framework, and relies on an amazing <a href=/ecosystem>ecosystem</a>!</p><p><a name=test-server></a></p><h3 id=test-your-server>Test your server</h3><p>Fastify does not offer a testing framework, but we do recommend a way to write your tests that uses the features and architecture of Fastify.<br>Read the <a href=/docs/latest/Testing>testing</a> documentation to learn more!</p><p><a name=cli></a></p><h3 id=run-your-server-from-cli>Run your server from CLI</h3><p>Fastify also has CLI integration thanks to <a href=https://github.com/fastify/fastify-cli>fastify-cli</a>.</p><p>First, install <code>fastify-cli</code>:</p><pre><code>npm i fastify-cli</code></pre><p>You can also install it globally with <code>-g</code>.</p><p>Then, add the following lines to <code>package.json</code>:</p><pre><code class=language-json>{
   &quot;scripts&quot;: {
     &quot;start&quot;: &quot;fastify start server.js&quot;
   }

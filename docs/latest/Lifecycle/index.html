@@ -6,27 +6,29 @@
              │
        404 ◀─┴─▶ onRequest Hook
                   │
-        4**/5** ◀─┴─▶ preParsing Hook
+        4**/5** ◀─┴─▶ run Middlewares
                         │
-              4**/5** ◀─┴─▶ Parsing
-                             │
-                   4**/5** ◀─┴─▶ preValidation Hook
-                                  │
-                            415 ◀─┴─▶ Validation
+              4**/5** ◀─┴─▶ preParsing Hook
+                              │
+                    4**/5** ◀─┴─▶ Parsing
+                                   │
+                         4**/5** ◀─┴─▶ preValidation Hook
                                         │
-                                  400 ◀─┴─▶ preHandler Hook
+                                  415 ◀─┴─▶ Validation
                                               │
-                                    4**/5** ◀─┴─▶ User Handler
+                                        400 ◀─┴─▶ preHandler Hook
                                                     │
-                                                    └─▶ Reply
+                                          4**/5** ◀─┴─▶ User Handler
                                                           │
-                                                4**/5** ◀─┴─▶ preSerialization Hook
+                                                          └─▶ Reply
                                                                 │
-                                                                └─▶ onSend Hook
+                                                      4**/5** ◀─┴─▶ preSerialization Hook
                                                                       │
-                                                            4**/5** ◀─┴─▶ Outgoing Response
+                                                                      └─▶ onSend Hook
                                                                             │
-                                                                            └─▶ onResponse Hook</code></pre></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/latest/Fluent-Schema class="button prev">≪ Fluent Schema</a></div></div><div class=level-right><div class=level-item><a href=/docs/latest/Reply class="button next">Reply ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+                                                                  4**/5** ◀─┴─▶ Outgoing Response
+                                                                                  │
+                                                                                  └─▶ onResponse Hook</code></pre></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/latest/Fluent-Schema class="button prev">≪ Fluent Schema</a></div></div><div class=level-right><div class=level-item><a href=/docs/latest/Reply class="button next">Reply ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
   var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
   var currentMenu = document.getElementById('doc-menu-section')
   if (titles.length && currentMenu) {
