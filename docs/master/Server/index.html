@@ -36,7 +36,7 @@ fastify.addHook(&#39;onRequest&#39;, (req, reply, done) =&gt; {
 })
 
 fastify.addHook(&#39;onResponse&#39;, (req, reply, done) =&gt; {
-  req.log.info({ url: req.raw.originalUrl, statusCode: res.raw.statusCode }, &#39;request completed&#39;)
+  req.log.info({ url: req.raw.originalUrl, statusCode: reply.raw.statusCode }, &#39;request completed&#39;)
   done()
 })</code></pre><p>Please note that this setting will also disable an error log written by the the default <code>onResponse</code> hook on reply callback errors.</p><p><a name=custom-http-server></a></p><h3 id=serverfactory><code>serverFactory</code></h3><p>You can pass a custom http server to Fastify by using the <code>serverFactory</code> option.<br><code>serverFactory</code> is a function that takes an <code>handler</code> parameter, which takes the <code>request</code> and <code>response</code> objects as parameters, and an options object, which is the same you have passed to Fastify.</p><pre><code class=language-js>const serverFactory = (handler, opts) =&gt; {
   const server = http.createServer((req, res) =&gt; {
