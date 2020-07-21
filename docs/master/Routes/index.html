@@ -43,7 +43,7 @@ fastify.get(&#39;/&#39;, opts, (request, reply) =&gt; {
       }
     }
   },
-  handler (request, reply) {
+  handler: function (request, reply) {
     reply.send({ hello: &#39;world&#39; })
   }
 }
