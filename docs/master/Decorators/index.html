@@ -28,7 +28,7 @@ fastify.get(&#39;/&#39;, (req, reply) =&gt; {
   port: 3000
 })</code></pre><p>To access decorated properties, simply use the name provided to the decoration API:</p><pre><code class=language-js>fastify.utility()
 
-console.log(fastify.conf.db)</code></pre><p>The decorated <a href=./Server.md>Fastify server</a> is bound to <code>this</code> in route <a href=./Routes.md>route</a> handlers:</p><pre><code class=language-js>fastify.decorate(&#39;db&#39;, new DbConnection())
+console.log(fastify.conf.db)</code></pre><p>The decorated <a href=Server.md>Fastify server</a> is bound to <code>this</code> in route <a href=Routes.md>route</a> handlers:</p><pre><code class=language-js>fastify.decorate(&#39;db&#39;, new DbConnection())
 
 fastify.get(&#39;/&#39;, async function (request, reply) {
   reply({hello: await this.db.query(&#39;world&#39;)})
