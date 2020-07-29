@@ -155,13 +155,16 @@ function remapLinks (content, item) {
   const ecosystemLinkRx = /\(\/docs\/[\w\d.-]+\/Ecosystem\.md\)/gi
   const docInternalLinkRx = /\(\/docs\/[\w\d.-]+\/[\w\d-]+(.md)/gi
   const pluginsLink = /\(Plugins.md\)/gi
+  const relativeLinks = /\((.\/)?((\w+).md(#[a-z0-9\-_]+)?)\)/gi
   const relativeLinksWithLabel = /\('?(\.\/)([\w\d.-]+)(.md)'?\s+"([\w\d.-]+)"\)/gi
   const hrefAbsoluteLinks = /href="https:\/\/github\.com\/fastify\/fastify\/blob\/master\/docs\/([\w\d.-]+)\.md/gi
+  const absoluteLinks = /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/gi
   return content
     .replace(hrefAbsoluteLinks, (match, p1) => `href="/docs/${item.version}/${p1}`)
-    .replace(/https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/g, `/docs/${item.version}`)
+    .replace(absoluteLinks, `/docs/${item.version}`)
     .replace(ecosystemLinkRx, (match) => '(/ecosystem)')
     .replace(pluginsLink, (match) => `(/docs/${item.version}/Plugins)`)
+    .replace(relativeLinks, (match, ...parts) => `(/docs/${item.version}/${parts[2]})`)
     .replace(relativeLinksWithLabel, (match, ...parts) => `(/docs/${item.version}/${parts[1]} "${parts[3]}")`)
     .replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
 }
