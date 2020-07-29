@@ -87,6 +87,13 @@
       github: https://github.com/eomm
       npm: https://www.npmjs.com/~eomm
       twitter: https://twitter.com/manueomm
+  - name: Igor Savin
+    sortname: Savin Igor
+    picture: "https://avatars3.githubusercontent.com/u/1847934?s=460&v=4"
+    links:
+      github: https://github.com/kibertoad
+      npm: https://www.npmjs.com/~kibertoad
+      twitter: https://twitter.com/kibertoad
 
 - name: Past Collaborators
   people:
