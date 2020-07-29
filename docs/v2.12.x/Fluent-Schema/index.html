@@ -35,7 +35,7 @@ const schema = {
   headers: headersJsonSchema
 }
 
-fastify.post(&#39;/the/url&#39;, { schema }, handler)</code></pre><h3 id=reuse>Reuse</h3><p>With <code>fluent-schema</code> you can manipulate your schemas in an easier and programmatic way and then reuse them thanks to the <code>addSchema()</code> method. You can refer to the schema in two different manners that are detailed in the <a href=./Validation-and-Serialization.md#adding-a-shared-schema>Validation-and-Serialization.md</a> documentation.</p><p>Here are some usage examples:</p><p><strong><code>$ref-way</code></strong>: refer to an external schema.</p><pre><code class=language-js>const addressSchema = S.object()
+fastify.post(&#39;/the/url&#39;, { schema }, handler)</code></pre><h3 id=reuse>Reuse</h3><p>With <code>fluent-schema</code> you can manipulate your schemas in an easier and programmatic way and then reuse them thanks to the <code>addSchema()</code> method. You can refer to the schema in two different manners that are detailed in the <a href=/docs/v2.12.x/Validation-and-Serialization>Validation-and-Serialization.md</a> documentation.</p><p>Here are some usage examples:</p><p><strong><code>$ref-way</code></strong>: refer to an external schema.</p><pre><code class=language-js>const addressSchema = S.object()
   .id(&#39;#address&#39;)
   .prop(&#39;line1&#39;).required()
   .prop(&#39;line2&#39;)
