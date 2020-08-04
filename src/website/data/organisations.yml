@@ -62,6 +62,10 @@
   image: "radity.svg"
   link: "http://www.radity.com"
 
+- name: "Global CTO Forum"
+  image: "Global-CTO-Forum.svg"
+  link: "https://www.globalctoforum.org"
+
 - name: "RuneAudio"
   image: "runeaudio.svg"
   link: "http://www.runeaudio.com"
