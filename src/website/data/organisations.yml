@@ -54,6 +54,10 @@
   image: "codecks.svg"
   link: "https://www.codecks.io/"
 
+- name: "Compressor"
+  image: "compressor.svg"
+  link: "https://compressor.io"
+
 - name: "MV Labs"
   image: "mvlabs.svg"
   link: "https://www.mvlabs.it"
