@@ -56,7 +56,7 @@
 
 - name: "Compressor"
   image: "compressor.svg"
-  link: "https://www.compressor.io/"
+  link: "https://compressor.io"
 
 - name: "MV Labs"
   image: "mvlabs.svg"
