@@ -15,7 +15,9 @@ fastify.listen(3000, function (err, address) {
     process.exit(1)
   }
   fastify.log.info(`server listening on ${address}`)
-})</code></pre><p>Do you prefer to use <code>async/await</code>? Fastify supports it out-of-the-box.<br><em>(We also suggest using <a href=https://github.com/mcollina/make-promises-safe>make-promises-safe</a> to avoid file descriptor and memory leaks.)</em></p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
+})</code></pre><p>Do you prefer to use <code>async/await</code>? Fastify supports it out-of-the-box.<br><em>(We also suggest using <a href=https://github.com/mcollina/make-promises-safe>make-promises-safe</a> to avoid file descriptor and memory leaks.)</em></p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+  logger: true
+})
 
 fastify.get(&#39;/&#39;, async (request, reply) =&gt; {
   return { hello: &#39;world&#39; }
