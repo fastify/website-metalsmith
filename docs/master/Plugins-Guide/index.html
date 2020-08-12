@@ -148,7 +148,19 @@ async function plugin (fastify, opts) {
   })
 }
 
-export default plugin</code></pre><p><a name=handle-errors></a></p><h2 id=handle-errors>Handle errors</h2><p>It can happen that one of your plugins fails during startup. Maybe you expect it and you have a custom logic that will be triggered in that case. How can you implement this? The <code>after</code> API is what you need. <code>after</code> simply registers a callback that will be executed just after a register, and it can take up to three parameters.<br>The callback changes based on the parameters you are giving:</p><ol><li>If no parameter is given to the callback and there is an error, that error will be passed to the next error handler.</li><li>If one parameter is given to the callback, that parameter will be the error object.</li><li>If two parameters are given to the callback, the first will be the error object, the second will be the done callback.</li><li>If three parameters are given to the callback, the first will be the error object, the second will be the top-level context unless you have specified both server and override, in that case, the context will be what the override returns, and the third the done callback.</li></ol><p>Let&#39;s see how to use it:</p><pre><code class=language-js>fastify
+export default plugin</code></pre><p><strong>Note</strong>: Fastify doesn&#39;t support named imports within an ESM context. Instead, the <code>default</code> export is available.</p><pre><code class=language-js>// server.mjs
+import Fastify from &#39;fastify&#39;
+
+const fastify = Fastify()
+
+///...
+
+fastify.listen(3000, (err, address) =&gt; {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+})</code></pre><p><a name=handle-errors></a></p><h2 id=handle-errors>Handle errors</h2><p>It can happen that one of your plugins fails during startup. Maybe you expect it and you have a custom logic that will be triggered in that case. How can you implement this? The <code>after</code> API is what you need. <code>after</code> simply registers a callback that will be executed just after a register, and it can take up to three parameters.<br>The callback changes based on the parameters you are giving:</p><ol><li>If no parameter is given to the callback and there is an error, that error will be passed to the next error handler.</li><li>If one parameter is given to the callback, that parameter will be the error object.</li><li>If two parameters are given to the callback, the first will be the error object, the second will be the done callback.</li><li>If three parameters are given to the callback, the first will be the error object, the second will be the top-level context unless you have specified both server and override, in that case, the context will be what the override returns, and the third the done callback.</li></ol><p>Let&#39;s see how to use it:</p><pre><code class=language-js>fastify
   .register(require(&#39;./database-connector&#39;))
   .after(err =&gt; {
     if (err) throw err
