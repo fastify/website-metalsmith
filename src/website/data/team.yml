@@ -73,6 +73,13 @@
       github: https://github.com/nwoltman
       npm: https://www.npmjs.com/~nwoltman
       twitter: https://twitter.com/NathanWoltman
+  - name: Rafael Gonzaga
+    sortname: Gonzaga Rafael
+    picture: "https://avatars3.githubusercontent.com/u/26234614?v=4&s=400"
+    links:
+      github: https://github.com/RafaelGSS
+      npm: https://www.npmjs.com/~rafaelgss
+      twitter: https://twitter.com/_rafaelgss
   - name: Tommaso Allevi
     sortname: Allevi Tommaso
     picture: "https://avatars0.githubusercontent.com/u/1054125?v=4&s=460"
@@ -80,6 +87,13 @@
       github: https://github.com/allevo
       npm: https://www.npmjs.com/~allevo
       twitter: https://twitter.com/allevitommaso
+  - name: Maksim Sinik
+    sortname: Sinik Maksim
+    picture: "https://avatars3.githubusercontent.com/u/1620916?s=460&v=4"
+    links:
+      github: https://github.com/fox1t
+      npm: https://www.npmjs.com/~fox1t
+      twitter: https://twitter.com/maksimsinik
   - name: Manuel Spigolon
     sortname: Spigolon Manuel
     picture: "https://avatars3.githubusercontent.com/u/11404065?s=460&v=4"

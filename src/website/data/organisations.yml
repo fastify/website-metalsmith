@@ -1,3 +1,7 @@
+- name: "aasaam"
+  image: "aasaam.svg"
+  link: "https://aasaam.com/"
+
 - name: "fabfitfun"
   image: "fabfitfun.svg"
   link: "http://fabfitfun.com/"
@@ -54,6 +58,10 @@
   image: "codecks.svg"
   link: "https://www.codecks.io/"
 
+- name: "Compressor"
+  image: "compressor.svg"
+  link: "https://compressor.io"
+
 - name: "MV Labs"
   image: "mvlabs.svg"
   link: "https://www.mvlabs.it"
@@ -61,6 +69,10 @@
 - name: "Radity"
   image: "radity.svg"
   link: "http://www.radity.com"
+
+- name: "Global CTO Forum"
+  image: "global-cto-forum.svg"
+  link: "https://www.globalctoforum.org"
 
 - name: "RuneAudio"
   image: "runeaudio.svg"
