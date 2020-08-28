@@ -26,6 +26,10 @@
   image: "mia-platform.svg"
   link: "https://www.mia-platform.eu"
 
+- name: "Microsoft"
+  image: "microsoft.svg"
+  link: "https://docs.microsoft.com"
+
 - name: "Mr Porter"
   image: "mrp.svg"
   link: "https://www.mrporter.com"
