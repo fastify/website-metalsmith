@@ -1,3 +1,7 @@
+- name: "2hire"
+  image: "2hire.svg"
+  link: "https://2hire.io/"
+
 - name: "aasaam"
   image: "aasaam.svg"
   link: "https://aasaam.com/"
