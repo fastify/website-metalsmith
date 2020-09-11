@@ -108,6 +108,11 @@
       github: https://github.com/kibertoad
       npm: https://www.npmjs.com/~kibertoad
       twitter: https://twitter.com/kibertoad
+  - name: Vincent Le Goff
+    sortname: Le Goff Vincent
+    picture: "https://avatars1.githubusercontent.com/u/6959636?s=460&v=4"
+    links:
+      github: https://github.com/zekth
 
 - name: Past Collaborators
   people:
