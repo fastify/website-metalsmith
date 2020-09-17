@@ -82,6 +82,10 @@
   image: "global-cto-forum.svg"
   link: "https://www.globalctoforum.org"
 
+- name: "Quero Educação"
+  image: "quero-educacao.svg"
+  link: "https://sobre.quero.com/"
+
 - name: "RuneAudio"
   image: "runeaudio.svg"
   link: "http://www.runeaudio.com"
