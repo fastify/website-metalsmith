@@ -1,4 +1,4 @@
-# fastify-website
+# Quickmaker-website
 
 [![CircleCI](https://circleci.com/gh/fastify/website.svg?style=shield)](https://circleci.com/gh/fastify/website)
 
