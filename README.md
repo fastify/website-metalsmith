@@ -53,10 +53,10 @@ Every time there's a change on master, if the build was created successfully, th
 
 In order for this to work, Circle CI will need to be configured correctly providing all the necessary environment variables:
 
- - `DOMAIN`: the custom domain to be used in GitHub pages (`www.fastify.io`)
- - `GH_EMAIL`: the email of the GitHub user authorized in CircleCi to push to the `gh-pages` branch
- - `GH_NAME`: the username of the GitHub user authorized in CircleCi to push to the `gh-pages` branch
- - `GH_TOKEN`: (optional) a GitHub personal access token for the user specified in `GH_NAME`.
+ - `DOMAIN`:- the custom domain to be used in GitHub pages (`www.fastify.io`)
+ - `GH_EMAIL`:- the email of the GitHub user authorized in CircleCi to push to the `gh-pages` branch
+ - `GH_NAME`:- the username of the GitHub user authorized in CircleCi to push to the `gh-pages` branch
+ - `GH_TOKEN`:- (optional) a GitHub personal access token for the user specified in `GH_NAME`.
    If this is present the API calls to GitHub will be authenticated.
  - `CLOUDFLARE_EMAIL`: the email of the CloudFlare account
  - `CLOUDFLARE_AUTH_KEY`: the authorization key to perform API calls on CLoudFlare APIs
