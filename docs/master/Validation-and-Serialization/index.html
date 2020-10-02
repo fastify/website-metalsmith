@@ -83,13 +83,19 @@ fastify.register((instance, opts, done) =&gt; {
 }
 
 const queryStringJsonSchema = {
-  name: { type: &#39;string&#39; },
-  excitement: { type: &#39;integer&#39; }
+  type: &#39;object&#39;,
+  properties: {
+    name: { type: &#39;string&#39; },
+    excitement: { type: &#39;integer&#39; }
+  }
 }
 
 const paramsJsonSchema = {
-  par1: { type: &#39;string&#39; },
-  par2: { type: &#39;number&#39; }
+  type: &#39;object&#39;,
+  properties: {
+    par1: { type: &#39;string&#39; },
+    par2: { type: &#39;number&#39; }
+  }
 }
 
 const headersJsonSchema = {
