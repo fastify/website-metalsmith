@@ -5,7 +5,7 @@
 This project is used to build the website for [fastify web framework](https://github.com/fastify/fastify) and publish it online.
 
 
-## Requirements
+## Requirements(Need of the hour)
 
  - Node 12+
  - Install dependencies with `npm install`
