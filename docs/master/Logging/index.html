@@ -82,7 +82,7 @@ fastify.get(&#39;/&#39;, function (request, reply) {
           headers: request.headers,
           hostname: request.hostname,
           remoteAddress: request.ip,
-          remotePort: request.connection.remotePort
+          remotePort: request.socket.remotePort
         }
       }
     }

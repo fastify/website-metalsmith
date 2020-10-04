@@ -117,7 +117,7 @@ fastify.listen(3000)</code></pre><p>You can inherit serializers by context:</p><
           headers: req.headers,
           hostname: req.hostname,
           remoteAddress: req.ip,
-          remotePort: req.connection.remotePort
+          remotePort: req.socket.remotePort
         }
       }
     }
