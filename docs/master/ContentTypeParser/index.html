@@ -16,7 +16,10 @@ fastify.addContentTypeParser(&#39;application/jsoff&#39;, async function (reques
   var res = await jsoffParserAsync(payload)
 
   return res
-})</code></pre><p>You can also use the <code>hasContentTypeParser</code> API to find if a specific content type parser already exists.</p><pre><code class=language-js>if (!fastify.hasContentTypeParser(&#39;application/jsoff&#39;)){
+})
+
+// Can use default JSON/Text parser for different content Types
+fastify.addContentTypeParser(&#39;text/json&#39;, { parseAs: &#39;string&#39; }, fastify.getDefaultJsonParser(&#39;ignore&#39;, &#39;ignore&#39;)</code></pre><p>You can also use the <code>hasContentTypeParser</code> API to find if a specific content type parser already exists.</p><pre><code class=language-js>if (!fastify.hasContentTypeParser(&#39;application/jsoff&#39;)){
   fastify.addContentTypeParser(&#39;application/jsoff&#39;, function (request, payload, done) {
     jsoffParser(payload, function (err, body) {
       done(err, body)
