@@ -255,7 +255,7 @@ start()</code></pre>
           <pre class="no-async swappable-async-await-code"><code class="javascript">import * as fastify from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'http'
 
-const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({})
+const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify.fastify({})
 
 const opts: fastify.RouteShorthandOptions = {
   schema: {
@@ -281,12 +281,19 @@ server.listen(3000, (err) => {
     server.log.error(err)
     process.exit(1)
   }
-  server.log.info(`server listening on ${server.server.address().port}`)
+
+  const { port } = server.server.address() as {
+    address: string;
+    family: string;
+    port: number;
+  }
+
+  server.log.info(`server listening on ${port}`)
 })</code></pre>
           <pre class="async swappable-async-await-code"><code class="javascript">import * as fastify from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'http'
 
-const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({})
+const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify.fastify({})
 
 const opts: fastify.RouteShorthandOptions = {
   schema: {
@@ -312,7 +319,14 @@ server.listen(3000, (err) => {
     server.log.error(err)
     process.exit(1)
   }
-  server.log.info(`server listening on ${server.server.address().port}`)
+
+  const { port } = server.server.address() as {
+    address: string;
+    family: string;
+    port: number;
+  }
+
+  server.log.info(`server listening on ${port}`)
 })</code></pre>
 				</div>
 
