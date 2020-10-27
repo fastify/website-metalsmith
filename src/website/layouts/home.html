@@ -252,12 +252,12 @@ start()</code></pre>
 							<label for="async-await-swap-3"></label>
             </div>
           </div>
-          <pre class="no-async swappable-async-await-code"><code class="javascript">import * as fastify from 'fastify'
+          <pre class="no-async swappable-async-await-code"><code class="javascript">import Fastify, { FastifyInstance, RouteShorthandOptions } from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'http'
 
-const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify.fastify({})
+const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = Fastify({})
 
-const opts: fastify.RouteShorthandOptions = {
+const opts: RouteShorthandOptions = {
   schema: {
     response: {
       200: {
@@ -290,12 +290,12 @@ server.listen(3000, (err) => {
 
   server.log.info(`server listening on ${port}`)
 })</code></pre>
-          <pre class="async swappable-async-await-code"><code class="javascript">import * as fastify from 'fastify'
+          <pre class="async swappable-async-await-code"><code class="javascript">import Fastify, { FastifyInstance, RouteShorthandOptions } from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'http'
 
-const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify.fastify({})
+const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = Fastify({})
 
-const opts: fastify.RouteShorthandOptions = {
+const opts: RouteShorthandOptions = {
   schema: {
     response: {
       200: {
