@@ -314,20 +314,23 @@ server.get('/ping', opts, async (request, reply) => {
   return { pong: 'it worked!' }
 })
 
-server.listen(3000, (err) => {
-  if (err) {
+const start = async () => {
+  try {
+    await server.listen(3000)
+
+    const { port } = server.server.address() as {
+      address: string;
+      family: string;
+      port: number;
+    }
+
+    server.log.info(`server listening on ${port}`)
+  } catch (err) {
     server.log.error(err)
     process.exit(1)
   }
-
-  const { port } = server.server.address() as {
-    address: string;
-    family: string;
-    port: number;
-  }
-
-  server.log.info(`server listening on ${port}`)
-})</code></pre>
+}
+start()</code></pre>
 				</div>
 
         <p>Visit the <a href="/docs">Documentation</a> to learn more about all the features that Fastify has to offer.</p>
