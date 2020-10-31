@@ -220,10 +220,9 @@ const extractPlugins = (pluginContent) => {
     }
     return acc
   }, [])
-  const re = /\[`([-a-zA-Z0-9.]+)`\]\(([^)]+)\)(\s*(.+))?/
+  const re = /\[`([-a-zA-Z0-9./@]+)`\]\(([^)]+)\)(\s*(.+))?/
   const plugins = mergedLines.map((line) => {
     const match = re.exec(line)
-
     const name = match[1]
     const url = match[2]
     const description = match[3] ? match[3].trim() : ''
