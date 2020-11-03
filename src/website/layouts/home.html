@@ -252,12 +252,12 @@ start()</code></pre>
 							<label for="async-await-swap-3"></label>
             </div>
           </div>
-          <pre class="no-async swappable-async-await-code"><code class="javascript">import * as fastify from 'fastify'
+          <pre class="no-async swappable-async-await-code"><code class="javascript">import Fastify, { FastifyInstance, RouteShorthandOptions } from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'http'
 
-const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({})
+const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = Fastify({})
 
-const opts: fastify.RouteShorthandOptions = {
+const opts: RouteShorthandOptions = {
   schema: {
     response: {
       200: {
@@ -281,14 +281,18 @@ server.listen(3000, (err) => {
     server.log.error(err)
     process.exit(1)
   }
-  server.log.info(`server listening on ${server.server.address().port}`)
+
+  const address = server.server.address()
+  const port = typeof address === 'string' ? address : address?.port
+
+  server.log.info(`server listening on ${port}`)
 })</code></pre>
-          <pre class="async swappable-async-await-code"><code class="javascript">import * as fastify from 'fastify'
+          <pre class="async swappable-async-await-code"><code class="javascript">import Fastify, { FastifyInstance, RouteShorthandOptions } from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'http'
 
-const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({})
+const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = Fastify({})
 
-const opts: fastify.RouteShorthandOptions = {
+const opts: RouteShorthandOptions = {
   schema: {
     response: {
       200: {
@@ -307,13 +311,20 @@ server.get('/ping', opts, async (request, reply) => {
   return { pong: 'it worked!' }
 })
 
-server.listen(3000, (err) => {
-  if (err) {
+const start = async () => {
+  try {
+    await server.listen(3000)
+
+    const address = server.server.address()
+    const port = typeof address === 'string' ? address : address?.port
+
+    server.log.info(`server listening on ${port}`)
+  } catch (err) {
     server.log.error(err)
     process.exit(1)
   }
-  server.log.info(`server listening on ${server.server.address().port}`)
-})</code></pre>
+}
+start()</code></pre>
 				</div>
 
         <p>Visit the <a href="/docs">Documentation</a> to learn more about all the features that Fastify has to offer.</p>
