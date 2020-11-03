@@ -282,11 +282,8 @@ server.listen(3000, (err) => {
     process.exit(1)
   }
 
-  const { port } = server.server.address() as {
-    address: string;
-    family: string;
-    port: number;
-  }
+  const address = server.server.address()
+  const port = typeof address === 'string' ? address : address?.port
 
   server.log.info(`server listening on ${port}`)
 })</code></pre>
@@ -318,11 +315,8 @@ const start = async () => {
   try {
     await server.listen(3000)
 
-    const { port } = server.server.address() as {
-      address: string;
-      family: string;
-      port: number;
-    }
+    const address = server.server.address()
+    const port = typeof address === 'string' ? address : address?.port
 
     server.log.info(`server listening on ${port}`)
   } catch (err) {
