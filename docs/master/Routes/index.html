@@ -165,7 +165,16 @@ fastify.inject({
   }
 }, (err, res) =&gt; {
   // { hello: &#39;world&#39; }
-})</code></pre><p>If you declare multiple versions with the same major or minor, Fastify will always choose the highest compatible with the <code>Accept-Version</code> header value.<br>If the request will not have the <code>Accept-Version</code> header, a 404 error will be returned.</p><h4 id=custom>Custom</h4><p>It&#39;s possible to define a custom versioning logic. This can be done through the <a href=/docs/master/Server><code>versioning</code></a> configuration, when creating a fastify server instance.</p></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/master/Server class="button prev">≪ Server</a></div></div><div class=level-right><div class=level-item><a href=/docs/master/Logging class="button next">Logging ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+})</code></pre><blockquote><h2 id=⚠--security-notice>⚠ Security Notice</h2><p>Remember to set a <a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Vary><code>Vary</code></a> header in your responses with the value you are using for defining the versioning (e.g.: <code>&#39;Accept-Version&#39;</code>), to prevent cache poisoning attacks. You can also configure this as part your Proxy/CDN.</p><pre><code class=language-js>const append = require(&#39;vary&#39;).append
+fastify.addHook(&#39;onSend&#39;, async (req, reply) =&gt; {
+  if (req.headers[&#39;accept-version&#39;]) { // or the custom header you are using
+    let value = reply.getHeader(&#39;Vary&#39;) || &#39;&#39;
+    const header = Array.isArray(value) ? value.join(&#39;, &#39;) : String(value)
+    if ((value = append(header, &#39;Accept-Version&#39;))) { // or the custom header you are using
+      reply.header(&#39;Vary&#39;, value)
+    }
+  }
+})</code></pre></blockquote><p>If you declare multiple versions with the same major or minor, Fastify will always choose the highest compatible with the <code>Accept-Version</code> header value.<br>If the request will not have the <code>Accept-Version</code> header, a 404 error will be returned.</p><h4 id=custom>Custom</h4><p>It&#39;s possible to define a custom versioning logic. This can be done through the <a href=/docs/master/Server><code>versioning</code></a> configuration, when creating a fastify server instance.</p></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/master/Server class="button prev">≪ Server</a></div></div><div class=level-right><div class=level-item><a href=/docs/master/Logging class="button next">Logging ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
   var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
   var currentMenu = document.getElementById('doc-menu-section')
   if (titles.length && currentMenu) {
