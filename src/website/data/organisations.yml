@@ -125,3 +125,7 @@
 - name: "localistars"
   image: "localistars.svg"
   link: "https://localistars.com"
+
+- name: "Genesys"
+  image: "genesys.svg"
+  link: "https://www.genesys.com"
