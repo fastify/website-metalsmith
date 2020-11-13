@@ -109,11 +109,11 @@
 - name: "UNIQ"
   image: "uniq.svg"
   link: "https://www.uniq.id/"
-  
+
 - name: "Satiurn"
   image: "satiurn.svg"
-  link: "https://www.satiurn.com/"  
-  
+  link: "https://www.satiurn.com/"
+
 - name: "Swiss Dev Jobs"
   image: "swissdev-javascript-jobs-200-200.svg"
   link: "https://swissdevjobs.ch/"
@@ -129,3 +129,7 @@
 - name: "Genesys"
   image: "genesys.svg"
   link: "https://www.genesys.com"
+
+- name: "LogDNA"
+  image: "logdna.svg"
+  link: "https://logdna.com"
