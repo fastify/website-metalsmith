@@ -99,7 +99,6 @@ async function extractTOCFromFile (file, release, docsBase, prefix = []) {
   // if any link to /<subsection>/<file>.md was found
   // assume there is a new subtree that needs to be discovered and processed
   // assume the tree ToC is stored in Index.md inside the current prefix + subsection
-  console.log(subsections)
   for (const subsection of subsections) {
     const innerIndex = join(dirname(file), 'docs', subsection, 'Index.md')
     const innerPrefix = [...prefix, subsection]
