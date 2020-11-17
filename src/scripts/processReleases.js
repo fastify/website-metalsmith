@@ -171,6 +171,8 @@ version: ${item.version}
 fullVersion: ${item.fullVersion}
 label: ${item.label}
 docsPath: ${item.docsPath}
+prefixParts: ${JSON.stringify(item.prefix)}
+prefixPath: ${item.prefix.join('/')}/
 ${item.version === 'latest' ? `canonical: "${item.link.replace(/latest/, latestRelease.label)}"` : ''}
 ${item.version === 'master' ? `github_url: https://github.com/fastify/fastify/blob/master/docs/${item.fileName}` : ''}
 ---
