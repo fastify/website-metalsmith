@@ -184,6 +184,7 @@ ${content}`
 function remapLinks (content, item) {
   /*
     Links remapping rules:
+    [XXX](/CONTRIBUTING.md) -> https://github.com/fastify/fastify/blob/master/CONTRIBUTING.md
     /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/ -> /docs/[VERSION]
     [XXXX](Plugins.md) -> [XXXX](/docs/[VERSION]/Plugins)
     [XXXX](/docs/VVVV/Ecosystem.md) -> [XXXX](/ecosystem)
@@ -192,14 +193,16 @@ function remapLinks (content, item) {
     [XXXX](./YYYY "ZZZZ") -> [XXXX]('/docs/[VERSION]/YYYY' "ZZZZ")
     href="https://github.com/fastify/fastify/blob/master/docs/YYYY.md -> href="/docs/[VERSION]/YYYY
   */
+  const contributingLinkRx = /\/CONTRIBUTING\.md/gi
   const ecosystemLinkRx = /\(\/docs\/[\w\d.-]+\/Ecosystem\.md\)/gi
-  const docInternalLinkRx = /\(\/docs\/[\w\d.-]+\/[\w\d-]+(.md)/gi
-  const pluginsLink = /\(Plugins.md\)/gi
+  const docInternalLinkRx = /\(\/docs\/[\w\d.-]+\/[\w\d-]+(\.md)/gi
+  const pluginsLink = /\(Plugins\.md\)/gi
   const relativeLinks = /\((.\/)?(([a-zA-Z0-9\-_]+).md(#[a-z0-9\-_]+)?)\)/gi
   const relativeLinksWithLabel = /\('?(\.\/)([\w\d.-]+)(.md)'?\s+"([\w\d.-]+)"\)/gi
   const hrefAbsoluteLinks = /href="https:\/\/github\.com\/fastify\/fastify\/blob\/master\/docs\/([\w\d.-]+)\.md/gi
   const absoluteLinks = /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/gi
   return content
+    .replace(contributingLinkRx, () => 'https://github.com/fastify/fastify/blob/master/CONTRIBUTING.md')
     .replace(hrefAbsoluteLinks, (match, p1) => `href="/docs/${item.version}/${p1}`)
     .replace(absoluteLinks, `/docs/${item.version}`)
     .replace(ecosystemLinkRx, (match) => '(/ecosystem)')
