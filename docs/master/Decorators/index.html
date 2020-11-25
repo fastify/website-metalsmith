@@ -38,7 +38,7 @@ fastify.get(&#39;/&#39;, async function (request, reply) {
 fastify.decorateReply(&#39;foo&#39;, { bar: &#39;fizz&#39;})</code></pre><p>In this example the reference of the object is shared with all the requests: <strong>any mutation will impact all requests, potentially creating security vulnerabilities or memory leaks</strong>. To achieve proper encapsulation across requests configure a new value for each incoming request in the <a href=/docs/master/Hooks><code>&#39;onRequest&#39;</code> hook</a>. Example:</p><pre><code class=language-js>const fp = require(&#39;fastify-plugin&#39;)
 
 async function myPlugin (app) {
-  app.decorareRequest(&#39;foo&#39;, null)
+  app.decorateRequest(&#39;foo&#39;, null)
   app.addHook(&#39;onRequest&#39;, async (req, reply) =&gt; {
     req.foo = { bar: 42 }
   }) 
@@ -50,7 +50,7 @@ module.exports = fp(myPlugin)</code></pre><p>See <a href=#decorate><code>decorat
 fastify.decorateRequest(&#39;foo&#39;, { bar: &#39;fizz&#39;})</code></pre><p>In this example the reference of the object is shared with all the requests: <strong>any mutation will impact all requests, potentially creating security vulnerabilities or memory leaks</strong>. To achieve proper encapsulation across requests configure a new value for each incoming request in the <a href=/docs/master/Hooks><code>&#39;onRequest&#39;</code> hook</a>. Example:</p><pre><code class=language-js>const fp = require(&#39;fastify-plugin&#39;)
 
 async function myPlugin (app) {
-  app.decorareRequest(&#39;foo&#39;, null)
+  app.decorateRequest(&#39;foo&#39;, null)
   app.addHook(&#39;onRequest&#39;, async (req, reply) =&gt; {
     req.foo = { bar: 42 }
   }) 
