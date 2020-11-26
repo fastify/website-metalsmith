@@ -70,6 +70,10 @@
   image: "compressor.svg"
   link: "https://compressor.io"
 
+- name: "Future Foundry"
+  image: "future-foundry.svg"
+  link: "https://futurefoundry.co"
+
 - name: "MV Labs"
   image: "mvlabs.svg"
   link: "https://www.mvlabs.it"
