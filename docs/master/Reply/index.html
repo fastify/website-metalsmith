@@ -53,6 +53,25 @@ fastify.get(&#39;/streams&#39;, function (request, reply) {
   statusCode: Number   // the http status code
 }</code></pre><p>You can add some custom property to the Error object, such as <code>headers</code>, that will be used to enhance the http response.<br><em>Note: If you are passing an error to <code>send</code> and the statusCode is less than 400, Fastify will automatically set it at 500.</em></p><p>Tip: you can simplify errors by using the <a href=https://npm.im/http-errors><code>http-errors</code></a> module or <a href=https://github.com/fastify/fastify-sensible><code>fastify-sensible</code></a> plugin to generate errors:</p><pre><code class=language-js>fastify.get(&#39;/&#39;, function (request, reply) {
   reply.send(httpErrors.Gone())
+})</code></pre><p>To customize the JSON error output you can do it by:</p><ul><li>setting a response JSON schema for the status code you need</li><li>add the additional properties to the <code>Error</code> instance</li></ul><p>Notice that if the returned status code is not in the response schema list, the default behaviour will be applied.</p><pre><code class=language-js>fastify.get(&#39;/&#39;, {
+  schema: {
+    response: {
+      501: {
+        type: &#39;object&#39;,
+        properties: {
+          statusCode: { type: &#39;number&#39; },
+          code: { type: &#39;string&#39; },
+          error: { type: &#39;string&#39; },
+          message: { type: &#39;string&#39; },
+          time: { type: &#39;string&#39; }
+        }
+      }
+    }
+  }
+}, function (request, reply) {
+  const error = new Error(&#39;This endpoint has not been implemented&#39;)
+  error.time = &#39;it will be implemented in two weeks&#39;
+  reply.code(501).send(error)
 })</code></pre><p>If you want to completely customize the error handling, checkout <a href=/docs/master/Server><code>setErrorHandler</code></a> API.<br><em>Note: you are responsibile for logging when customizing the error handler</em></p><p>API:</p><pre><code class=language-js>fastify.setErrorHandler(function (error, request, reply) {
   request.log.warn(error)
   var statusCode = error.statusCode &gt;= 400 ? error.statusCode : 500
