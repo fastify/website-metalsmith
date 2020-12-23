@@ -43,7 +43,7 @@ fastify.addContentTypeParser(&#39;text/json&#39;, { parseAs: &#39;string&#39; },
   done()
 })</code></pre><p>and then access the core HTTP request directly for piping it where you want:</p><pre><code class=language-js>app.post(&#39;/hello&#39;, (request, reply) =&gt; {
   reply.send(request.raw)
-})</code></pre><p>Here is a complete example that logs incoming <a href=http://jsonlines.org/ >json line</a> objects:</p><pre><code class=language-js>const split2 = require(&#39;split2&#39;)
+})</code></pre><p>Here is a complete example that logs incoming <a href=https://jsonlines.org/ >json line</a> objects:</p><pre><code class=language-js>const split2 = require(&#39;split2&#39;)
 const pump = require(&#39;pump&#39;)
 
 fastify.addContentTypeParser(&#39;*&#39;, (request, payload, done) =&gt; {
