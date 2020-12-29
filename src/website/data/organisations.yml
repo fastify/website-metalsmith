@@ -46,6 +46,10 @@
   image: "nucleode.svg"
   link: "https://www.nucleode.com"
 
+- name: "OracleAPEXConsultant"
+  image: "OracleAPEXConsultant-logo.svg"
+  link: "https://www.oracleapexconsultant.com"
+  
 - name: "Seznam.cz"
   image: "seznam.cz.svg"
   link: "https://www.seznam.cz/"
