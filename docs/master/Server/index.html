@@ -130,7 +130,7 @@ this.log.trace({ err }, &#39;client error&#39;)
 if (socket.writable) {
   socket.end(`HTTP/1.1 400 Bad Request\r\nContent-Length: ${body.length}\r\nContent-Type: application/json\r\n\r\n${body}`)
 }
-}</code></pre></li></ul><p><em>Note: <code>clientErrorHandler</code> operates with raw socket. The handler is expected to return a properly formed HTTP response that includes a status line, HTTP headers and a message body. Before attempting to write the socket, the handler should check if the socket it&#39;s still writable as it may already have been destroyed.</em></p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+}</code></pre></li></ul><p><em>Note: <code>clientErrorHandler</code> operates with raw socket. The handler is expected to return a properly formed HTTP response that includes a status line, HTTP headers and a message body. Before attempting to write the socket, the handler should check if the socket is still writable as it may have already been destroyed.</em></p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   clientErrorHandler: function (err, socket) {
     const body = JSON.stringify({
       error: {
