@@ -26,7 +26,7 @@
                                                                       │
                                                             4**/5** ◀─┴─▶ Outgoing Response
                                                                             │
-                                                                            └─▶ onResponse Hook</code></pre><h2 id=reply-lifecycle>Reply Lifecycle</h2><p>Whenever the user handles the request the result may be:</p><ul><li>in async handler: it returns a payload</li><li>in async handler: it throws an <code>Error</code></li><li>in sync handler: it sends a payload</li><li>in sync handler: it sends an <code>Error</code> instance</li></ul><p>So, when the reply is being submitted, the data flow performed is the following:</p><pre><code>                        ★ schema validation Error
+                                                                            └─▶ onResponse Hook</code></pre><p>At any point before or during the <code>User Handler</code>, <code>reply.hijack()</code> can be called to prevent fastify from:</p><ul><li>Running all the following hooks and user handler</li><li>Sending the response automatically</li></ul><p>NB (*): If <code>reply.raw</code> is used to send a response back to the user, <code>onResponse</code> hooks will still be executed</p><h2 id=reply-lifecycle>Reply Lifecycle</h2><p>Whenever the user handles the request the result may be:</p><ul><li>in async handler: it returns a payload</li><li>in async handler: it throws an <code>Error</code></li><li>in sync handler: it sends a payload</li><li>in sync handler: it sends an <code>Error</code> instance</li></ul><p>If the reply was hijacked, we skip all the below steps. Otherwise, when it is being submitted, the data flow performed is the following:</p><pre><code>                        ★ schema validation Error
                                     │
                                     └─▶ schemaErrorFormatter
                                                │
@@ -34,6 +34,7 @@
                                                       │
                                                       │         ★ throw an Error
                      ★ send or return                 │                 │
+                            │                         │                 │
                             │                         ▼                 │
        reply sent ◀── JSON ─┴─ Error instance ──▶ setErrorHandler ◀─────┘
                                                       │
