@@ -384,24 +384,25 @@ start()</code></pre>
                     <p class="subtitle is-6 contributor-links">
                       {% for label, link in member.links %}
 
-                      {% if {{ label }} == 'github' %}
+                      {% if label == 'github' %}
                         <a href="{{ link }}" target="_blank">
                           <i class="fa fa-github" style="font-size:24px"></i>     
                         </a> 
                       {% endif %}
 
-                      {% if {{ label }} == 'twitter' %}
+                      {% if label == 'twitter' %}
                         <a href="{{ link }}" target="_blank">
                           <i class="fa fa-twitter" style="font-size:24px"></i>     
                         </a> 
                       {% endif %}
 
-                      {% if {{ label }} == 'npm' %}
+                      {% if label == 'npm' %}
                         <a href="{{ link }}" target="_blank">
                              
                           <img src="./src/website/content/images/npm.png" width="30" height="20" alt="Fastify"/>
                         </a> 
                       {% endif %}
+		      {% endfor %}
                     </p>
                   </div>
                 </div>
