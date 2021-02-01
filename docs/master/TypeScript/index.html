@@ -25,13 +25,13 @@ server.listen(8080, (err, address) =&gt; {
 }
 
 interface IHeaders {
-  &#39;H-Custom&#39;: string;
+  &#39;h-Custom&#39;: string;
 }</code></pre></li><li><p>Using the two interfaces, define a new API route and pass them as generics. The shorthand route methods (i.e. <code>.get</code>) accept a generic object <code>RequestGenericInterface</code> containing four named properties: <code>Body</code>, <code>Querystring</code>, <code>Params</code>, and <code>Headers</code>. The interfaces will be passed down through the route method into the route method handler <code>request</code> instance.</p><pre><code class=language-typescript>server.get&lt;{
   Querystring: IQuerystring,
   Headers: IHeaders
 }&gt;(&#39;/auth&#39;, async (request, reply) =&gt; {
   const { username, password } = request.query
-  const customerHeader = request.headers[&#39;H-Custom&#39;]
+  const customerHeader = request.headers[&#39;h-Custom&#39;]
   // do something with request data
 
   return `logged in!`
@@ -44,17 +44,17 @@ interface IHeaders {
     done(username !== &#39;admin&#39; ? new Error(&#39;Must be admin&#39;) : undefined) // only validate `admin` account
   }
 }, async (request, reply) =&gt; {
-  const customerHeader = request.headers[&#39;H-Custom&#39;]
+  const customerHeader = request.headers[&#39;h-Custom&#39;]
   // do something with request data
   return `logged in!`
 })</code></pre></li><li><p>Build and run and query with the <code>username</code> query string option set to anything other than <code>admin</code>. The API should now return a HTTP 500 error <code>{&quot;statusCode&quot;:500,&quot;error&quot;:&quot;Internal Server Error&quot;,&quot;message&quot;:&quot;Must be admin&quot;}</code></p></li></ol><p>🎉 Good work, now you can define interfaces for each route and have strictly typed request and reply instances. Other parts of the Fastify type system rely on generic properties. Make sure to reference the detailed type system documentation below to learn more about what is available.</p><h3 id=json-schema>JSON Schema</h3><p>In the last example we used interfaces to define the types for the request querystring and headers. Many users will already be using JSON Schemas to define these properties, and luckily there is a way to transform existing JSON Schemas into TypeScript interfaces!</p><ol><li><p>If you did not complete the &#39;Getting Started&#39; example, go back and follow steps 1-4 first.</p></li><li><p>Install the <code>json-schema-to-typescript</code> module:</p><pre><code>npm i -D json-schema-to-typescript</code></pre></li><li><p>Create a new folder called <code>schemas</code> and add two files <code>headers.json</code> and <code>querystring.json</code>. Copy and paste the following schema definitions into the respective files:</p><pre><code class=language-json>{
   &quot;title&quot;: &quot;Headers Schema&quot;,
   &quot;type&quot;: &quot;object&quot;,
   &quot;properties&quot;: {
-    &quot;H-Custom&quot;: { &quot;type&quot;: &quot;string&quot; }
+    &quot;h-Custom&quot;: { &quot;type&quot;: &quot;string&quot; }
   },
   &quot;additionalProperties&quot;: false,
-  &quot;required&quot;: [&quot;H-Custom&quot;]
+  &quot;required&quot;: [&quot;h-Custom&quot;]
 }</code></pre><pre><code class=language-json>{
   &quot;title&quot;: &quot;Querystring Schema&quot;,
   &quot;type&quot;: &quot;object&quot;,
@@ -93,7 +93,7 @@ server.get&lt;{
     done(username !== &#39;admin&#39; ? new Error(&#39;Must be admin&#39;) : undefined)
   }
 }, async (request, reply) =&gt; {
-  const customerHeader = request.headers[&#39;H-Custom&#39;]
+  const customerHeader = request.headers[&#39;h-Custom&#39;]
   // do something with request data
   return `logged in!`
 })
@@ -110,11 +110,11 @@ server.route&lt;{
   },
   preHandler: (request, reply) =&gt; {
     const { username, password } = request.query
-    const customerHeader = request.headers[&#39;H-Custom&#39;]
+    const customerHeader = request.headers[&#39;h-Custom&#39;]
   },
   handler: (request, reply) =&gt; {
     const { username, password } = request.query
-    const customerHeader = request.headers[&#39;H-Custom&#39;]
+    const customerHeader = request.headers[&#39;h-Custom&#39;]
   }
 })
 
