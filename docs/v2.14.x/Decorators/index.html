@@ -21,7 +21,7 @@ fastify.addHook(&#39;preHandler&#39;, (req, reply, done) =&gt; {
 // And finally access it
 fastify.get(&#39;/&#39;, (req, reply) =&gt; {
   reply.send(`Hello, ${req.user}!`)
-})</code></pre><p>See <a href=https://web.archive.org/web/20200201163000/https://mathiasbynens.be/notes/shapes-ics>JavaScript engine fundamentals: Shapes and Inline Caches</a> for more information on this topic.</p><h3 id=usage>Usage</h3><p><a name=usage></a></p><h4 id=decoratename-value-dependencies><code>decorate(name, value, [dependencies])</code></h4><p><a name=decorate></a></p><p>This method is used to customize the Fastify <a href="/docs/v2.14.x/Serverundefined">server</a> instance.</p><p>For example, to attach a new method to the server instance:</p><pre><code class=language-js>fastify.decorate(&#39;utility&#39;, function () {
+})</code></pre><p>See <a href=https://web.archive.org/web/20200201163000/https://mathiasbynens.be/notes/shapes-ics>JavaScript engine fundamentals: Shapes and Inline Caches</a> for more information on this topic.</p><h3 id=usage>Usage</h3><p><a name=usage></a></p><h4 id=decoratename-value-dependencies><code>decorate(name, value, [dependencies])</code></h4><p><a name=decorate></a></p><p>This method is used to customize the Fastify <a href=/docs/v2.14.x/Server>server</a> instance.</p><p>For example, to attach a new method to the server instance:</p><pre><code class=language-js>fastify.decorate(&#39;utility&#39;, function () {
   // Something very useful
 })</code></pre><p>As mentioned above, non-function values can be attached:</p><pre><code class=language-js>fastify.decorate(&#39;conf&#39;, {
   db: &#39;some.db&#39;,

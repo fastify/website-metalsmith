@@ -11,7 +11,7 @@
 module.exports = function (a, b) {
   return a + b
 }</code></pre><pre><code class=language-js>const util = require(&#39;./your-awesome-utility&#39;)
-console.log(util(&#39;that is &#39;, &#39;awesome&#39;))</code></pre><p>And now you will import your utility in every file you need it in. (And don&#39;t forget that you will probably also need it in your tests).</p><p>Fastify offers you a more elegant and comfortable way to do this, <em>decorators</em>. Creating a decorator is extremely easy, just use the <a href="/docs/v3.11.x/Decoratorsundefined"><code>decorate</code></a> API:</p><pre><code class=language-js>fastify.decorate(&#39;util&#39;, (a, b) =&gt; a + b)</code></pre><p>Now you can access your utility just by calling <code>fastify.util</code> whenever you need it - even inside your test.<br>And here starts the magic; do you remember how just now we were talking about encapsulation? Well, using <code>register</code> and <code>decorate</code> in conjunction enable exactly that, let me show you an example to clarify this:</p><pre><code class=language-js>fastify.register((instance, opts, done) =&gt; {
+console.log(util(&#39;that is &#39;, &#39;awesome&#39;))</code></pre><p>And now you will import your utility in every file you need it in. (And don&#39;t forget that you will probably also need it in your tests).</p><p>Fastify offers you a more elegant and comfortable way to do this, <em>decorators</em>. Creating a decorator is extremely easy, just use the <a href=/docs/v3.11.x/Decorators><code>decorate</code></a> API:</p><pre><code class=language-js>fastify.decorate(&#39;util&#39;, (a, b) =&gt; a + b)</code></pre><p>Now you can access your utility just by calling <code>fastify.util</code> whenever you need it - even inside your test.<br>And here starts the magic; do you remember how just now we were talking about encapsulation? Well, using <code>register</code> and <code>decorate</code> in conjunction enable exactly that, let me show you an example to clarify this:</p><pre><code class=language-js>fastify.register((instance, opts, done) =&gt; {
   instance.decorate(&#39;util&#39;, (a, b) =&gt; a + b)
   console.log(instance.util(&#39;that is &#39;, &#39;awesome&#39;))
 
@@ -77,7 +77,7 @@ fastify.addHook(&#39;preHandler&#39;, (request, reply, done) =&gt; {
 
 fastify.get(&#39;/happiness&#39;, (request, reply) =&gt; {
   reply.send({ happy: request.isHappy })
-})</code></pre><p>We&#39;ve seen how to extend server functionality and how to handle the encapsulation system, but what if you need to add a function that must be executed every time when the server &quot;<a href="/docs/v3.11.x/Lifecycleundefined">emits</a>&quot; an event?</p><p><a name=hooks></a></p><h2 id=hooks>Hooks</h2><p>You just built an amazing utility, but now you need to execute that for every request, this is what you will likely do:</p><pre><code class=language-js>fastify.decorate(&#39;util&#39;, (request, key, value) =&gt; { request[key] = value })
+})</code></pre><p>We&#39;ve seen how to extend server functionality and how to handle the encapsulation system, but what if you need to add a function that must be executed every time when the server &quot;<a href=/docs/v3.11.x/Lifecycle>emits</a>&quot; an event?</p><p><a name=hooks></a></p><h2 id=hooks>Hooks</h2><p>You just built an amazing utility, but now you need to execute that for every request, this is what you will likely do:</p><pre><code class=language-js>fastify.decorate(&#39;util&#39;, (request, key, value) =&gt; { request[key] = value })
 
 fastify.get(&#39;/plugin1&#39;, (request, reply) =&gt; {
   fastify.util(request, &#39;timestamp&#39;, new Date())
@@ -87,7 +87,7 @@ fastify.get(&#39;/plugin1&#39;, (request, reply) =&gt; {
 fastify.get(&#39;/plugin2&#39;, (request, reply) =&gt; {
   fastify.util(request, &#39;timestamp&#39;, new Date())
   reply.send(request)
-})</code></pre><p>I think we all agree that this is terrible. Repeated code, awful readability and it cannot scale.</p><p>So what can you do to avoid this annoying issue? Yes, you are right, use a <a href="/docs/v3.11.x/Hooksundefined">hook</a>!<br></p><pre><code class=language-js>fastify.decorate(&#39;util&#39;, (request, key, value) =&gt; { request[key] = value })
+})</code></pre><p>I think we all agree that this is terrible. Repeated code, awful readability and it cannot scale.</p><p>So what can you do to avoid this annoying issue? Yes, you are right, use a <a href=/docs/v3.11.x/Hooks>hook</a>!<br></p><pre><code class=language-js>fastify.decorate(&#39;util&#39;, (request, key, value) =&gt; { request[key] = value })
 
 fastify.addHook(&#39;preHandler&#39;, (request, reply, done) =&gt; {
   fastify.util(request, &#39;timestamp&#39;, new Date())
@@ -127,7 +127,7 @@ function dbPlugin (fastify, opts, done) {
   })
 }
 
-module.exports = fp(dbPlugin)</code></pre><p>You can also tell <code>fastify-plugin</code> to check the installed version of Fastify, in case you need a specific API.</p><p>As we mentioned earlier, Fastify starts loading its plugins <strong>after</strong> <code>.listen()</code>, <code>.inject()</code> or <code>.ready()</code> are called and as such, <strong>after</strong> they have been declared. This means that, even though the plugin may inject variables to the external fastify instance via <a href="/docs/v3.11.x/Decoratorsundefined"><code>decorate</code></a>, the decorated variables will not be accessible before calling <code>.listen()</code>, <code>.inject()</code> or <code>.ready()</code>.</p><p>In case you rely on a variable injected by a preceding plugin and want to pass that in the <code>options</code> argument of <code>register</code>, you can do so by using a function instead of an object:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
+module.exports = fp(dbPlugin)</code></pre><p>You can also tell <code>fastify-plugin</code> to check the installed version of Fastify, in case you need a specific API.</p><p>As we mentioned earlier, Fastify starts loading its plugins <strong>after</strong> <code>.listen()</code>, <code>.inject()</code> or <code>.ready()</code> are called and as such, <strong>after</strong> they have been declared. This means that, even though the plugin may inject variables to the external fastify instance via <a href=/docs/v3.11.x/Decorators><code>decorate</code></a>, the decorated variables will not be accessible before calling <code>.listen()</code>, <code>.inject()</code> or <code>.ready()</code>.</p><p>In case you rely on a variable injected by a preceding plugin and want to pass that in the <code>options</code> argument of <code>register</code>, you can do so by using a function instead of an object:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
 const fp = require(&#39;fastify-plugin&#39;)
 const dbClient = require(&#39;db-client&#39;)
 
