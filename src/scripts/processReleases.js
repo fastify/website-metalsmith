@@ -164,7 +164,7 @@ function remapLinks (content, item) {
     .replace(absoluteLinks, `/docs/${item.version}`)
     .replace(ecosystemLinkRx, (match) => '(/ecosystem)')
     .replace(pluginsLink, (match) => `(/docs/${item.version}/Plugins)`)
-    .replace(relativeLinks, (match, ...parts) => `(/docs/${item.version}/${parts[2]}${parts[3]})`)
+    .replace(relativeLinks, (match, ...parts) => `(/docs/${item.version}/${parts[2]}${parts[3] || ''})`)
     .replace(relativeLinksWithLabel, (match, ...parts) => `(/docs/${item.version}/${parts[1]} "${parts[3]}")`)
     .replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
 }
