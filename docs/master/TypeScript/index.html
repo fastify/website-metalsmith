@@ -5,7 +5,7 @@ npm i -D typescript @types/node</code></pre></li><li><p>Add the following lines 
    &quot;build&quot;: &quot;tsc -p tsconfig.json&quot;,
    &quot;start&quot;: &quot;node index.js&quot;
  }
-}</code></pre></li><li><p>Initialize a TypeScript configuration file:</p><pre><code class=language-bash>npx typescript --init</code></pre><p>or use one of the <a href=https://github.com/tsconfig/bases#node-10-tsconfigjson>recommended ones</a>.</p></li><li><p>Create an <code>index.ts</code> file - this will contain the server code</p></li><li><p>Add the following code block to your file:</p><pre><code class=language-typescript>import fastify from &#39;fastify&#39;
+}</code></pre></li><li><p>Initialize a TypeScript configuration file:</p><pre><code class=language-bash>npx tsc --init</code></pre><p>or use one of the <a href=https://github.com/tsconfig/bases#node-10-tsconfigjson>recommended ones</a>.</p></li><li><p>Create an <code>index.ts</code> file - this will contain the server code</p></li><li><p>Add the following code block to your file:</p><pre><code class=language-typescript>import fastify from &#39;fastify&#39;
 
 const server = fastify()
 
