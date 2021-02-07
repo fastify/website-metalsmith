@@ -124,50 +124,34 @@ module.exports = {
 ...
 &quot;build:functions&quot;: &quot;netlify-lambda build functions --config ./webpack.config.netlify.js&quot;
 ...
-}</code></pre><p>Then it should work fine</p><h2 id=vercel>Vercel</h2><p><a href=https://vercel.com>Vercel</a> provides zero configuration deployment for Node.js applications. In order to use now, it is as simple as configuring your <code>now.json</code> file like the following:</p><pre><code class=language-json>{
-  &quot;version&quot;: 2,
-  &quot;builds&quot;: [
-    {
-      &quot;src&quot;: &quot;api/serverless.js&quot;,
-      &quot;use&quot;: &quot;@now/node&quot;,
-      &quot;config&quot;: {
-        &quot;helpers&quot;: false
-      }
-    }
-  ],
-  &quot;routes&quot;: [
-    { &quot;src&quot;: &quot;/.*&quot;, &quot;dest&quot;: &quot;/api/serverless.js&quot;}
-  ]
-}</code></pre><p>Then, write a <code>api/serverless.js</code> like so:</p><pre><code class=language-js>&#39;use strict&#39;
+}</code></pre><p>Then it should work fine</p><h2 id=vercel>Vercel</h2><p><a href=https://vercel.com>Vercel</a> provides zero configuration deployment for Node.js applications. In order to use now, it is as simple as configuring your <code>vercel.json</code> file like the following:</p><pre><code class=language-json>{
+    &quot;rewrites&quot;: [
+        { 
+            &quot;source&quot;: &quot;/(.*)&quot;, 
+            &quot;destination&quot;: &quot;/api/serverless.js&quot; 
+        }
+    ]
+}</code></pre><p>Then, write a <code>api/serverless.js</code> like so:</p><pre><code class=language-js>&quot;use strict&quot;;
 
-const build = require(&#39;./index&#39;)
+// Read the .env file.
+import * as dotenv from &quot;dotenv&quot;;
+dotenv.config();
 
-const app = build()
+// Require the framework
+import Fastify from &quot;fastify&quot;;
 
-module.exports = async function (req, res) {
-  await app.ready()
-  app.server.emit(&#39;request&#39;, req, res)
-}</code></pre><p>And a <code>api/index.js</code> file:</p><pre><code class=language-js>&#39;use strict&#39;
+// Instantiate Fastify with some config
+const app = Fastify({
+  logger: true,
+});
 
-const fastify = require(&#39;fastify&#39;)
+// Register your application as a normal plugin.
+app.register(import(&quot;../src/app&quot;));
 
-function build () {
-  const app = fastify({
-    logger: true
-  })
-
-  app.get(&#39;/&#39;, async (req, res) =&gt; {
-    const { name = &#39;World&#39; } = req.query
-    req.log.info({ name }, &#39;hello world!&#39;)
-    return `Hello ${name}!`
-  })
-
-  return app
-}
-
-module.exports = build</code></pre><p>Note that you&#39;ll need to use Node 10 by setting it in <code>package.json</code>:</p><pre><code class=language-js>  &quot;engines&quot;: {
-    &quot;node&quot;: &quot;10.x&quot;
-  },</code></pre></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/master/TypeScript class="button prev">≪ TypeScript and types support</a></div></div><div class=level-right><div class=level-item><a href=/docs/master/Recommendations class="button next">Recommendations ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+export default async (req, res) =&gt; {
+    await app.ready();
+    app.server.emit(&#39;request&#39;, req, res);
+}</code></pre></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/master/TypeScript class="button prev">≪ TypeScript and types support</a></div></div><div class=level-right><div class=level-item><a href=/docs/master/Recommendations class="button next">Recommendations ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
   var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
   var currentMenu = document.getElementById('doc-menu-section')
   if (titles.length && currentMenu) {
