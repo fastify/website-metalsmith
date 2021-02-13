@@ -137,3 +137,7 @@
 - name: "LogDNA"
   image: "logdna.svg"
   link: "https://logdna.com"
+
+- name: "Elo7"
+  image: "elo7.svg"
+  link: "https://www.elo7.com.br"
