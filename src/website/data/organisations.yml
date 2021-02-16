@@ -58,6 +58,10 @@
   image: "heply.svg"
   link: "https://heply.it/"
 
+- name: "Habit"
+  image: "habit.svg"
+  link: "https://habit.global/"
+
 - name: "HospitalRun"
   image: "hospitalrun.svg"
   link: "https://hospitalrun.io/"
