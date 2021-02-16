@@ -59,7 +59,7 @@
     "metalsmith-writemetadata": "^0.4.5",
     "mkdirp": "^1.0.4",
     "node-sass": "^5.0.0",
-    "nunjucks": "^3.2.2",
+    "nunjucks": "^3.2.3",
     "nunjucks-markdown-filter": "^0.1.0",
     "parse-link-header": "^1.0.1",
     "rimraf": "^3.0.2",
