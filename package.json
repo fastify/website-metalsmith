@@ -40,7 +40,7 @@
   "dependencies": {
     "async": "^3.2.0",
     "axios": "^0.21.1",
-    "clean-css": "^4.2.3",
+    "clean-css": "^5.0.1",
     "clone": "^2.1.2",
     "compare-versions": "^3.6.0",
     "debug": "^4.3.1",
