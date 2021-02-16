@@ -6,9 +6,53 @@
   image: "aasaam.svg"
   link: "https://aasaam.com/"
 
+- name: "car2go"
+  image: "car2go.svg"
+  link: "https://www.car2go.com"
+
+- name: "Codecks"
+  image: "codecks.svg"
+  link: "https://www.codecks.io/"
+
+- name: "Commons Host"
+  image: "commonshost.svg"
+  link: "https://commons.host"
+
+- name: "Compressor"
+  image: "compressor.svg"
+  link: "https://compressor.io"
+
+- name: "evilfactorylabs"
+  image: "evilfactorylabs.svg"
+  link: "https://evilfactory.id"  
+
+- name: "Elo7"
+  image: "elo7.svg"
+  link: "https://www.elo7.com.br"
+
 - name: "fabfitfun"
   image: "fabfitfun.svg"
-  link: "http://fabfitfun.com/"
+  link: "https://fabfitfun.com/"
+
+- name: "Future Foundry"
+  image: "future-foundry.svg"
+  link: "https://futurefoundry.co"
+
+- name: "Genesys"
+  image: "genesys.svg"
+  link: "https://www.genesys.com"
+
+- name: "GEOLYTIX"
+  image: "geolytix.svg"
+  link: "https://geolytix.co.uk"
+
+- name: "Global CTO Forum"
+  image: "global-cto-forum.svg"
+  link: "https://www.globalctoforum.org"
+
+- name: "Gumlet"
+  image: "gumlet.svg"
+  link: "https://www.gumlet.com"
 
 - name: "heply"
   image: "heply.svg"
@@ -30,6 +74,18 @@
   image: "knock.svg"
   link: "https://www.knock.com"
 
+- name: "localistars"
+  image: "localistars.svg"
+  link: "https://localistars.com"
+
+- name: "LogDNA"
+  image: "logdna.svg"
+  link: "https://logdna.com"
+
+- name: "locize"
+  image: "locize.svg"
+  link: "https://locize.com"
+
 - name: "MIA Platform"
   image: "mia-platform.svg"
   link: "https://www.mia-platform.eu"
@@ -42,6 +98,10 @@
   image: "mrp.svg"
   link: "https://www.mrporter.com"
 
+- name: "MV Labs"
+  image: "mvlabs.svg"
+  link: "https://www.mvlabs.it"  
+
 - name: "Nearform"
   image: "nearform.svg"
   link: "https://nearform.com"
@@ -50,74 +110,38 @@
   image: "nucleode.svg"
   link: "https://www.nucleode.com"
 
+- name: "Quero Educação"
+  image: "quero-educacao.svg"
+  link: "https://sobre.quero.com/"
+
+- name: "Radity"
+  image: "radity.svg"
+  link: "https://www.radity.com"
+
+- name: "RuneAudio"
+  image: "runeaudio.svg"
+  link: "https://www.runeaudio.com"
+
+- name: "Satiurn"
+  image: "satiurn.svg"
+  link: "https://www.satiurn.com/"  
+
 - name: "Seznam.cz"
   image: "seznam.cz.svg"
   link: "https://www.seznam.cz/"
 
-- name: "Vectra"
-  image: "vectra.svg"
-  link: "https://vectra.ai"
-
-- name: "GEOLYTIX"
-  image: "geolytix.svg"
-  link: "https://geolytix.co.uk"
-
-- name: "car2go"
-  image: "car2go.svg"
-  link: "https://www.car2go.com"
-
-- name: "Codecks"
-  image: "codecks.svg"
-  link: "https://www.codecks.io/"
-
-- name: "Compressor"
-  image: "compressor.svg"
-  link: "https://compressor.io"
-
-- name: "MV Labs"
-  image: "mvlabs.svg"
-  link: "https://www.mvlabs.it"
-
-- name: "Radity"
-  image: "radity.svg"
-  link: "http://www.radity.com"
-
-- name: "Global CTO Forum"
-  image: "global-cto-forum.svg"
-  link: "https://www.globalctoforum.org"
-
-- name: "RuneAudio"
-  image: "runeaudio.svg"
-  link: "http://www.runeaudio.com"
-
-- name: "Commons Host"
-  image: "commonshost.svg"
-  link: "https://commons.host"
+- name: "Swiss Dev Jobs"
+  image: "swissdev-javascript-jobs-200-200.svg"
+  link: "https://swissdevjobs.ch/"
 
 - name: "Unhandled"
   image: "unhandled.svg"
   link: "https://unhandled.net"
 
-- name: "Gumlet"
-  image: "gumlet.svg"
-  link: "https://www.gumlet.com"
-
-- name: "evilfactorylabs"
-  image: "evilfactorylabs.svg"
-  link: "https://evilfactory.id"
-
 - name: "UNIQ"
   image: "uniq.svg"
   link: "https://www.uniq.id/"
-  
-- name: "Swiss Dev Jobs"
-  image: "swissdev-javascript-jobs-200-200.svg"
-  link: "https://swissdevjobs.ch/"
 
-- name: "locize"
-  image: "locize.svg"
-  link: "https://locize.com"
-
-- name: "localistars"
-  image: "localistars.svg"
-  link: "https://localistars.com"
+- name: "Vectra"
+  image: "vectra.svg"
+  link: "https://vectra.ai"

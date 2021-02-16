@@ -164,7 +164,7 @@ function remapLinks (content, item) {
     .replace(absoluteLinks, `/docs/${item.version}`)
     .replace(ecosystemLinkRx, (match) => '(/ecosystem)')
     .replace(pluginsLink, (match) => `(/docs/${item.version}/Plugins)`)
-    .replace(relativeLinks, (match, ...parts) => `(/docs/${item.version}/${parts[2]})`)
+    .replace(relativeLinks, (match, ...parts) => `(/docs/${item.version}/${parts[2]}${parts[3] || ''})`)
     .replace(relativeLinksWithLabel, (match, ...parts) => `(/docs/${item.version}/${parts[1]} "${parts[3]}")`)
     .replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
 }
@@ -220,10 +220,9 @@ const extractPlugins = (pluginContent) => {
     }
     return acc
   }, [])
-  const re = /\[`([-a-zA-Z0-9.]+)`\]\(([^)]+)\)(\s*(.+))?/
+  const re = /\[`([-a-zA-Z0-9./@]+)`\]\(([^)]+)\)(\s*(.+))?/
   const plugins = mergedLines.map((line) => {
     const match = re.exec(line)
-
     const name = match[1]
     const url = match[2]
     const description = match[3] ? match[3].trim() : ''
