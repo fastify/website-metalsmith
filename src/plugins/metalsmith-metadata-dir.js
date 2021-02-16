@@ -6,7 +6,7 @@ const yaml = require('js-yaml')
 const mapLimit = require('async/mapLimit')
 
 const parseMap = {
-  '.yml': content => yaml.safeLoad(content),
+  '.yml': content => yaml.load(content),
   '.json': content => JSON.parse(content)
 }
 
