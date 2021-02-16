@@ -113,7 +113,40 @@ const schema = {
   headers: headersJsonSchema
 }
 
-fastify.post(&#39;/the/url&#39;, { schema }, handler)</code></pre><p><em>Note that Ajv will try to <a href=https://github.com/epoberezkin/ajv#coercing-data-types>coerce</a> the values to the types specified in your schema <code>type</code> keywords, both to pass the validation and to use the correctly typed data afterwards.</em></p><p><a name=ajv-plugins></a></p><h4 id=ajv-plugins>Ajv Plugins</h4><p>You can provide a list of plugins you want to use with Ajv:</p><blockquote><p>Refer to <a href=/docs/master/Server#ajv><code>ajv options</code></a> to check plugins format</p></blockquote><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+fastify.post(&#39;/the/url&#39;, { schema }, handler)</code></pre><p><em>Note that Ajv will try to <a href=https://github.com/epoberezkin/ajv#coercing-data-types>coerce</a> the values to the types specified in your schema <code>type</code> keywords, both to pass the validation and to use the correctly typed data afterwards.</em></p><p>The Ajv default configuration in Fastify doesn&#39;t support coercing array parameters in querystring. However, Fastify allows <a href=/docs/master/Server#ajv><code>customOptions</code></a> in Ajv instance. The <code>coerceTypes: &#39;array&#39;</code> will coerce one parameter to a single element in array. Example:</p><pre><code class=language-js>const opts = {
+  schema: {
+    querystring: {
+      type: &#39;object&#39;,
+      properties: {
+        ids: {
+          type: &#39;array&#39;,
+          default: []
+        },
+      },
+    }
+  }
+}
+
+fastify.get(&#39;/&#39;, opts, (request, reply) =&gt; {
+  reply.send({ params: request.query })
+})
+
+fastify.listen(3000, (err) =&gt; {
+  if (err) throw err
+})</code></pre><p>Using Fastify defaults the following request will result in <code>400</code> status code:</p><pre><code class=language-sh>curl -X GET &quot;http://localhost:3000/?ids=1
+
+{&quot;statusCode&quot;:400,&quot;error&quot;:&quot;Bad Request&quot;,&quot;message&quot;:&quot;querystring/hello should be array&quot;}</code></pre><p>Using <code>coerceTypes</code> as &#39;array&#39; should fix it:</p><pre><code class=language-js>const ajv = new Ajv({
+  removeAdditional: true,
+  useDefaults: true,
+  coerceTypes: &#39;array&#39;, // This line
+  allErrors: true
+})
+
+fastify.setValidatorCompiler(({ schema, method, url, httpPart }) =&gt; {
+  return ajv.compile(schema)
+})</code></pre><pre><code class=language-sh>curl -X GET &quot;http://localhost:3000/?ids=1
+
+{&quot;params&quot;:{&quot;hello&quot;:[&quot;1&quot;]}}</code></pre><p>For further information see <a href=https://ajv.js.org/docs/coercion.html>here</a></p><p><a name=ajv-plugins></a></p><h4 id=ajv-plugins>Ajv Plugins</h4><p>You can provide a list of plugins you want to use with Ajv:</p><blockquote><p>Refer to <a href=/docs/master/Server#ajv><code>ajv options</code></a> to check plugins format</p></blockquote><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   ajv: {
     plugins: [
       require(&#39;ajv-merge-patch&#39;)
