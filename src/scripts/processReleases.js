@@ -2,7 +2,7 @@
 
 const { join, dirname, basename } = require('path')
 const { promises: fs } = require('fs')
-const { safeDump } = require('js-yaml')
+const { dump } = require('js-yaml')
 const clone = require('clone')
 const { fileExists } = require('./utils')
 
@@ -91,7 +91,7 @@ function createDocsDataFile (destination, docsInfo) {
     })
   })
 
-  return fs.writeFile(destination, safeDump(toDump), 'utf8')
+  return fs.writeFile(destination, dump(toDump), 'utf8')
 }
 
 async function processDocFiles (docs, latestRelease) {
@@ -260,7 +260,7 @@ async function createEcosystemDataFile (masterReleaseDownloadPath) {
   const ecosystemFile = join(versionFolder, subfolder, 'docs', 'Ecosystem.md')
 
   const ecosystem = await extractEcosystemFromFile(ecosystemFile)
-  await fs.writeFile(destination, safeDump(ecosystem), 'utf8')
+  await fs.writeFile(destination, dump(ecosystem), 'utf8')
   console.log(`Ecosystem file written: ${destination}`)
 }
 

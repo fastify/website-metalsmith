@@ -38,7 +38,7 @@ const getJSONData = async (url) => {
 const getDataYaml = () => {
   try {
     const fileContents = fs.readFileSync(FILE_LOCATION)
-    return yaml.safeLoad(fileContents)
+    return yaml.load(fileContents)
   } catch (error) {
     console.error('Cannot load yml file')
     throw (error)
@@ -70,7 +70,7 @@ const updateDataYaml = (dataYaml, updatedData) => {
 
 const dumpYaml = (dataYaml) => {
   try {
-    const updatedData = yaml.safeDump(dataYaml)
+    const updatedData = yaml.dump(dataYaml)
     fs.writeFileSync(FILE_LOCATION, updatedData, 'utf8')
   } catch (error) {
     console.error('Cannot create yml file')
