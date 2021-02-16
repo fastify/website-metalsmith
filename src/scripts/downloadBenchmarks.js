@@ -60,6 +60,7 @@ const getUpdatedData = (jsonData) => {
 const updateDataYaml = (dataYaml, updatedData) => {
   const newDataYaml = { ...dataYaml }
 
+  // eslint-disable-next-line array-callback-return
   newDataYaml.frameworks.map((framework) => {
     framework.requests_sec = parseInt(updatedData[framework.tag])
   })
