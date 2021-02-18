@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-$link: #00458b;
+$link: #00458B;
 $primary: #04625C;
 
 @import "../../../../node_modules/bulma/bulma.sass";
@@ -136,6 +136,10 @@ main.page-content {
   left: 1.1em;
 }
 
+a {
+  text-decoration: underline;
+}
+
 a.anchor {
   color: #808080;
   padding: 0 0 0 0.5rem;
@@ -146,8 +150,12 @@ a.anchor:hover {
   color: #4a4a4a;
 }
 
-a > code {
-  text-decoration: underline;
+a img, a svg {
+  border-bottom: none;
+}
+
+#main-navbar {
+  text-decoration: none;
 }
 
 #main-navbar .control.has-icons-left .icon.is-left {
