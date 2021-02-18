@@ -155,7 +155,9 @@ a img, a svg {
 }
 
 #main-navbar {
-  text-decoration: none;
+  a {
+    text-decoration: none;
+  }
 }
 
 #main-navbar .control.has-icons-left .icon.is-left {
