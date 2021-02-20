@@ -78,6 +78,17 @@ Metalsmith(source)
     })
   )
   .use(
+    function (files, ms, done) {
+      const metadata = ms.metadata()
+      metadata.hashes = metadata.hashes || {}
+      const relevantFiles = Object.keys(files)
+      relevantFiles.forEach(function (filepath) {
+        metadata.hashes[filepath.replace(/\\/ig, '/')] = filepath
+      })
+      return process.nextTick(done)
+    }
+  )
+  .use(
     layouts({
       engine: 'nunjucks',
       pattern: '**/*.html',
