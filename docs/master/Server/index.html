@@ -68,7 +68,7 @@ const fastify = require(&#39;fastify&#39;)({
 })</code></pre><p><strong>Note: if a request contains multiple <code>x-forwarded-host</code> or <code>x-forwarded-proto</code> headers, it is only the last one that is used to derive <code>request.hostname</code> and <code>request.protocol</code></strong></p><p><a name=plugin-timeout></a></p><h3 id=plugintimeout><code>pluginTimeout</code></h3><p>The maximum amount of time in <em>milliseconds</em> in which a plugin can load. If not, <a href=/docs/master/Server#ready><code>ready</code></a> will complete with an <code>Error</code> with code <code>&#39;ERR_AVVIO_PLUGIN_TIMEOUT&#39;</code>.</p><ul><li>Default: <code>10000</code></li></ul><p><a name=factory-querystring-parser></a></p><h3 id=querystringparser><code>querystringParser</code></h3><p>The default query string parser that Fastify uses is the Node.js&#39;s core <code>querystring</code> module.<br>You can change this default setting by passing the option <code>querystringParser</code> and use a custom one, such as <a href=https://www.npmjs.com/package/qs><code>qs</code></a>.</p><pre><code class=language-js>const qs = require(&#39;qs&#39;)
 const fastify = require(&#39;fastify&#39;)({
   querystringParser: str =&gt; qs.parse(str)
-})</code></pre><p><a name=exposeHeadRoutes></a></p><h3 id=exposeheadroutes><code>exposeHeadRoutes</code></h3><p>Automatically creates a sibling <code>HEAD</code> route for each <code>GET</code> route defined. If you want a custom <code>HEAD</code> handler without disabling this option, make sure to define it before the <code>GET</code> route.</p><ul><li>Default: <code>false</code></li></ul><p><a name=versioning></a></p><h3 id=versioning><code>versioning</code></h3><p>By default you can version your routes with <a href=/docs/master/Routes#version>semver versioning</a>, which is provided by <code>find-my-way</code>. There is still an option to provide custom versioning strategy. You can find more information in the <a href=https://github.com/delvedor/find-my-way#versioned-routes>find-my-way</a> documentation.</p><pre><code class=language-js>const versioning = {
+})</code></pre><p><a name=exposeHeadRoutes></a></p><h3 id=exposeheadroutes><code>exposeHeadRoutes</code></h3><p>Automatically creates a sibling <code>HEAD</code> route for each <code>GET</code> route defined. If you want a custom <code>HEAD</code> handler without disabling this option, make sure to define it before the <code>GET</code> route.</p><ul><li>Default: <code>false</code></li></ul><p><a name=constraints></a></p><h3 id=constraints><code>constraints</code></h3><p>Fastify&#39;s built in route constraints are provided by <code>find-my-way</code>, which allow constraining routes by <code>version</code> or <code>host</code>. You are able to add new constraint strategies, or override the built in strategies by providing a <code>constraints</code> object with strategies for <code>find-my-way</code>. You can find more information on constraint strategies in the <a href=https://github.com/delvedor/find-my-way>find-my-way</a> documentation.</p><pre><code class=language-js>const customVersionStrategy = {
   storage: function () {
     let versions = {}
     return {
@@ -84,7 +84,9 @@ const fastify = require(&#39;fastify&#39;)({
 }
 
 const fastify = require(&#39;fastify&#39;)({
-  versioning
+  constraints: {
+    version: customVersionStrategy
+  }
 })</code></pre><p><a name=factory-return-503-on-closing></a></p><h3 id=return503onclosing><code>return503OnClosing</code></h3><p>Returns 503 after calling <code>close</code> server method. If <code>false</code>, the server routes the incoming request as usual.</p><ul><li>Default: <code>true</code></li></ul><p><a name=factory-ajv></a></p><h3 id=ajv><code>ajv</code></h3><p>Configure the ajv instance used by Fastify without providing a custom one.</p><ul><li>Default:</li></ul><pre><code class=language-js>{
   customOptions: {
     removeAdditional: true,
