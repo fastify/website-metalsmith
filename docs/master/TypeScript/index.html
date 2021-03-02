@@ -315,7 +315,7 @@ server.get(&#39;/typedRequest&#39;, async (request: CustomRequest, reply: Fastif
 
 const server = fastify()
 
-const requestGeneric: RequestGenericInterface = {
+interface requestGeneric extends RequestGenericInterface {
   Querystring: {
     name: string
   }
