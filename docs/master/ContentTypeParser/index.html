@@ -18,8 +18,21 @@ fastify.addContentTypeParser(&#39;application/jsoff&#39;, async function (reques
   return res
 })
 
+// Handle all content types that matches RegExp 
+fastify.addContentTypeParser(/^image\/.*/, function (request, payload, done) {
+  imageParser(payload, function (err, body) {
+    done(err, body)
+  })
+})
+
 // Can use default JSON/Text parser for different content Types
-fastify.addContentTypeParser(&#39;text/json&#39;, { parseAs: &#39;string&#39; }, fastify.getDefaultJsonParser(&#39;ignore&#39;, &#39;ignore&#39;))</code></pre><p>You can also use the <code>hasContentTypeParser</code> API to find if a specific content type parser already exists.</p><pre><code class=language-js>if (!fastify.hasContentTypeParser(&#39;application/jsoff&#39;)){
+fastify.addContentTypeParser(&#39;text/json&#39;, { parseAs: &#39;string&#39; }, fastify.getDefaultJsonParser(&#39;ignore&#39;, &#39;ignore&#39;))</code></pre><p>Fastify first tries to match a content-type parser with a <code>string</code> value before trying to find a matching <code>RegExp</code>. If you provide overlapping content types, Fastify tries to find a matching content type by starting with the last one passed and ending with the first one. So if you want to specify a general content type more precisely, first specify the general content type and then the more specific one, like in the example below.</p><pre><code class=language-js>// Here only the second content type parser is called because its value also matches the first one
+fastify.addContentTypeParser(&#39;application/vnd.custom+xml&#39;, (request, body, done) =&gt; {} )
+fastify.addContentTypeParser(&#39;application/vnd.custom&#39;, (request, body, done) =&gt; {} )
+
+// Here the desired behavior is achieved because fastify first tries to match the `application/vnd.custom+xml` content type parser 
+fastify.addContentTypeParser(&#39;application/vnd.custom&#39;, (request, body, done) =&gt; {} )
+fastify.addContentTypeParser(&#39;application/vnd.custom+xml&#39;, (request, body, done) =&gt; {} )</code></pre><p>You can also use the <code>hasContentTypeParser</code> API to find if a specific content type parser already exists.</p><pre><code class=language-js>if (!fastify.hasContentTypeParser(&#39;application/jsoff&#39;)){
   fastify.addContentTypeParser(&#39;application/jsoff&#39;, function (request, payload, done) {
     jsoffParser(payload, function (err, body) {
       done(err, body)
