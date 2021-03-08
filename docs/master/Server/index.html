@@ -329,6 +329,18 @@ fastify.ready(() =&gt; {
   //   ├── test (GET)
   //   │   └── /hello (GET)
   //   └── hello/world (GET)
+})</code></pre><p><a name=print-plugins></a></p><h4 id=printplugins>printPlugins</h4><p><code>fastify.printPlugins()</code>: Prints the representation of the internal plugin tree used by the avvio, useful for debugging require order issues.<br><em>Remember to call it inside or after a <code>ready</code> call.</em></p><pre><code class=language-js>fastify.register(async function foo (instance) {
+  instance.register(async function bar () {})
+})
+fastify.register(async function baz () {})
+
+fastify.ready(() =&gt; {
+  console.error(fastify.printPlugins())
+  // will output the following to stderr:
+  // └── root
+  //   ├── foo
+  //   │   └── bar
+  //   └── baz
 })</code></pre><p><a name=addContentTypeParser></a></p><h4 id=addcontenttypeparser>addContentTypeParser</h4><p><code>fastify.addContentTypeParser(content-type, options, parser)</code> is used to pass custom parser for a given content type. Useful for adding parsers for custom content types, e.g. <code>text/json, application/vnd.oasis.opendocument.text</code>. <code>content-type</code> can be a string or string array.</p><pre><code class=language-js>// The two arguments passed to getDefaultJsonParser are for ProtoType poisoning and Constructor Poisoning configuration respectively. The possible values are &#39;ignore&#39;, &#39;remove&#39;, &#39;error&#39;. ignore  skips all validations and it is similar to calling JSON.parse() directly. See the &lt;a href=&quot;https://github.com/fastify/secure-json-parse#api&quot;&gt;`secure-json-parse` documentation&lt;/a&gt; for more information.
 
 fastify.addContentTypeParser(&#39;text/json&#39;, { asString: true }, fastify.getDefaultJsonParser(&#39;ignore&#39;, &#39;ignore&#39;))</code></pre><p><a name=getDefaultJsonParser></a></p><h4 id=getdefaultjsonparser>getDefaultJsonParser</h4><p><code>fastify.getDefaultJsonParser(onProtoPoisoning, onConstructorPoisoning)</code> takes two arguments. First argument is ProtoType poisoning configuration and second argument is constructor poisoning configuration. See the <a href=https://github.com/fastify/secure-json-parse#api><code>secure-json-parse</code> documentation</a> for more information.</p><p><a name=defaultTextParser></a></p><h4 id=defaulttextparser>defaultTextParser</h4><p><code>fastify.defaultTextParser()</code> can be used to parse content as plain text.</p><pre><code class=language-js>fastify.addContentTypeParser(&#39;text/json&#39;, { asString: true }, fastify.defaultTextParser())</code></pre><p><a name=errorHandler></a></p><h4 id=errorhandler>errorHandler</h4><p><code>fastify.errorHandler</code> can be used to handle errors using fastify&#39;s default error handler.</p><pre><code class=language-js>fastify.get(&#39;/&#39;, {
