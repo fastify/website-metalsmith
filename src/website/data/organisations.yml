@@ -106,6 +106,10 @@
   image: "nearform.svg"
   link: "https://nearform.com"
 
+- name: "Net-A-Porter"
+  image: "net-a-porter.svg"
+  link: "https://net-a-porter.com"
+
 - name: "Nucleode"
   image: "nucleode.svg"
   link: "https://www.nucleode.com"
@@ -133,6 +137,10 @@
 - name: "Swiss Dev Jobs"
   image: "swissdev-javascript-jobs-200-200.svg"
   link: "https://swissdevjobs.ch/"
+
+- name: "The Outnet"
+  image: "theoutnet.svg"
+  link: "https://theoutnet.com/"
 
 - name: "Unhandled"
   image: "unhandled.svg"
