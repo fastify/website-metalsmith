@@ -101,6 +101,12 @@
       github: https://github.com/fox1t
       npm: https://www.npmjs.com/~fox1t
       twitter: https://twitter.com/maksimsinik
+  - name: Frazer Smith
+    sortname: Smith Frazer
+    picture: "https://avatars3.githubusercontent.com/u/43814140?s=460&v=4"
+    links:
+      github: https://github.com/Fdawgs
+      npm: https://www.npmjs.com/~fdawgs     
   - name: Manuel Spigolon
     sortname: Spigolon Manuel
     picture: "https://avatars3.githubusercontent.com/u/11404065?s=460&v=4"
