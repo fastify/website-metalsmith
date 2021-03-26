@@ -39,7 +39,7 @@ fastify.post(&#39;/&#39;, {
 const mySchemas = fastify.getSchemas()
 const mySchema = fastify.getSchema(&#39;schemaId&#39;)</code></pre><p>As usual, the function <code>getSchemas</code> is encapsulated and returns the shared schemas available in the selected scope:</p><pre><code class=language-js>fastify.addSchema({ $id: &#39;one&#39;, my: &#39;hello&#39; })
 // will return only `one` schema
-fastify.get(&#39;/&#39;, (request, reply) =&gt; { reply.send(fastify.getSchemas()) }) 
+fastify.get(&#39;/&#39;, (request, reply) =&gt; { reply.send(fastify.getSchemas()) })
 
 fastify.register((instance, opts, done) =&gt; {
   instance.addSchema({ $id: &#39;two&#39;, my: &#39;ciao&#39; })
@@ -332,10 +332,10 @@ fastify.get(&#39;/user&#39;, {
     },
     required: [&#39;name&#39;]
   }
-}</code></pre><p>and fail to satisfy it, the route will immediately return a response with the following payload</p><pre><code class=language-js>{ 
+}</code></pre><p>and fail to satisfy it, the route will immediately return a response with the following payload</p><pre><code class=language-js>{
   &quot;statusCode&quot;: 400,
   &quot;error&quot;: &quot;Bad Request&quot;,
-  &quot;message&quot;: &quot;body should have required property &#39;name&#39;&quot; 
+  &quot;message&quot;: &quot;body should have required property &#39;name&#39;&quot;
 }</code></pre><p>If you want to handle errors inside the route, you can specify the <code>attachValidation</code> option for your route. If there is a <em>validation error</em>, the <code>validationError</code> property of the request will contain the <code>Error</code> object with the raw <code>validation</code> result as shown below</p><pre><code class=language-js>const fastify = Fastify()
 
 fastify.post(&#39;/&#39;, { schema, attachValidation: true }, function (req, reply) {
@@ -345,7 +345,7 @@ fastify.post(&#39;/&#39;, { schema, attachValidation: true }, function (req, rep
   }
 })</code></pre><h4 id=schemaerrorformatter><code>schemaErrorFormatter</code></h4><p>If you want to format errors yourself, you can provide a sync function that must return an error as the <code>schemaErrorFormatter</code> option to Fastify when instantiating. The context function will be the Fastify server instance.</p><p><code>errors</code> is an array of Fastify schema errors <code>FastifySchemaValidationError</code>. <code>dataVar</code> is the currently validated part of the schema. (params | body | querystring | headers).</p><pre><code class=language-js>const fastify = Fastify({
   schemaErrorFormatter: (errors, dataVar) =&gt; {
-    // ... my formatting logic 
+    // ... my formatting logic
     return new Error(myErrorMessage)
   }
 })
@@ -353,13 +353,13 @@ fastify.post(&#39;/&#39;, { schema, attachValidation: true }, function (req, rep
 // or
 fastify.setSchemaErrorFormatter(function (errors, dataVar) {
   this.log.error({ err: errors }, &#39;Validation failed&#39;)
-  // ... my formatting logic 
+  // ... my formatting logic
   return new Error(myErrorMessage)
 })</code></pre><p>You can also use <a href=https://www.fastify.io/docs/latest/Server/#seterrorhandler>setErrorHandler</a> to define a custom response for validation errors such as</p><pre><code class=language-js>fastify.setErrorHandler(function (error, request, reply) {
   if (error.validation) {
      reply.status(422).send(new Error(&#39;validation failed&#39;))
   }
-})</code></pre><p>If you want custom error response in schema without headaches and quickly, you can take a look at <a href=https://github.com/epoberezkin/ajv-errors><code>ajv-errors</code></a>. Checkout the <a href=https://github.com/fastify/example/blob/master/validation-messages/custom-errors-messages.js>example</a> usage.</p><p>Below is an example showing how to add <strong>custom error messages for each property</strong> of a schema by supplying custom AJV options. Inline comments in the schema below describe how to configure it to show a different error message for each case:</p><pre><code class=language-js>const fastify = Fastify({
+})</code></pre><p>If you want custom error response in schema without headaches and quickly, you can take a look at <a href=https://github.com/epoberezkin/ajv-errors><code>ajv-errors</code></a>. Checkout the <a href=https://github.com/fastify/example/blob/HEAD/validation-messages/custom-errors-messages.js>example</a> usage.</p><p>Below is an example showing how to add <strong>custom error messages for each property</strong> of a schema by supplying custom AJV options. Inline comments in the schema below describe how to configure it to show a different error message for each case:</p><pre><code class=language-js>const fastify = Fastify({
   ajv: {
     customOptions: { jsonPointers: true },
     plugins: [
