@@ -115,7 +115,7 @@ async function main () {
   selectedReleases.latest = { ...latestRelease, name: 'latest', docsPath: 'latest' }
 
   // Add current master
-  const masterUrl = `https://github.com/${repository}/archive/master.zip`
+  const masterUrl = `https://github.com/${repository}/archive/refs/heads/main.zip`
   selectedReleases.master = {
     label: 'master',
     name: 'master',
