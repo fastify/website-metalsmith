@@ -134,6 +134,10 @@
   image: "seznam.cz.svg"
   link: "https://www.seznam.cz/"
 
+- name: "Schäffler Florian - IT-Services"
+  image: "sfits.svg"
+  link: "https://sfit.services"
+
 - name: "Swiss Dev Jobs"
   image: "swissdev-javascript-jobs-200-200.svg"
   link: "https://swissdevjobs.ch/"
