@@ -4,7 +4,7 @@ const { join, dirname, basename } = require('path')
 const { promises: fs } = require('fs')
 const { dump } = require('js-yaml')
 const clone = require('clone')
-const { fileExists } = require('./utils')
+const { copyDir, fileExists } = require('./utils')
 
 const sourceFolder = process.argv[2]
 const destFolder = process.argv[3]
@@ -35,6 +35,7 @@ async function createDocSources (releases) {
     return acc
   }, {})
   const versions = releases.map(r => r.docsPath)
+  await Promise.all(releases.map(copyResourcesFolderForRelease))
   await createDocsDataFile(join(destFolder, 'data', 'docs.yml'), { versions, toc: indexedToc, releases })
   await processDocFiles(indexedToc, latestRelease)
   await createIndexFiles(releases)
@@ -262,6 +263,16 @@ async function createEcosystemDataFile (masterReleaseDownloadPath) {
   const ecosystem = await extractEcosystemFromFile(ecosystemFile)
   await fs.writeFile(destination, dump(ecosystem), 'utf8')
   console.log(`Ecosystem file written: ${destination}`)
+}
+
+async function copyResourcesFolderForRelease (release) {
+  const folder = join(sourceFolder, release.dest)
+  const files = await fs.readdir(folder)
+  const subfolder = files.find(file => file.match(/^fastify-/))
+  const src = join(folder, subfolder, 'docs', 'resources')
+  const dest = join(destFolder, 'content', 'docs', release.docsPath, 'resources')
+
+  return copyDir(src, dest)
 }
 
 main().catch((err) => {
