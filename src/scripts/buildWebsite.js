@@ -87,7 +87,8 @@ Metalsmith(source)
   )
   .use(
     svgOptimizer({
-      plugins: [{ removeScriptElement: true }]
+      plugins: [{ removeScriptElement: true }],
+      pattern: ['**/*.svg', '!**/resources/*.*']
     })
   )
   .use(htmlMinifier())
