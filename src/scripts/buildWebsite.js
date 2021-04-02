@@ -74,7 +74,7 @@ Metalsmith(source)
   )
   .use(
     contenthash({
-      pattern: ['**/*.{js,css,png,jpg,svg}']
+      pattern: ['**/*.{js,css,png,jpg,svg}', '!**/resources/*.*']
     })
   )
   .use(
