@@ -160,6 +160,7 @@ function remapLinks (content, item) {
   const relativeLinksWithLabel = /\('?(\.\/)([\w\d.-]+)(.md)'?\s+"([\w\d.-]+)"\)/gi
   const hrefAbsoluteLinks = /href="https:\/\/github\.com\/fastify\/fastify\/blob\/master\/docs\/([\w\d.-]+)\.md/gi
   const absoluteLinks = /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/gi
+  const docResourcesLink = /\(.\/?resources\/([a-zA-Z0-9\-_]+\..+)\)/gi
   return content
     .replace(hrefAbsoluteLinks, (match, p1) => `href="/docs/${item.version}/${p1}`)
     .replace(absoluteLinks, `/docs/${item.version}`)
@@ -168,6 +169,7 @@ function remapLinks (content, item) {
     .replace(relativeLinks, (match, ...parts) => `(/docs/${item.version}/${parts[2]}${parts[3] || ''})`)
     .replace(relativeLinksWithLabel, (match, ...parts) => `(/docs/${item.version}/${parts[1]} "${parts[3]}")`)
     .replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
+    .replace(docResourcesLink, (match, p1) => `(/docs/${item.version}/resources/${p1})`)
 }
 
 async function createVersionIndexFile (release) {
