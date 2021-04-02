@@ -58,6 +58,7 @@
     "metalsmith-sass": "^1.7.0",
     "metalsmith-writemetadata": "^0.4.5",
     "mkdirp": "^1.0.4",
+    "multimatch": "^5.0.0",
     "node-sass": "^5.0.0",
     "nunjucks": "^3.2.3",
     "nunjucks-markdown-filter": "^0.1.0",
