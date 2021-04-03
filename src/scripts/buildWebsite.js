@@ -22,11 +22,11 @@ const nunjucksRenderer = require('../plugins/metalsmith-nunjucks-renderer')
 
 const markdownRenderer = new marked.Renderer()
 markdownRenderer.image = function (href, title, text) {
-  if(href.charAt(0) === '/'){
+  if (href.charAt(0) === '/') {
     href = href.substring(1)
   }
-  return `<img src="/{{ hashes['${href}'] }}" alt="${title}" title="${title}" />`;
-};
+  return `<img src="/{{ hashes['${href}'] }}" alt="${title}" title="${title}" />`
+}
 
 const source = path.resolve(
   process.argv[2] || path.join(__dirname, '..', 'website')
