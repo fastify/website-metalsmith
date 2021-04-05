@@ -5,7 +5,7 @@
 fastify.get(&#39;/&#39;, options, function (request, reply) {
   request.log.info(&#39;Some info about the current request&#39;)
   reply.send({ hello: &#39;world&#39; })
-})</code></pre><p>If you want to pass some options to the logger, just pass them to Fastify. You can find all available options in the <a href=https://github.com/pinojs/pino/blob/master/docs/api.md#pinooptions-stream>Pino documentation</a>. If you want to specify a file destination, use:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+})</code></pre><p>You can trigger new logs outside route handlers by using the Pino instance from the Fastify instance:</p><pre><code class=language-js>fastify.log.info(&#39;Something important happened!&#39;);</code></pre><p>If you want to pass some options to the logger, just pass them to Fastify. You can find all available options in the <a href=https://github.com/pinojs/pino/blob/master/docs/api.md#pinooptions-stream>Pino documentation</a>. If you want to specify a file destination, use:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   logger: {
     level: &#39;info&#39;,
     file: &#39;/path/to/file&#39; // Will use pino.destination()
