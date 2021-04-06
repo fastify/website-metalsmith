@@ -1,7 +1,10 @@
+const extname = require('path').extname
 const debug = require('debug')('metalsmith-svg-optimizer')
 const each = require('async/each')
 const SVGO = require('svgo')
 const multimatch = require('multimatch')
+
+const svg = (file) => /\.svg$/.test(extname(file))
 
 function plugin (opts) {
   debug('Initialized metalsmith-svg-optimizer')
@@ -18,6 +21,9 @@ function plugin (opts) {
     each(
       multimatch(Object.keys(files), pattern),
       (filepath, callback) => {
+        if (!svg(filepath)) {
+          return callback()
+        }
         debug('Optimize file: %s', filepath)
         const file = files[filepath]
 
