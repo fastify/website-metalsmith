@@ -14,7 +14,8 @@ fastify.get(&#39;/&#39;, function (request, reply) {
   reply.code(200).send({ hello: &#39;world&#39; })
 })
 
-fastify.listen(3000)</code></pre><p>ALPN negotiation allows support for both HTTPS and HTTP/2 over the same socket. Node core <code>req</code> and <code>res</code> objects can be either <a href=https://nodejs.org/api/http.html>HTTP/1</a> or <a href=https://nodejs.org/api/http2.html>HTTP/2</a>. <em>Fastify</em> supports this out of the box:</p><pre><code class=language-js>&#39;use strict&#39;
+fastify.listen(3000)
+</code></pre><p>ALPN negotiation allows support for both HTTPS and HTTP/2 over the same socket. Node core <code>req</code> and <code>res</code> objects can be either <a href=https://nodejs.org/api/http.html>HTTP/1</a> or <a href=https://nodejs.org/api/http2.html>HTTP/2</a>. <em>Fastify</em> supports this out of the box:</p><pre><code class=language-js>&#39;use strict&#39;
 
 const fs = require(&#39;fs&#39;)
 const path = require(&#39;path&#39;)
@@ -32,7 +33,9 @@ fastify.get(&#39;/&#39;, function (request, reply) {
   reply.code(200).send({ hello: &#39;world&#39; })
 })
 
-fastify.listen(3000)</code></pre><p>You can test your new server with:</p><pre><code>$ npx h2url https://localhost:3000</code></pre><h3 id=plain-or-insecure>Plain or insecure</h3><p>If you are building microservices, you can connect to HTTP2 in plain text, however this is not supported by browsers.</p><pre><code class=language-js>&#39;use strict&#39;
+fastify.listen(3000)
+</code></pre><p>You can test your new server with:</p><pre><code>$ npx h2url https://localhost:3000
+</code></pre><h3 id=plain-or-insecure>Plain or insecure</h3><p>If you are building microservices, you can connect to HTTP2 in plain text, however this is not supported by browsers.</p><pre><code class=language-js>&#39;use strict&#39;
 
 const fastify = require(&#39;fastify&#39;)({
   http2: true
@@ -42,7 +45,9 @@ fastify.get(&#39;/&#39;, function (request, reply) {
   reply.code(200).send({ hello: &#39;world&#39; })
 })
 
-fastify.listen(3000)</code></pre><p>You can test your new server with:</p><pre><code>$ npx h2url http://localhost:3000</code></pre></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v3.8.x/Plugins-Guide class="button prev">≪ Plugins Guide</a></div></div><div class=level-right><div class=level-item><a href=/docs/v3.8.x/LTS class="button next">Long Term Support ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+fastify.listen(3000)
+</code></pre><p>You can test your new server with:</p><pre><code>$ npx h2url http://localhost:3000
+</code></pre></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v3.8.x/Plugins-Guide class="button prev">≪ Plugins Guide</a></div></div><div class=level-right><div class=level-item><a href=/docs/v3.8.x/LTS class="button next">Long Term Support ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
   var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
   var currentMenu = document.getElementById('doc-menu-section')
   if (titles.length && currentMenu) {

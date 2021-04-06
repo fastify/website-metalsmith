@@ -35,7 +35,8 @@ const schema = {
   headers: headersJsonSchema
 }
 
-fastify.post(&#39;/the/url&#39;, { schema }, handler)</code></pre><h3 id=reuse>Reuse</h3><p>With <code>fluent-schema</code> you can manipulate your schemas in an easier and programmatic way and then reuse them thanks to the <code>addSchema()</code> method. You can refer to the schema in two different manners that are detailed in the <a href=/docs/v3.5.x/Validation-and-Serialization#adding-a-shared-schema>Validation-and-Serialization.md</a> documentation.</p><p>Here are some usage examples:</p><p><strong><code>$ref-way</code></strong>: refer to an external schema.</p><pre><code class=language-js>const addressSchema = S.object()
+fastify.post(&#39;/the/url&#39;, { schema }, handler)
+</code></pre><h3 id=reuse>Reuse</h3><p>With <code>fluent-schema</code> you can manipulate your schemas in an easier and programmatic way and then reuse them thanks to the <code>addSchema()</code> method. You can refer to the schema in two different manners that are detailed in the <a href=/docs/v3.5.x/Validation-and-Serialization#adding-a-shared-schema>Validation-and-Serialization.md</a> documentation.</p><p>Here are some usage examples:</p><p><strong><code>$ref-way</code></strong>: refer to an external schema.</p><pre><code class=language-js>const addressSchema = S.object()
   .id(&#39;#address&#39;)
   .prop(&#39;line1&#39;).required()
   .prop(&#39;line2&#39;)
@@ -56,7 +57,8 @@ const bodyJsonSchema = S.object()
 
 const schema = { body: bodyJsonSchema }
 
-fastify.post(&#39;/the/url&#39;, { schema }, handler)</code></pre><p><strong><code>replace-way</code></strong>: refer to a shared schema to replace before the validation process.</p><pre><code class=language-js>const sharedAddressSchema = {
+fastify.post(&#39;/the/url&#39;, { schema }, handler)
+</code></pre><p><strong><code>replace-way</code></strong>: refer to a shared schema to replace before the validation process.</p><pre><code class=language-js>const sharedAddressSchema = {
   $id: &#39;sharedAddress&#39;,
   type: &#39;object&#39;,
   required: [&#39;line1&#39;, &#39;country&#39;, &#39;city&#39;, &#39;zipcode&#39;],
@@ -79,7 +81,8 @@ const bodyJsonSchema = {
 
 const schema = { body: bodyJsonSchema }
 
-fastify.post(&#39;/the/url&#39;, { schema }, handler)</code></pre><p>NB: you can mix up the <code>$ref-way</code> and the <code>replace-way</code> when using <code>fastify.addSchema</code>.</p></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v3.5.x/Validation-and-Serialization class="button prev">≪ Validation and Serialization</a></div></div><div class=level-right><div class=level-item><a href=/docs/v3.5.x/Lifecycle class="button next">Lifecycle ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+fastify.post(&#39;/the/url&#39;, { schema }, handler)
+</code></pre><p>NB: you can mix up the <code>$ref-way</code> and the <code>replace-way</code> when using <code>fastify.addSchema</code>.</p></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v3.5.x/Validation-and-Serialization class="button prev">≪ Validation and Serialization</a></div></div><div class=level-right><div class=level-item><a href=/docs/v3.5.x/Lifecycle class="button next">Lifecycle ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
   var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
   var currentMenu = document.getElementById('doc-menu-section')
   if (titles.length && currentMenu) {

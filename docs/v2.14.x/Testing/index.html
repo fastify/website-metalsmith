@@ -7,14 +7,16 @@
   cookies: Object
 }, (error, response) =&gt; {
   // your tests
-})</code></pre><p><code>.inject</code> methods can also be chained by omitting the callback function:</p><pre><code class=language-js>fastify
+})
+</code></pre><p><code>.inject</code> methods can also be chained by omitting the callback function:</p><pre><code class=language-js>fastify
   .inject()
   .get(&#39;/&#39;)
   .headers({ foo: &#39;bar&#39; })
   .query({ foo: &#39;bar&#39; })
   .end((err, res) =&gt; { // the .end call will trigger the request
     console.log(res.payload)
-  })</code></pre><p>or in the promisified version</p><pre><code class=language-js>fastify
+  })
+</code></pre><p>or in the promisified version</p><pre><code class=language-js>fastify
   .inject({
     method: String,
     url: String,
@@ -28,12 +30,14 @@
   })
   .catch(err =&gt; {
     // handle error
-  })</code></pre><p>Async await is supported as well!</p><pre><code class=language-js>try {
+  })
+</code></pre><p>Async await is supported as well!</p><pre><code class=language-js>try {
   const res = await fastify.inject({ method: String, url: String, payload: Object, headers: Object })
   // your tests
 } catch (err) {
   // handle error
-}</code></pre><h4 id=example>Example:</h4><p><strong>app.js</strong></p><pre><code class=language-js>const Fastify = require(&#39;fastify&#39;)
+}
+</code></pre><h4 id=example>Example:</h4><p><strong>app.js</strong></p><pre><code class=language-js>const Fastify = require(&#39;fastify&#39;)
 
 function buildFastify () {
   const fastify = Fastify()
@@ -45,7 +49,8 @@ function buildFastify () {
   return fastify
 }
 
-module.exports = buildFastify</code></pre><p><strong>test.js</strong></p><pre><code class=language-js>const tap = require(&#39;tap&#39;)
+module.exports = buildFastify
+</code></pre><p><strong>test.js</strong></p><pre><code class=language-js>const tap = require(&#39;tap&#39;)
 const buildFastify = require(&#39;./app&#39;)
 
 tap.test(&#39;GET `/` route&#39;, t =&gt; {
@@ -66,7 +71,8 @@ tap.test(&#39;GET `/` route&#39;, t =&gt; {
     t.strictEqual(response.headers[&#39;content-type&#39;], &#39;application/json; charset=utf-8&#39;)
     t.deepEqual(response.json(), { hello: &#39;world&#39; })
   })
-})</code></pre><h3 id=testing-with-a-running-server>Testing with a running server</h3><p>Fastify can also be tested after starting the server with <code>fastify.listen()</code> or after initializing routes and plugins with <code>fastify.ready()</code>.</p><h4 id=example-1>Example:</h4><p>Uses <strong>app.js</strong> from the previous example.</p><p><strong>test-listen.js</strong> (testing with <a href=https://www.npmjs.com/package/request><code>Request</code></a>)</p><pre><code class=language-js>const tap = require(&#39;tap&#39;)
+})
+</code></pre><h3 id=testing-with-a-running-server>Testing with a running server</h3><p>Fastify can also be tested after starting the server with <code>fastify.listen()</code> or after initializing routes and plugins with <code>fastify.ready()</code>.</p><h4 id=example-1>Example:</h4><p>Uses <strong>app.js</strong> from the previous example.</p><p><strong>test-listen.js</strong> (testing with <a href=https://www.npmjs.com/package/request><code>Request</code></a>)</p><pre><code class=language-js>const tap = require(&#39;tap&#39;)
 const request = require(&#39;request&#39;)
 const buildFastify = require(&#39;./app&#39;)
 
@@ -90,7 +96,8 @@ tap.test(&#39;GET `/` route&#39;, t =&gt; {
       t.deepEqual(JSON.parse(body), { hello: &#39;world&#39; })
     })
   })
-})</code></pre><p><strong>test-ready.js</strong> (testing with <a href=https://www.npmjs.com/package/supertest><code>SuperTest</code></a>)</p><pre><code class=language-js>const tap = require(&#39;tap&#39;)
+})
+</code></pre><p><strong>test-ready.js</strong> (testing with <a href=https://www.npmjs.com/package/supertest><code>SuperTest</code></a>)</p><pre><code class=language-js>const tap = require(&#39;tap&#39;)
 const supertest = require(&#39;supertest&#39;)
 const buildFastify = require(&#39;./app&#39;)
 
@@ -106,7 +113,10 @@ tap.test(&#39;GET `/` route&#39;, async (t) =&gt; {
     .expect(200)
     .expect(&#39;Content-Type&#39;, &#39;application/json; charset=utf-8&#39;)
   t.deepEqual(response.body, { hello: &#39;world&#39; })
-})</code></pre><h3 id=how-to-inspect-tap-tests>How to inspect tap tests</h3><ol><li>Isolate your test by passing the <code>{only: true}</code> option<pre><code class=language-javascript>test(&#39;should ...&#39;, {only: true}, t =&gt; ...)</code></pre></li><li>Run <code>tap</code> using <code>npx</code><pre><code class=language-bash>&gt; npx tap -O -T --node-arg=--inspect-brk test/&lt;test-file.test.js&gt;</code></pre></li></ol><ul><li><code>-O</code> specifies to run tests with the <code>only</code> option enabled</li><li><code>-T</code> specifies not to timeout (while you&#39;re debugging)</li><li><code>--node-arg=--inspect-brk</code> will launch the node debugger</li></ul><ol start=3><li>In VS Code, create and launch a <code>Node.js: Attach</code> debug configuration. No modification should be necessary.</li></ol><p>Now you should be able to step through your test file (and the rest of <code>fastify</code>) in your code editor.</p></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v2.14.x/Plugins class="button prev">≪ Plugins</a></div></div><div class=level-right><div class=level-item><a href=/docs/v2.14.x/Benchmarking class="button next">Benchmarking ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+})
+</code></pre><h3 id=how-to-inspect-tap-tests>How to inspect tap tests</h3><ol><li>Isolate your test by passing the <code>{only: true}</code> option<pre><code class=language-javascript>test(&#39;should ...&#39;, {only: true}, t =&gt; ...)
+</code></pre></li><li>Run <code>tap</code> using <code>npx</code><pre><code class=language-bash>&gt; npx tap -O -T --node-arg=--inspect-brk test/&lt;test-file.test.js&gt;
+</code></pre></li></ol><ul><li><code>-O</code> specifies to run tests with the <code>only</code> option enabled</li><li><code>-T</code> specifies not to timeout (while you&#39;re debugging)</li><li><code>--node-arg=--inspect-brk</code> will launch the node debugger</li></ul><ol start=3><li>In VS Code, create and launch a <code>Node.js: Attach</code> debug configuration. No modification should be necessary.</li></ol><p>Now you should be able to step through your test file (and the rest of <code>fastify</code>) in your code editor.</p></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v2.14.x/Plugins class="button prev">≪ Plugins</a></div></div><div class=level-right><div class=level-item><a href=/docs/v2.14.x/Benchmarking class="button next">Benchmarking ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
   var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
   var currentMenu = document.getElementById('doc-menu-section')
   if (titles.length && currentMenu) {

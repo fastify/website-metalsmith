@@ -15,7 +15,8 @@ if (require.main === module) {
 } else {
   // required as a module =&gt; executed on aws lambda
   module.exports = init;
-}</code></pre><p>When executed in your lambda function we don&#39;t need to listen to a specific port, so we just export the wrapper function <code>init</code> in this case. The <a href=https://www.fastify.io/docs/latest/Serverless/#lambda-js><code>lambda.js</code></a> file will use this export.</p><p>When you execute your Fastify application like always, i.e. <code>node app.js</code> <em>(the detection for this could be <code>require.main === module</code>)</em>, you can normally listen to your port, so you can still run your Fastify function locally.</p><h3 id=lambdajs>lambda.js</h3><pre><code class=language-js>const awsLambdaFastify = require(&#39;aws-lambda-fastify&#39;)
+}
+</code></pre><p>When executed in your lambda function we don&#39;t need to listen to a specific port, so we just export the wrapper function <code>init</code> in this case. The <a href=https://www.fastify.io/docs/latest/Serverless/#lambda-js><code>lambda.js</code></a> file will use this export.</p><p>When you execute your Fastify application like always, i.e. <code>node app.js</code> <em>(the detection for this could be <code>require.main === module</code>)</em>, you can normally listen to your port, so you can still run your Fastify function locally.</p><h3 id=lambdajs>lambda.js</h3><pre><code class=language-js>const awsLambdaFastify = require(&#39;aws-lambda-fastify&#39;)
 const init = require(&#39;./app&#39;);
 
 const proxy = awsLambdaFastify(init())
@@ -28,7 +29,8 @@ exports.handler = proxy;
 // or
 // exports.handler = (event, context) =&gt; proxy(event, context);
 // or
-// exports.handler = async (event, context) =&gt; proxy(event, context);</code></pre><p>We just require <a href=https://github.com/fastify/aws-lambda-fastify>aws-lambda-fastify</a> (make sure you install the dependency <code>npm i --save aws-lambda-fastify</code>) and our <a href=https://www.fastify.io/docs/latest/Serverless/#app-js><code>app.js</code></a> file and call the exported <code>awsLambdaFastify</code> function with the <code>app</code> as the only parameter. The resulting <code>proxy</code> function has the correct signature to be used as lambda <code>handler</code> function. This way all the incoming events (API Gateway requests) are passed to the <code>proxy</code> function of <a href=https://github.com/fastify/aws-lambda-fastify>aws-lambda-fastify</a>.</p><h3 id=example>Example</h3><p>An example deployable with <a href=https://claudiajs.com/tutorials/serverless-express.html>claudia.js</a> can be found <a href=https://github.com/claudiajs/example-projects/tree/master/fastify-app-lambda>here</a>.</p><h3 id=considerations>Considerations</h3><ul><li>API Gateway doesn&#39;t support streams yet, so you&#39;re not able to handle <a href=https://www.fastify.io/docs/latest/Reply/#streams>streams</a>.</li><li>API Gateway has a timeout of 29 seconds, so it&#39;s important to provide a reply during this time.</li></ul><h2 id=google-cloud-run>Google Cloud Run</h2><p>Unlike AWS Lambda or Google Cloud Functions, Google Cloud Run is a serverless <strong>container</strong> environment. It&#39;s primary purpose is to provide an infrastructure-abstracted environment to run arbitrary containers. As a result, Fastify can be deployed to Google Cloud Run with little-to-no code changes from the way you would write your Fastify app normally.</p><p><em>Follow the steps below to deploy to Google Cloud Run if you are already familiar with gcloud or just follow their <a href=https://cloud.google.com/run/docs/quickstarts/build-and-deploy>quickstart</a></em>.</p><h3 id=adjust-fastfiy-server>Adjust Fastfiy server</h3><p>In order for Fastify to properly listen for requests within the container, be sure to set the correct port and address:</p><pre><code class=language-js>function build() {
+// exports.handler = async (event, context) =&gt; proxy(event, context);
+</code></pre><p>We just require <a href=https://github.com/fastify/aws-lambda-fastify>aws-lambda-fastify</a> (make sure you install the dependency <code>npm i --save aws-lambda-fastify</code>) and our <a href=https://www.fastify.io/docs/latest/Serverless/#app-js><code>app.js</code></a> file and call the exported <code>awsLambdaFastify</code> function with the <code>app</code> as the only parameter. The resulting <code>proxy</code> function has the correct signature to be used as lambda <code>handler</code> function. This way all the incoming events (API Gateway requests) are passed to the <code>proxy</code> function of <a href=https://github.com/fastify/aws-lambda-fastify>aws-lambda-fastify</a>.</p><h3 id=example>Example</h3><p>An example deployable with <a href=https://claudiajs.com/tutorials/serverless-express.html>claudia.js</a> can be found <a href=https://github.com/claudiajs/example-projects/tree/master/fastify-app-lambda>here</a>.</p><h3 id=considerations>Considerations</h3><ul><li>API Gateway doesn&#39;t support streams yet, so you&#39;re not able to handle <a href=https://www.fastify.io/docs/latest/Reply/#streams>streams</a>.</li><li>API Gateway has a timeout of 29 seconds, so it&#39;s important to provide a reply during this time.</li></ul><h2 id=google-cloud-run>Google Cloud Run</h2><p>Unlike AWS Lambda or Google Cloud Functions, Google Cloud Run is a serverless <strong>container</strong> environment. It&#39;s primary purpose is to provide an infrastructure-abstracted environment to run arbitrary containers. As a result, Fastify can be deployed to Google Cloud Run with little-to-no code changes from the way you would write your Fastify app normally.</p><p><em>Follow the steps below to deploy to Google Cloud Run if you are already familiar with gcloud or just follow their <a href=https://cloud.google.com/run/docs/quickstarts/build-and-deploy>quickstart</a></em>.</p><h3 id=adjust-fastfiy-server>Adjust Fastfiy server</h3><p>In order for Fastify to properly listen for requests within the container, be sure to set the correct port and address:</p><pre><code class=language-js>function build() {
   const fastify = Fastify({ trustProxy: true })
   return fastify
 }
@@ -58,7 +60,8 @@ module.exports = build
 
 if (require.main === module) {
   start()
-}</code></pre><h3 id=add-a-dockerfile>Add a Dockerfile</h3><p>You can add any valid <code>Dockerfile</code> that packages and runs a Node app. A basic <code>Dockerfile</code> can be found in the official <a href=https://github.com/knative/docs/blob/2d654d1fd6311750cc57187a86253c52f273d924/docs/serving/samples/hello-world/helloworld-nodejs/Dockerfile>gcloud docs</a>.</p><pre><code class=language-Dockerfile># Use the official Node.js 10 image.
+}
+</code></pre><h3 id=add-a-dockerfile>Add a Dockerfile</h3><p>You can add any valid <code>Dockerfile</code> that packages and runs a Node app. A basic <code>Dockerfile</code> can be found in the official <a href=https://github.com/knative/docs/blob/2d654d1fd6311750cc57187a86253c52f273d924/docs/serving/samples/hello-world/helloworld-nodejs/Dockerfile>gcloud docs</a>.</p><pre><code class=language-Dockerfile># Use the official Node.js 10 image.
 # https://hub.docker.com/_/node
 FROM node:10
 
@@ -77,17 +80,23 @@ RUN npm install --only=production
 COPY . .
 
 # Run the web service on container startup.
-CMD [ &quot;npm&quot;, &quot;start&quot; ]</code></pre><h3 id=add-a-dockerignore>Add a .dockerignore</h3><p>To keep build artifacts out of your container (which keeps it small and improves build times), add a <code>.dockerignore</code> file like the one below:</p><pre><code class=language-.dockerignore>Dockerfile
+CMD [ &quot;npm&quot;, &quot;start&quot; ]
+</code></pre><h3 id=add-a-dockerignore>Add a .dockerignore</h3><p>To keep build artifacts out of your container (which keeps it small and improves build times), add a <code>.dockerignore</code> file like the one below:</p><pre><code class=language-.dockerignore>Dockerfile
 README.md
 node_modules
-npm-debug.log</code></pre><h3 id=submit-build>Submit build</h3><p>Next, submit your app to be built into a Docker image by running the following command (replacing <code>PROJECT-ID</code> and <code>APP-NAME</code> with your GCP project id and an app name):</p><pre><code class=language-bash>gcloud builds submit --tag gcr.io/PROJECT-ID/APP-NAME</code></pre><h3 id=deploy-image>Deploy Image</h3><p>After your image has built, you can deploy it with the following command:</p><pre><code class=language-bash>gcloud beta run deploy --image gcr.io/PROJECT-ID/APP-NAME --platform managed</code></pre><p>Your app will be accessible from the URL GCP provides.</p><h2 id=netlify-lambda>netlify-lambda</h2><p>First, please do all preparation steps related to <strong>AWS Lambda</strong>.</p><p>Create folder called <code>functions</code> then create <code>server.js</code> (and your endpoint path will be <code>server.js</code>) inside <code>functions</code> folder.</p><h3 id=functionsserverjs>functions/server.js</h3><pre><code class=language-js>export { handler } from &#39;../lambda.js&#39;; // Change `lambda.js` path to your `lambda.js` path</code></pre><h3 id=netlifytoml>netlify.toml</h3><pre><code class=language-toml>[build]
+npm-debug.log
+</code></pre><h3 id=submit-build>Submit build</h3><p>Next, submit your app to be built into a Docker image by running the following command (replacing <code>PROJECT-ID</code> and <code>APP-NAME</code> with your GCP project id and an app name):</p><pre><code class=language-bash>gcloud builds submit --tag gcr.io/PROJECT-ID/APP-NAME
+</code></pre><h3 id=deploy-image>Deploy Image</h3><p>After your image has built, you can deploy it with the following command:</p><pre><code class=language-bash>gcloud beta run deploy --image gcr.io/PROJECT-ID/APP-NAME --platform managed
+</code></pre><p>Your app will be accessible from the URL GCP provides.</p><h2 id=netlify-lambda>netlify-lambda</h2><p>First, please do all preparation steps related to <strong>AWS Lambda</strong>.</p><p>Create folder called <code>functions</code> then create <code>server.js</code> (and your endpoint path will be <code>server.js</code>) inside <code>functions</code> folder.</p><h3 id=functionsserverjs>functions/server.js</h3><pre><code class=language-js>export { handler } from &#39;../lambda.js&#39;; // Change `lambda.js` path to your `lambda.js` path
+</code></pre><h3 id=netlifytoml>netlify.toml</h3><pre><code class=language-toml>[build]
   # This will be run the site build
   command = &quot;npm run build:functions&quot;
   # This is the directory is publishing to netlify&#39;s CDN
   # and this is directory of your front of your app
   # publish = &quot;build&quot;
   # functions build directory
-  functions = &quot;functions-build&quot; # always appends `-build` folder to your `functions` folder for builds</code></pre><h3 id=webpackconfignetlifyjs>webpack.config.netlify.js</h3><p><strong>Don&#39;t forget add this Webpack config, else a lot of problems can occur</strong></p><pre><code class=language-js>const nodeExternals = require(&#39;webpack-node-externals&#39;);
+  functions = &quot;functions-build&quot; # always appends `-build` folder to your `functions` folder for builds
+</code></pre><h3 id=webpackconfignetlifyjs>webpack.config.netlify.js</h3><p><strong>Don&#39;t forget add this Webpack config, else a lot of problems can occur</strong></p><pre><code class=language-js>const nodeExternals = require(&#39;webpack-node-externals&#39;);
 const dotenv = require(&#39;dotenv-safe&#39;);
 const webpack = require(&#39;webpack&#39;);
 
@@ -120,11 +129,13 @@ module.exports = {
       &#39;process.env.CONTEXT&#39;: env
     })
   ]
-};</code></pre><h3 id=scripts>Scripts</h3><p>Add this command to your <code>package.json</code> <em>scripts</em></p><pre><code class=language-json>&quot;scripts&quot;: {
+};
+</code></pre><h3 id=scripts>Scripts</h3><p>Add this command to your <code>package.json</code> <em>scripts</em></p><pre><code class=language-json>&quot;scripts&quot;: {
 ...
 &quot;build:functions&quot;: &quot;netlify-lambda build functions --config ./webpack.config.netlify.js&quot;
 ...
-}</code></pre><p>Then it should work fine</p><h2 id=vercel>Vercel</h2><p><a href=https://vercel.com>Vercel</a> provides zero configuration deployment for Node.js applications. In order to use now, it is as simple as configuring your <code>now.json</code> file like the following:</p><pre><code class=language-json>{
+}
+</code></pre><p>Then it should work fine</p><h2 id=vercel>Vercel</h2><p><a href=https://vercel.com>Vercel</a> provides zero configuration deployment for Node.js applications. In order to use now, it is as simple as configuring your <code>now.json</code> file like the following:</p><pre><code class=language-json>{
   &quot;version&quot;: 2,
   &quot;builds&quot;: [
     {
@@ -138,7 +149,8 @@ module.exports = {
   &quot;routes&quot;: [
     { &quot;src&quot;: &quot;/.*&quot;, &quot;dest&quot;: &quot;/api/serverless.js&quot;}
   ]
-}</code></pre><p>Then, write a <code>api/serverless.js</code> like so:</p><pre><code class=language-js>&#39;use strict&#39;
+}
+</code></pre><p>Then, write a <code>api/serverless.js</code> like so:</p><pre><code class=language-js>&#39;use strict&#39;
 
 const build = require(&#39;./index&#39;)
 
@@ -147,7 +159,8 @@ const app = build()
 module.exports = async function (req, res) {
   await app.ready()
   app.server.emit(&#39;request&#39;, req, res)
-}</code></pre><p>And a <code>api/index.js</code> file:</p><pre><code class=language-js>&#39;use strict&#39;
+}
+</code></pre><p>And a <code>api/index.js</code> file:</p><pre><code class=language-js>&#39;use strict&#39;
 
 const fastify = require(&#39;fastify&#39;)
 
@@ -165,9 +178,11 @@ function build () {
   return app
 }
 
-module.exports = build</code></pre><p>Note that you&#39;ll need to use Node 10 by setting it in <code>package.json</code>:</p><pre><code class=language-js>  &quot;engines&quot;: {
+module.exports = build
+</code></pre><p>Note that you&#39;ll need to use Node 10 by setting it in <code>package.json</code>:</p><pre><code class=language-js>  &quot;engines&quot;: {
     &quot;node&quot;: &quot;10.x&quot;
-  },</code></pre></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v3.8.x/TypeScript class="button prev">≪ TypeScript and types support</a></div></div><div class=level-right><div class=level-item><a href=/docs/v3.8.x/Recommendations class="button next">Recommendations ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+  },
+</code></pre></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v3.8.x/TypeScript class="button prev">≪ TypeScript and types support</a></div></div><div class=level-right><div class=level-item><a href=/docs/v3.8.x/Recommendations class="button next">Recommendations ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
   var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
   var currentMenu = document.getElementById('doc-menu-section')
   if (titles.length && currentMenu) {

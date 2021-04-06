@@ -73,7 +73,8 @@ const schema = {
   headers: headersJsonSchema
 }
 
-fastify.post(&#39;/the/url&#39;, { schema }, handler)</code></pre><p><em>Note that Ajv will try to <a href=https://github.com/epoberezkin/ajv#coercing-data-types>coerce</a> the values to the types specified in your schema <code>type</code> keywords, both to pass the validation and to use the correctly typed data afterwards.</em></p><p><a name=shared-schema></a></p><h4 id=adding-a-shared-schema>Adding a shared schema</h4><p>Thanks to the <code>addSchema</code> API, you can add multiple schemas to the Fastify instance and then reuse them in multiple parts of your application. As usual, this API is encapsulated.</p><p>There are two ways to reuse your shared schemas:</p><ul><li><strong><code>$ref-way</code></strong>: as described in the <a href=https://tools.ietf.org/html/draft-handrews-json-schema-01#section-8>standard</a>, you can refer to an external schema. To use it you have to <code>addSchema</code> with a valid <code>$id</code> absolute URI.</li><li><strong><code>replace-way</code></strong>: this is a Fastify utility that lets you to substitute some fields with a shared schema. To use it you have to <code>addSchema</code> with an <code>$id</code> having a relative URI fragment which is a simple string that applies only to alphanumeric chars <code>[A-Za-z0-9]</code>.</li></ul><p>Here an overview on <em>how</em> to set an <code>$id</code> and <em>how</em> references to it:</p><ul><li><code>replace-way</code><ul><li><code>myField: &#39;foobar#&#39;</code> will search for a shared schema added with <code>$id: &#39;foobar&#39;</code></li></ul></li><li><code>$ref-way</code><ul><li><code>myField: { $ref: &#39;#foo&#39;}</code> will search for field with <code>$id: &#39;#foo&#39;</code> inside the current schema</li><li><code>myField: { $ref: &#39;#/definitions/foo&#39;}</code> will search for field <code>definitions.foo</code> inside the current schema</li><li><code>myField: { $ref: &#39;http://url.com/sh.json#&#39;}</code> will search for a shared schema added with <code>$id: &#39;http://url.com/sh.json&#39;</code></li><li><code>myField: { $ref: &#39;http://url.com/sh.json#/definitions/foo&#39;}</code> will search for a shared schema added with <code>$id: &#39;http://url.com/sh.json&#39;</code> and will use the field <code>definitions.foo</code></li><li><code>myField: { $ref: &#39;http://url.com/sh.json#foo&#39;}</code> will search for a shared schema added with <code>$id: &#39;http://url.com/sh.json&#39;</code> and it will look inside of it for object with <code>$id: &#39;#foo&#39;</code></li></ul></li></ul><p>More examples:</p><p><strong><code>$ref-way</code></strong> usage examples:</p><pre><code class=language-js>fastify.addSchema({
+fastify.post(&#39;/the/url&#39;, { schema }, handler)
+</code></pre><p><em>Note that Ajv will try to <a href=https://github.com/epoberezkin/ajv#coercing-data-types>coerce</a> the values to the types specified in your schema <code>type</code> keywords, both to pass the validation and to use the correctly typed data afterwards.</em></p><p><a name=shared-schema></a></p><h4 id=adding-a-shared-schema>Adding a shared schema</h4><p>Thanks to the <code>addSchema</code> API, you can add multiple schemas to the Fastify instance and then reuse them in multiple parts of your application. As usual, this API is encapsulated.</p><p>There are two ways to reuse your shared schemas:</p><ul><li><strong><code>$ref-way</code></strong>: as described in the <a href=https://tools.ietf.org/html/draft-handrews-json-schema-01#section-8>standard</a>, you can refer to an external schema. To use it you have to <code>addSchema</code> with a valid <code>$id</code> absolute URI.</li><li><strong><code>replace-way</code></strong>: this is a Fastify utility that lets you to substitute some fields with a shared schema. To use it you have to <code>addSchema</code> with an <code>$id</code> having a relative URI fragment which is a simple string that applies only to alphanumeric chars <code>[A-Za-z0-9]</code>.</li></ul><p>Here an overview on <em>how</em> to set an <code>$id</code> and <em>how</em> references to it:</p><ul><li><code>replace-way</code><ul><li><code>myField: &#39;foobar#&#39;</code> will search for a shared schema added with <code>$id: &#39;foobar&#39;</code></li></ul></li><li><code>$ref-way</code><ul><li><code>myField: { $ref: &#39;#foo&#39;}</code> will search for field with <code>$id: &#39;#foo&#39;</code> inside the current schema</li><li><code>myField: { $ref: &#39;#/definitions/foo&#39;}</code> will search for field <code>definitions.foo</code> inside the current schema</li><li><code>myField: { $ref: &#39;http://url.com/sh.json#&#39;}</code> will search for a shared schema added with <code>$id: &#39;http://url.com/sh.json&#39;</code></li><li><code>myField: { $ref: &#39;http://url.com/sh.json#/definitions/foo&#39;}</code> will search for a shared schema added with <code>$id: &#39;http://url.com/sh.json&#39;</code> and will use the field <code>definitions.foo</code></li><li><code>myField: { $ref: &#39;http://url.com/sh.json#foo&#39;}</code> will search for a shared schema added with <code>$id: &#39;http://url.com/sh.json&#39;</code> and it will look inside of it for object with <code>$id: &#39;#foo&#39;</code></li></ul></li></ul><p>More examples:</p><p><strong><code>$ref-way</code></strong> usage examples:</p><pre><code class=language-js>fastify.addSchema({
   $id: &#39;http://example.com/common.json&#39;,
   type: &#39;object&#39;,
   properties: {
@@ -91,7 +92,8 @@ fastify.route({
     }
   },
   handler: () =&gt; {}
-})</code></pre><p><strong><code>replace-way</code></strong> usage examples:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
+})
+</code></pre><p><strong><code>replace-way</code></strong> usage examples:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
 
 fastify.addSchema({
   $id: &#39;greetings&#39;,
@@ -135,7 +137,8 @@ fastify.register((instance, opts, done) =&gt; {
   })
 
   done()
-})</code></pre><p>You can use the shared schema everywhere, as top level schema or nested inside other schemas:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
+})
+</code></pre><p>You can use the shared schema everywhere, as top level schema or nested inside other schemas:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
 
 fastify.addSchema({
   $id: &#39;greetings&#39;,
@@ -158,7 +161,8 @@ fastify.route({
     }
   },
   handler: () =&gt; {}
-})</code></pre><p><a name=get-shared-schema></a></p><h4 id=retrieving-a-copy-of-shared-schemas>Retrieving a copy of shared schemas</h4><p>The function <code>getSchemas</code> returns the shared schemas available in the selected scope:</p><pre><code class=language-js>fastify.addSchema({ $id: &#39;one&#39;, my: &#39;hello&#39; })
+})
+</code></pre><p><a name=get-shared-schema></a></p><h4 id=retrieving-a-copy-of-shared-schemas>Retrieving a copy of shared schemas</h4><p>The function <code>getSchemas</code> returns the shared schemas available in the selected scope:</p><pre><code class=language-js>fastify.addSchema({ $id: &#39;one&#39;, my: &#39;hello&#39; })
 fastify.get(&#39;/&#39;, (request, reply) =&gt; { reply.send(fastify.getSchemas()) })
 
 fastify.register((instance, opts, done) =&gt; {
@@ -171,7 +175,8 @@ fastify.register((instance, opts, done) =&gt; {
     done()
   })
   done()
-})</code></pre><p>This example will returns:</p><table><thead><tr><th>URL</th><th>Schemas</th></tr></thead><tbody><tr><td>/</td><td>one</td></tr><tr><td>/sub</td><td>one, two</td></tr><tr><td>/deep</td><td>one, two, three</td></tr></tbody></table><p><a name=ajv-plugins></a></p><h4 id=ajv-plugins>Ajv Plugins</h4><p>You can provide a list of plugins you want to use with Ajv:</p><blockquote><p>Refer to <a href=/docs/v2.12.x/Server#factory-ajv><code>ajv options</code></a> to check plugins format</p></blockquote><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+})
+</code></pre><p>This example will returns:</p><table><thead><tr><th>URL</th><th>Schemas</th></tr></thead><tbody><tr><td>/</td><td>one</td></tr><tr><td>/sub</td><td>one, two</td></tr><tr><td>/deep</td><td>one, two, three</td></tr></tbody></table><p><a name=ajv-plugins></a></p><h4 id=ajv-plugins>Ajv Plugins</h4><p>You can provide a list of plugins you want to use with Ajv:</p><blockquote><p>Refer to <a href=/docs/v2.12.x/Server#factory-ajv><code>ajv options</code></a> to check plugins format</p></blockquote><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   ajv: {
     plugins: [
       require(&#39;ajv-merge-patch&#39;)
@@ -231,13 +236,15 @@ fastify.route({
   handler (req, reply) {
     reply.send({ ok: 1 })
   }
-})</code></pre><p><a name=schema-compiler></a></p><h4 id=schema-compiler>Schema Compiler</h4><p>The <code>schemaCompiler</code> is a function that returns a function that validates the body, url parameters, headers, and query string. The default <code>schemaCompiler</code> returns a function that implements the <a href=https://ajv.js.org/ >ajv</a> validation interface. Fastify uses it internally to speed the validation up.</p><p>Fastify&#39;s <a href=https://github.com/epoberezkin/ajv#options-to-modify-validated-data>baseline ajv configuration</a> is:</p><pre><code class=language-js>{
+})
+</code></pre><p><a name=schema-compiler></a></p><h4 id=schema-compiler>Schema Compiler</h4><p>The <code>schemaCompiler</code> is a function that returns a function that validates the body, url parameters, headers, and query string. The default <code>schemaCompiler</code> returns a function that implements the <a href=https://ajv.js.org/ >ajv</a> validation interface. Fastify uses it internally to speed the validation up.</p><p>Fastify&#39;s <a href=https://github.com/epoberezkin/ajv#options-to-modify-validated-data>baseline ajv configuration</a> is:</p><pre><code class=language-js>{
   removeAdditional: true, // remove additional properties
   useDefaults: true, // replace missing properties and items with the values from corresponding default keyword
   coerceTypes: true, // change data type of data to match type keyword
   allErrors: true,   // check for all errors
   nullable: true     // support keyword &quot;nullable&quot; from Open API 3 specification.
-}</code></pre><p>This baseline configuration can be modified by providing <a href=/docs/v2.12.x/Server#factory-ajv><code>ajv.customOptions</code></a> to your Fastify factory.</p><p>If you want to change or set additional config options, you will need to create your own instance and override the existing one like:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
+}
+</code></pre><p>This baseline configuration can be modified by providing <a href=/docs/v2.12.x/Server#factory-ajv><code>ajv.customOptions</code></a> to your Fastify factory.</p><p>If you want to change or set additional config options, you will need to create your own instance and override the existing one like:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
 const Ajv = require(&#39;ajv&#39;)
 const ajv = new Ajv({
   // the fastify defaults (if needed)
@@ -255,7 +262,8 @@ fastify.setSchemaCompiler(function (schema) {
 
 // -------
 // Alternatively, you can set the schema compiler using the setter property:
-fastify.schemaCompiler = function (schema) { return ajv.compile(schema) })</code></pre><p><em><strong>Note:</strong> If you use a custom instance of any validator (even Ajv), you have to add schemas to the validator instead of fastify, since fastify&#39;s default validator is no longer used, and fastify&#39;s <code>addSchema</code> method has no idea what validator you are using.</em></p><p><a name=using-other-validation-libraries></a></p><h4 id=using-other-validation-libraries>Using other validation libraries</h4><p>The <code>schemaCompiler</code> function makes it easy to substitute <code>ajv</code> with almost any Javascript validation library (<a href=https://github.com/hapijs/joi/ >joi</a>, <a href=https://github.com/jquense/yup/ >yup</a>, ...).</p><p>However, in order to make your chosen validation engine play well with Fastify&#39;s request/response pipeline, the function returned by your <code>schemaCompiler</code> function should return an object with either :</p><ul><li>in case of validation failure: an <code>error</code> property, filled with an instance of <code>Error</code> or a string that describes the validation error</li><li>in case of validation success: an <code>value</code> property, filled with the coerced value that passed the validation</li></ul><p>The examples below are therefore equivalent:</p><pre><code class=language-js>const joi = require(&#39;joi&#39;)
+fastify.schemaCompiler = function (schema) { return ajv.compile(schema) })
+</code></pre><p><em><strong>Note:</strong> If you use a custom instance of any validator (even Ajv), you have to add schemas to the validator instead of fastify, since fastify&#39;s default validator is no longer used, and fastify&#39;s <code>addSchema</code> method has no idea what validator you are using.</em></p><p><a name=using-other-validation-libraries></a></p><h4 id=using-other-validation-libraries>Using other validation libraries</h4><p>The <code>schemaCompiler</code> function makes it easy to substitute <code>ajv</code> with almost any Javascript validation library (<a href=https://github.com/hapijs/joi/ >joi</a>, <a href=https://github.com/jquense/yup/ >yup</a>, ...).</p><p>However, in order to make your chosen validation engine play well with Fastify&#39;s request/response pipeline, the function returned by your <code>schemaCompiler</code> function should return an object with either :</p><ul><li>in case of validation failure: an <code>error</code> property, filled with an instance of <code>Error</code> or a string that describes the validation error</li><li>in case of validation success: an <code>value</code> property, filled with the coerced value that passed the validation</li></ul><p>The examples below are therefore equivalent:</p><pre><code class=language-js>const joi = require(&#39;joi&#39;)
 
 // Validation options to match ajv&#39;s baseline options used in Fastify
 const joiOptions = {
@@ -290,7 +298,8 @@ fastify.post(&#39;/the/url&#39;, {
     body: joiBodySchema
   },
   schemaCompiler: joiSchemaCompiler
-}, handler)</code></pre><pre><code class=language-js>const yup = require(&#39;yup&#39;)
+}, handler)
+</code></pre><pre><code class=language-js>const yup = require(&#39;yup&#39;)
 
 // Validation options to match ajv&#39;s baseline options used in Fastify
 const yupOptions = {
@@ -322,7 +331,8 @@ fastify.post(&#39;/the/url&#39;, {
     body: yupBodySchema
   },
   schemaCompiler: yupSchemaCompiler
-}, handler)</code></pre><h5 id=validation-messages-with-other-validation-libraries>Validation messages with other validation libraries</h5><p>Fastify&#39;s validation error messages are tightly coupled to the default validation engine: errors returned from <code>ajv</code> are eventually run through the <code>schemaErrorsText</code> function which is responsible for building human-friendly error messages. However, the <code>schemaErrorsText</code> function is written with <code>ajv</code> in mind : as a result, you may run into odd or incomplete error messages when using other validation librairies.</p><p>To circumvent this issue, you have 2 main options :</p><ol><li>make sure your validation function (returned by your custom <code>schemaCompiler</code>) returns errors in the exact same structure and format as <code>ajv</code> (although this could prove to be difficult and tricky due to differences between validation engines)</li><li>or use a custom <code>errorHandler</code> to intercept and format your &#39;custom&#39; validation errors</li></ol><p>To help you in writing a custom <code>errorHandler</code>, Fastify adds 2 properties to all validation errors:</p><ul><li>validation: the content of the <code>error</code> property of the object returned by the validation function (returned by your custom <code>schemaCompiler</code>)</li><li>validationContext: the &#39;context&#39; (body, params, query, headers) where the validation error occurred</li></ul><p>A very contrived example of such a custom <code>errorHandler</code> handling validation errors is shown below:</p><pre><code class=language-js>const errorHandler = (error, request, reply) =&gt; {
+}, handler)
+</code></pre><h5 id=validation-messages-with-other-validation-libraries>Validation messages with other validation libraries</h5><p>Fastify&#39;s validation error messages are tightly coupled to the default validation engine: errors returned from <code>ajv</code> are eventually run through the <code>schemaErrorsText</code> function which is responsible for building human-friendly error messages. However, the <code>schemaErrorsText</code> function is written with <code>ajv</code> in mind : as a result, you may run into odd or incomplete error messages when using other validation librairies.</p><p>To circumvent this issue, you have 2 main options :</p><ol><li>make sure your validation function (returned by your custom <code>schemaCompiler</code>) returns errors in the exact same structure and format as <code>ajv</code> (although this could prove to be difficult and tricky due to differences between validation engines)</li><li>or use a custom <code>errorHandler</code> to intercept and format your &#39;custom&#39; validation errors</li></ol><p>To help you in writing a custom <code>errorHandler</code>, Fastify adds 2 properties to all validation errors:</p><ul><li>validation: the content of the <code>error</code> property of the object returned by the validation function (returned by your custom <code>schemaCompiler</code>)</li><li>validationContext: the &#39;context&#39; (body, params, query, headers) where the validation error occurred</li></ul><p>A very contrived example of such a custom <code>errorHandler</code> handling validation errors is shown below:</p><pre><code class=language-js>const errorHandler = (error, request, reply) =&gt; {
 
   const statusCode = error.statusCode
   let response
@@ -346,7 +356,8 @@ fastify.post(&#39;/the/url&#39;, {
 
   reply.status(statusCode).send(response)
 
-}</code></pre><p><a name=schema-resolver></a></p><h4 id=schema-resolver>Schema Resolver</h4><p>The <code>schemaResolver</code> is a function that works together with the <code>schemaCompiler</code>: you can&#39;t use it with the default schema compiler. This feature is useful when you use complex schemas with <code>$ref</code> keyword in your routes and a custom validator.</p><p>This is needed because all the schemas you add to your custom compiler are unknown to Fastify but it need to resolve the <code>$ref</code> paths.</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
+}
+</code></pre><p><a name=schema-resolver></a></p><h4 id=schema-resolver>Schema Resolver</h4><p>The <code>schemaResolver</code> is a function that works together with the <code>schemaCompiler</code>: you can&#39;t use it with the default schema compiler. This feature is useful when you use complex schemas with <code>$ref</code> keyword in your routes and a custom validator.</p><p>This is needed because all the schemas you add to your custom compiler are unknown to Fastify but it need to resolve the <code>$ref</code> paths.</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
 const Ajv = require(&#39;ajv&#39;)
 const ajv = new Ajv()
 
@@ -394,7 +405,8 @@ fastify.route({
   handler (req, reply) {
     reply.send({ foo: &#39;bar&#39; })
   }
-})</code></pre><p><a name=serialization></a></p><h3 id=serialization>Serialization</h3><p>Usually you will send your data to the clients via JSON, and Fastify has a powerful tool to help you, <a href=https://www.npmjs.com/package/fast-json-stringify>fast-json-stringify</a>, which is used if you have provided an output schema in the route options. We encourage you to use an output schema, as it will increase your throughput by 100-400% depending on your payload and will prevent accidental disclosure of sensitive information.</p><p>Example:</p><pre><code class=language-js>const schema = {
+})
+</code></pre><p><a name=serialization></a></p><h3 id=serialization>Serialization</h3><p>Usually you will send your data to the clients via JSON, and Fastify has a powerful tool to help you, <a href=https://www.npmjs.com/package/fast-json-stringify>fast-json-stringify</a>, which is used if you have provided an output schema in the route options. We encourage you to use an output schema, as it will increase your throughput by 100-400% depending on your payload and will prevent accidental disclosure of sensitive information.</p><p>Example:</p><pre><code class=language-js>const schema = {
   response: {
     200: {
       type: &#39;object&#39;,
@@ -406,7 +418,8 @@ fastify.route({
   }
 }
 
-fastify.post(&#39;/the/url&#39;, { schema }, handler)</code></pre><p>As you can see, the response schema is based on the status code. If you want to use the same schema for multiple status codes, you can use <code>&#39;2xx&#39;</code>, for example:</p><pre><code class=language-js>const schema = {
+fastify.post(&#39;/the/url&#39;, { schema }, handler)
+</code></pre><p>As you can see, the response schema is based on the status code. If you want to use the same schema for multiple status codes, you can use <code>&#39;2xx&#39;</code>, for example:</p><pre><code class=language-js>const schema = {
   response: {
     &#39;2xx&#39;: {
       type: &#39;object&#39;,
@@ -424,7 +437,8 @@ fastify.post(&#39;/the/url&#39;, { schema }, handler)</code></pre><p>As you can 
   }
 }
 
-fastify.post(&#39;/the/url&#39;, { schema }, handler)</code></pre><p><em>If you need a custom serializer in a very specific part of your code, you can set one with <code>reply.serializer(...)</code>.</em></p><h3 id=error-handling>Error Handling</h3><p>When schema validation fails for a request, Fastify will automtically return a status 400 response including the result from the validator in the payload. As an example, if you have the following schema for your route</p><pre><code class=language-js>const schema = {
+fastify.post(&#39;/the/url&#39;, { schema }, handler)
+</code></pre><p><em>If you need a custom serializer in a very specific part of your code, you can set one with <code>reply.serializer(...)</code>.</em></p><h3 id=error-handling>Error Handling</h3><p>When schema validation fails for a request, Fastify will automtically return a status 400 response including the result from the validator in the payload. As an example, if you have the following schema for your route</p><pre><code class=language-js>const schema = {
   body: {
     type: &#39;object&#39;,
     properties: {
@@ -432,23 +446,27 @@ fastify.post(&#39;/the/url&#39;, { schema }, handler)</code></pre><p><em>If you 
     },
     required: [&#39;name&#39;]
   }
-}</code></pre><p>and fail to satisfy it, the route will immediately return a response with the following payload</p><pre><code class=language-js>{
+}
+</code></pre><p>and fail to satisfy it, the route will immediately return a response with the following payload</p><pre><code class=language-js>{
   &quot;statusCode&quot;: 400,
   &quot;error&quot;: &quot;Bad Request&quot;,
   &quot;message&quot;: &quot;body should have required property &#39;name&#39;&quot;
-}</code></pre><p>If you want to handle errors inside the route, you can specify the <code>attachValidation</code> option for your route. If there is a validation error, the <code>validationError</code> property of the request will contain the <code>Error</code> object with the raw <code>validation</code> result as shown below</p><pre><code class=language-js>const fastify = Fastify()
+}
+</code></pre><p>If you want to handle errors inside the route, you can specify the <code>attachValidation</code> option for your route. If there is a validation error, the <code>validationError</code> property of the request will contain the <code>Error</code> object with the raw <code>validation</code> result as shown below</p><pre><code class=language-js>const fastify = Fastify()
 
 fastify.post(&#39;/&#39;, { schema, attachValidation: true }, function (req, reply) {
   if (req.validationError) {
     // `req.validationError.validation` contains the raw validation error
     reply.code(400).send(req.validationError)
   }
-})</code></pre><p>You can also use <a href=https://www.fastify.io/docs/latest/Server/#seterrorhandler>setErrorHandler</a> to define a custom response for validation errors such as</p><pre><code class=language-js>fastify.setErrorHandler(function (error, request, reply) {
+})
+</code></pre><p>You can also use <a href=https://www.fastify.io/docs/latest/Server/#seterrorhandler>setErrorHandler</a> to define a custom response for validation errors such as</p><pre><code class=language-js>fastify.setErrorHandler(function (error, request, reply) {
   if (error.validation) {
      // error.validationContext can be on of [body, params, querystring, headers]
      reply.status(422).send(new Error(`validation failed of the ${error.validationContext}`))
   }
-})</code></pre><p>If you want custom error response in schema without headaches and quickly, you can take a look at <a href=https://github.com/epoberezkin/ajv-errors>here</a></p><h3 id=json-schema-and-shared-schema-support>JSON Schema and Shared Schema support</h3><p>JSON Schema has some type of utilities in order to optimize your schemas that, in conjuction with the Fastify&#39;s shared schema, let you reuse all your schemas easily.</p><table><thead><tr><th>Use Case</th><th>Validator</th><th>Serializer</th></tr></thead><tbody><tr><td>shared schema</td><td>✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to <code>$id</code></td><td>️️✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to <code>/definitions</code></td><td>✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to shared schema <code>$id</code></td><td>✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to shared schema <code>/definitions</code></td><td>✔️</td><td>✔️</td></tr></tbody></table><h4 id=examples>Examples</h4><pre><code class=language-js>// Usage of the Shared Schema feature
+})
+</code></pre><p>If you want custom error response in schema without headaches and quickly, you can take a look at <a href=https://github.com/epoberezkin/ajv-errors>here</a></p><h3 id=json-schema-and-shared-schema-support>JSON Schema and Shared Schema support</h3><p>JSON Schema has some type of utilities in order to optimize your schemas that, in conjuction with the Fastify&#39;s shared schema, let you reuse all your schemas easily.</p><table><thead><tr><th>Use Case</th><th>Validator</th><th>Serializer</th></tr></thead><tbody><tr><td>shared schema</td><td>✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to <code>$id</code></td><td>️️✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to <code>/definitions</code></td><td>✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to shared schema <code>$id</code></td><td>✔️</td><td>✔️</td></tr><tr><td><code>$ref</code> to shared schema <code>/definitions</code></td><td>✔️</td><td>✔️</td></tr></tbody></table><h4 id=examples>Examples</h4><pre><code class=language-js>// Usage of the Shared Schema feature
 fastify.addSchema({
   $id: &#39;sharedAddress&#39;,
   type: &#39;object&#39;,
@@ -463,7 +481,8 @@ const sharedSchema = {
     home: &#39;sharedAddress#&#39;,
     work: &#39;sharedAddress#&#39;
   }
-}</code></pre><pre><code class=language-js>// Usage of $ref to $id in same JSON Schema
+}
+</code></pre><pre><code class=language-js>// Usage of $ref to $id in same JSON Schema
 const refToId = {
   type: &#39;object&#39;,
   definitions: {
@@ -479,7 +498,8 @@ const refToId = {
     home: { $ref: &#39;#address&#39; },
     work: { $ref: &#39;#address&#39; }
   }
-}</code></pre><pre><code class=language-js>// Usage of $ref to /definitions in same JSON Schema
+}
+</code></pre><pre><code class=language-js>// Usage of $ref to /definitions in same JSON Schema
 const refToDefinitions = {
   type: &#39;object&#39;,
   definitions: {
@@ -495,7 +515,8 @@ const refToDefinitions = {
     home: { $ref: &#39;#/definitions/foo&#39; },
     work: { $ref: &#39;#/definitions/foo&#39; }
   }
-}</code></pre><pre><code class=language-js>// Usage $ref to a shared schema $id as external schema
+}
+</code></pre><pre><code class=language-js>// Usage $ref to a shared schema $id as external schema
 fastify.addSchema({
   $id: &#39;http://foo/common.json&#39;,
   type: &#39;object&#39;,
@@ -516,7 +537,8 @@ const refToSharedSchemaId = {
     home: { $ref: &#39;http://foo/common.json#address&#39; },
     work: { $ref: &#39;http://foo/common.json#address&#39; }
   }
-}</code></pre><pre><code class=language-js>// Usage $ref to a shared schema /definitions as external schema
+}
+</code></pre><pre><code class=language-js>// Usage $ref to a shared schema /definitions as external schema
 fastify.addSchema({
   $id: &#39;http://foo/common.json&#39;,
   type: &#39;object&#39;,
@@ -536,7 +558,8 @@ const refToSharedSchemaDefinitions = {
     home: { $ref: &#39;http://foo/common.json#/definitions/foo&#39; },
     work: { $ref: &#39;http://foo/common.json#/definitions/foo&#39; }
   }
-}</code></pre><p><a name=resources></a></p><h3 id=resources>Resources</h3><ul><li><a href=http://json-schema.org/ >JSON Schema</a></li><li><a href=https://spacetelescope.github.io/understanding-json-schema/ >Understanding JSON schema</a></li><li><a href=https://github.com/fastify/fast-json-stringify>fast-json-stringify documentation</a></li><li><a href=https://github.com/epoberezkin/ajv/blob/master/README.md>Ajv documentation</a></li><li><a href=https://github.com/epoberezkin/ajv-i18n>Ajv i18n</a></li><li><a href=https://github.com/epoberezkin/ajv-errors>Ajv custom errors</a></li><li>Custom error handling with core methods with error file dumping <a href=https://github.com/fastify/example/tree/master/validation-messages>example</a></li></ul></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v2.12.x/Decorators class="button prev">≪ Decorators</a></div></div><div class=level-right><div class=level-item><a href=/docs/v2.12.x/Fluent-Schema class="button next">Fluent Schema ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+}
+</code></pre><p><a name=resources></a></p><h3 id=resources>Resources</h3><ul><li><a href=http://json-schema.org/ >JSON Schema</a></li><li><a href=https://spacetelescope.github.io/understanding-json-schema/ >Understanding JSON schema</a></li><li><a href=https://github.com/fastify/fast-json-stringify>fast-json-stringify documentation</a></li><li><a href=https://github.com/epoberezkin/ajv/blob/master/README.md>Ajv documentation</a></li><li><a href=https://github.com/epoberezkin/ajv-i18n>Ajv i18n</a></li><li><a href=https://github.com/epoberezkin/ajv-errors>Ajv custom errors</a></li><li>Custom error handling with core methods with error file dumping <a href=https://github.com/fastify/example/tree/master/validation-messages>example</a></li></ul></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v2.12.x/Decorators class="button prev">≪ Decorators</a></div></div><div class=level-right><div class=level-item><a href=/docs/v2.12.x/Fluent-Schema class="button next">Fluent Schema ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
   var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
   var currentMenu = document.getElementById('doc-menu-section')
   if (titles.length && currentMenu) {

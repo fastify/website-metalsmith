@@ -16,13 +16,15 @@ fastify.addContentTypeParser(&#39;application/jsoff&#39;, async function (reques
   var res = await jsoffParserAsync(payload)
 
   return res
-})</code></pre><p>You can also use the <code>hasContentTypeParser</code> API to find if a specific content type parser already exists.</p><pre><code class=language-js>if (!fastify.hasContentTypeParser(&#39;application/jsoff&#39;)){
+})
+</code></pre><p>You can also use the <code>hasContentTypeParser</code> API to find if a specific content type parser already exists.</p><pre><code class=language-js>if (!fastify.hasContentTypeParser(&#39;application/jsoff&#39;)){
   fastify.addContentTypeParser(&#39;application/jsoff&#39;, function (request, payload, done) {
     jsoffParser(payload, function (err, body) {
       done(err, body)
     })
   })
-}</code></pre><p><strong>Notice</strong>: The old syntaxes <code>function(req, done)</code> and <code>async function(req)</code> for the parser are still supported but they are deprecated.</p><h4 id=body-parser>Body Parser</h4><p>You can parse the body of a request in two ways. The first one is shown above: you add a custom content type parser and handle the request stream. In the second one, you should pass a <code>parseAs</code> option to the <code>addContentTypeParser</code> API, where you declare how you want to get the body. It could be of type <code>&#39;string&#39;</code> or <code>&#39;buffer&#39;</code>. If you use the <code>parseAs</code> option, Fastify will internally handle the stream and perform some checks, such as the <a href=/docs/v3.4.x/Server#factory-body-limit>maximum size</a> of the body and the content length. If the limit is exceeded the custom parser will not be invoked.</p><pre><code class=language-js>fastify.addContentTypeParser(&#39;application/json&#39;, { parseAs: &#39;string&#39; }, function (req, body, done) {
+}
+</code></pre><p><strong>Notice</strong>: The old syntaxes <code>function(req, done)</code> and <code>async function(req)</code> for the parser are still supported but they are deprecated.</p><h4 id=body-parser>Body Parser</h4><p>You can parse the body of a request in two ways. The first one is shown above: you add a custom content type parser and handle the request stream. In the second one, you should pass a <code>parseAs</code> option to the <code>addContentTypeParser</code> API, where you declare how you want to get the body. It could be of type <code>&#39;string&#39;</code> or <code>&#39;buffer&#39;</code>. If you use the <code>parseAs</code> option, Fastify will internally handle the stream and perform some checks, such as the <a href=/docs/v3.4.x/Server#factory-body-limit>maximum size</a> of the body and the content length. If the limit is exceeded the custom parser will not be invoked.</p><pre><code class=language-js>fastify.addContentTypeParser(&#39;application/json&#39;, { parseAs: &#39;string&#39; }, function (req, body, done) {
   try {
     var json = JSON.parse(body)
     done(null, json)
@@ -30,17 +32,21 @@ fastify.addContentTypeParser(&#39;application/jsoff&#39;, async function (reques
     err.statusCode = 400
     done(err, undefined)
   }
-})</code></pre><p>See <a href=../examples/parser.js><code>example/parser.js</code></a> for an example.</p><h5 id=custom-parser-options>Custom Parser Options</h5><ul><li><code>parseAs</code> (string): Either <code>&#39;string&#39;</code> or <code>&#39;buffer&#39;</code> to designate how the incoming data should be collected. Default: <code>&#39;buffer&#39;</code>.</li><li><code>bodyLimit</code> (number): The maximum payload size, in bytes, that the custom parser will accept. Defaults to the global body limit passed to the <a href=/docs/v3.4.x/Server#bodylimit><code>Fastify factory function</code></a>.</li></ul><h4 id=catch-all>Catch-All</h4><p>There are some cases where you need to catch all requests regardless of their content type. With Fastify, you can just use the <code>&#39;*&#39;</code> content type.</p><pre><code class=language-js>fastify.addContentTypeParser(&#39;*&#39;, function (request, payload, done) {
+})
+</code></pre><p>See <a href=../examples/parser.js><code>example/parser.js</code></a> for an example.</p><h5 id=custom-parser-options>Custom Parser Options</h5><ul><li><code>parseAs</code> (string): Either <code>&#39;string&#39;</code> or <code>&#39;buffer&#39;</code> to designate how the incoming data should be collected. Default: <code>&#39;buffer&#39;</code>.</li><li><code>bodyLimit</code> (number): The maximum payload size, in bytes, that the custom parser will accept. Defaults to the global body limit passed to the <a href=/docs/v3.4.x/Server#bodylimit><code>Fastify factory function</code></a>.</li></ul><h4 id=catch-all>Catch-All</h4><p>There are some cases where you need to catch all requests regardless of their content type. With Fastify, you can just use the <code>&#39;*&#39;</code> content type.</p><pre><code class=language-js>fastify.addContentTypeParser(&#39;*&#39;, function (request, payload, done) {
   var data = &#39;&#39;
   payload.on(&#39;data&#39;, chunk =&gt; { data += chunk })
   payload.on(&#39;end&#39;, () =&gt; {
     done(null, data)
   })
-})</code></pre><p>Using this, all requests that do not have a corresponding content type parser will be handled by the specified function.</p><p>This is also useful for piping the request stream. You can define a content parser like:</p><pre><code class=language-js>fastify.addContentTypeParser(&#39;*&#39;, function (request, payload, done) {
+})
+</code></pre><p>Using this, all requests that do not have a corresponding content type parser will be handled by the specified function.</p><p>This is also useful for piping the request stream. You can define a content parser like:</p><pre><code class=language-js>fastify.addContentTypeParser(&#39;*&#39;, function (request, payload, done) {
   done()
-})</code></pre><p>and then access the core HTTP request directly for piping it where you want:</p><pre><code class=language-js>app.post(&#39;/hello&#39;, (request, reply) =&gt; {
+})
+</code></pre><p>and then access the core HTTP request directly for piping it where you want:</p><pre><code class=language-js>app.post(&#39;/hello&#39;, (request, reply) =&gt; {
   reply.send(request.raw)
-})</code></pre><p>Here is a complete example that logs incoming <a href=http://jsonlines.org/ >json line</a> objects:</p><pre><code class=language-js>const split2 = require(&#39;split2&#39;)
+})
+</code></pre><p>Here is a complete example that logs incoming <a href=http://jsonlines.org/ >json line</a> objects:</p><pre><code class=language-js>const split2 = require(&#39;split2&#39;)
 const pump = require(&#39;pump&#39;)
 
 fastify.addContentTypeParser(&#39;*&#39;, (request, payload, done) =&gt; {
@@ -53,7 +59,8 @@ fastify.route({
   handler: (req, res) =&gt; {
     req.body.on(&#39;data&#39;, d =&gt; console.log(d)) // log every incoming object
   }
-})</code></pre><p>For piping file uploads you may want to checkout <a href=https://github.com/fastify/fastify-multipart>this plugin</a>.</p></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v3.4.x/Errors class="button prev">≪ Errors</a></div></div><div class=level-right><div class=level-item><a href=/docs/v3.4.x/Plugins class="button next">Plugins ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+})
+</code></pre><p>For piping file uploads you may want to checkout <a href=https://github.com/fastify/fastify-multipart>this plugin</a>.</p></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v3.4.x/Errors class="button prev">≪ Errors</a></div></div><div class=level-right><div class=level-item><a href=/docs/v3.4.x/Plugins class="button next">Plugins ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
   var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
   var currentMenu = document.getElementById('doc-menu-section')
   if (titles.length && currentMenu) {

@@ -5,7 +5,8 @@
 fastify.get(&#39;/&#39;, options, function (request, reply) {
   request.log.info(&#39;Some info about the current request&#39;)
   reply.send({ hello: &#39;world&#39; })
-})</code></pre><p>If you want to pass some options to the logger, just pass the logger option to Fastify. You can find all the options in the <a href=https://github.com/pinojs/pino/blob/master/docs/api.md#pinooptions-stream>Pino documentation</a>. If you want to specify a file destination, use:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+})
+</code></pre><p>If you want to pass some options to the logger, just pass the logger option to Fastify. You can find all the options in the <a href=https://github.com/pinojs/pino/blob/master/docs/api.md#pinooptions-stream>Pino documentation</a>. If you want to specify a file destination, use:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   logger: {
     level: &#39;info&#39;,
     file: &#39;/path/to/file&#39; // will use pino.destination()
@@ -15,7 +16,8 @@ fastify.get(&#39;/&#39;, options, function (request, reply) {
 fastify.get(&#39;/&#39;, options, function (request, reply) {
   request.log.info(&#39;Some info about the current request&#39;)
   reply.send({ hello: &#39;world&#39; })
-})</code></pre><p>If you want to pass a custom stream to the Pino instance, just add the stream field to the logger object.</p><pre><code class=language-js>const split = require(&#39;split2&#39;)
+})
+</code></pre><p>If you want to pass a custom stream to the Pino instance, just add the stream field to the logger object.</p><pre><code class=language-js>const split = require(&#39;split2&#39;)
 const stream = split(JSON.parse)
 
 const fastify = require(&#39;fastify&#39;)({
@@ -23,7 +25,8 @@ const fastify = require(&#39;fastify&#39;)({
     level: &#39;info&#39;,
     stream: stream
   }
-})</code></pre><p><a name=logging-request-id></a></p><p>By default fastify adds an id to every request for easier tracking. If the &quot;request-id&quot; header is present its value is used, otherwise a new incremental id is generated. See Fastify Factory <a href=/docs/v2.6.x/Server#factory-request-id-header><code>requestIdHeader</code></a> and Fastify Factory <a href=/docs/v2.6.x/Server#gen-request-id><code>genReqId</code></a> for customization options.</p><p>The default logger is configured with a set of standard serializers that serialize objects with <code>req</code>, <code>res</code>, and <code>err</code> properties. This behavior can be customized by specifying custom serializers.</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+})
+</code></pre><p><a name=logging-request-id></a></p><p>By default fastify adds an id to every request for easier tracking. If the &quot;request-id&quot; header is present its value is used, otherwise a new incremental id is generated. See Fastify Factory <a href=/docs/v2.6.x/Server#factory-request-id-header><code>requestIdHeader</code></a> and Fastify Factory <a href=/docs/v2.6.x/Server#gen-request-id><code>genReqId</code></a> for customization options.</p><p>The default logger is configured with a set of standard serializers that serialize objects with <code>req</code>, <code>res</code>, and <code>err</code> properties. This behavior can be customized by specifying custom serializers.</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   logger: {
     serializers: {
       req: function (req) {
@@ -31,7 +34,8 @@ const fastify = require(&#39;fastify&#39;)({
       }
     }
   }
-})</code></pre><p>For example, the response payload and headers could be logged using the approach below (even if it is <em>not recommended</em>):</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+})
+</code></pre><p>For example, the response payload and headers could be logged using the approach below (even if it is <em>not recommended</em>):</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   logger: {
     prettyPrint: true,
     serializers: {
@@ -56,12 +60,14 @@ const fastify = require(&#39;fastify&#39;)({
       }
     }
   }
-});</code></pre><p><strong>Note</strong>: The body not can serialize inside <code>req</code> method, because the request is serialized when we create the child logger. At that time, the body is not parsed yet.</p><p>See a approach to log <code>req.body</code></p><pre><code class=language-js>app.addHook(&#39;preHandler&#39;, function (req, reply, next) {
+});
+</code></pre><p><strong>Note</strong>: The body not can serialize inside <code>req</code> method, because the request is serialized when we create the child logger. At that time, the body is not parsed yet.</p><p>See a approach to log <code>req.body</code></p><pre><code class=language-js>app.addHook(&#39;preHandler&#39;, function (req, reply, next) {
   if (req.body) {
     req.log.info({ body: req.body }, &#39;parsed body&#39;)
   }
   next()
-})</code></pre><p><em>This option will be ignored by any logger other than Pino.</em></p><p>You can also supply your own logger instance. Instead of passing configuration options, simply pass the instance. The logger you supply must conform to the Pino interface; that is, it must have the following methods: <code>info</code>, <code>error</code>, <code>debug</code>, <code>fatal</code>, <code>warn</code>, <code>trace</code>, <code>child</code>.</p><p>Example:</p><pre><code class=language-js>const log = require(&#39;pino&#39;)({ level: &#39;info&#39; })
+})
+</code></pre><p><em>This option will be ignored by any logger other than Pino.</em></p><p>You can also supply your own logger instance. Instead of passing configuration options, simply pass the instance. The logger you supply must conform to the Pino interface; that is, it must have the following methods: <code>info</code>, <code>error</code>, <code>debug</code>, <code>fatal</code>, <code>warn</code>, <code>trace</code>, <code>child</code>.</p><p>Example:</p><pre><code class=language-js>const log = require(&#39;pino&#39;)({ level: &#39;info&#39; })
 const fastify = require(&#39;fastify&#39;)({ logger: log })
 
 log.info(&#39;does not have request information&#39;)
@@ -69,7 +75,8 @@ log.info(&#39;does not have request information&#39;)
 fastify.get(&#39;/&#39;, function (request, reply) {
   request.log.info(&#39;includes request information, but is the same logger instance as `log`&#39;)
   reply.send({ hello: &#39;world&#39; })
-})</code></pre><p><em>The logger instance for the current request is available in every part of the <a href=/docs/v2.6.x/Lifecycle>lifecycle</a>.</em></p><h2 id=log-redaction>Log Redaction</h2><p><a href=https://getpino.io>Pino</a> supports low-overhead log redaction for obscuring values of specific properties in recorded logs. As an example, we might want to log all the HTTP headers minus the <code>Authorization</code> header for security concerns:</p><pre><code class=language-js>const fastify = Fastify({
+})
+</code></pre><p><em>The logger instance for the current request is available in every part of the <a href=/docs/v2.6.x/Lifecycle>lifecycle</a>.</em></p><h2 id=log-redaction>Log Redaction</h2><p><a href=https://getpino.io>Pino</a> supports low-overhead log redaction for obscuring values of specific properties in recorded logs. As an example, we might want to log all the HTTP headers minus the <code>Authorization</code> header for security concerns:</p><pre><code class=language-js>const fastify = Fastify({
   logger: {
     stream: stream,
     redact: [&#39;req.headers.authorization&#39;],
@@ -87,7 +94,8 @@ fastify.get(&#39;/&#39;, function (request, reply) {
       }
     }
   }
-})</code></pre><p>See <a href=https://getpino.io/#/docs/redaction>https://getpino.io/#/docs/redaction</a> for more details.</p></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v2.6.x/Routes class="button prev">≪ Routes</a></div></div><div class=level-right><div class=level-item><a href=/docs/v2.6.x/Middlewares class="button next">Middlewares ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+})
+</code></pre><p>See <a href=https://getpino.io/#/docs/redaction>https://getpino.io/#/docs/redaction</a> for more details.</p></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v2.6.x/Routes class="button prev">≪ Routes</a></div></div><div class=level-right><div class=level-item><a href=/docs/v2.6.x/Middlewares class="button next">Middlewares ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
   var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
   var currentMenu = document.getElementById('doc-menu-section')
   if (titles.length && currentMenu) {

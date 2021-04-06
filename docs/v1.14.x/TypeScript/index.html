@@ -24,7 +24,8 @@ const opts: fastify.RouteShorthandOptions = {
 server.get(&#39;/ping&#39;, opts, (request, reply) =&gt; {
   console.log(reply.res) // this is the http.ServerResponse with correct typings!
   reply.code(200).send({ pong: &#39;it worked!&#39; })
-})</code></pre><p><a id=generic-parameters></a></p><h2 id=generic-parameters>Generic Parameters</h2><p>Since you can validate the querystring, params, body, and headers, you can also override the default types of those values on the request interface:</p><pre><code class=language-ts>import * as fastify from &#39;fastify&#39;
+})
+</code></pre><p><a id=generic-parameters></a></p><h2 id=generic-parameters>Generic Parameters</h2><p>Since you can validate the querystring, params, body, and headers, you can also override the default types of those values on the request interface:</p><pre><code class=language-ts>import * as fastify from &#39;fastify&#39;
 
 const server = fastify({})
 
@@ -87,7 +88,8 @@ server.get&lt;Query, Params, Body, Headers&gt;(&#39;/ping/:bar&#39;, opts, (requ
   console.log(request.body) // this is of type Body!
   console.log(request.headers) // this is of type Headers!
   reply.code(200).send({ pong: &#39;it worked!&#39; })
-})</code></pre><p>All generic types are optional, so you can also pass types for the parts you validate with schemas:</p><pre><code class=language-ts>import * as fastify from &#39;fastify&#39;
+})
+</code></pre><p>All generic types are optional, so you can also pass types for the parts you validate with schemas:</p><pre><code class=language-ts>import * as fastify from &#39;fastify&#39;
 
 const server = fastify({})
 
@@ -126,7 +128,8 @@ server.get&lt;unknown, Params, unknown, unknown&gt;(&#39;/ping/:bar&#39;, opts, 
   console.log(request.body) // this is of type unknown!
   console.log(request.headers) // this is of type unknown!
   reply.code(200).send({ pong: &#39;it worked!&#39; })
-})</code></pre><p><a id=http-prototypes></a></p><h2 id=http-prototypes>HTTP Prototypes</h2><p>By default, fastify will determine which version of http is being used based on the options you pass to it. If for any reason you need to override this you can do so as shown below:</p><pre><code class=language-ts>interface CustomIncomingMessage extends http.IncomingMessage {
+})
+</code></pre><p><a id=http-prototypes></a></p><h2 id=http-prototypes>HTTP Prototypes</h2><p>By default, fastify will determine which version of http is being used based on the options you pass to it. If for any reason you need to override this you can do so as shown below:</p><pre><code class=language-ts>interface CustomIncomingMessage extends http.IncomingMessage {
   getClientDeviceType: () =&gt; string
 }
 
@@ -138,7 +141,9 @@ server.get(&#39;/ping&#39;, (request, reply) =&gt; {
   const clientDeviceType = request.raw.getClientDeviceType()
 
   reply.send({ clientDeviceType: `you called this endpoint from a ${clientDeviceType}` })
-})</code></pre><p>In this example we pass a modified <code>http.IncomingMessage</code> interface since it has been extended elsewhere in our application.</p><p><a id=contributing></a></p><h2 id=contributing>Contributing</h2><p>TypeScript related changes can be considered to fall into one of two categories:</p><ul><li>Core - The typings bundled with fastify</li><li>Plugins - Fastify ecosystem plugins</li></ul><p>Make sure to read our <a href=https://github.com/fastify/fastify/blob/master/CONTRIBUTING.md><code>CONTRIBUTING.md</code></a> file before getting started to make sure things go smoothly!</p><p><a id=core-types></a></p><h3 id=core-types>Core Types</h3><p>When updating core types you should make a PR to this repository. Ensure you:</p><ol><li>Update <code>examples/typescript-server.ts</code> to reflect the changes (if necessary)</li><li>Update <code>test/types/index.ts</code> to validate changes work as expected</li></ol><p><a id=plugin-types></a></p><h3 id=plugin-types>Plugin Types</h3><p>Typings for plugins are hosted in DefinitelyTyped. This means when using plugins you should install like so:</p><pre><code>npm install fastify-url-data @types/fastify-url-data</code></pre><p>After this you should be good to go. Some types might not be available yet, so don&#39;t be shy about contributing.</p><p><a id=authoring-plugin-types></a></p><h3 id=authoring-plugin-types>Authoring Plugin Types</h3><p>Typings for many plugins that extend the <code>FastifyRequest</code> and <code>FastifyReply</code> objects can be achieved as shown below.</p><p>This code demonstrates adding types for <code>fastify-url-data</code> to your application.</p><pre><code class=language-ts>// filename: custom-types.d.ts
+})
+</code></pre><p>In this example we pass a modified <code>http.IncomingMessage</code> interface since it has been extended elsewhere in our application.</p><p><a id=contributing></a></p><h2 id=contributing>Contributing</h2><p>TypeScript related changes can be considered to fall into one of two categories:</p><ul><li>Core - The typings bundled with fastify</li><li>Plugins - Fastify ecosystem plugins</li></ul><p>Make sure to read our <a href=https://github.com/fastify/fastify/blob/master/CONTRIBUTING.md><code>CONTRIBUTING.md</code></a> file before getting started to make sure things go smoothly!</p><p><a id=core-types></a></p><h3 id=core-types>Core Types</h3><p>When updating core types you should make a PR to this repository. Ensure you:</p><ol><li>Update <code>examples/typescript-server.ts</code> to reflect the changes (if necessary)</li><li>Update <code>test/types/index.ts</code> to validate changes work as expected</li></ol><p><a id=plugin-types></a></p><h3 id=plugin-types>Plugin Types</h3><p>Typings for plugins are hosted in DefinitelyTyped. This means when using plugins you should install like so:</p><pre><code>npm install fastify-url-data @types/fastify-url-data
+</code></pre><p>After this you should be good to go. Some types might not be available yet, so don&#39;t be shy about contributing.</p><p><a id=authoring-plugin-types></a></p><h3 id=authoring-plugin-types>Authoring Plugin Types</h3><p>Typings for many plugins that extend the <code>FastifyRequest</code> and <code>FastifyReply</code> objects can be achieved as shown below.</p><p>This code demonstrates adding types for <code>fastify-url-data</code> to your application.</p><pre><code class=language-ts>// filename: custom-types.d.ts
 
 // Core typings and values
 import fastify = require(&#39;fastify&#39;);
@@ -157,7 +162,8 @@ declare function urlData (): void
 
 declare namespace urlData {}
 
-export = urlData;</code></pre><p>Now you can use <code>fastify-url-data</code> like so:</p><pre><code class=language-ts>import * as fastify from &#39;fastify&#39;
+export = urlData;
+</code></pre><p>Now you can use <code>fastify-url-data</code> like so:</p><pre><code class=language-ts>import * as fastify from &#39;fastify&#39;
 import * as urlData from &#39;fastify-url-data&#39;
 
 /// &lt;reference types=&quot;./custom-types.d.ts&quot;/&gt;
@@ -175,7 +181,8 @@ server.get(&#39;/data&#39;, (request, reply) =&gt; {
   reply.send({msg: &#39;ok&#39;})
 })
 
-server.listen(3030)</code></pre><p>Remember, if you author typings for a plugin you should publish them to DefinitelyTyped!</p></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v1.14.x/LTS class="button prev">≪ Long Term Support</a></div></div><div class=level-right><div class=level-item>&nbsp;</div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+server.listen(3030)
+</code></pre><p>Remember, if you author typings for a plugin you should publish them to DefinitelyTyped!</p></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v1.14.x/LTS class="button prev">≪ Long Term Support</a></div></div><div class=level-right><div class=level-item>&nbsp;</div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
   var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
   var currentMenu = document.getElementById('doc-menu-section')
   if (titles.length && currentMenu) {

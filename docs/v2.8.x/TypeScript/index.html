@@ -24,7 +24,8 @@ const opts: fastify.RouteShorthandOptions = {
 server.get(&#39;/ping&#39;, opts, (request, reply) =&gt; {
   console.log(reply.res) // this is the http.ServerResponse with correct typings!
   reply.code(200).send({ pong: &#39;it worked!&#39; })
-})</code></pre><p><a id=generic-parameters></a></p><h2 id=generic-parameters>Generic Parameters</h2><p>Since you can validate the querystring, params, body, and headers, you can also override the default types of those values on the request interface:</p><pre><code class=language-ts>import * as fastify from &#39;fastify&#39;
+})
+</code></pre><p><a id=generic-parameters></a></p><h2 id=generic-parameters>Generic Parameters</h2><p>Since you can validate the querystring, params, body, and headers, you can also override the default types of those values on the request interface:</p><pre><code class=language-ts>import * as fastify from &#39;fastify&#39;
 
 const server = fastify({})
 
@@ -87,7 +88,8 @@ server.get&lt;Query, Params, Headers, Body&gt;(&#39;/ping/:bar&#39;, opts, (requ
   console.log(request.body) // this is of type Body!
   console.log(request.headers) // this is of type Headers!
   reply.code(200).send({ pong: &#39;it worked!&#39; })
-})</code></pre><p>All generic types are optional, so you can also pass types for the parts you validate with schemas:</p><pre><code class=language-ts>import * as fastify from &#39;fastify&#39;
+})
+</code></pre><p>All generic types are optional, so you can also pass types for the parts you validate with schemas:</p><pre><code class=language-ts>import * as fastify from &#39;fastify&#39;
 
 const server = fastify({})
 
@@ -126,7 +128,8 @@ server.get&lt;unknown, Params, unknown, unknown&gt;(&#39;/ping/:bar&#39;, opts, 
   console.log(request.body) // this is of type unknown!
   console.log(request.headers) // this is of type unknown!
   reply.code(200).send({ pong: &#39;it worked!&#39; })
-})</code></pre><p><a id=http-prototypes></a></p><h2 id=http-prototypes>HTTP Prototypes</h2><p>By default, fastify will determine which version of http is being used based on the options you pass to it. If for any reason you need to override this you can do so as shown below:</p><pre><code class=language-ts>interface CustomIncomingMessage extends http.IncomingMessage {
+})
+</code></pre><p><a id=http-prototypes></a></p><h2 id=http-prototypes>HTTP Prototypes</h2><p>By default, fastify will determine which version of http is being used based on the options you pass to it. If for any reason you need to override this you can do so as shown below:</p><pre><code class=language-ts>interface CustomIncomingMessage extends http.IncomingMessage {
   getClientDeviceType: () =&gt; string
 }
 
@@ -138,7 +141,8 @@ server.get(&#39;/ping&#39;, (request, reply) =&gt; {
   const clientDeviceType = request.raw.getClientDeviceType()
 
   reply.send({ clientDeviceType: `you called this endpoint from a ${clientDeviceType}` })
-})</code></pre><p>In this example we pass a modified <code>http.IncomingMessage</code> interface since it has been extended elsewhere in our application.</p><p><a id=contributing></a></p><h2 id=contributing>Contributing</h2><p>TypeScript related changes can be considered to fall into one of two categories:</p><ul><li>Core - The typings bundled with fastify</li><li>Plugins - Fastify ecosystem plugins</li></ul><p>Make sure to read our <a href=https://github.com/fastify/fastify/blob/master/CONTRIBUTING.md><code>CONTRIBUTING.md</code></a> file before getting started to make sure things go smoothly!</p><p><a id=core-types></a></p><h3 id=core-types>Core Types</h3><p>When updating core types you should make a PR to this repository. Ensure you:</p><ol><li>Update <code>examples/typescript-server.ts</code> to reflect the changes (if necessary)</li><li>Update <code>test/types/index.ts</code> to validate changes work as expected</li></ol><p><a id=plugin-types></a></p><h3 id=plugin-types>Plugin Types</h3><p>Plugins maintained by and organized under the fastify organization on GitHub should ship with typings just like fastify itself does. Some plugins already include typings but many do not. We are happy to accept contributions to those plugins without any typings, see <a href=https://github.com/fastify/fastify-cors>fastify-cors</a> for an example of a plugin that comes with it&#39;s own typings.</p><p>Typings for third-party-plugins may either be included with the plugin or hosted on DefinitelyTyped. Remember, if you author a plugin to either include typings or publish them on DefinitelyTyped! Information of how to install typings from DefinitelyTyped can be found <a href=https://github.com/DefinitelyTyped/DefinitelyTyped#npm>here</a>.</p><p>Some types might not be available yet, so don&#39;t be shy about contributing.</p><p><a id=authoring-plugin-types></a></p><h3 id=authoring-plugin-types>Authoring Plugin Types</h3><p>Typings for many plugins that extend the <code>FastifyRequest</code>, <code>FastifyReply</code> or <code>FastifyInstance</code> objects can be achieved as shown below.</p><p>This code shows the typings for the <code>fastify-static</code> plugin.</p><pre><code class=language-ts>// require fastify typings
+})
+</code></pre><p>In this example we pass a modified <code>http.IncomingMessage</code> interface since it has been extended elsewhere in our application.</p><p><a id=contributing></a></p><h2 id=contributing>Contributing</h2><p>TypeScript related changes can be considered to fall into one of two categories:</p><ul><li>Core - The typings bundled with fastify</li><li>Plugins - Fastify ecosystem plugins</li></ul><p>Make sure to read our <a href=https://github.com/fastify/fastify/blob/master/CONTRIBUTING.md><code>CONTRIBUTING.md</code></a> file before getting started to make sure things go smoothly!</p><p><a id=core-types></a></p><h3 id=core-types>Core Types</h3><p>When updating core types you should make a PR to this repository. Ensure you:</p><ol><li>Update <code>examples/typescript-server.ts</code> to reflect the changes (if necessary)</li><li>Update <code>test/types/index.ts</code> to validate changes work as expected</li></ol><p><a id=plugin-types></a></p><h3 id=plugin-types>Plugin Types</h3><p>Plugins maintained by and organized under the fastify organization on GitHub should ship with typings just like fastify itself does. Some plugins already include typings but many do not. We are happy to accept contributions to those plugins without any typings, see <a href=https://github.com/fastify/fastify-cors>fastify-cors</a> for an example of a plugin that comes with it&#39;s own typings.</p><p>Typings for third-party-plugins may either be included with the plugin or hosted on DefinitelyTyped. Remember, if you author a plugin to either include typings or publish them on DefinitelyTyped! Information of how to install typings from DefinitelyTyped can be found <a href=https://github.com/DefinitelyTyped/DefinitelyTyped#npm>here</a>.</p><p>Some types might not be available yet, so don&#39;t be shy about contributing.</p><p><a id=authoring-plugin-types></a></p><h3 id=authoring-plugin-types>Authoring Plugin Types</h3><p>Typings for many plugins that extend the <code>FastifyRequest</code>, <code>FastifyReply</code> or <code>FastifyInstance</code> objects can be achieved as shown below.</p><p>This code shows the typings for the <code>fastify-static</code> plugin.</p><pre><code class=language-ts>// require fastify typings
 import fastify = require(&quot;fastify&quot;);
 // require necessary http typings
 import { Server, IncomingMessage, ServerResponse } from &quot;http&quot;;
@@ -170,7 +174,8 @@ declare const fastifyStatic: fastify.Plugin&lt;Server, IncomingMessage, ServerRe
 }&gt;;
 
 // export plugin type
-export = fastifyStatic;</code></pre><p>Now you are good to go and could use the plugin like so:</p><pre><code class=language-ts>import * as Fastify from &#39;fastify&#39;
+export = fastifyStatic;
+</code></pre><p>Now you are good to go and could use the plugin like so:</p><pre><code class=language-ts>import * as Fastify from &#39;fastify&#39;
 import * as fastifyStatic from &#39;fastify-static&#39;
 
 const app = Fastify()
@@ -199,7 +204,8 @@ app.register(fastifyStatic, {
 app.get(&#39;/file&#39;, (request, reply) =&gt; {
   // using newly defined function on FastifyReply
   reply.sendFile(&#39;some-file-name&#39;)
-})</code></pre><p>Adding typings to all our plugins is a community effort so feel free to contribute!</p></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v2.8.x/LTS class="button prev">≪ Long Term Support</a></div></div><div class=level-right><div class=level-item><a href=/docs/v2.8.x/Serverless class="button next">Serverless ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+})
+</code></pre><p>Adding typings to all our plugins is a community effort so feel free to contribute!</p></div><hr><nav class=level><div class=level-left><div class=level-item><a href=/docs/v2.8.x/LTS class="button prev">≪ Long Term Support</a></div></div><div class=level-right><div class=level-item><a href=/docs/v2.8.x/Serverless class="button next">Serverless ≫</a></div></div></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
   var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
   var currentMenu = document.getElementById('doc-menu-section')
   if (titles.length && currentMenu) {
