@@ -4,7 +4,7 @@ const { join, dirname, basename } = require('path')
 const { promises: fs } = require('fs')
 const { dump } = require('js-yaml')
 const clone = require('clone')
-const { fileExists } = require('./utils')
+const { copyDir, fileExists } = require('./utils')
 
 const sourceFolder = process.argv[2]
 const destFolder = process.argv[3]
@@ -35,6 +35,7 @@ async function createDocSources (releases) {
     return acc
   }, {})
   const versions = releases.map(r => r.docsPath)
+  await Promise.all(releases.map(copyResourcesFolderForRelease))
   await createDocsDataFile(join(destFolder, 'data', 'docs.yml'), { versions, toc: indexedToc, releases })
   await processDocFiles(indexedToc, latestRelease)
   await createIndexFiles(releases)
@@ -151,6 +152,7 @@ function remapLinks (content, item) {
     [XXXX]('./YYYY' "ZZZZ") -> [XXXX]('/docs/[VERSION]/YYYY' "ZZZZ")
     [XXXX](./YYYY "ZZZZ") -> [XXXX]('/docs/[VERSION]/YYYY' "ZZZZ")
     href="https://github.com/fastify/fastify/blob/master/docs/YYYY.md -> href="/docs/[VERSION]/YYYY
+    [XXXX](./resources/YYYY.ZZZZ) -> [XXXX](/docs/[VERSION]/resources/YYYY.ZZZZ)
   */
   const ecosystemLinkRx = /\(\/docs\/[\w\d.-]+\/Ecosystem\.md\)/gi
   const docInternalLinkRx = /\(\/docs\/[\w\d.-]+\/[\w\d-]+(.md)/gi
@@ -159,6 +161,7 @@ function remapLinks (content, item) {
   const relativeLinksWithLabel = /\('?(\.\/)([\w\d.-]+)(.md)'?\s+"([\w\d.-]+)"\)/gi
   const hrefAbsoluteLinks = /href="https:\/\/github\.com\/fastify\/fastify\/blob\/master\/docs\/([\w\d.-]+)\.md/gi
   const absoluteLinks = /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/gi
+  const docResourcesLink = /\(.\/?resources\/([a-zA-Z0-9\-_]+\..+)\)/gi
   return content
     .replace(hrefAbsoluteLinks, (match, p1) => `href="/docs/${item.version}/${p1}`)
     .replace(absoluteLinks, `/docs/${item.version}`)
@@ -167,6 +170,7 @@ function remapLinks (content, item) {
     .replace(relativeLinks, (match, ...parts) => `(/docs/${item.version}/${parts[2]}${parts[3] || ''})`)
     .replace(relativeLinksWithLabel, (match, ...parts) => `(/docs/${item.version}/${parts[1]} "${parts[3]}")`)
     .replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
+    .replace(docResourcesLink, (match, p1) => `(/docs/${item.version}/resources/${p1})`)
 }
 
 async function createVersionIndexFile (release) {
@@ -262,6 +266,16 @@ async function createEcosystemDataFile (masterReleaseDownloadPath) {
   const ecosystem = await extractEcosystemFromFile(ecosystemFile)
   await fs.writeFile(destination, dump(ecosystem), 'utf8')
   console.log(`Ecosystem file written: ${destination}`)
+}
+
+async function copyResourcesFolderForRelease (release) {
+  const folder = join(sourceFolder, release.dest)
+  const files = await fs.readdir(folder)
+  const subfolder = files.find(file => file.match(/^fastify-/))
+  const src = join(folder, subfolder, 'docs', 'resources')
+  const dest = join(destFolder, 'content', 'docs', release.docsPath, 'resources')
+
+  return copyDir(src, dest)
 }
 
 main().catch((err) => {

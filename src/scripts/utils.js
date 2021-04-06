@@ -1,4 +1,6 @@
 const { access } = require('fs')
+const { join } = require('path')
+const { mkdir, copyFile, readdir } = require('fs').promises
 
 function fileExists (path) {
   return new Promise((resolve, reject) => {
@@ -14,6 +16,23 @@ function fileExists (path) {
   })
 }
 
+async function copyDir (src, dest) {
+  const hasDir = await fileExists(src)
+  if (hasDir) {
+    await mkdir(dest, { recursive: true })
+    const entries = await readdir(src, { withFileTypes: true })
+    return Promise.all(entries.map((entry) => {
+      const srcPath = join(src, entry.name)
+      const destPath = join(dest, entry.name)
+      if (entry.isDirectory()) {
+        return copyDir(srcPath, destPath)
+      }
+      return copyFile(srcPath, destPath)
+    }))
+  }
+}
+
 module.exports = {
+  copyDir,
   fileExists
 }
