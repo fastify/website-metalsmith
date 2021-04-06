@@ -82,7 +82,9 @@ Metalsmith(source)
     })
   )
   .use(markdown({ renderer: markdownRenderer }))
-  .use(nunjucksRenderer())
+  .use(nunjucksRenderer({
+    pattern: 'docs/**/*.html'
+  }))
   .use(
     permalinks({
       relative: false
@@ -99,7 +101,7 @@ Metalsmith(source)
   .use(
     svgOptimizer({
       plugins: [{ removeScriptElement: true }],
-      pattern: ['**/*.svg', '!**/resources/*.*']
+      pattern: ['!**/resources/*.*']
     })
   )
   .use(htmlMinifier())
