@@ -360,16 +360,27 @@ if (statusCode &gt;= 500) {
 } else {
   log.error(error)
 }
-</code></pre><p><a name=print-routes></a></p><h4 id=printroutes>printRoutes</h4><p><code>fastify.printRoutes()</code>: Prints the representation of the internal radix tree used by the router, useful for debugging.<br><em>Remember to call it inside or after a <code>ready</code> call.</em></p><pre><code class=language-js>fastify.get(&#39;/test&#39;, () =&gt; {})
+</code></pre><p><a name=print-routes></a></p><h4 id=printroutes>printRoutes</h4><p><code>fastify.printRoutes()</code>: Prints the representation of the internal radix tree used by the router, useful for debugging. Alternatively, <code>fastify.printRoutes({ commonPrefix: false })</code> can be used to print the flattened routes tree.<br><em>Remember to call it inside or after a <code>ready</code> call.</em></p><pre><code class=language-js>fastify.get(&#39;/test&#39;, () =&gt; {})
 fastify.get(&#39;/test/hello&#39;, () =&gt; {})
 fastify.get(&#39;/hello/world&#39;, () =&gt; {})
+fastify.get(&#39;/helicopter&#39;, () =&gt; {})
 
 fastify.ready(() =&gt; {
   console.log(fastify.printRoutes())
   // └── /
-  //   ├── test (GET)
-  //   │   └── /hello (GET)
-  //   └── hello/world (GET)
+  //     ├── test (GET)
+  //     │   └── /hello (GET)
+  //     └── hel
+  //         ├── lo/world (GET)
+  //         └── licopter (GET)
+
+  console.log(fastify.printRoutes({ commonPrefix: false }))
+  // └── / (-)
+  //     ├── test (GET)
+  //     │   └── /hello (GET)
+  //     ├── hello/world (GET)
+  //     └── helicopter (GET)
+
 })
 </code></pre><p><a name=print-plugins></a></p><h4 id=printplugins>printPlugins</h4><p><code>fastify.printPlugins()</code>: Prints the representation of the internal plugin tree used by the avvio, useful for debugging require order issues.<br><em>Remember to call it inside or after a <code>ready</code> call.</em></p><pre><code class=language-js>fastify.register(async function foo (instance) {
   instance.register(async function bar () {})
