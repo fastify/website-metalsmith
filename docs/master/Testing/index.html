@@ -57,7 +57,7 @@ test(&#39;requests the &quot;/&quot; route&#39;, async t =&gt; {
     method: &#39;GET&#39;,
     url: &#39;/&#39;
   })
-  t.strictEqual(response.statusCode, 200, &#39;returns a status code of 200&#39;)
+  t.equal(response.statusCode, 200, &#39;returns a status code of 200&#39;)
 })
 </code></pre><p>Finally, run <code>npm test</code> in the terminal and see your test results!</p><p>The <code>inject</code> method can do much more than a simple GET request to a URL:</p><pre><code class=language-js>fastify.inject({
   method: String,
@@ -121,16 +121,16 @@ tap.test(&#39;GET `/` route&#39;, t =&gt; {
 
   // At the end of your tests it is highly recommended to call `.close()`
   // to ensure that all connections to external services get closed.
-  t.tearDown(() =&gt; fastify.close())
+  t.teardown(() =&gt; fastify.close())
 
   fastify.inject({
     method: &#39;GET&#39;,
     url: &#39;/&#39;
   }, (err, response) =&gt; {
     t.error(err)
-    t.strictEqual(response.statusCode, 200)
-    t.strictEqual(response.headers[&#39;content-type&#39;], &#39;application/json; charset=utf-8&#39;)
-    t.deepEqual(response.json(), { hello: &#39;world&#39; })
+    t.equal(response.statusCode, 200)
+    t.equal(response.headers[&#39;content-type&#39;], &#39;application/json; charset=utf-8&#39;)
+    t.same(response.json(), { hello: &#39;world&#39; })
   })
 })
 </code></pre><h3 id=testing-with-a-running-server>Testing with a running server</h3><p>Fastify can also be tested after starting the server with <code>fastify.listen()</code> or after initializing routes and plugins with <code>fastify.ready()</code>.</p><h4 id=example>Example:</h4><p>Uses <strong>app.js</strong> from the previous example.</p><p><strong>test-listen.js</strong> (testing with <a href=https://www.npmjs.com/package/request><code>Request</code></a>)</p><pre><code class=language-js>const tap = require(&#39;tap&#39;)
@@ -142,7 +142,7 @@ tap.test(&#39;GET `/` route&#39;, t =&gt; {
 
   const fastify = buildFastify()
 
-  t.tearDown(() =&gt; fastify.close())
+  t.teardown(() =&gt; fastify.close())
 
   fastify.listen(0, (err) =&gt; {
     t.error(err)
@@ -152,9 +152,9 @@ tap.test(&#39;GET `/` route&#39;, t =&gt; {
       url: &#39;http://localhost:&#39; + fastify.server.address().port
     }, (err, response, body) =&gt; {
       t.error(err)
-      t.strictEqual(response.statusCode, 200)
-      t.strictEqual(response.headers[&#39;content-type&#39;], &#39;application/json; charset=utf-8&#39;)
-      t.deepEqual(JSON.parse(body), { hello: &#39;world&#39; })
+      t.equal(response.statusCode, 200)
+      t.equal(response.headers[&#39;content-type&#39;], &#39;application/json; charset=utf-8&#39;)
+      t.same(JSON.parse(body), { hello: &#39;world&#39; })
     })
   })
 })
@@ -165,7 +165,7 @@ const buildFastify = require(&#39;./app&#39;)
 tap.test(&#39;GET `/` route&#39;, async (t) =&gt; {
   const fastify = buildFastify()
 
-  t.tearDown(() =&gt; fastify.close())
+  t.teardown(() =&gt; fastify.close())
 
   await fastify.ready()
 
@@ -173,7 +173,7 @@ tap.test(&#39;GET `/` route&#39;, async (t) =&gt; {
     .get(&#39;/&#39;)
     .expect(200)
     .expect(&#39;Content-Type&#39;, &#39;application/json; charset=utf-8&#39;)
-  t.deepEqual(response.body, { hello: &#39;world&#39; })
+  t.same(response.body, { hello: &#39;world&#39; })
 })
 </code></pre><h3 id=how-to-inspect-tap-tests>How to inspect tap tests</h3><ol><li>Isolate your test by passing the <code>{only: true}</code> option<pre><code class=language-javascript>test(&#39;should ...&#39;, {only: true}, t =&gt; ...)
 </code></pre></li><li>Run <code>tap</code> using <code>npx</code><pre><code class=language-bash>&gt; npx tap -O -T --node-arg=--inspect-brk test/&lt;test-file.test.js&gt;
