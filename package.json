@@ -81,9 +81,5 @@
     "glob": "^7.1.6",
     "live-server": "^1.2.1",
     "xml2js": "^0.4.23"
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true
   }
 }
