@@ -10,6 +10,10 @@
   image: "car2go.svg"
   link: "https://www.car2go.com"
 
+- name: "ClearGlass"
+  image: "clearglass.svg"
+  link: "https://clearglass.com/"
+
 - name: "Codecks"
   image: "codecks.svg"
   link: "https://www.codecks.io/"
