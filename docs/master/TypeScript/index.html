@@ -136,6 +136,11 @@ interface IHeaders {
        const { username, password } = request.query
        done(username !== &#39;admin&#39; ? new Error(&#39;Must be admin&#39;) : undefined)
      }
+     //  or if using async
+     //  preValidation: async (request, reply) =&gt; {
+     //    const { username, password } = request.query
+     //    return username !== &quot;admin&quot; ? new Error(&quot;Must be admin&quot;) : undefined;
+     //  }
    }, async (request, reply) =&gt; {
      const customerHeader = request.headers[&#39;h-Custom&#39;]
      // do something with request data
@@ -152,13 +157,15 @@ interface IHeaders {
        querystring: QuerystringSchema,
        headers: HeadersSchema
      },
-     preHandler: (request, reply) =&gt; {
+     preHandler: (request, reply, done) =&gt; {
        const { username, password } = request.query
        const customerHeader = request.headers[&#39;h-Custom&#39;]
+       done()
      },
      handler: (request, reply) =&gt; {
        const { username, password } = request.query
        const customerHeader = request.headers[&#39;h-Custom&#39;]
+       reply.status(200).send({username});
      }
    })
 
@@ -179,7 +186,8 @@ interface IHeaders {
   },
   required: [&#39;name&#39;],
 } as const;
-</code></pre><p>With the provided type <code>FromSchema</code> you can build a type from your schema and use it in your handler.</p><pre><code class=language-typescript>fastify.post&lt;{ Body: FromSchema&lt;typeof todo&gt; }&gt;(
+</code></pre><p>With the provided type <code>FromSchema</code> you can build a type from your schema and use it in your handler.</p><pre><code class=language-typescript>import { FromSchema } from &quot;json-schema-to-ts&quot;;
+fastify.post&lt;{ Body: FromSchema&lt;typeof todo&gt; }&gt;(
   &#39;/todo&#39;,
   {
     schema: {
