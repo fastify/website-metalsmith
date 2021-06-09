@@ -426,6 +426,26 @@ fastify.ready(() =&gt; {
   //     └── helicopter (GET)
 
 })
+</code></pre><p><code>fastify.printRoutes({ includeMeta: (true | []) })</code> will display properties from the <code>route.store</code> object for each displayed route. This can be an <code>array</code> of keys (e.g. <code>[&#39;onRequest&#39;, Symbol(&#39;key&#39;)]</code>), or <code>true</code> to display all properties. A shorthand option, <code>fastify.printRoutes({ includeHooks: true })</code> will include all <a href=https://www.fastify.io/docs/latest/Hooks/ >hooks</a>.</p><pre><code class=language-js>  console.log(fastify.printRoutes({ includeHooks: true, includeMeta: [&#39;metaProperty&#39;] }))
+  // └── /
+  //     ├── test (GET)
+  //     │   • (onRequest) [&quot;anonymous()&quot;,&quot;namedFunction()&quot;]
+  //     │   • (metaProperty) &quot;value&quot;
+  //     │   └── /hello (GET)
+  //     └── hel
+  //         ├── lo/world (GET)
+  //         │   • (onTimeout) [&quot;anonymous()&quot;]
+  //         └── licopter (GET)
+
+  console.log(fastify.printRoutes({ includeHooks: true }))
+  // └── /
+  //     ├── test (GET)
+  //     │   • (onRequest) [&quot;anonymous()&quot;,&quot;namedFunction()&quot;]  
+  //     │   └── /hello (GET)
+  //     └── hel
+  //         ├── lo/world (GET)
+  //         │   • (onTimeout) [&quot;anonymous()&quot;]
+  //         └── licopter (GET)
 </code></pre><p><a name=print-plugins></a></p><h4 id=printplugins>printPlugins</h4><p><code>fastify.printPlugins()</code>: Prints the representation of the internal plugin tree used by the avvio, useful for debugging require order issues.<br><em>Remember to call it inside or after a <code>ready</code> call.</em></p><pre><code class=language-js>fastify.register(async function foo (instance) {
   instance.register(async function bar () {})
 })
@@ -435,9 +455,9 @@ fastify.ready(() =&gt; {
   console.error(fastify.printPlugins())
   // will output the following to stderr:
   // └── root
-  //   ├── foo
-  //   │   └── bar
-  //   └── baz
+  //     ├── foo
+  //     │   └── bar
+  //     └── baz
 })
 </code></pre><p><a name=addContentTypeParser></a></p><h4 id=addcontenttypeparser>addContentTypeParser</h4><p><code>fastify.addContentTypeParser(content-type, options, parser)</code> is used to pass custom parser for a given content type. Useful for adding parsers for custom content types, e.g. <code>text/json, application/vnd.oasis.opendocument.text</code>. <code>content-type</code> can be a string, string array or RegExp.</p><pre><code class=language-js>// The two arguments passed to getDefaultJsonParser are for ProtoType poisoning and Constructor Poisoning configuration respectively. The possible values are &#39;ignore&#39;, &#39;remove&#39;, &#39;error&#39;. ignore  skips all validations and it is similar to calling JSON.parse() directly. See the &lt;a href=&quot;https://github.com/fastify/secure-json-parse#api&quot;&gt;`secure-json-parse` documentation&lt;/a&gt; for more information.
 
