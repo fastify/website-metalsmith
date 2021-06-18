@@ -11,7 +11,7 @@ const permalinks = require('metalsmith-permalinks')
 const writemetadata = require('metalsmith-writemetadata')
 const htmlMinifier = require('metalsmith-html-minifier')
 const cleanCSS = require('metalsmith-clean-css')
-const contenthash = require('metalsmith-contenthash')
+const { hashContent } = require('./utils')
 const markdownFilter = require('nunjucks-markdown-filter')
 const sass = require('metalsmith-sass')
 const marked = require('marked')
@@ -77,7 +77,7 @@ Metalsmith(source)
     })
   )
   .use(
-    contenthash({
+    hashContent({
       pattern: ['**/*.{js,css,png,jpg,svg}']
     })
   )
