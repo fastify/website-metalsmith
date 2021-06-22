@@ -1,6 +1,7 @@
 {% extends "default.html" %}
 
 {% block content %}
+{% set path = path | replace("\\", "/") %}
 <section class="hero is-primary" style="background-image: url(/{{ hashes['images/bg-pattern-dark.png'] }})">
   <div class="hero-body">
       <div class="container">
