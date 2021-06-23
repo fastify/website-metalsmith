@@ -66,4 +66,5 @@ build/
 src/website/data/docs.yml
 src/website/data/ecosystem.yml
 src/website/content/docs/*/*.md
+src/website/content/docs/*/resources/
 .DS_Store
