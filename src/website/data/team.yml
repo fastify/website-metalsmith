@@ -66,20 +66,6 @@
       github: https://github.com/lmammino
       npm: https://www.npmjs.com/~lmammino
       twitter: https://twitter.com/loige
-  - name: Cemre Mengu
-    sortname: Cemre Mengu
-    picture: "https://avatars3.githubusercontent.com/u/1297759?v=4&s=460"
-    links:
-      github: https://github.com/cemremengu
-      npm: https://www.npmjs.com/~cemremengu
-      twitter: https://twitter.com/cemremengu
-  - name: Nathan Woltman
-    sortname: Woltman Nathan
-    picture: "https://avatars0.githubusercontent.com/u/5128013?v=4&s=460"
-    links:
-      github: https://github.com/nwoltman
-      npm: https://www.npmjs.com/~nwoltman
-      twitter: https://twitter.com/NathanWoltman
   - name: Rafael Gonzaga
     sortname: Gonzaga Rafael
     picture: "https://avatars3.githubusercontent.com/u/26234614?v=4&s=400"
@@ -142,6 +128,20 @@
       github: https://github.com/cagataycali
       npm: https://www.npmjs.com/~cagataycali
       twitter: https://twitter.com/cagataycali
+  - name: Cemre Mengu
+    sortname: Cemre Mengu
+    picture: "https://avatars3.githubusercontent.com/u/1297759?v=4&s=460"
+    links:
+      github: https://github.com/cemremengu
+      npm: https://www.npmjs.com/~cemremengu
+      twitter: https://twitter.com/cemremengu
+  - name: Nathan Woltman
+    sortname: Woltman Nathan
+    picture: "https://avatars0.githubusercontent.com/u/5128013?v=4&s=460"
+    links:
+      github: https://github.com/nwoltman
+      npm: https://www.npmjs.com/~nwoltman
+      twitter: https://twitter.com/NathanWoltman
   - name: Trivikram Kamat
     sortname: Trivikram Kamat
     picture: "https://avatars1.githubusercontent.com/u/16024985?s=400&v=4"
