@@ -230,6 +230,10 @@ const extractPlugins = (pluginContent) => {
   const re = /\[`([-a-zA-Z0-9./@]+)`\]\(([^)]+)\)(\s*(.+))?/
   const plugins = mergedLines.map((line) => {
     const match = re.exec(line)
+    if (!match) {
+      throw new Error(`Invalid entry found in Plugins list (docs/Ecosystem.md): "${line}". This line did not match the expected pattern (${re})`)
+    }
+
     const name = match[1]
     const url = match[2]
     const description = match[3] ? match[3].trim() : ''
