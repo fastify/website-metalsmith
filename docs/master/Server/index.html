@@ -57,7 +57,26 @@ fastify.get(&#39;/&#39;, (req, reply) =&gt; {
 })
 
 fastify.listen(3000)
-</code></pre><p>Internally Fastify uses the API of Node core HTTP server, so if you are using a custom server you must be sure to have the same API exposed. If not, you can enhance the server instance inside the <code>serverFactory</code> function before the <code>return</code> statement.<br></p><p><a name=factory-case-sensitive></a></p><h3 id=casesensitive><code>caseSensitive</code></h3><p>By default, value equal to <code>true</code>, routes are registered as case sensitive. That is, <code>/foo</code> is not equivalent to <code>/Foo</code>. When set to <code>false</code>, routes are registered in a fashion such that <code>/foo</code> is equivalent to <code>/Foo</code> which is equivalent to <code>/FOO</code>.</p><p>By setting <code>caseSensitive</code> to <code>false</code>, all paths will be matched as lowercase, but the route parameters or wildcards will maintain their original letter casing.</p><pre><code class=language-js>fastify.get(&#39;/user/:username&#39;, (request, reply) =&gt; {
+</code></pre><p>Internally Fastify uses the API of Node core HTTP server, so if you are using a custom server you must be sure to have the same API exposed. If not, you can enhance the server instance inside the <code>serverFactory</code> function before the <code>return</code> statement.<br></p><p><a name=schema-json-shorthand></a></p><h3 id=jsonshorthand><code>jsonShorthand</code></h3><ul><li>Default: <code>true</code></li></ul><p>Internally, and by default, Fastify will automatically infer the root properties of JSON Schemas if it doesn&#39;t find valid root properties according to the JSON Schema spec. If you wish to implement your own schema validation compiler, for example: to parse schemas as JTD instead of JSON Schema, then you can explicitly set this option to <code>false</code> to make sure the schemas you receive are unmodified and are not being treated internally as JSON Schema.</p><pre><code class=language-js>const AjvJTD = require(&#39;ajv/dist/jtd&#39;/* only valid for AJV v7+ */)
+const ajv = new AjvJTD({
+  // This would let you throw at start for invalid JTD schema objects
+  allErrors: process.env.NODE_ENV === &#39;development&#39;
+})
+const fastify = Fastify({ jsonShorthand: false })
+fastify.setValidatorCompiler(({ schema }) =&gt; {
+  return ajv.compile(schema)
+})
+fastify.post(&#39;/&#39;, {
+  schema: {
+    body: {
+      properties: {
+        foo: { type: &#39;uint8&#39; }
+      }
+    }
+  },
+  handler (req, reply) { reply.send({ ok: 1 }) }
+})
+</code></pre><p><strong>Note: Fastify does not currently throw on invalid schemas, so if you turn this off in an existing project, you need to be careful that none of your existing schemas become invalid as a result, since they will be treated as a catch-all.</strong></p><p><a name=factory-case-sensitive></a></p><h3 id=casesensitive><code>caseSensitive</code></h3><p>By default, value equal to <code>true</code>, routes are registered as case sensitive. That is, <code>/foo</code> is not equivalent to <code>/Foo</code>. When set to <code>false</code>, routes are registered in a fashion such that <code>/foo</code> is equivalent to <code>/Foo</code> which is equivalent to <code>/FOO</code>.</p><p>By setting <code>caseSensitive</code> to <code>false</code>, all paths will be matched as lowercase, but the route parameters or wildcards will maintain their original letter casing.</p><pre><code class=language-js>fastify.get(&#39;/user/:username&#39;, (request, reply) =&gt; {
   // Given the URL: /USER/NodeJS
   console.log(request.params.username) // -&gt; &#39;NodeJS&#39;
 })

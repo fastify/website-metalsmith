@@ -139,7 +139,7 @@ module.exports = routes
           └── decorators
           └── hooks
           └── your services
-</code></pre><p><a name=validate-data></a></p><h3 id=validate-your-data>Validate your data</h3><p>Data validation is extremely important and a core concept of the framework.<br>To validate incoming requests, Fastify uses <a href=https://json-schema.org/ >JSON Schema</a>. Let&#39;s look at an example demonstrating validation for routes:</p><pre><code class=language-js>const opts = {
+</code></pre><p><a name=validate-data></a></p><h3 id=validate-your-data>Validate your data</h3><p>Data validation is extremely important and a core concept of the framework.<br>To validate incoming requests, Fastify uses <a href=https://json-schema.org/ >JSON Schema</a>. (JTD schemas are loosely supported, but <code>jsonShorthand</code> must be disabled first)</p><p>Let&#39;s look at an example demonstrating validation for routes:</p><pre><code class=language-js>const opts = {
   schema: {
     body: {
       type: &#39;object&#39;,
