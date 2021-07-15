@@ -172,7 +172,7 @@ fastify.listen(3000)
 </code></pre><p><a name=constraints></a></p><h3 id=constraints>Constraints</h3><p>Fastify supports constraining routes to match only certain requests based on some property of the request, like the <code>Host</code> header, or any other value via <a href=https://github.com/delvedor/find-my-way><code>find-my-way</code></a> constraints. Constraints are specified in the <code>constraints</code> property of the route options. Fastify has two built-in constraints ready for use: the <code>version</code> constraint and the <code>host</code> constraint, and you can add your own custom constraint strategies to inspect other parts of a request to decide if a route should be executed for a request.</p><h4 id=version-constraints>Version Constraints</h4><p>You can provide a <code>version</code> key in the <code>constraints</code> option to a route. Versioned routes allow you to declare multiple handlers for the same HTTP route path, which will then be matched according to each request&#39;s <code>Accept-Version</code> header. The <code>Accept-Version</code> header value should follow the <a href=http://semver.org/ >semver</a> specification, and routes should be declared with exact semver versions for matching.<br>Fastify will require a request <code>Accept-Version</code> header to be set if the route has a version set, and will prefer a versioned route to a non-versioned route for the same path. Advanced version ranges and pre-releases currently are not supported.<br><em>Be aware that using this feature will cause a degradation of the overall performances of the router.</em></p><pre><code class=language-js>fastify.route({
   method: &#39;GET&#39;,
   url: &#39;/&#39;,
-  { constraints: { version: &#39;1.2.0&#39;} },
+  constraints: { version: &#39;1.2.0&#39; },
   handler: function (request, reply) {
     reply.send({ hello: &#39;world&#39; })
   }
@@ -200,7 +200,7 @@ fastify.addHook(&#39;onSend&#39;, async (req, reply) =&gt; {
 </code></pre></blockquote><p>If you declare multiple versions with the same major or minor, Fastify will always choose the highest compatible with the <code>Accept-Version</code> header value.<br>If the request will not have the <code>Accept-Version</code> header, a 404 error will be returned.</p><p>It is possible to define a custom version matching logic. This can be done through the <a href=/docs/master/Server#constraints><code>constraints</code></a> configuration when creating a Fastify server instance.</p><h4 id=host-constraints>Host Constraints</h4><p>You can provide a <code>host</code> key in the <code>constraints</code> route option for to limit that route to only be matched for certain values of the request <code>Host</code> header. <code>host</code> constraint values can be specified as strings for exact matches or RegExps for arbitrary host matching.</p><pre><code class=language-js>fastify.route({
   method: &#39;GET&#39;,
   url: &#39;/&#39;,
-  { constraints: { host: &#39;auth.fastify.io&#39; } },
+  constraints: { host: &#39;auth.fastify.io&#39; },
   handler: function (request, reply) {
     reply.send(&#39;hello world from auth.fastify.io&#39;)
   }
@@ -228,7 +228,7 @@ fastify.inject({
 </code></pre><p>RegExp <code>host</code> constraints can also be specified allowing constraining to hosts matching wildcard subdomains (or any other pattern):</p><pre><code class=language-js>fastify.route({
   method: &#39;GET&#39;,
   url: &#39;/&#39;,
-  { constraints: { host: /.*\.fastify\.io/ } }, // will match any subdomain of fastify.io
+  constraints: { host: /.*\.fastify\.io/ }, // will match any subdomain of fastify.io
   handler: function (request, reply) {
     reply.send(&#39;hello world from &#39; + request.headers.host)
   }
