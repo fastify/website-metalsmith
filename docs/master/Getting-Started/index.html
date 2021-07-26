@@ -107,7 +107,7 @@ module.exports = fastifyPlugin(dbConnector)
 
   fastify.get(&#39;/animals/:animal&#39;, async (request, reply) =&gt; {
     const result = await collection.findOne({ animal: request.params.animal })
-    if (result === null) {
+    if (!result) {
       throw new Error(&#39;Invalid value&#39;)
     }
     return result
