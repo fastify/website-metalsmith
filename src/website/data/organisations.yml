@@ -126,6 +126,10 @@
   image: "radity.svg"
   link: "https://www.radity.com"
 
+- name: "retraced"
+  image: "retraced.svg"
+  link: "https://retraced.co"
+
 - name: "RuneAudio"
   image: "runeaudio.svg"
   link: "https://www.runeaudio.com"
