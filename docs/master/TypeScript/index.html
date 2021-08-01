@@ -65,7 +65,7 @@ interface IHeaders {
  type UserType = Static&lt;typeof User&gt;;
 </code></pre></li><li><p>Use the defined type and schema during the definition of your route</p><pre><code class=language-typescript> const app = fastify();
 
- app.post&lt;{ Body: UserType; Response: UserType }&gt;(
+ app.post&lt;{ Body: UserType; Reply: UserType }&gt;(
    &quot;/&quot;,
    {
      schema: {
