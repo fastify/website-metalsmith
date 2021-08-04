@@ -31,7 +31,7 @@ server.listen(8080, (err, address) =&gt; {
 interface IHeaders {
   &#39;h-Custom&#39;: string;
 }
-</code></pre></li><li><p>Using the two interfaces, define a new API route and pass them as generics. The shorthand route methods (i.e. <code>.get</code>) accept a generic object <code>RequestGenericInterface</code> containing four named properties: <code>Body</code>, <code>Querystring</code>, <code>Params</code>, and <code>Headers</code>. The interfaces will be passed down through the route method into the route method handler <code>request</code> instance.</p><pre><code class=language-typescript>server.get&lt;{
+</code></pre></li><li><p>Using the two interfaces, define a new API route and pass them as generics. The shorthand route methods (i.e. <code>.get</code>) accept a generic object <code>RouteGenericInterface</code> containing five named properties: <code>Body</code>, <code>Querystring</code>, <code>Params</code>, <code>Headers</code> and <code>Reply</code>. The interfaces <code>Body</code>, <code>Querystring</code>, <code>Params</code> and <code>Headers</code> will be passed down through the route method into the route method handler <code>request</code> instance and the <code>Reply</code> interface to the <code>reply</code> instance.</p><pre><code class=language-typescript>server.get&lt;{
   Querystring: IQuerystring,
   Headers: IHeaders
 }&gt;(&#39;/auth&#39;, async (request, reply) =&gt; {
