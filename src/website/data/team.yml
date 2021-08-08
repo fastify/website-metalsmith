@@ -38,6 +38,13 @@
       github: https://github.com/StarpTech
       npm: https://www.npmjs.com/~starptech
       twitter: https://twitter.com/dustindeus
+  - name: Ayoub El Khattabi
+    sortname: Ayoub El Khattabi
+    picture: "https://avatars.githubusercontent.com/u/11050534?s=460&v=4"
+    links:
+      github: https://github.com/AyoubElk
+      npm: https://www.npmjs.com/~ayoubelk
+      twitter: https://twitter.com/ayoubelkh
   - name: Evan Shortiss
     sortname: Shortiss Evan
     picture: "https://avatars3.githubusercontent.com/u/1303687?v=4&s=400"
@@ -59,20 +66,6 @@
       github: https://github.com/lmammino
       npm: https://www.npmjs.com/~lmammino
       twitter: https://twitter.com/loige
-  - name: Cemre Mengu
-    sortname: Cemre Mengu
-    picture: "https://avatars3.githubusercontent.com/u/1297759?v=4&s=460"
-    links:
-      github: https://github.com/cemremengu
-      npm: https://www.npmjs.com/~cemremengu
-      twitter: https://twitter.com/cemremengu
-  - name: Nathan Woltman
-    sortname: Woltman Nathan
-    picture: "https://avatars0.githubusercontent.com/u/5128013?v=4&s=460"
-    links:
-      github: https://github.com/nwoltman
-      npm: https://www.npmjs.com/~nwoltman
-      twitter: https://twitter.com/NathanWoltman
   - name: Rafael Gonzaga
     sortname: Gonzaga Rafael
     picture: "https://avatars3.githubusercontent.com/u/26234614?v=4&s=400"
@@ -94,6 +87,12 @@
       github: https://github.com/fox1t
       npm: https://www.npmjs.com/~fox1t
       twitter: https://twitter.com/maksimsinik
+  - name: Frazer Smith
+    sortname: Smith Frazer
+    picture: "https://avatars3.githubusercontent.com/u/43814140?s=460&v=4"
+    links:
+      github: https://github.com/Fdawgs
+      npm: https://www.npmjs.com/~fdawgs     
   - name: Manuel Spigolon
     sortname: Spigolon Manuel
     picture: "https://avatars3.githubusercontent.com/u/11404065?s=460&v=4"
@@ -113,6 +112,12 @@
     picture: "https://avatars1.githubusercontent.com/u/6959636?s=460&v=4"
     links:
       github: https://github.com/zekth
+  - name: Salman Mitha
+    sortname: Mitha Salman
+    picture: "https://avatars0.githubusercontent.com/u/2510597?s=460&v=4"
+    links:
+      github: https://github.com/salmanm
+      npm: https://www.npmjs.com/~salmanm
 
 - name: Past Collaborators
   people:
@@ -123,6 +128,20 @@
       github: https://github.com/cagataycali
       npm: https://www.npmjs.com/~cagataycali
       twitter: https://twitter.com/cagataycali
+  - name: Cemre Mengu
+    sortname: Cemre Mengu
+    picture: "https://avatars3.githubusercontent.com/u/1297759?v=4&s=460"
+    links:
+      github: https://github.com/cemremengu
+      npm: https://www.npmjs.com/~cemremengu
+      twitter: https://twitter.com/cemremengu
+  - name: Nathan Woltman
+    sortname: Woltman Nathan
+    picture: "https://avatars0.githubusercontent.com/u/5128013?v=4&s=460"
+    links:
+      github: https://github.com/nwoltman
+      npm: https://www.npmjs.com/~nwoltman
+      twitter: https://twitter.com/NathanWoltman
   - name: Trivikram Kamat
     sortname: Trivikram Kamat
     picture: "https://avatars1.githubusercontent.com/u/16024985?s=400&v=4"

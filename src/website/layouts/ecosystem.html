@@ -43,7 +43,7 @@
         <tbody>
           {% for plugin in data.ecosystem.plugins.corePlugins %}
           <tr>
-            <td><a href="{{ plugin.url }}" target="_blank">{{ plugin.name }}</a></td>
+            <td><a href="{{ plugin.url }}" target="_blank" rel="noopener">{{ plugin.name }}</a></td>
             <td>{{ plugin.description | md | safe }}</td>
           </tr>
           {% endfor %}
@@ -62,7 +62,7 @@
         <tbody>
           {% for plugin in data.ecosystem.plugins.communityPlugins %}
           <tr>
-            <td><a href="{{ plugin.url }}" target="_blank">{{ plugin.name }}</a></td>
+            <td><a href="{{ plugin.url }}" target="_blank" rel="noopener">{{ plugin.name }}</a></td>
             <td>{{ plugin.description | md | safe }}</td>
           </tr>
           {% endfor %}

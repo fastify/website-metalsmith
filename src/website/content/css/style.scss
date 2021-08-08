@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-$link: #04625C;
+$link: #00458B;
 $primary: #04625C;
 
 @import "../../../../node_modules/bulma/bulma.sass";
@@ -136,6 +136,10 @@ main.page-content {
   left: 1.1em;
 }
 
+a {
+  text-decoration: underline;
+}
+
 a.anchor {
   color: #808080;
   padding: 0 0 0 0.5rem;
@@ -146,8 +150,14 @@ a.anchor:hover {
   color: #4a4a4a;
 }
 
-a > code {
-  text-decoration: underline;
+a img, a svg {
+  border-bottom: none;
+}
+
+#main-navbar {
+  a {
+    text-decoration: none;
+  }
 }
 
 #main-navbar .control.has-icons-left .icon.is-left {
@@ -224,6 +234,14 @@ a > code {
 
 .contributor-links {
   padding: .5em 0 0 0;
+
+  .icon__icon.npm:hover {
+    color: #EA2039;
+  }
+
+  .icon__icon.twitter:hover {
+    color: #1DA1F2;
+  }
 }
 
 #good-first-issues {
@@ -268,4 +286,8 @@ a > code {
 
 .media.v-center {
   align-items: center;
+}
+
+code, pre {
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
 }

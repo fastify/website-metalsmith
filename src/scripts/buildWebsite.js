@@ -11,12 +11,22 @@ const permalinks = require('metalsmith-permalinks')
 const writemetadata = require('metalsmith-writemetadata')
 const htmlMinifier = require('metalsmith-html-minifier')
 const cleanCSS = require('metalsmith-clean-css')
-const contenthash = require('metalsmith-contenthash')
+const { hashContent } = require('./utils')
 const markdownFilter = require('nunjucks-markdown-filter')
 const sass = require('metalsmith-sass')
+const marked = require('marked')
 const { shuffle } = require('lodash')
 const metadataDir = require('../plugins/metalsmith-metadata-dir')
 const svgOptimizer = require('../plugins/metalsmith-svg-optimizer')
+const nunjucksRenderer = require('../plugins/metalsmith-nunjucks-renderer')
+
+const markdownRenderer = new marked.Renderer()
+markdownRenderer.image = function (href, title, text) {
+  if (href.charAt(0) === '/') {
+    href = href.substring(1)
+  }
+  return `<img src="/{{ hashes['${href}'] }}" alt="${title}" title="${title}" />`
+}
 
 const source = path.resolve(
   process.argv[2] || path.join(__dirname, '..', 'website')
@@ -66,15 +76,18 @@ Metalsmith(source)
       docs: 'docs/**/*.md'
     })
   )
-  .use(markdown())
+  .use(
+    hashContent({
+      pattern: ['**/*.{js,css,png,jpg,svg}']
+    })
+  )
+  .use(markdown({ renderer: markdownRenderer }))
+  .use(nunjucksRenderer({
+    pattern: 'docs/**/*.html'
+  }))
   .use(
     permalinks({
       relative: false
-    })
-  )
-  .use(
-    contenthash({
-      pattern: ['**/*.{js,css,png,jpg,svg}']
     })
   )
   .use(
@@ -87,7 +100,8 @@ Metalsmith(source)
   )
   .use(
     svgOptimizer({
-      plugins: [{ removeScriptElement: true }]
+      plugins: [{ removeScriptElement: true }],
+      pattern: ['!**/resources/*.*']
     })
   )
   .use(htmlMinifier())
