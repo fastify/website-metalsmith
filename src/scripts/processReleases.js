@@ -4,7 +4,7 @@ const { join, dirname, basename } = require('path')
 const { promises: fs } = require('fs')
 const { dump } = require('js-yaml')
 const clone = require('clone')
-const { copyDir, fileExists } = require('./utils')
+const { copyDir, fileExists, getFiles } = require('./utils')
 
 const sourceFolder = process.argv[2]
 const destFolder = process.argv[3]
@@ -41,21 +41,20 @@ async function createDocSources (releases) {
   await createIndexFiles(releases)
 }
 
-async function extractTOCFromFile (file, release) {
-  const fileContent = await fs.readFile(file, 'utf8')
+async function extractTOCFromReleaseStructure (root, release) {
+  const sections = []
+  for await (const file of getFiles(join(root, 'docs'))) {
+    sections.push(file)
+  }
+  const toc = sections.map((section) => {
+    const filePath = section.nestedPath ? section.nestedPath : ''
+    const fileName = section.fileName
 
-  // searches for the beginning of the ToC in the file (between '## Documentation' and '\n\n')
-  const lines = fileContent.split('## Documentation')[1].split('\n\n')[0].split('\n').filter(Boolean)
-  // every line is a ToC entry
-  const re = /(master|.)\/docs\/([a-zA-Z-0-9]+\.md)"><code><b>(.+)<\/b>/
-  const toc = lines.map((line) => {
-    const match = re.exec(line)
-    const fileName = match[2]
-    const name = match[3]
-    const sourceFile = join(dirname(file), 'docs', fileName)
-    const destinationFile = join(destFolder, 'content', 'docs', release.docsPath, fileName)
+    const name = fileName.split('.').slice(0, -1).join('.') // get name without extension
+    const sourceFile = join(root, 'docs', filePath, fileName)
+    const destinationFile = join(destFolder, 'content', 'docs', release.docsPath, filePath, fileName)
     const slug = basename(sourceFile, '.md')
-    const link = `/docs/${release.docsPath}/${slug}`
+    const link = `/docs/${release.docsPath}/${filePath}/${slug}`
 
     return {
       fileName,
@@ -76,10 +75,10 @@ async function extractTOCFromFile (file, release) {
 async function getTOCForRelease (release) {
   const folder = join(sourceFolder, release.dest)
   const files = await fs.readdir(folder)
-  const subfolder = files.find(file => file.match(/^fastify-/))
-  const indexFile = join(folder, subfolder, 'README.md')
+  const subFolder = files.find(file => file.match(/^fastify-/))
+  const root = join(folder, subFolder)
 
-  return extractTOCFromFile(indexFile, release)
+  return extractTOCFromReleaseStructure(root, release)
 }
 
 function createDocsDataFile (destination, docsInfo) {
@@ -227,7 +226,7 @@ const extractPlugins = (pluginContent) => {
     }
     return acc
   }, [])
-  const re = /\[`([-a-zA-Z0-9./@]+)`\]\(([^)]+)\)(\s*(.+))?/
+  const re = /\[`([-a-zA-Z0-9./@]+)`]\(([^)]+)\)(\s*(.+))?/
   const plugins = mergedLines.map((line) => {
     const match = re.exec(line)
     if (!match) {
