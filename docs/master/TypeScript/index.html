@@ -340,7 +340,7 @@ f.listen(8080, () =&gt; { console.log(&#39;running&#39;) })
 
 const f = fastify()
 f.listen(8080, () =&gt; { console.log(&#39;running&#39;) })
-</code></pre></li><li><p>Destructuring is still supported, but will also not resolve types</p><pre><code class=language-typescript>const { fastify } = require(&#39;fastify&#39;)
+</code></pre></li><li><p>Destructuring is supported and will resolve types properly</p><pre><code class=language-typescript>const { fastify } = require(&#39;fastify&#39;)
 
 const f = fastify()
 f.listen(8080, () =&gt; { console.log(&#39;running&#39;) })
