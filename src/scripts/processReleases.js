@@ -35,7 +35,7 @@ async function createDocSources (releases) {
     return acc
   }, {})
   const versions = releases.map(r => r.docsPath)
-  await Promise.all(releases.map(copyResourcesFolderForRelease))
+  await Promise.all(releases.map(copyNestedFoldersForRelease))
   await createDocsDataFile(join(destFolder, 'data', 'docs.yml'), { versions, toc: indexedToc, releases })
   await processDocFiles(indexedToc, latestRelease)
   await createIndexFiles(releases)
@@ -275,14 +275,20 @@ async function createEcosystemDataFile (masterReleaseDownloadPath) {
   console.log(`Ecosystem file written: ${destination}`)
 }
 
-async function copyResourcesFolderForRelease (release) {
+async function copyNestedFoldersForRelease (release) {
   const folder = join(sourceFolder, release.dest)
   const files = await fs.readdir(folder)
-  const subfolder = files.find(file => file.match(/^fastify-/))
-  const src = join(folder, subfolder, 'docs', 'resources')
-  const dest = join(destFolder, 'content', 'docs', release.docsPath, 'resources')
-
-  return copyDir(src, dest)
+  const fastifySrcFolder = files.find(file => file.match(/^fastify-/))
+  const docsSrc = join(folder, fastifySrcFolder, 'docs')
+  const srcContent = await fs.readdir(docsSrc, { withFileTypes: true })
+  return srcContent
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name)
+    .forEach(folder => {
+      const src = join(docsSrc, folder)
+      const dest = join(destFolder, 'content', 'docs', release.docsPath, folder)
+      copyDir(src, dest)
+    })
 }
 
 main().catch((err) => {
