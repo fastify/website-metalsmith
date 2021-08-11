@@ -146,6 +146,7 @@ version: ${item.version}
 fullVersion: ${item.fullVersion}
 label: ${item.label}
 docsPath: ${item.docsPath}
+section: ${item.section}
 ${item.version === 'latest' ? `canonical: "${item.link.replace(/latest/, latestRelease.label)}"` : ''}
 ${item.version === 'master' ? `github_url: https://github.com/fastify/fastify/blob/master/docs/${item.fileName}` : ''}
 ---
