@@ -54,15 +54,14 @@ async function extractTOCFromReleaseStructure (root, release) {
     sections.push(file)
   }
   const toc = sections.map((section) => {
-    const filePath = section.nestedPath ? section.nestedPath : ''
+    const filePath = section.nestedPath === '.' ? 'reference' : section.nestedPath
     const fileName = section.fileName
 
     const name = fileName.split('.').slice(0, -1).join('.') // get name without extension
-    const sourceFile = join(root, 'docs', filePath, fileName)
+    const sourceFile = join(root, 'docs', filePath === 'reference' ? '' : filePath, fileName)
     const destinationFile = join(destFolder, 'content', 'docs', release.docsPath, filePath, fileName)
     const slug = basename(sourceFile, '.md')
     const link = `/docs/${release.docsPath}/${filePath}/${slug}`
-    const nestedSection = filePath === '.' ? 'other' : filePath
 
     return {
       fileName,
@@ -71,7 +70,7 @@ async function extractTOCFromReleaseStructure (root, release) {
       destinationFile,
       slug,
       link,
-      section: nestedSection,
+      section: filePath,
       fullVersion: release.fullVersion,
       docsPath: release.docsPath,
       label: release.label
