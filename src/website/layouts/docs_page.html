@@ -22,16 +22,16 @@
 
       <div class="column is-3 is-hidden-mobile" data-sticky-container>
         <aside class="menu sticky">
-          <p class="menu-label">
-            Table of contents
-          </p>
-          <ul class="menu-list">
-            {% for item in data.docs.toc[version] %}
-              <li {% if item.link == '/' + path %}id="doc-menu-section"{% endif %}>
-                <a title="{{ item.name | striptags }}" {% if item.link == '/' + path %}class="is-active"{% endif %} href="{{ item.link }}">{{ item.name }}</a>
-              </li>
-            {% endfor %}
-          </ul>
+          {% for name, section in data.docs.toc[version] %}
+            <p class="menu-label">{{ name }}</p>
+            <ul class="menu-list">
+              {% for item in data.docs.toc[version][name] %}
+                <li {% if item.link == '/' + path %}id="doc-menu-section"{% endif %}>
+                  <a title="{{ item.name | striptags }}" {% if item.link == '/' + path %}class="is-active"{% endif %} href="{{ item.link }}">{{ item.name }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endfor %}
           <div class="content" style="margin: .8em; border-top: 1px solid #ccc; padding: .8em 0 0 0">
             Docs version
             <div class="field">

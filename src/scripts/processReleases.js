@@ -31,7 +31,14 @@ async function createDocSources (releases) {
   const latestRelease = releases.find(r => r.name === 'latest')
   const tocByRelease = await Promise.all(releases.map(getTOCForRelease))
   const indexedToc = releases.reduce((acc, curr, i) => {
-    acc[curr.docsPath] = tocByRelease[i]
+    const tocSections = {}
+    tocByRelease[i].forEach(item => {
+      if (tocSections[item.section]) {
+        return tocSections[item.section].push(item)
+      }
+      tocSections[item.section] = [item]
+    })
+    acc[curr.docsPath] = tocSections
     return acc
   }, {})
   const versions = releases.map(r => r.docsPath)
@@ -55,6 +62,7 @@ async function extractTOCFromReleaseStructure (root, release) {
     const destinationFile = join(destFolder, 'content', 'docs', release.docsPath, filePath, fileName)
     const slug = basename(sourceFile, '.md')
     const link = `/docs/${release.docsPath}/${filePath}/${slug}`
+    const nestedSection = filePath === '.' ? 'other' : filePath
 
     return {
       fileName,
@@ -63,6 +71,7 @@ async function extractTOCFromReleaseStructure (root, release) {
       destinationFile,
       slug,
       link,
+      section: nestedSection,
       fullVersion: release.fullVersion,
       docsPath: release.docsPath,
       label: release.label
@@ -85,9 +94,11 @@ function createDocsDataFile (destination, docsInfo) {
   const toDump = clone(docsInfo)
   // remove sourceFile and destinationFile keys from toc
   Object.keys(toDump.toc).forEach((version) => {
-    toDump.toc[version].forEach((entry, i) => {
-      delete toDump.toc[version][i].sourceFile
-      delete toDump.toc[version][i].destinationFile
+    Object.keys(toDump.toc[version]).forEach((section, i) => {
+      toDump.toc[version][section].forEach((item, i) => {
+        delete toDump.toc[version][section][i].sourceFile
+        delete toDump.toc[version][section][i].destinationFile
+      })
     })
   })
 
@@ -98,10 +109,13 @@ async function processDocFiles (docs, latestRelease) {
   // merge all docs into a single array adding the version as a key in every object
   const docsArray = Object.keys(docs).reduce((acc, version) => {
     const curr = docs[version]
-    return acc.concat(curr.map((item) => {
-      item.version = version
-      return item
-    }))
+    Object.keys(curr).forEach(section => {
+      acc = acc.concat(curr[section].map((item) => {
+        item.version = version
+        return item
+      }))
+    })
+    return acc
   }, [])
 
   for (const item of docsArray) {
