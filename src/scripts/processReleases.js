@@ -121,7 +121,9 @@ async function processDocFiles (docs, latestRelease) {
     const dir = dirname(item.destinationFile)
     const hasDir = await fileExists(dir)
     if (!hasDir) {
-      await fs.mkdir(dir)
+      await fs.mkdir(dir, {
+        recursive: true
+      })
     }
 
     const buffer = await fs.readFile(item.sourceFile, 'utf8')
