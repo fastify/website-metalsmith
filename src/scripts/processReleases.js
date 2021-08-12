@@ -51,7 +51,7 @@ async function createDocSources (releases) {
 async function extractTOCFromReleaseStructure (root, release) {
   const sections = []
   for await (const file of getFiles(join(root, 'docs'))) {
-    sections.push(file)
+    if (!(file.nestedPath === 'resources')) sections.push(file)
   }
   const toc = sections.map((section) => {
     const filePath = section.nestedPath === '.' ? 'reference' : section.nestedPath

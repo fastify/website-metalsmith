@@ -40,7 +40,9 @@
     <div class="content">
       <h2>Table of contents</h2>
       {% for sectionName, section in data.docs.toc[docsPath] %}
-        <h3 style="text-transform: capitalize">{{ sectionName }}</h3>
+        <h3 style="text-transform: capitalize">
+          <a href="{{ '/docs' + '/' + version + '/' + sectionName }}">{{ sectionName }}</a>
+        </h3>
         <ul>
           {% for item in section %}
             <li>
