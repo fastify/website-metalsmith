@@ -54,14 +54,14 @@ async function extractTOCFromReleaseStructure (root, release) {
     if (!(file.nestedPath === 'resources')) sections.push(file)
   }
   const toc = sections.map((section) => {
-    const filePath = section.nestedPath === '.' ? 'reference' : section.nestedPath
+    const filePath = section.nestedPath === '.' ? '' : section.nestedPath
     const fileName = section.fileName
 
     const name = fileName.split('.').slice(0, -1).join('.') // get name without extension
     const sourceFile = join(root, 'docs', filePath === 'reference' ? '' : filePath, fileName)
     const destinationFile = join(destFolder, 'content', 'docs', release.docsPath, filePath, fileName)
     const slug = basename(sourceFile, '.md')
-    const link = `/docs/${release.docsPath}/${filePath}/${slug}`
+    const link = `/docs/${release.docsPath}${filePath !== '' ? '/' + filePath : ''}/${slug}`
 
     return {
       fileName,
@@ -180,13 +180,13 @@ function remapLinks (content, item) {
   const absoluteLinks = /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/gi
   const docResourcesLink = /\(.\/?resources\/([a-zA-Z0-9\-_]+\..+)\)/gi
   return content
-    .replace(hrefAbsoluteLinks, (match, p1) => `href="/docs/${item.version}/${item.section}/${p1}`)
+    .replace(hrefAbsoluteLinks, (match, p1) => `href="/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${p1}`)
     .replace(absoluteLinks, `/docs/${item.version}`)
     .replace(ecosystemLinkRx, (match) => '(/ecosystem)')
     .replace(ecosystemLink, (match) => '(/ecosystem)')
-    .replace(pluginsLink, (match) => `(/docs/${item.version}/${item.section}/Plugins)`)
-    .replace(relativeLinks, (match, ...parts) => `(/docs/${item.version}/${item.section}/${parts[2]}${parts[3] || ''})`)
-    .replace(relativeLinksWithLabel, (match, ...parts) => `(/docs/${item.version}/${item.section}/${parts[1]} "${parts[3]}")`)
+    .replace(pluginsLink, (match) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/Plugins)`)
+    .replace(relativeLinks, (match, ...parts) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${parts[2]}${parts[3] || ''})`)
+    .replace(relativeLinksWithLabel, (match, ...parts) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${parts[1]} "${parts[3]}")`)
     .replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
     .replace(docResourcesLink, (match, p1) => `(/docs/${item.version}/resources/${p1})`)
 }

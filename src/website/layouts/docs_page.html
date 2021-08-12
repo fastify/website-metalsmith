@@ -23,7 +23,11 @@
       <div class="column is-3 is-hidden-mobile" data-sticky-container>
         <aside class="menu sticky">
           {% for name, section in data.docs.toc[version] %}
-            <p class="menu-label"><a href="{{ '/docs' + '/' + version + '/' + name }}">{{ name }}</a></p>
+            {% if not name=='' %}
+              <p class="menu-label">
+                <a href="{{ '/docs' + '/' + version + '/' + name }}">{{ name }}</a>
+              </p>
+            {% endif %}
             <ul class="menu-list">
               {% for item in data.docs.toc[version][name] %}
                 <li {% if item.link == '/' + path %}id="doc-menu-section"{% endif %}>
@@ -67,11 +71,13 @@
                 </div>
               </div>
             </li>
-            <li style="text-transform: capitalize; margin-right: 12px">
-              <div style="padding-left: 12px">
-                {{ section }}
-              </div>
-            </li>
+            {% if not section=='' %}
+              <li style="text-transform: capitalize; margin-right: 12px">
+                <div style="padding-left: 12px">
+                  {{ section }}
+                </div>
+              </li>
+            {% endif %}
             <li class="is-active"><a>{{ title }}</a></li>
           </ul>
         </nav>
