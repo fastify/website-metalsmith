@@ -49,11 +49,22 @@ async function createDocSources (releases) {
 }
 
 async function extractTOCFromReleaseStructure (root, release) {
-  const sections = []
+  const sections = {}
+  let flatSections = []
+  // split nested sections from top level docs
   for await (const file of getFiles(join(root, 'docs'))) {
-    if (!(file.nestedPath === 'resources')) sections.push(file)
+    if (!(file.nestedPath === '.')) {
+      if (sections[file.nestedPath]) sections[file.nestedPath].push(file)
+      else sections[file.nestedPath] = [file]
+    } else flatSections.push(file)
   }
-  const toc = sections.map((section) => {
+  // add section only if index.md exists
+  Object.keys(sections).forEach((section) => {
+    if (sections[section].filter(item => item.fileName === 'index.md').length > 0) {
+      flatSections = flatSections.concat(sections[section])
+    }
+  })
+  const toc = flatSections.map((section) => {
     const filePath = section.nestedPath === '.' ? '' : section.nestedPath
     const fileName = section.fileName
 
