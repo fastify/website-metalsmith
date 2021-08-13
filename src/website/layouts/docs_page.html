@@ -30,9 +30,11 @@
             {% endif %}
             <ul class="menu-list">
               {% for item in data.docs.toc[version][name] %}
-                <li {% if item.link == '/' + path %}id="doc-menu-section"{% endif %}>
-                  <a title="{{ item.name | striptags }}" {% if item.link == '/' + path %}class="is-active"{% endif %} href="{{ item.link }}">{{ item.name }}</a>
-                </li>
+                {% if not (item.name == 'index') %}
+                  <li {% if item.link == '/' + path %}id="doc-menu-section"{% endif %}>
+                    <a title="{{ item.name | striptags }}" {% if item.link == '/' + path %}class="is-active"{% endif %} href="{{ item.link }}">{{ item.name }}</a>
+                  </li>
+                {% endif %}
               {% endfor %}
             </ul>
           {% endfor %}
@@ -73,12 +75,14 @@
             </li>
             {% if not section=='' %}
               <li style="text-transform: capitalize; margin-right: 12px">
-                <div style="padding-left: 12px">
+                <a href="/docs/{{version}}/{{section}}" style="padding-left: 12px">
                   {{ section }}
-                </div>
+                </a>
               </li>
             {% endif %}
-            <li class="is-active"><a>{{ title }}</a></li>
+            {% if not (title=='index') %}
+              <li class="is-active"><a>{{ title }}</a></li>
+            {% endif %}
           </ul>
         </nav>
 
