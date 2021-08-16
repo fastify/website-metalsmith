@@ -31,14 +31,11 @@ async function createDocSources (releases) {
   const latestRelease = releases.find(r => r.name === 'latest')
   const tocByRelease = await Promise.all(releases.map(getTOCForRelease))
   const indexedToc = releases.reduce((acc, curr, i) => {
-    const tocSections = {}
-    tocByRelease[i].forEach(item => {
-      if (tocSections[item.section]) {
-        return tocSections[item.section].push(item)
-      }
-      tocSections[item.section] = [item]
-    })
-    acc[curr.docsPath] = tocSections
+    acc[curr.docsPath] = tocByRelease[i].reduce((tocSections, currItem) => {
+      if (tocSections[currItem.section]) tocSections[currItem.section].push(currItem)
+      else tocSections[currItem.section] = [currItem]
+      return tocSections
+    }, {})
     return acc
   }, {})
   const versions = releases.map(r => r.docsPath)
