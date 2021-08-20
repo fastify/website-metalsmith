@@ -39,13 +39,20 @@
     </nav>
     <div class="content">
       <h2>Table of contents</h2>
-      <ul>
-        {% for item in data.docs.toc[docsPath] %}
-          <li>
-            <a href="{{ item.link }}">{{ item.name }}</a>
-          </li>
-        {% endfor %}
-      </ul>
+      {% for sectionName, section in data.docs.toc[docsPath] %}
+        <h3 style="text-transform: capitalize">
+          <a href="{{ '/docs' + '/' + version + '/' + sectionName }}">{{ sectionName }}</a>
+        </h3>
+        <ul>
+          {% for item in section %}
+            {% if not (item.name == 'index') %}
+              <li>
+                <a href="{{ item.link }}">{{ item.name }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% endfor %}
     </div>
   </section>
 </div>

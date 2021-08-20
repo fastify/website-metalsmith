@@ -22,16 +22,22 @@
 
       <div class="column is-3 is-hidden-mobile" data-sticky-container>
         <aside class="menu sticky">
-          <p class="menu-label">
-            Table of contents
-          </p>
-          <ul class="menu-list">
-            {% for item in data.docs.toc[version] %}
-              <li {% if item.link == '/' + path %}id="doc-menu-section"{% endif %}>
-                <a title="{{ item.name | striptags }}" {% if item.link == '/' + path %}class="is-active"{% endif %} href="{{ item.link }}">{{ item.name }}</a>
-              </li>
-            {% endfor %}
-          </ul>
+          {% for name, section in data.docs.toc[version] %}
+            {% if not name=='' %}
+              <p class="menu-label">
+                <a href="{{ '/docs' + '/' + version + '/' + name }}">{{ name }}</a>
+              </p>
+            {% endif %}
+            <ul class="menu-list">
+              {% for item in data.docs.toc[version][name] %}
+                {% if not (item.name == 'index') %}
+                  <li {% if item.link == '/' + path %}id="doc-menu-section"{% endif %}>
+                    <a title="{{ item.name | striptags }}" {% if item.link == '/' + path %}class="is-active"{% endif %} href="{{ item.link }}">{{ item.name }}</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          {% endfor %}
           <div class="content" style="margin: .8em; border-top: 1px solid #ccc; padding: .8em 0 0 0">
             Docs version
             <div class="field">
@@ -67,7 +73,16 @@
                 </div>
               </div>
             </li>
-            <li class="is-active"><a>{{ title }}</a></li>
+            {% if not section=='' %}
+              <li style="text-transform: capitalize; margin-right: 12px">
+                <a href="/docs/{{version}}/{{section}}" style="padding-left: 12px">
+                  {{ section }}
+                </a>
+              </li>
+            {% endif %}
+            {% if not (title=='index') %}
+              <li class="is-active"><a>{{ title }}</a></li>
+            {% endif %}
           </ul>
         </nav>
 

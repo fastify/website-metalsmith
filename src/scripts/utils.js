@@ -1,8 +1,9 @@
 const { access } = require('fs')
-const { join, basename: getBaseName, dirname: getDirName } = require('path')
+const { resolve, join, basename: getBaseName, dirname: getDirName } = require('path')
 const { mkdir, copyFile, readdir } = require('fs').promises
 const crypto = require('crypto')
 const multimatch = require('multimatch')
+const path = require('path')
 
 function fileExists (path) {
   return new Promise((resolve, reject) => {
@@ -31,6 +32,22 @@ async function copyDir (src, dest) {
       }
       return copyFile(srcPath, destPath)
     }))
+  }
+}
+
+async function * getFiles (dir, nestLevel = -1) {
+  const dirents = await readdir(dir, { withFileTypes: true })
+  for (const dirent of dirents) {
+    const res = resolve(dir, dirent.name)
+    if (dirent.isDirectory()) {
+      yield * getFiles(res, nestLevel - 1)
+    } else {
+      const pathArr = res.split(path.sep).slice(nestLevel)
+      yield {
+        fileName: pathArr.slice(-1)[0],
+        nestedPath: join(...pathArr.slice(0, -1)) // get nesting without file
+      }
+    }
   }
 }
 
@@ -97,5 +114,6 @@ module.exports = {
   copyDir,
   fileExists,
   hashContent,
-  sanitizePath
+  sanitizePath,
+  getFiles
 }

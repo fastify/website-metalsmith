@@ -4,7 +4,7 @@ const { join, dirname, basename } = require('path')
 const { promises: fs } = require('fs')
 const { dump } = require('js-yaml')
 const clone = require('clone')
-const { copyDir, fileExists } = require('./utils')
+const { copyDir, fileExists, getFiles } = require('./utils')
 
 const sourceFolder = process.argv[2]
 const destFolder = process.argv[3]
@@ -31,31 +31,45 @@ async function createDocSources (releases) {
   const latestRelease = releases.find(r => r.name === 'latest')
   const tocByRelease = await Promise.all(releases.map(getTOCForRelease))
   const indexedToc = releases.reduce((acc, curr, i) => {
-    acc[curr.docsPath] = tocByRelease[i]
+    acc[curr.docsPath] = tocByRelease[i].reduce((tocSections, currItem) => {
+      if (tocSections[currItem.section]) tocSections[currItem.section].push(currItem)
+      else tocSections[currItem.section] = [currItem]
+      return tocSections
+    }, {})
     return acc
   }, {})
   const versions = releases.map(r => r.docsPath)
-  await Promise.all(releases.map(copyResourcesFolderForRelease))
+  await Promise.all(releases.map(copyNestedFoldersForRelease))
   await createDocsDataFile(join(destFolder, 'data', 'docs.yml'), { versions, toc: indexedToc, releases })
   await processDocFiles(indexedToc, latestRelease)
   await createIndexFiles(releases)
 }
 
-async function extractTOCFromFile (file, release) {
-  const fileContent = await fs.readFile(file, 'utf8')
+async function extractTOCFromReleaseStructure (root, release) {
+  const sections = {}
+  let flatSections = []
+  // split nested sections from top level docs
+  for await (const file of getFiles(join(root, 'docs'))) {
+    if (!(file.nestedPath === '.')) {
+      if (sections[file.nestedPath]) sections[file.nestedPath].push(file)
+      else sections[file.nestedPath] = [file]
+    } else flatSections.push(file)
+  }
+  // add section only if index.md exists
+  Object.keys(sections).forEach((section) => {
+    if (sections[section].filter(item => item.fileName === 'index.md').length > 0) {
+      flatSections = flatSections.concat(sections[section])
+    }
+  })
+  const toc = flatSections.map((section) => {
+    const filePath = section.nestedPath === '.' ? '' : section.nestedPath
+    const fileName = section.fileName
 
-  // searches for the beginning of the ToC in the file (between '## Documentation' and '\n\n')
-  const lines = fileContent.split('## Documentation')[1].split('\n\n')[0].split('\n').filter(Boolean)
-  // every line is a ToC entry
-  const re = /(master|.)\/docs\/([a-zA-Z-0-9]+\.md)"><code><b>(.+)<\/b>/
-  const toc = lines.map((line) => {
-    const match = re.exec(line)
-    const fileName = match[2]
-    const name = match[3]
-    const sourceFile = join(dirname(file), 'docs', fileName)
-    const destinationFile = join(destFolder, 'content', 'docs', release.docsPath, fileName)
+    const name = fileName.split('.').slice(0, -1).join('.') // get name without extension
+    const sourceFile = join(root, 'docs', filePath === 'reference' ? '' : filePath, fileName)
+    const destinationFile = join(destFolder, 'content', 'docs', release.docsPath, filePath, fileName)
     const slug = basename(sourceFile, '.md')
-    const link = `/docs/${release.docsPath}/${slug}`
+    const link = `/docs/${release.docsPath}${filePath !== '' ? '/' + filePath : ''}/${slug}`
 
     return {
       fileName,
@@ -64,6 +78,7 @@ async function extractTOCFromFile (file, release) {
       destinationFile,
       slug,
       link,
+      section: filePath,
       fullVersion: release.fullVersion,
       docsPath: release.docsPath,
       label: release.label
@@ -76,19 +91,21 @@ async function extractTOCFromFile (file, release) {
 async function getTOCForRelease (release) {
   const folder = join(sourceFolder, release.dest)
   const files = await fs.readdir(folder)
-  const subfolder = files.find(file => file.match(/^fastify-/))
-  const indexFile = join(folder, subfolder, 'README.md')
+  const subFolder = files.find(file => file.match(/^fastify-/))
+  const root = join(folder, subFolder)
 
-  return extractTOCFromFile(indexFile, release)
+  return extractTOCFromReleaseStructure(root, release)
 }
 
 function createDocsDataFile (destination, docsInfo) {
   const toDump = clone(docsInfo)
   // remove sourceFile and destinationFile keys from toc
   Object.keys(toDump.toc).forEach((version) => {
-    toDump.toc[version].forEach((entry, i) => {
-      delete toDump.toc[version][i].sourceFile
-      delete toDump.toc[version][i].destinationFile
+    Object.keys(toDump.toc[version]).forEach((section, i) => {
+      toDump.toc[version][section].forEach((item, i) => {
+        delete toDump.toc[version][section][i].sourceFile
+        delete toDump.toc[version][section][i].destinationFile
+      })
     })
   })
 
@@ -99,17 +116,22 @@ async function processDocFiles (docs, latestRelease) {
   // merge all docs into a single array adding the version as a key in every object
   const docsArray = Object.keys(docs).reduce((acc, version) => {
     const curr = docs[version]
-    return acc.concat(curr.map((item) => {
-      item.version = version
-      return item
-    }))
+    Object.keys(curr).forEach(section => {
+      acc = acc.concat(curr[section].map((item) => {
+        item.version = version
+        return item
+      }))
+    })
+    return acc
   }, [])
 
   for (const item of docsArray) {
     const dir = dirname(item.destinationFile)
     const hasDir = await fileExists(dir)
     if (!hasDir) {
-      await fs.mkdir(dir)
+      await fs.mkdir(dir, {
+        recursive: true
+      })
     }
 
     const buffer = await fs.readFile(item.sourceFile, 'utf8')
@@ -132,6 +154,7 @@ version: ${item.version}
 fullVersion: ${item.fullVersion}
 label: ${item.label}
 docsPath: ${item.docsPath}
+section: ${item.section}
 ${item.version === 'latest' ? `canonical: "${item.link.replace(/latest/, latestRelease.label)}"` : ''}
 ${item.version === 'master' ? `github_url: https://github.com/fastify/fastify/blob/master/docs/${item.fileName}` : ''}
 ---
@@ -165,13 +188,13 @@ function remapLinks (content, item) {
   const absoluteLinks = /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/gi
   const docResourcesLink = /\(.\/?resources\/([a-zA-Z0-9\-_]+\..+)\)/gi
   return content
-    .replace(hrefAbsoluteLinks, (match, p1) => `href="/docs/${item.version}/${p1}`)
+    .replace(hrefAbsoluteLinks, (match, p1) => `href="/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${p1}`)
     .replace(absoluteLinks, `/docs/${item.version}`)
     .replace(ecosystemLinkRx, (match) => '(/ecosystem)')
     .replace(ecosystemLink, (match) => '(/ecosystem)')
-    .replace(pluginsLink, (match) => `(/docs/${item.version}/Plugins)`)
-    .replace(relativeLinks, (match, ...parts) => `(/docs/${item.version}/${parts[2]}${parts[3] || ''})`)
-    .replace(relativeLinksWithLabel, (match, ...parts) => `(/docs/${item.version}/${parts[1]} "${parts[3]}")`)
+    .replace(pluginsLink, (match) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/Plugins)`)
+    .replace(relativeLinks, (match, ...parts) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${parts[2]}${parts[3] || ''})`)
+    .replace(relativeLinksWithLabel, (match, ...parts) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${parts[1]} "${parts[3]}")`)
     .replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
     .replace(docResourcesLink, (match, p1) => `(/docs/${item.version}/resources/${p1})`)
 }
@@ -227,7 +250,7 @@ const extractPlugins = (pluginContent) => {
     }
     return acc
   }, [])
-  const re = /\[`([-a-zA-Z0-9./@]+)`\]\(([^)]+)\)(\s*(.+))?/
+  const re = /\[`([-a-zA-Z0-9./@]+)`]\(([^)]+)\)(\s*(.+))?/
   const plugins = mergedLines.map((line) => {
     const match = re.exec(line)
     if (!match) {
@@ -275,14 +298,20 @@ async function createEcosystemDataFile (masterReleaseDownloadPath) {
   console.log(`Ecosystem file written: ${destination}`)
 }
 
-async function copyResourcesFolderForRelease (release) {
+async function copyNestedFoldersForRelease (release) {
   const folder = join(sourceFolder, release.dest)
   const files = await fs.readdir(folder)
-  const subfolder = files.find(file => file.match(/^fastify-/))
-  const src = join(folder, subfolder, 'docs', 'resources')
-  const dest = join(destFolder, 'content', 'docs', release.docsPath, 'resources')
-
-  return copyDir(src, dest)
+  const fastifySrcFolder = files.find(file => file.match(/^fastify-/))
+  const docsSrc = join(folder, fastifySrcFolder, 'docs')
+  const srcContent = await fs.readdir(docsSrc, { withFileTypes: true })
+  return srcContent
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name)
+    .forEach(folder => {
+      const src = join(docsSrc, folder)
+      const dest = join(destFolder, 'content', 'docs', release.docsPath, folder)
+      copyDir(src, dest)
+    })
 }
 
 main().catch((err) => {
