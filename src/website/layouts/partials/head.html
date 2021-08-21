@@ -34,7 +34,9 @@
   {% if canonical %}
     <link ref="canonical" href="{{ canonical }}">
   {% else %}
-    <meta name="robots" content="noindex, nofollow">
+    {% if docsPath %}
+      <meta name="robots" content="noindex, nofollow">
+    {% endif %}
   {% endif %}
 
   {% if google_analytics %}
