@@ -33,6 +33,8 @@
 
   {% if canonical %}
     <link ref="canonical" href="{{ canonical }}">
+  {% else %}
+    <meta name="robots" content="noindex, nofollow">
   {% endif %}
 
   {% if google_analytics %}
