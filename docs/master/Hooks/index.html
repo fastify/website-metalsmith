@@ -299,7 +299,25 @@ fastify.route({
     reply.send({ hello: &#39;world&#39; })
   }
 })
-</code></pre><p><strong>Note</strong>: both options also accept an array of functions.</p></div><hr><nav class=level></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+</code></pre><p><strong>Note</strong>: both options also accept an array of functions.</p><h2 id=diagnostics-channel-hooks>Diagnostics Channel Hooks</h2><blockquote><p><strong>Note:</strong> The <code>diagnostics_channel</code> is currently experimental on Node.js, so its API is subject to change even in semver-patch releases of Node.js. For versions of Node.js supported by Fastify where <code>diagnostics_channel</code> is unavailable, the hook will use the <a href=https://www.npmjs.com/package/diagnostics_channel>polyfill</a> if it is available. Otherwise this feature will not be present.</p></blockquote><p>Currently, one <a href=https://nodejs.org/api/diagnostics_channel.html><code>diagnostics_channel</code></a> publish event, <code>&#39;fastify.initialization&#39;</code>, happens at initialization time. The Fastify instance is passed into the hook as a property of the object passed in. At this point, the instance can be interacted with to add hooks, plugins, routes or any other sort of modification.</p><p>For example, a tracing package might do something like the following (which is, of course, a simplification). This would be in a file loaded in the initialization of the tracking package, in the typical &quot;require instrumentation tools first&quot; fashion.</p><pre><code class=language-js>const tracer = /* retrieved from elsehwere in the package */
+const dc = require(&#39;diagnostics_channel&#39;)
+const channel = dc.channel(&#39;fastify.initialization&#39;)
+const spans = new WeakMap()
+
+channel.subscribe(function ({ fastify }) {
+  fastify.addHook(&#39;onRequest&#39;, (request, reply, done) =&gt; {
+    const span = tracer.startSpan(&#39;fastify.request&#39;)
+    spans.set(request, span)
+    done()
+  })
+
+  fastify.addHook(&#39;onResponse&#39;, (request, reply, done) =&gt; {
+    const span = spans.get(request)
+    span.finish()
+    done()
+  })
+})
+</code></pre></div><hr><nav class=level></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
   var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
   var currentMenu = document.getElementById('doc-menu-section')
   if (titles.length && currentMenu) {
