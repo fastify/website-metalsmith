@@ -155,6 +155,39 @@ fastify.setValidatorCompiler(({ schema, method, url, httpPart }) =&gt; {
 </code></pre><pre><code class=language-sh>curl -X GET &quot;http://localhost:3000/?ids=1
 
 {&quot;params&quot;:{&quot;hello&quot;:[&quot;1&quot;]}}
+</code></pre><p>You can also specify a custom schema validator for each parameter type (body, querystring, params, headers).</p><p>For example, the following code disable type cohercion only for the <code>body</code> parameters, changing the ajv default options:</p><pre><code class=language-js>const schemaCompilers = {
+  body: new Ajv({
+    removeAdditional: false,
+    coerceTypes: false,
+    allErrors: true
+  }),
+  params: new Ajv({
+    removeAdditional: false,
+    coerceTypes: true,
+    allErrors: true
+  }),
+  querystring: new Ajv({
+    removeAdditional: false,
+    coerceTypes: true,
+    allErrors: true
+  }),
+  headers: new Ajv({
+    removeAdditional: false,
+    coerceTypes: true,
+    allErrors: true
+  })
+}
+
+server.setValidatorCompiler(req =&gt; {
+    if (!req.httpPart) {
+      throw new Error(&#39;Missing httpPart&#39;)
+    }
+    const compiler = schemaCompilers[req.httpPart]
+    if (!compiler) {
+      throw new Error(`Missing compiler for ${req.httpPart}`)
+    }
+    return compiler.compile(req.schema)
+})
 </code></pre><p>For further information see <a href=https://ajv.js.org/coercion.html>here</a></p><p><a name=ajv-plugins></a></p><h4 id=ajv-plugins>Ajv Plugins</h4><p>You can provide a list of plugins you want to use with the default <code>ajv</code> instance.<br>Note that the plugin must be <strong>compatible with Ajv v6</strong>.</p><blockquote><p>Refer to <a href=/docs/master/Server#ajv><code>ajv options</code></a> to check plugins format</p></blockquote><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   ajv: {
     plugins: [
