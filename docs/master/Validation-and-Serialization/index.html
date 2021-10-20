@@ -415,9 +415,12 @@ fastify.setSchemaErrorFormatter(function (errors, dataVar) {
      reply.status(422).send(new Error(&#39;validation failed&#39;))
   }
 })
-</code></pre><p>If you want custom error response in schema without headaches and quickly, you can take a look at <a href=https://github.com/epoberezkin/ajv-errors><code>ajv-errors</code></a>. Check out the <a href=https://github.com/fastify/example/blob/HEAD/validation-messages/custom-errors-messages.js>example</a> usage.</p><p>Below is an example showing how to add <strong>custom error messages for each property</strong> of a schema by supplying custom AJV options. Inline comments in the schema below describe how to configure it to show a different error message for each case:</p><pre><code class=language-js>const fastify = Fastify({
+</code></pre><p>If you want custom error response in schema without headaches and quickly, you can take a look at <a href=https://github.com/epoberezkin/ajv-errors><code>ajv-errors</code></a>. Check out the <a href=https://github.com/fastify/example/blob/HEAD/validation-messages/custom-errors-messages.js>example</a> usage.</p><blockquote><p>Make sure to install version 1.0.1 of <code>ajv-errors</code>, because later versions of it are not compatible with AJV v6 (the version shipped by Fastify v3).</p></blockquote><p>Below is an example showing how to add <strong>custom error messages for each property</strong> of a schema by supplying custom AJV options. Inline comments in the schema below describe how to configure it to show a different error message for each case:</p><pre><code class=language-js>const fastify = Fastify({
   ajv: {
-    customOptions: { jsonPointers: true },
+    customOptions: {
+      jsonPointers: true,
+      allErrors: true // Warning: Enabling this option may lead to this security issue https://www.cvedetails.com/cve/CVE-2020-8192/
+    },
     plugins: [
       require(&#39;ajv-errors&#39;)
     ]
