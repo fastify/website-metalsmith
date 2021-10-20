@@ -39,7 +39,7 @@
   "homepage": "https://github.com/fastify/website#readme",
   "dependencies": {
     "async": "^3.2.0",
-    "axios": "^0.21.1",
+    "axios": "^0.21.3",
     "clean-css": "^5.0.1",
     "clone": "^2.1.2",
     "compare-versions": "^3.6.0",
@@ -64,7 +64,7 @@
     "nunjucks-markdown-filter": "^0.1.0",
     "parse-link-header": "^1.0.1",
     "rimraf": "^3.0.2",
-    "svgo": "^1.3.2",
+    "svgo": "^2.3.1",
     "unzip-stream": "^0.3.1"
   },
   "devDependencies": {
