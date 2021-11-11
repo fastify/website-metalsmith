@@ -86,7 +86,7 @@ async function extractTOCFromReleaseStructure (root, release) {
 
     Object.keys(toc).forEach(key => {
       if (key !== 'sourceFile') {
-        toc[key] = toc[key].replace('Index', 'index')
+        toc[key] = toc[key].toLowerCase()
       }
     })
 
