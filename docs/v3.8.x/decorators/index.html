@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>decorators</title><meta name=description content="Fast and low overhead web framework, for Node.js"><link rel=apple-touch-icon sizes=57x57 href=/images/apple-icon-57x57.ed24c0a19503e080.png><link rel=apple-touch-icon sizes=60x60 href=/images/apple-icon-60x60.60c285c424d50738.png><link rel=apple-touch-icon sizes=72x72 href=/images/apple-icon-72x72.e49b27cfe1ab1461.png><link rel=apple-touch-icon sizes=76x76 href=/images/apple-icon-76x76.752f43fc91b8c1f7.png><link rel=apple-touch-icon sizes=114x114 href=/images/apple-icon-114x114.61739fa1d5a7059a.png><link rel=apple-touch-icon sizes=120x120 href=/images/apple-icon-120x120.7c25de37c5ce2ec1.png><link rel=apple-touch-icon sizes=144x144 href=/images/apple-icon-144x144.04d88fb27bd92cbe.png><link rel=apple-touch-icon sizes=152x152 href=/images/apple-icon-152x152.9364781175671626.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-icon-180x180.67579100928bfcd2.png><link rel=icon type=image/png sizes=192x192 href=/images/android-icon-192x192.37eb7f1ae3853740.png><link rel=icon type=image/png sizes=32x32 href=/images/favicon-32x32.1e22f0e774bc3cce.png><link rel=icon type=image/png sizes=96x96 href=/images/favicon-96x96.7e8a68b1b80c1799.png><link rel=icon type=image/png sizes=16x16 href=/images/favicon-16x16.e534ce05cb727f1a.png><link rel=manifest href=/manifest.json><meta name=msapplication-TileColor content=#ffffff><meta name=msapplication-TileImage content=/images/ms-icon-144x144.png><meta name=theme-color content=#ffffff><meta property=og:url content=https://www.fastify.io/docs/v3.8.x/decorators><meta property=og:type content=website><meta property=og:title content=decorators><meta property=og:description content="Fast and low overhead web framework, for Node.js"><meta property=og:image content=https://www.fastify.io/images/fastify-fb-share-image.07b6e6860853c758.png><meta name=twitter:card content=summary_large_image><meta name=twitter:site content=@fastifyjs><meta name=twitter:creator content=@fastifyjs><meta name=twitter:title content=decorators><meta name=twitter:description content="Fast and low overhead web framework, for Node.js"><meta name=twitter:image content=https://www.fastify.io/images/fastify-twitter-share-image.cd9f217b360af3e2.png><link rel=stylesheet href=/css/style.7b9a86078f3cc4f5.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css integrity="sha512-kZqGbhf9JTB4bVJ0G8HCkqmaPcRgo88F0dneK30yku5Y/dep7CZfCnNml2Je/sY4lBoqoksXz4PtVXS4GHSUzQ==" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css crossorigin=anonymous><meta name=robots content="noindex, nofollow"></head><body><nav id=main-navbar class=navbar><div class=navbar-brand><a class=navbar-item href=/ ><img src=/images/fastify-logo-menu.d13f8da7a965c800.png alt="Fastify: Fast and low overhead web framework, for Node.js" height=28> </a><a class="navbar-item is-hidden-desktop" href=https://github.com/fastify/fastify target=_blank rel=noopener><span class=icon style="color: #333;"><i class="fa fa-github"></i></span></a><div class="navbar-burger burger" data-target=mobileMenu><span></span> <span></span> <span></span></div></div><div class=navbar-menu id=mobileMenu><div class=navbar-start><a class=navbar-item href=/ >Home</a> <a class=navbar-item href=/docs/latest>Docs</a> <a class=navbar-item href=/ecosystem>Ecosystem</a> <a class=navbar-item href=/benchmarks>Benchmarks</a> <a class=navbar-item href=/contribute>Contribute</a> <a class=navbar-item href=https://medium.com/@fastifyjs/ >Blog</a> <a class=navbar-item href=https://github.com/fastify/help>Help</a></div><div class=navbar-end><span class="control has-icons-left navbar-item"><input id=algolia-search-input class=input type=search placeholder=""> <span class="icon is-medium is-left"><i class="fa fa-search"></i> </span></span><a class=navbar-item href=https://github.com/fastify/fastify target=_blank rel=noopener><span class="fa fa-github"></span>&nbsp;GitHub </a><a class=navbar-item href=https://twitter.com/fastifyjs target=_blank rel=noopener><span class="fa fa-twitter"></span>&nbsp;Twitter</a></div></div></nav><main class=page-content aria-label=Content><section class="hero is-primary" style="background-image: url(/images/bg-pattern-dark.3f8cda863b3bbf52.png)"><div class=hero-body><div class=container><h1 class=title>Documentation (v3.8.0)</h1></div></div></section><section class=section><div class=container><div class=columns><div class="column is-3 is-hidden-mobile" data-sticky-container><aside class="menu sticky"><ul class=menu-list><li style="text-transform: capitalize"><a title=benchmarking href=/docs/v3.8.x/benchmarking>benchmarking</a></li><li style="text-transform: capitalize"><a title=contenttypeparser href=/docs/v3.8.x/contenttypeparser>contenttypeparser</a></li><li style="text-transform: capitalize" id=doc-menu-section><a title=decorators class=is-active href=/docs/v3.8.x/decorators>decorators</a></li><li style="text-transform: capitalize"><a title=ecosystem href=/docs/v3.8.x/ecosystem>ecosystem</a></li><li style="text-transform: capitalize"><a title=errors href=/docs/v3.8.x/errors>errors</a></li><li style="text-transform: capitalize"><a title=fluent-schema href=/docs/v3.8.x/fluent-schema>fluent-schema</a></li><li style="text-transform: capitalize"><a title=getting-started href=/docs/v3.8.x/getting-started>getting-started</a></li><li style="text-transform: capitalize"><a title=http2 href=/docs/v3.8.x/http2>http2</a></li><li style="text-transform: capitalize"><a title=hooks href=/docs/v3.8.x/hooks>hooks</a></li><li style="text-transform: capitalize"><a title=lts href=/docs/v3.8.x/lts>lts</a></li><li style="text-transform: capitalize"><a title=lifecycle href=/docs/v3.8.x/lifecycle>lifecycle</a></li><li style="text-transform: capitalize"><a title=logging href=/docs/v3.8.x/logging>logging</a></li><li style="text-transform: capitalize"><a title=middleware href=/docs/v3.8.x/middleware>middleware</a></li><li style="text-transform: capitalize"><a title=migration-guide-v3 href=/docs/v3.8.x/migration-guide-v3>migration-guide-v3</a></li><li style="text-transform: capitalize"><a title=plugins-guide href=/docs/v3.8.x/plugins-guide>plugins-guide</a></li><li style="text-transform: capitalize"><a title=plugins href=/docs/v3.8.x/plugins>plugins</a></li><li style="text-transform: capitalize"><a title=recommendations href=/docs/v3.8.x/recommendations>recommendations</a></li><li style="text-transform: capitalize"><a title=reply href=/docs/v3.8.x/reply>reply</a></li><li style="text-transform: capitalize"><a title=request href=/docs/v3.8.x/request>request</a></li><li style="text-transform: capitalize"><a title=routes href=/docs/v3.8.x/routes>routes</a></li><li style="text-transform: capitalize"><a title=server href=/docs/v3.8.x/server>server</a></li><li style="text-transform: capitalize"><a title=serverless href=/docs/v3.8.x/serverless>serverless</a></li><li style="text-transform: capitalize"><a title=style-guide href=/docs/v3.8.x/style-guide>style-guide</a></li><li style="text-transform: capitalize"><a title=testing href=/docs/v3.8.x/testing>testing</a></li><li style="text-transform: capitalize"><a title=typescript href=/docs/v3.8.x/typescript>typescript</a></li><li style="text-transform: capitalize"><a title=validation-and-serialization href=/docs/v3.8.x/validation-and-serialization>validation-and-serialization</a></li><li style="text-transform: capitalize"><a title=write-plugin href=/docs/v3.8.x/write-plugin>write-plugin</a></li></ul><div class=content style="margin: .8em; border-top: 1px solid #ccc; padding: .8em 0 0 0">Docs version<div class=field><div class=control><div class=select><select onchange="if (this.value) window.location.href=this.value"><option value=/docs/latest>latest</option><option value=/docs/master>master</option><option value=/docs/v3.23.x>v3.23.x</option><option value=/docs/v3.22.x>v3.22.x</option><option value=/docs/v3.21.x>v3.21.x</option><option value=/docs/v3.20.x>v3.20.x</option><option value=/docs/v3.19.x>v3.19.x</option><option value=/docs/v3.18.x>v3.18.x</option><option value=/docs/v3.17.x>v3.17.x</option><option value=/docs/v3.16.x>v3.16.x</option><option value=/docs/v3.15.x>v3.15.x</option><option value=/docs/v3.14.x>v3.14.x</option><option value=/docs/v3.13.x>v3.13.x</option><option value=/docs/v3.12.x>v3.12.x</option><option value=/docs/v3.11.x>v3.11.x</option><option value=/docs/v3.10.x>v3.10.x</option><option value=/docs/v3.9.x>v3.9.x</option><option selected value=/docs/v3.8.x>v3.8.x</option><option value=/docs/v3.7.x>v3.7.x</option><option value=/docs/v3.6.x>v3.6.x</option><option value=/docs/v3.5.x>v3.5.x</option><option value=/docs/v3.4.x>v3.4.x</option><option value=/docs/v3.3.x>v3.3.x</option><option value=/docs/v3.2.x>v3.2.x</option><option value=/docs/v3.1.x>v3.1.x</option><option value=/docs/v3.0.x>v3.0.x</option><option value=/docs/v2.15.x>v2.15.x</option><option value=/docs/v2.14.x>v2.14.x</option><option value=/docs/v2.13.x>v2.13.x</option><option value=/docs/v2.12.x>v2.12.x</option><option value=/docs/v2.11.x>v2.11.x</option><option value=/docs/v2.10.x>v2.10.x</option><option value=/docs/v2.9.x>v2.9.x</option><option value=/docs/v2.8.x>v2.8.x</option><option value=/docs/v2.7.x>v2.7.x</option><option value=/docs/v2.6.x>v2.6.x</option><option value=/docs/v2.5.x>v2.5.x</option><option value=/docs/v2.4.x>v2.4.x</option><option value=/docs/v2.3.x>v2.3.x</option><option value=/docs/v2.2.x>v2.2.x</option><option value=/docs/v2.1.x>v2.1.x</option><option value=/docs/v2.0.x>v2.0.x</option><option value=/docs/v1.14.x>v1.14.x</option><option value=/docs/v1.13.x>v1.13.x</option></select></div></div></div></div></aside></div><div class="column is-9"><nav class=breadcrumb><ul><li><a href=/ style="padding-left: 0">Fastify</a></li><li><a href=/docs/ >Documentation</a></li><li><div class=field><div class=control><div class=select><select onchange="if (this.value) window.location.href=this.value" style="border: none;"><option value=/docs/latest>latest</option><option value=/docs/master>master</option><option value=/docs/v3.23.x>v3.23.x</option><option value=/docs/v3.22.x>v3.22.x</option><option value=/docs/v3.21.x>v3.21.x</option><option value=/docs/v3.20.x>v3.20.x</option><option value=/docs/v3.19.x>v3.19.x</option><option value=/docs/v3.18.x>v3.18.x</option><option value=/docs/v3.17.x>v3.17.x</option><option value=/docs/v3.16.x>v3.16.x</option><option value=/docs/v3.15.x>v3.15.x</option><option value=/docs/v3.14.x>v3.14.x</option><option value=/docs/v3.13.x>v3.13.x</option><option value=/docs/v3.12.x>v3.12.x</option><option value=/docs/v3.11.x>v3.11.x</option><option value=/docs/v3.10.x>v3.10.x</option><option value=/docs/v3.9.x>v3.9.x</option><option selected value=/docs/v3.8.x>v3.8.x</option><option value=/docs/v3.7.x>v3.7.x</option><option value=/docs/v3.6.x>v3.6.x</option><option value=/docs/v3.5.x>v3.5.x</option><option value=/docs/v3.4.x>v3.4.x</option><option value=/docs/v3.3.x>v3.3.x</option><option value=/docs/v3.2.x>v3.2.x</option><option value=/docs/v3.1.x>v3.1.x</option><option value=/docs/v3.0.x>v3.0.x</option><option value=/docs/v2.15.x>v2.15.x</option><option value=/docs/v2.14.x>v2.14.x</option><option value=/docs/v2.13.x>v2.13.x</option><option value=/docs/v2.12.x>v2.12.x</option><option value=/docs/v2.11.x>v2.11.x</option><option value=/docs/v2.10.x>v2.10.x</option><option value=/docs/v2.9.x>v2.9.x</option><option value=/docs/v2.8.x>v2.8.x</option><option value=/docs/v2.7.x>v2.7.x</option><option value=/docs/v2.6.x>v2.6.x</option><option value=/docs/v2.5.x>v2.5.x</option><option value=/docs/v2.4.x>v2.4.x</option><option value=/docs/v2.3.x>v2.3.x</option><option value=/docs/v2.2.x>v2.2.x</option><option value=/docs/v2.1.x>v2.1.x</option><option value=/docs/v2.0.x>v2.0.x</option><option value=/docs/v1.14.x>v1.14.x</option><option value=/docs/v1.13.x>v1.13.x</option></select></div></div></div></li><li style="text-transform: capitalize" class=is-active><a>decorators</a></li></ul></nav><div id=doc-content class=content><h2 id=decorators>Decorators</h2><p>The decorators API allows customization of the core Fastify objects, such as the server instance itself and any request and reply objects used during the HTTP request lifecycle. The decorators API can be used to attach any type of property to the core objects, e.g. functions, plain objects, or native types.</p><p>This API is a <em>synchronous</em> API. Attempting to define a decoration asynchronously could result in the Fastify instance booting prior to the decoration completing its initialization. To avoid this issue, and register an asynchronous decoration, the <code>register</code> API, in combination with <code>fastify-plugin</code>, must be used instead. To learn more, see the <a href=/docs/v3.8.x/Plugins>Plugins</a> documentation.</p><p>Decorating core objects with this API allows the underlying JavaScript engine to optimize handling of the server, request, and reply objects. This is accomplished by defining the shape of all such object instances before they are instantiated and used. As an example, the following is not recommended because it will change the shape of objects during their lifecycle:</p><pre><code class=language-js>// Bad example! Continue reading.
+
+// Attach a user property to the incoming request before the request
+// handler is invoked.
+fastify.addHook(&#39;preHandler&#39;, function (req, reply, done) {
+  req.user = &#39;Bob Dylan&#39;
+  done()
+})
+
+// Use the attached user property in the request handler.
+fastify.get(&#39;/&#39;, function (req, reply) {
+  reply.send(`Hello, ${req.user}`)
+})
+</code></pre><p>Since the above example mutates the request object after it has already been instantiated, the JavaScript engine must deoptimize access to the request object. By using the decoration API this deoptimization is avoided:</p><pre><code class=language-js>// Decorate request with a &#39;user&#39; property
+fastify.decorateRequest(&#39;user&#39;, &#39;&#39;)
+
+// Update our property
+fastify.addHook(&#39;preHandler&#39;, (req, reply, done) =&gt; {
+  req.user = &#39;Bob Dylan&#39;
+  done()
+})
+// And finally access it
+fastify.get(&#39;/&#39;, (req, reply) =&gt; {
+  reply.send(`Hello, ${req.user}!`)
+})
+</code></pre><p>Note that it is important to keep initial shape of decorated field as close as possible to the value intended to be set dynamically in the future. Initialize a decorator as a <code>&#39;&#39;</code> if the intended value is a string, and as <code>null</code> if it will be an object or a function.</p><p>See <a href=https://web.archive.org/web/20200201163000/https://mathiasbynens.be/notes/shapes-ics>JavaScript engine fundamentals: Shapes and Inline Caches</a> for more information on this topic.</p><h3 id=usage>Usage</h3><p><a name=usage></a></p><h4 id=decoratename-value-dependencies><code>decorate(name, value, [dependencies])</code></h4><p><a name=decorate></a></p><p>This method is used to customize the Fastify <a href=/docs/v3.8.x/Server>server</a> instance.</p><p>For example, to attach a new method to the server instance:</p><pre><code class=language-js>fastify.decorate(&#39;utility&#39;, function () {
+  // Something very useful
+})
+</code></pre><p>As mentioned above, non-function values can be attached:</p><pre><code class=language-js>fastify.decorate(&#39;conf&#39;, {
+  db: &#39;some.db&#39;,
+  port: 3000
+})
+</code></pre><p>To access decorated properties, simply use the name provided to the decoration API:</p><pre><code class=language-js>fastify.utility()
+
+console.log(fastify.conf.db)
+</code></pre><p>The decorated <a href=/docs/v3.8.x/Server>Fastify server</a> is bound to <code>this</code> in route <a href=/docs/v3.8.x/Routes>route</a> handlers:</p><pre><code class=language-js>fastify.decorate(&#39;db&#39;, new DbConnection())
+
+fastify.get(&#39;/&#39;, async function (request, reply) {
+  reply({hello: await this.db.query(&#39;world&#39;)})
+})
+</code></pre><p>The <code>dependencies</code> parameter is an optional list of decorators that the decorator being defined relies upon. This list is simply a list of string names of other decorators. In the following example, the &quot;utility&quot; decorator depends upon &quot;greet&quot; and &quot;log&quot; decorators:</p><pre><code class=language-js>fastify.decorate(&#39;utility&#39;, fn, [&#39;greet&#39;, &#39;log&#39;])
+</code></pre><p>If a dependency is not satisfied, the <code>decorate</code> method will throw an exception. The dependency check is performed before the server instance is booted. Thus, it cannot occur during runtime.</p><h4 id=decoratereplyname-value-dependencies><code>decorateReply(name, value, [dependencies])</code></h4><p><a name=decorate-reply></a></p><p>As the name suggests, this API is used to add new methods/properties to the core <code>Reply</code> object:</p><pre><code class=language-js>fastify.decorateReply(&#39;utility&#39;, function () {
+  // Something very useful
+})
+</code></pre><p>Note: using an arrow function will break the binding of <code>this</code> to the Fastify <code>Reply</code> instance.</p><p>See <a href=#decorate><code>decorate</code></a> for information about the <code>dependencies</code> parameter.</p><h4 id=decoraterequestname-value-dependencies><code>decorateRequest(name, value, [dependencies])</code></h4><p><a name=decorate-request></a></p><p>As above with <a href=#decorate-reply><code>decorateReply</code></a>, this API is used add new methods/properties to the core <code>Request</code> object:</p><pre><code class=language-js>fastify.decorateRequest(&#39;utility&#39;, function () {
+  // something very useful
+})
+</code></pre><p>Note: using an arrow function will break the binding of <code>this</code> to the Fastify <code>Request</code> instance.</p><p>See <a href=#decorate><code>decorate</code></a> for information about the <code>dependencies</code> parameter.</p><h4 id=hasdecoratorname><code>hasDecorator(name)</code></h4><p><a name=has-decorator></a></p><p>Used to check for the existence of a server instance decoration:</p><pre><code class=language-js>fastify.hasDecorator(&#39;utility&#39;)
+</code></pre><h4 id=hasrequestdecorator>hasRequestDecorator</h4><p><a name=has-request-decorator></a></p><p>Used to check for the existence of a Request decoration:</p><pre><code class=language-js>fastify.hasRequestDecorator(&#39;utility&#39;)
+</code></pre><h4 id=hasreplydecorator>hasReplyDecorator</h4><p><a name=has-reply-decorator></a></p><p>Used to check for the existence of a Reply decoration:</p><pre><code class=language-js>fastify.hasReplyDecorator(&#39;utility&#39;)
+</code></pre><h3 id=decorators-and-encapsulation>Decorators and Encapsulation</h3><p><a name=decorators-encapsulation></a></p><p>Defining a decorator (using <code>decorate</code>, <code>decorateRequest</code> or <code>decorateReply</code>) with the same name more than once in the same <strong>encapsulated</strong> context will throw an exception.</p><p>As an example, the following will throw:</p><pre><code class=language-js>const server = require(&#39;fastify&#39;)()
+
+server.decorateReply(&#39;view&#39;, function (template, args) {
+  // Amazing view rendering engine
+})
+
+server.get(&#39;/&#39;, (req, reply) =&gt; {
+  reply.view(&#39;/index.html&#39;, { hello: &#39;world&#39; })
+})
+
+// Somewhere else in our codebase, we define another
+// view decorator. This throws.
+server.decorateReply(&#39;view&#39;, function (template, args) {
+  // Another rendering engine
+})
+
+server.listen(3000)
+</code></pre><p>But this will not:</p><pre><code class=language-js>const server = require(&#39;fastify&#39;)()
+
+server.decorateReply(&#39;view&#39;, function (template, args) {
+  // Amazing view rendering engine.
+})
+
+server.register(async function (server, opts) {
+  // We add a view decorator to the current encapsulated
+  // plugin. This will not throw as outside of this encapsulated
+  // plugin view is the old one, while inside it is the new one.
+  server.decorateReply(&#39;view&#39;, function (template, args) {
+    // Another rendering engine
+  })
+
+  server.get(&#39;/&#39;, (req, reply) =&gt; {
+    reply.view(&#39;/index.page&#39;, { hello: &#39;world&#39; })
+  })
+}, { prefix: &#39;/bar&#39; })
+
+server.listen(3000)
+</code></pre><h3 id=getters-and-setters>Getters and Setters</h3><p><a name=getters-setters></a></p><p>Decorators accept special &quot;getter/setter&quot; objects. These objects have functions named <code>getter</code> and <code>setter</code> (though, the <code>setter</code> function is optional). This allows defining properties via decorators. For example:</p><pre><code class=language-js>fastify.decorate(&#39;foo&#39;, {
+  getter () {
+    return &#39;a getter&#39;
+  }
+})
+</code></pre><p>Will define the <code>foo</code> property on the Fastify instance:</p><pre><code class=language-js>console.log(fastify.foo) // &#39;a getter&#39;
+</code></pre></div><hr><nav class=level></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+  var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
+  var currentMenu = document.getElementById('doc-menu-section')
+  if (titles.length && currentMenu) {
+    var submenu = document.createElement('ul')
+    titles.forEach(el => {
+      var currentSubmenuItem = document.createElement('li')
+      var currentSubmenuLink = document.createElement('a')
+      currentSubmenuLink.href = '#' + el.id
+      currentSubmenuLink.title = el.textContent
+      currentSubmenuLink.append(document.createTextNode(el.textContent))
+      currentSubmenuItem.append(currentSubmenuLink)
+      submenu.append(currentSubmenuItem)
+    })
+    currentMenu.append(submenu)
+  }
+
+  // dynamically creates header anchor links
+  var headers = document.querySelectorAll('#doc-content h3, #doc-content h4')
+  headers.forEach(el => {
+    var currentAnchorLink = document.createElement('a')
+    currentAnchorLink.className = 'anchor'
+    currentAnchorLink.href = "#" + el.id
+    currentAnchorLink.append(document.createTextNode('¶'))
+    el.insertBefore(currentAnchorLink, el.firstChild);
+  })</script></main><footer class="grey is-primary footer"><div class=container><div class="content has-text-centered"><p>Fastify, Copyright &copy; 2016-2021 <a href=https://openjsf.org/ target=_blank rel=noopener>OpenJS Foundation</a> and <a href=https://github.com/fastify/fastify#team target=_blank rel=noopener>The Fastify team</a>, Licensed under <a href=https://github.com/fastify/fastify/blob/master/LICENSE target=_blank rel=noopener>MIT</a></p><p><small>Icons by simpleicons.org</small></p></div></div></footer><script src=/js/main.97eeabf1df4ff87e.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js integrity="sha512-s+tOYYcC3Jybgr9mVsdAxsRYlGNq4mlAurOrfNuGMQ/SCofNPu92tjE7YRZCsdEtWL1yGkqk15fU/ark206YTg==" crossorigin=anonymous></script><script>hljs.highlightAll();</script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js></script><script type=text/javascript>docsearch({
+        apiKey: 'f7c62ddab40e653f67a6e15be761d951',
+        indexName: 'fastify',
+        inputSelector: '#algolia-search-input',
+        algoliaOptions: { 'facetFilters': ["version:latest", "tags:docs"] },
+        debug: false // Set debug to true if you want to inspect the dropdown
+      });</script></body></html>
