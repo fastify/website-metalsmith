@@ -41,7 +41,11 @@
 - name: "fabfitfun"
   image: "fabfitfun.svg"
   link: "https://fabfitfun.com/"
-
+  
+- name: "Find a Discord"
+  image: "fad_logo.svg"
+  link: "https://findadiscord.com"
+  
 - name: "Future Foundry"
   image: "future-foundry.svg"
   link: "https://futurefoundry.co"
