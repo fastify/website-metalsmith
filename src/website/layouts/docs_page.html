@@ -31,7 +31,7 @@
             <ul class="menu-list">
               {% for item in data.docs.toc[version][name] %}
                 {% if not (item.name == 'index') %}
-                  <li  style="text-transform: capitalize" {% if item.link == '/' + path %}id="doc-menu-section"{% endif %}>
+                  <li {% if item.link == '/' + path %}id="doc-menu-section"{% endif %}>
                     <a title="{{ item.name | striptags }}" {% if item.link == '/' + path %}class="is-active"{% endif %} href="{{ item.link }}">{{ item.name }}</a>
                   </li>
                 {% endif %}
@@ -81,7 +81,7 @@
               </li>
             {% endif %}
             {% if not (title=='index') %}
-              <li style="text-transform: capitalize" class="is-active"><a>{{ title }}</a></li>
+              <li class="is-active"><a>{{ title }}</a></li>
             {% endif %}
           </ul>
         </nav>

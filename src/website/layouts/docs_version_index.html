@@ -46,7 +46,7 @@
         <ul>
           {% for item in section %}
             {% if not (item.name == 'index') %}
-              <li style="text-transform: capitalize">
+              <li>
                 <a href="{{ item.link }}">{{ item.name }}</a>
               </li>
             {% endif %}
