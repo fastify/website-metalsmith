@@ -57,7 +57,7 @@ async function extractTOCFromReleaseStructure (root, release) {
   }
   // add section only if index.md exists
   Object.keys(sections).forEach((section) => {
-    if (sections[section].filter(item => item.fileName === 'index.md').length > 0) {
+    if (sections[section].filter(item => item.fileName.toLowerCase() === 'index.md').length > 0) {
       flatSections = flatSections.concat(sections[section])
     }
   })
@@ -71,7 +71,7 @@ async function extractTOCFromReleaseStructure (root, release) {
     const slug = basename(sourceFile, '.md')
     const link = `/docs/${release.docsPath}${filePath !== '' ? '/' + filePath : ''}/${slug}`
 
-    return {
+    const toc = {
       fileName,
       name,
       sourceFile,
@@ -83,6 +83,14 @@ async function extractTOCFromReleaseStructure (root, release) {
       docsPath: release.docsPath,
       label: release.label
     }
+
+    Object.keys(toc).forEach(key => {
+      if (key !== 'sourceFile') {
+        toc[key] = toc[key].replace('Index', 'index')
+      }
+    })
+
+    return toc
   })
 
   return toc
