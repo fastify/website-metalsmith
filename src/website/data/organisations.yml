@@ -30,6 +30,10 @@
   image: "compressor.svg"
   link: "https://compressor.io"
 
+- name: "Discord Bots Directory"
+  image: "discordbotsdirectory.svg"
+  link: "https://top-bots.xyz"
+
 - name: "evilfactorylabs"
   image: "evilfactorylabs.svg"
   link: "https://evilfactorylabs.org/"  
