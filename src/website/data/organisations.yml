@@ -37,7 +37,11 @@
 - name: "Elo7"
   image: "elo7.svg"
   link: "https://www.elo7.com.br"
-
+  
+- name: "Discord Bots Catalog"
+  image: "discordbotscatalog.svg"
+  name: "Discord Bots Catalog"
+  
 - name: "fabfitfun"
   image: "fabfitfun.svg"
   link: "https://fabfitfun.com/"
