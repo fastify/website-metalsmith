@@ -14,7 +14,8 @@
     "deploy": "gh-pages -d build --dotfiles",
     "test:lint": "eslint src --ignore-pattern 'src/website/content/'",
     "test:images": "node __tests__/organisations-images",
-    "test": "npm run test:lint && npm run test:images",
+    "test:data": "node __tests__/organisations-data",
+    "test": "npm run test:lint && npm run test:images && npm run test:data",
     "start:dev": "npm run build && concurrently \"npm run build:website:watch\" \"live-server build\"",
     "start:server": "live-server build",
     "start": "npm run build && npm run start:server"
@@ -82,6 +83,7 @@
     "glob": "^7.1.6",
     "live-server": "^1.2.1",
     "node-sass": "^6.0.0",
-    "xml2js": "^0.4.23"
+    "xml2js": "^0.4.23",
+    "js-yaml": "^4.1.0"
   }
 }
