@@ -175,6 +175,24 @@ module.exports = fastifyPlugin(dbConnector)
     }
     return result
   })
+
+  const animalBodyJsonSchema = {
+    type: &#39;object&#39;,
+    required: [&#39;animal&#39;],
+    properties: {
+      animal: { type: &#39;string&#39; },
+    },
+  }
+
+  const schema = {
+    body: animalBodyJsonSchema,
+  }
+
+  fastify.post(&#39;/animals&#39;, { schema }, async (request, reply) =&gt; {
+    // we can use the `request.body` object to get the data sent by the client
+    const result = await collection.insertOne({ animal: request.body.animal })
+    return result
+  })
 }
 
 module.exports = routes
