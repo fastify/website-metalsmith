@@ -358,7 +358,7 @@ fastify.post(&#39;/the/url&#39;, { schema }, handler)
 }
 
 fastify.post(&#39;/the/url&#39;, { schema }, handler)
-</code></pre><p><a name=schema-serializer></a></p><h4 id=serializer-compiler>Serializer Compiler</h4><p>The <code>serializerCompiler</code> is a function that returns a function that must return a string from an input object. You must provide a function to serialize every route where you have defined a <code>response</code> JSON Schema.</p><pre><code class=language-js>fastify.setSerializerCompiler(({ schema, method, url, httpStatus }) =&gt; {
+</code></pre><p><a name=schema-serializer></a></p><h4 id=serializer-compiler>Serializer Compiler</h4><p>The <code>serializerCompiler</code> is a function that returns a function that must return a string from an input object. When you define a response JSON Schema, you can change the default serialization method by providing a function to serialize every route where you do.</p><pre><code class=language-js>fastify.setSerializerCompiler(({ schema, method, url, httpStatus }) =&gt; {
   return data =&gt; JSON.stringify(data)
 })
 
