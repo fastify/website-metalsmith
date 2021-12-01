@@ -86,6 +86,10 @@
   image: "hotstar.svg"
   link: "https://tech.hotstar.com/"
 
+- name: "ImmobiliareLabs"
+  image: "immobiliarelabs.svg"
+  link: "https://labs.immobiliare.it"
+
 - name: "Knock"
   image: "knock.svg"
   link: "https://www.knock.com"
