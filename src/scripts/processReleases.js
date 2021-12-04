@@ -207,24 +207,6 @@ function remapLinks (content, item) {
     .replace(docResourcesLink, (match, p1) => `(/docs/${item.version}/resources/${p1})`)
 }
 
-async function createVersionIndexFile (release) {
-  const content = `---
-title: Documentation - ${release.name}
-layout: docs_version_index.html
-path: /docs/${release.docsPath}
-version: ${release.name}
-fullVersion: ${release.fullVersion}
-label: ${release.label}
-docsPath: ${release.docsPath}
-${release.name === 'latest' ? `canonical: "/docs/${release.label}"` : ''}
-github_url: "https://github.com/fastify/website/blob/master/src/website/layouts/docs_version_index.html"
----`
-
-  const dest = join(destFolder, 'content', 'docs', release.docsPath, 'index.md')
-  await fs.writeFile(dest, content, 'utf8')
-  console.log(`Created doc index page ${dest}`)
-}
-
 async function createIndexFiles (releases) {
   // create docs index
 
