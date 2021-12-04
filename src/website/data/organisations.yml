@@ -158,6 +158,10 @@
   image: "seznam.cz.svg"
   link: "https://www.seznam.cz/"
 
+- name: "Skeelo"
+  image: "skeelo.svg"
+  link: "https://skeelo.app"
+
 - name: "Swiss Dev Jobs"
   image: "swissdev-javascript-jobs-200-200.svg"
   link: "https://swissdevjobs.ch/"
