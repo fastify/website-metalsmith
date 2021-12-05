@@ -9,6 +9,25 @@ const { copyDir, fileExists, getFiles } = require('./utils')
 const sourceFolder = process.argv[2]
 const destFolder = process.argv[3]
 
+const defaultDocsIndex = `
+Welcome to the Fastify documentation:
+
+This documenation utilizes a very formal style in an effort to document
+Fastify's API and implementation details thoroughly for the developer who
+needs such.
+
+## Where To Start
+
+Complete newcomers to Fastify should first read our [Getting Started][gs]
+guide.
+
+Developers experienced with Fastify should consult the
+api documentation directly to find the topic they are
+seeking more information about.
+
+[gs]: ./Getting-Started
+`
+
 if (!sourceFolder || !destFolder) {
   throw new Error(`Missing parameters sourceFolder and destFolder.
   
@@ -57,7 +76,7 @@ async function extractTOCFromReleaseStructure (root, release) {
   if (flatSections.filter(item => ((item.fileName.toLowerCase() === 'index.md') && (item.nestedPath === '.'))).length === 0) {
     // previous version. root folder needs default index.md file
     flatSections = flatSections.concat({ fileName: 'index.md', nestedPath: '.' })
-    await fs.writeFile(join(root, 'docs', 'index.md'), '#Test')
+    await fs.writeFile(join(root, 'docs', 'index.md'), defaultDocsIndex)
   }
   // add section only if index.md exists
   Object.keys(sections).forEach((section) => {
