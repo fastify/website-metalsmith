@@ -42,7 +42,6 @@ async function createDocSources (releases) {
   await Promise.all(releases.map(copyNestedFoldersForRelease))
   await createDocsDataFile(join(destFolder, 'data', 'docs.yml'), { versions, toc: indexedToc, releases })
   await processDocFiles(indexedToc, latestRelease)
-  await createIndexFiles(releases)
 }
 
 async function extractTOCFromReleaseStructure (root, release) {
@@ -205,25 +204,6 @@ function remapLinks (content, item) {
     .replace(relativeLinksWithLabel, (match, ...parts) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${parts[1]} "${parts[3]}")`)
     .replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
     .replace(docResourcesLink, (match, p1) => `(/docs/${item.version}/resources/${p1})`)
-}
-
-async function createIndexFiles (releases) {
-  // create docs index
-
-  const docsIndexContent = `---
-title: Documentation
-layout: docs_index.html
-path: /docs
-github_url: "https://github.com/fastify/website/blob/master/src/website/layouts/docs_index.html"
----`
-
-  const dest = join(destFolder, 'content', 'docs', 'index.md')
-  await fs.writeFile(dest, docsIndexContent, 'utf8')
-  console.log(`Created docs index at ${dest}`)
-
-  for (const release of releases) {
-    await createVersionIndexFile(release)
-  }
 }
 
 const extractPlugins = (pluginContent) => {
