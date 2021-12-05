@@ -54,9 +54,15 @@ async function extractTOCFromReleaseStructure (root, release) {
       else sections[file.nestedPath] = [file]
     } else flatSections.push(file)
   }
+  if (flatSections.filter(item => ((item.fileName.toLowerCase() === 'index.md') && (item.nestedPath === '.'))).length === 0) {
+    // previous version. root folder needs default index.md file
+    flatSections = flatSections.concat({ fileName: 'index.md', nestedPath: '.' })
+    await fs.writeFile(join(root, 'docs', 'index.md'), '#Test')
+  }
   // add section only if index.md exists
   Object.keys(sections).forEach((section) => {
     if (sections[section].filter(item => item.fileName.toLowerCase() === 'index.md').length > 0) {
+      // add nested section
       flatSections = flatSections.concat(sections[section])
     }
   })
@@ -275,9 +281,6 @@ async function copyNestedFoldersForRelease (release) {
   const fastifySrcFolder = files.find(file => file.match(/^fastify-/))
   const docsSrc = join(folder, fastifySrcFolder, 'docs')
   const srcContent = await fs.readdir(docsSrc, { withFileTypes: true })
-  if (srcContent.filter(cnt => cnt.name.toLowerCase() === 'index.md')) {
-    await addDefaultIndex(destRootFolder)
-  }
   return srcContent
     .filter(dirent => dirent.isDirectory())
     .map(dirent => dirent.name)
@@ -286,23 +289,6 @@ async function copyNestedFoldersForRelease (release) {
       const dest = join(destRootFolder, folder)
       copyDir(src, dest)
     })
-}
-
-async function addDefaultIndex (destination, release) {
-  const filePath = join(destination, 'index.md')
-  await fs.writeFile(filePath, `
-  ---
-  title: index
-  layout: docs_page.html
-  path: ${destination}/index
-  version: ${release.name}
-  fullVersion: ${release.fullVersion}
-  label: ${release.label}
-  docsPath: ${release.docsPath}
-  section:
-  ---
-  # Test Layout
-  `) // TODO add default template
 }
 
 main().catch((err) => {
