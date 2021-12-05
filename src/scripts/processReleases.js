@@ -288,21 +288,20 @@ async function copyNestedFoldersForRelease (release) {
     })
 }
 
-async function addDefaultIndex (destination) {
+async function addDefaultIndex (destination, release) {
   const filePath = join(destination, 'index.md')
   await fs.writeFile(filePath, `
   ---
   title: index
   layout: docs_page.html
-  path: /docs/master/index
-  version: master
-  fullVersion: master
-  label: master
-  docsPath: master
-  section: 
-  
-  github_url: https://github.com/fastify/fastify/blob/master/docs/index.md
+  path: ${destination}/index
+  version: ${release.name}
+  fullVersion: ${release.fullVersion}
+  label: ${release.label}
+  docsPath: ${release.docsPath}
+  section:
   ---
+  # Test Layout
   `) // TODO add default template
 }
 
