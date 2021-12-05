@@ -270,18 +270,40 @@ async function createEcosystemDataFile (masterReleaseDownloadPath) {
 
 async function copyNestedFoldersForRelease (release) {
   const folder = join(sourceFolder, release.dest)
+  const destRootFolder = join(destFolder, 'content', 'docs', release.docsPath)
   const files = await fs.readdir(folder)
   const fastifySrcFolder = files.find(file => file.match(/^fastify-/))
   const docsSrc = join(folder, fastifySrcFolder, 'docs')
   const srcContent = await fs.readdir(docsSrc, { withFileTypes: true })
+  if (srcContent.filter(cnt => cnt.name.toLowerCase() === 'index.md')) {
+    await addDefaultIndex(destRootFolder)
+  }
   return srcContent
     .filter(dirent => dirent.isDirectory())
     .map(dirent => dirent.name)
     .forEach(folder => {
       const src = join(docsSrc, folder)
-      const dest = join(destFolder, 'content', 'docs', release.docsPath, folder)
+      const dest = join(destRootFolder, folder)
       copyDir(src, dest)
     })
+}
+
+async function addDefaultIndex (destination) {
+  const filePath = join(destination, 'index.md')
+  await fs.writeFile(filePath, `
+  ---
+  title: index
+  layout: docs_page.html
+  path: /docs/master/index
+  version: master
+  fullVersion: master
+  label: master
+  docsPath: master
+  section: 
+  
+  github_url: https://github.com/fastify/fastify/blob/master/docs/index.md
+  ---
+  `) // TODO add default template
 }
 
 main().catch((err) => {
