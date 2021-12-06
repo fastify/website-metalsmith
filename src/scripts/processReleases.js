@@ -9,6 +9,23 @@ const { copyDir, fileExists, getFiles } = require('./utils')
 const sourceFolder = process.argv[2]
 const destFolder = process.argv[3]
 
+const defaultDocsIndex = `
+Welcome to the Fastify documentation:
+
+This documenation utilizes a very formal style in an effort to document
+Fastify's API and implementation details thoroughly for the developer who
+needs such.
+
+## Where To Start
+
+Complete newcomers to Fastify should first read our [Getting Started](./Getting-Started.md)
+guide.
+
+Developers experienced with Fastify should consult the
+api documentation directly to find the topic they are
+seeking more information about.
+`
+
 if (!sourceFolder || !destFolder) {
   throw new Error(`Missing parameters sourceFolder and destFolder.
   
@@ -42,7 +59,6 @@ async function createDocSources (releases) {
   await Promise.all(releases.map(copyNestedFoldersForRelease))
   await createDocsDataFile(join(destFolder, 'data', 'docs.yml'), { versions, toc: indexedToc, releases })
   await processDocFiles(indexedToc, latestRelease)
-  await createIndexFiles(releases)
 }
 
 async function extractTOCFromReleaseStructure (root, release) {
@@ -55,9 +71,15 @@ async function extractTOCFromReleaseStructure (root, release) {
       else sections[file.nestedPath] = [file]
     } else flatSections.push(file)
   }
+  if (flatSections.filter(item => ((item.fileName.toLowerCase() === 'index.md') && (item.nestedPath === '.'))).length === 0) {
+    // previous version. root folder needs default index.md file
+    flatSections = flatSections.concat({ fileName: 'index.md', nestedPath: '.' })
+    await fs.writeFile(join(root, 'docs', 'index.md'), defaultDocsIndex)
+  }
   // add section only if index.md exists
   Object.keys(sections).forEach((section) => {
     if (sections[section].filter(item => item.fileName.toLowerCase() === 'index.md').length > 0) {
+      // add nested section
       flatSections = flatSections.concat(sections[section])
     }
   })
@@ -207,43 +229,6 @@ function remapLinks (content, item) {
     .replace(docResourcesLink, (match, p1) => `(/docs/${item.version}/resources/${p1})`)
 }
 
-async function createVersionIndexFile (release) {
-  const content = `---
-title: Documentation - ${release.name}
-layout: docs_version_index.html
-path: /docs/${release.docsPath}
-version: ${release.name}
-fullVersion: ${release.fullVersion}
-label: ${release.label}
-docsPath: ${release.docsPath}
-${release.name === 'latest' ? `canonical: "/docs/${release.label}"` : ''}
-github_url: "https://github.com/fastify/website/blob/master/src/website/layouts/docs_version_index.html"
----`
-
-  const dest = join(destFolder, 'content', 'docs', release.docsPath, 'index.md')
-  await fs.writeFile(dest, content, 'utf8')
-  console.log(`Created doc index page ${dest}`)
-}
-
-async function createIndexFiles (releases) {
-  // create docs index
-
-  const docsIndexContent = `---
-title: Documentation
-layout: docs_index.html
-path: /docs
-github_url: "https://github.com/fastify/website/blob/master/src/website/layouts/docs_index.html"
----`
-
-  const dest = join(destFolder, 'content', 'docs', 'index.md')
-  await fs.writeFile(dest, docsIndexContent, 'utf8')
-  console.log(`Created docs index at ${dest}`)
-
-  for (const release of releases) {
-    await createVersionIndexFile(release)
-  }
-}
-
 const extractPlugins = (pluginContent) => {
   const lines = pluginContent
     .split('\n')
@@ -308,6 +293,7 @@ async function createEcosystemDataFile (masterReleaseDownloadPath) {
 
 async function copyNestedFoldersForRelease (release) {
   const folder = join(sourceFolder, release.dest)
+  const destRootFolder = join(destFolder, 'content', 'docs', release.docsPath)
   const files = await fs.readdir(folder)
   const fastifySrcFolder = files.find(file => file.match(/^fastify-/))
   const docsSrc = join(folder, fastifySrcFolder, 'docs')
@@ -317,7 +303,7 @@ async function copyNestedFoldersForRelease (release) {
     .map(dirent => dirent.name)
     .forEach(folder => {
       const src = join(docsSrc, folder)
-      const dest = join(destFolder, 'content', 'docs', release.docsPath, folder)
+      const dest = join(destRootFolder, folder)
       copyDir(src, dest)
     })
 }
