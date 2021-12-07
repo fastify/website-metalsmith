@@ -5,6 +5,10 @@
 - name: "aasaam"
   image: "aasaam.svg"
   link: "https://aasaam.com/"
+  
+- name: "AmeriSave Mortgage Corporation"
+  image: "amerisave.svg"
+  link: "https://www.amerisave.com"
 
 - name: "car2go"
   image: "car2go.svg"
