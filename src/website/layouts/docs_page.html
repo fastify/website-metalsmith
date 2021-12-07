@@ -73,16 +73,24 @@
                 </div>
               </div>
             </li>
-            {% if not section=='' %}
-              <li style="text-transform: capitalize; margin-right: 12px">
-                <a href="/docs/{{version}}/{{section}}" style="padding-left: 12px">
-                  {{ section }}
-                </a>
-              </li>
-            {% endif %}
-            {% if not (title=='index') %}
-              <li style="text-transform: capitalize" class="is-active"><a>{{ title }}</a></li>
-            {% endif %}
+            <div class="field">
+              <div class="control">
+                <div class="select">
+                  <select onchange="if (this.value) window.location.href=this.value" style="border: none;">
+                    {% for name, section in data.docs.toc[version] %}
+                      {% if not name=='' %}
+                        <option {% if ('/docs' + '/' + version + '/' + name) == '/' + path %}selected="selected"{% endif %} value="{{ '/docs' + '/' + version + '/' + name }}">{{ name }}</a>
+                      {% endif %}
+                      {% for item in data.docs.toc[version][name] %}
+                        {% if not (item.name == 'index') %}
+                            <option {% if item.link == '/' + path %}selected="selected"{% endif %} value="{{ item.link }}">{{ item.name }}</option>
+                        {% endif %}
+                      {% endfor %}
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
           </ul>
         </nav>
 
