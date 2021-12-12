@@ -246,6 +246,7 @@ function remapLinks (content, item) {
   const absoluteLinks = /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/gi
   const docResourcesLink = /\(.\/?resources\/([a-zA-Z0-9\-_]+\..+)\)/gi
   const localAnchorLink = /\((#[a-z0-9\-_]+)\)/gi
+  const localReferenceLink = /\[\w+\]: (#[\w-]+)/gi
 
   /**
    * @param {string} match The full match from the regular expression,
@@ -266,6 +267,10 @@ function remapLinks (content, item) {
     .replace(localAnchorLink, function (match, p1) {
       const section = item.section !== '' ? `/${item.section}` : ''
       return `(/docs/${item.version}${section}/${item.name}${p1})`
+    })
+    .replace(localReferenceLink, function (match, p1) {
+      const section = item.section !== '' ? `/${item.section}` : ''
+      return `/docs/${item.version}${section}/${item.name}${p1}`
     })
 }
 
