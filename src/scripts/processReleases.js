@@ -28,7 +28,7 @@ seeking more information about.
 
 if (!sourceFolder || !destFolder) {
   throw new Error(`Missing parameters sourceFolder and destFolder.
-  
+
   Expected command:
     ${process.argv[0]} ${process.argv[1]} <sourceFolder> <destFolder>
 `)
@@ -195,6 +195,34 @@ ${content}`
   }
 }
 
+/**
+ * Remaps Markdown links to links appropriate for the version of the
+ * documentation being built.
+ *
+ * @param {string} content Some snippet of a document that contains a link.
+ * @param {object} item A Metalsmith object representing the document being
+ * processed.
+ * @param {string} item.destinationFile The original document file being
+ * processed, e.g. `src/website/docs/latest/Benchmarking.md`.
+ * @param {string} item.docsPath Indicates the path of the docs being built.
+ * Seems to be equivalent to `item.label`.
+ * @param {string} item.fileName Name of the document being processed,
+ * e.g. `Benchmarking.md`.
+ * @param {string} item.fullVersion The full tag version of the docs branch
+ * being processed, e.g. `v3.24.1`.
+ * @param {string} item.label The label to display in the documenation for the
+ * branch being processed, e.g. `v3.24.x`.
+ * @param {string} item.link The URL path component for the document,
+ * e.g. `/docs/latest/Benchmarking`.
+ * @param {string} item.name The name of the document being processed,
+ * e.g. `Benchmarking`.
+ * @param {string} item.section Subdirectory name, e.g. `Guides`.
+ * @param {string} item.slug The shortname of the document, e.g. `Benchmarking`.
+ * @param {string} item.sourceFile The source of the document within Metealsmith's
+ * build heiraching, e.g. `"build-temp/releases/fd11bc2b19a97c40801900dff081c18d/fastify-fastify-ab7d51d/docs/Benchmarking.md"`.
+ * @param {string} item.version The version for the documenataion set,
+ * e.g. `latest`.
+ */
 function remapLinks (content, item) {
   /*
     Links remapping rules:
@@ -217,6 +245,14 @@ function remapLinks (content, item) {
   const hrefAbsoluteLinks = /href="https:\/\/github\.com\/fastify\/fastify\/blob\/master\/docs\/([\w\d.-]+)\.md/gi
   const absoluteLinks = /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/gi
   const docResourcesLink = /\(.\/?resources\/([a-zA-Z0-9\-_]+\..+)\)/gi
+  const localAnchorLink = /\((#[a-z0-9\-_]+)\)/gi
+
+  /**
+   * @param {string} match The full match from the regular expression,
+   * e.g. `(#Catch-all)` for a local anchor link.
+   * @param {string} p1 The first capture group value, e.g. `#Catch-all` for
+   * a local anchor link match.
+   */
   return content
     .replace(hrefAbsoluteLinks, (match, p1) => `href="/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${p1}`)
     .replace(absoluteLinks, `/docs/${item.version}`)
@@ -227,6 +263,10 @@ function remapLinks (content, item) {
     .replace(relativeLinksWithLabel, (match, ...parts) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${parts[1]} "${parts[3]}")`)
     .replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
     .replace(docResourcesLink, (match, p1) => `(/docs/${item.version}/resources/${p1})`)
+    .replace(localAnchorLink, function (match, p1) {
+      const section = item.section !== '' ? `/${item.section}` : ''
+      return `(/docs/${item.version}${section}/${item.name}${p1})`
+    })
 }
 
 const extractPlugins = (pluginContent) => {
