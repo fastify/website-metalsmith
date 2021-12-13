@@ -246,7 +246,7 @@ function remapLinks (content, item) {
   const absoluteLinks = /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/gi
   const docResourcesLink = /\(.\/?resources\/([a-zA-Z0-9\-_]+\..+)\)/gi
   const localAnchorLink = /\((#[a-z0-9\-_]+)\)/gi
-  const localReferenceLink = /(\[\w+\]:) (#[\w-]+)/gi
+  const localReferenceLink = /(\[\w+\]:)\s?\(?(.\/?)?([\w-]+).md#?([\w-]+)?\)?/gi
 
   /**
    * @param {string} match The full match from the regular expression,
@@ -265,12 +265,18 @@ function remapLinks (content, item) {
     .replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
     .replace(docResourcesLink, (match, p1) => `(/docs/${item.version}/resources/${p1})`)
     .replace(localAnchorLink, function (match, p1) {
-      const section = item.section !== '' ? `/${item.section}` : ''
-      return `(/docs/${item.version}${section}/${item.name}${p1})`
+      const section = item.section !== '' ? item.section : ''
+      return `(/docs/${item.version}/${section}/${item.name}${p1})`
     })
-    .replace(localReferenceLink, function (match, p1, p2) {
-      const section = item.section !== '' ? `/${item.section}` : ''
-      return `${p1} /docs/${item.version}${section}/${item.name}${p2}`
+    .replace(localReferenceLink, function (
+      match, // [GS]: (./Getting-Started.md#anchor)
+      p1, // [GS]:
+      p2, // ./ OPTIONAL
+      p3, // Getting-Started
+      p4 // anchor OPTIONAL
+    ) {
+      const section = item.section !== '' ? '/' + item.section + '/' : ''
+      return `${p1} ${p2 || '/docs' + item.version}${section}${p3}${p4 ? '#' + p4 : ''}`
     })
 }
 
