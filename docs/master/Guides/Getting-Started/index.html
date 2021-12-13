@@ -1,0 +1,304 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Getting-Started</title><meta name=description content="Fast and low overhead web framework, for Node.js"><link rel=apple-touch-icon sizes=57x57 href=/images/apple-icon-57x57.ed24c0a19503e080.png><link rel=apple-touch-icon sizes=60x60 href=/images/apple-icon-60x60.60c285c424d50738.png><link rel=apple-touch-icon sizes=72x72 href=/images/apple-icon-72x72.e49b27cfe1ab1461.png><link rel=apple-touch-icon sizes=76x76 href=/images/apple-icon-76x76.752f43fc91b8c1f7.png><link rel=apple-touch-icon sizes=114x114 href=/images/apple-icon-114x114.61739fa1d5a7059a.png><link rel=apple-touch-icon sizes=120x120 href=/images/apple-icon-120x120.7c25de37c5ce2ec1.png><link rel=apple-touch-icon sizes=144x144 href=/images/apple-icon-144x144.04d88fb27bd92cbe.png><link rel=apple-touch-icon sizes=152x152 href=/images/apple-icon-152x152.9364781175671626.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-icon-180x180.67579100928bfcd2.png><link rel=icon type=image/png sizes=192x192 href=/images/android-icon-192x192.37eb7f1ae3853740.png><link rel=icon type=image/png sizes=32x32 href=/images/favicon-32x32.1e22f0e774bc3cce.png><link rel=icon type=image/png sizes=96x96 href=/images/favicon-96x96.7e8a68b1b80c1799.png><link rel=icon type=image/png sizes=16x16 href=/images/favicon-16x16.e534ce05cb727f1a.png><link rel=manifest href=/manifest.json><meta name=msapplication-TileColor content=#ffffff><meta name=msapplication-TileImage content=/images/ms-icon-144x144.png><meta name=theme-color content=#ffffff><meta property=og:url content=https://www.fastify.io/docs/master/Guides/Getting-Started><meta property=og:type content=website><meta property=og:title content=Getting-Started><meta property=og:description content="Fast and low overhead web framework, for Node.js"><meta property=og:image content=https://www.fastify.io/images/fastify-fb-share-image.07b6e6860853c758.png><meta name=twitter:card content=summary_large_image><meta name=twitter:site content=@fastifyjs><meta name=twitter:creator content=@fastifyjs><meta name=twitter:title content=Getting-Started><meta name=twitter:description content="Fast and low overhead web framework, for Node.js"><meta name=twitter:image content=https://www.fastify.io/images/fastify-twitter-share-image.cd9f217b360af3e2.png><link rel=stylesheet href=/css/style.7b9a86078f3cc4f5.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css integrity="sha512-kZqGbhf9JTB4bVJ0G8HCkqmaPcRgo88F0dneK30yku5Y/dep7CZfCnNml2Je/sY4lBoqoksXz4PtVXS4GHSUzQ==" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css crossorigin=anonymous><meta name=robots content="noindex, nofollow"></head><body><nav id=main-navbar class=navbar><div class=navbar-brand><a class=navbar-item href=/ ><img src=/images/fastify-logo-menu.d13f8da7a965c800.png alt="Fastify: Fast and low overhead web framework, for Node.js" height=28> </a><a class="navbar-item is-hidden-desktop" href=https://github.com/fastify/fastify target=_blank rel=noopener><span class=icon style="color: #333;"><i class="fa fa-github"></i></span></a><div class="navbar-burger burger" data-target=mobileMenu><span></span> <span></span> <span></span></div></div><div class=navbar-menu id=mobileMenu><div class=navbar-start><a class=navbar-item href=/ >Home</a> <a class=navbar-item href=/docs/latest>Docs</a> <a class=navbar-item href=/ecosystem>Ecosystem</a> <a class=navbar-item href=/benchmarks>Benchmarks</a> <a class=navbar-item href=/contribute>Contribute</a> <a class=navbar-item href=https://medium.com/@fastifyjs/ >Blog</a> <a class=navbar-item href=https://github.com/fastify/help>Help</a></div><div class=navbar-end><span class="control has-icons-left navbar-item"><input id=algolia-search-input class=input type=search placeholder=""> <span class="icon is-medium is-left"><i class="fa fa-search"></i> </span></span><a class=navbar-item href=https://github.com/fastify/fastify target=_blank rel=noopener><span class="fa fa-github"></span>&nbsp;GitHub </a><a class=navbar-item href=https://twitter.com/fastifyjs target=_blank rel=noopener><span class="fa fa-twitter"></span>&nbsp;Twitter</a></div></div></nav><main class=page-content aria-label=Content><section class="hero is-primary" style="background-image: url(/images/bg-pattern-dark.3f8cda863b3bbf52.png)"><div class=hero-body><div class=container><h1 class=title>Documentation (master)</h1></div></div></section><section class=section><div class=container><div class=columns><div class="column is-3 is-hidden-mobile" data-sticky-container><aside class="menu sticky"><ul class=menu-list></ul><p class=menu-label><a href=/docs/master/Guides>Guides</a></p><ul class=menu-list><li style="text-transform: capitalize"><a title=Benchmarking href=/docs/master/Guides/Benchmarking>Benchmarking</a></li><li style="text-transform: capitalize"><a title=Contributing href=/docs/master/Guides/Contributing>Contributing</a></li><li style="text-transform: capitalize"><a title=Ecosystem href=/docs/master/Guides/Ecosystem>Ecosystem</a></li><li style="text-transform: capitalize"><a title=Fluent-Schema href=/docs/master/Guides/Fluent-Schema>Fluent-Schema</a></li><li style="text-transform: capitalize" id=doc-menu-section><a title=Getting-Started class=is-active href=/docs/master/Guides/Getting-Started>Getting-Started</a></li><li style="text-transform: capitalize"><a title=Migration-Guide-V3 href=/docs/master/Guides/Migration-Guide-V3>Migration-Guide-V3</a></li><li style="text-transform: capitalize"><a title=Plugins-Guide href=/docs/master/Guides/Plugins-Guide>Plugins-Guide</a></li><li style="text-transform: capitalize"><a title=Recommendations href=/docs/master/Guides/Recommendations>Recommendations</a></li><li style="text-transform: capitalize"><a title=Serverless href=/docs/master/Guides/Serverless>Serverless</a></li><li style="text-transform: capitalize"><a title=Style-Guide href=/docs/master/Guides/Style-Guide>Style-Guide</a></li><li style="text-transform: capitalize"><a title=Testing href=/docs/master/Guides/Testing>Testing</a></li><li style="text-transform: capitalize"><a title=Write-Plugin href=/docs/master/Guides/Write-Plugin>Write-Plugin</a></li></ul><p class=menu-label><a href=/docs/master/Reference>Reference</a></p><ul class=menu-list><li style="text-transform: capitalize"><a title=ContentTypeParser href=/docs/master/Reference/ContentTypeParser>ContentTypeParser</a></li><li style="text-transform: capitalize"><a title=Decorators href=/docs/master/Reference/Decorators>Decorators</a></li><li style="text-transform: capitalize"><a title=Encapsulation href=/docs/master/Reference/Encapsulation>Encapsulation</a></li><li style="text-transform: capitalize"><a title=Errors href=/docs/master/Reference/Errors>Errors</a></li><li style="text-transform: capitalize"><a title=HTTP2 href=/docs/master/Reference/HTTP2>HTTP2</a></li><li style="text-transform: capitalize"><a title=Hooks href=/docs/master/Reference/Hooks>Hooks</a></li><li style="text-transform: capitalize"><a title=LTS href=/docs/master/Reference/LTS>LTS</a></li><li style="text-transform: capitalize"><a title=Lifecycle href=/docs/master/Reference/Lifecycle>Lifecycle</a></li><li style="text-transform: capitalize"><a title=Logging href=/docs/master/Reference/Logging>Logging</a></li><li style="text-transform: capitalize"><a title=Middleware href=/docs/master/Reference/Middleware>Middleware</a></li><li style="text-transform: capitalize"><a title=Plugins href=/docs/master/Reference/Plugins>Plugins</a></li><li style="text-transform: capitalize"><a title=Reply href=/docs/master/Reference/Reply>Reply</a></li><li style="text-transform: capitalize"><a title=Request href=/docs/master/Reference/Request>Request</a></li><li style="text-transform: capitalize"><a title=Routes href=/docs/master/Reference/Routes>Routes</a></li><li style="text-transform: capitalize"><a title=Server href=/docs/master/Reference/Server>Server</a></li><li style="text-transform: capitalize"><a title=TypeScript href=/docs/master/Reference/TypeScript>TypeScript</a></li><li style="text-transform: capitalize"><a title=Validation-and-Serialization href=/docs/master/Reference/Validation-and-Serialization>Validation-and-Serialization</a></li></ul><div class=content style="margin: .8em; border-top: 1px solid #ccc; padding: .8em 0 0 0">Docs version<div class=field><div class=control><div class=select><select onchange="if (this.value) window.location.href=this.value"><option value=/docs/latest>latest</option><option selected value=/docs/master>master</option><option value=/docs/v3.24.x>v3.24.x</option><option value=/docs/v3.23.x>v3.23.x</option><option value=/docs/v3.22.x>v3.22.x</option><option value=/docs/v3.21.x>v3.21.x</option><option value=/docs/v3.20.x>v3.20.x</option><option value=/docs/v3.19.x>v3.19.x</option><option value=/docs/v3.18.x>v3.18.x</option><option value=/docs/v3.17.x>v3.17.x</option><option value=/docs/v3.16.x>v3.16.x</option><option value=/docs/v3.15.x>v3.15.x</option><option value=/docs/v3.14.x>v3.14.x</option><option value=/docs/v3.13.x>v3.13.x</option><option value=/docs/v3.12.x>v3.12.x</option><option value=/docs/v3.11.x>v3.11.x</option><option value=/docs/v3.10.x>v3.10.x</option><option value=/docs/v3.9.x>v3.9.x</option><option value=/docs/v3.8.x>v3.8.x</option><option value=/docs/v3.7.x>v3.7.x</option><option value=/docs/v3.6.x>v3.6.x</option><option value=/docs/v3.5.x>v3.5.x</option><option value=/docs/v3.4.x>v3.4.x</option><option value=/docs/v3.3.x>v3.3.x</option><option value=/docs/v3.2.x>v3.2.x</option><option value=/docs/v3.1.x>v3.1.x</option><option value=/docs/v3.0.x>v3.0.x</option><option value=/docs/v2.15.x>v2.15.x</option><option value=/docs/v2.14.x>v2.14.x</option><option value=/docs/v2.13.x>v2.13.x</option><option value=/docs/v2.12.x>v2.12.x</option><option value=/docs/v2.11.x>v2.11.x</option><option value=/docs/v2.10.x>v2.10.x</option><option value=/docs/v2.9.x>v2.9.x</option><option value=/docs/v2.8.x>v2.8.x</option><option value=/docs/v2.7.x>v2.7.x</option><option value=/docs/v2.6.x>v2.6.x</option><option value=/docs/v2.5.x>v2.5.x</option><option value=/docs/v2.4.x>v2.4.x</option><option value=/docs/v2.3.x>v2.3.x</option><option value=/docs/v2.2.x>v2.2.x</option><option value=/docs/v2.1.x>v2.1.x</option><option value=/docs/v2.0.x>v2.0.x</option><option value=/docs/v1.14.x>v1.14.x</option><option value=/docs/v1.13.x>v1.13.x</option></select></div></div></div></div></aside></div><div class="column is-9"><nav class=breadcrumb><ul><li><a href=/ style="padding-left: 0">Fastify</a></li><li><a href=/docs/master>Documentation</a></li><li><div class=field><div class=control><div class=select><select onchange="if (this.value) window.location.href=this.value" style="border: none;"><option value=/docs/latest>latest</option><option selected value=/docs/master>master</option><option value=/docs/v3.24.x>v3.24.x</option><option value=/docs/v3.23.x>v3.23.x</option><option value=/docs/v3.22.x>v3.22.x</option><option value=/docs/v3.21.x>v3.21.x</option><option value=/docs/v3.20.x>v3.20.x</option><option value=/docs/v3.19.x>v3.19.x</option><option value=/docs/v3.18.x>v3.18.x</option><option value=/docs/v3.17.x>v3.17.x</option><option value=/docs/v3.16.x>v3.16.x</option><option value=/docs/v3.15.x>v3.15.x</option><option value=/docs/v3.14.x>v3.14.x</option><option value=/docs/v3.13.x>v3.13.x</option><option value=/docs/v3.12.x>v3.12.x</option><option value=/docs/v3.11.x>v3.11.x</option><option value=/docs/v3.10.x>v3.10.x</option><option value=/docs/v3.9.x>v3.9.x</option><option value=/docs/v3.8.x>v3.8.x</option><option value=/docs/v3.7.x>v3.7.x</option><option value=/docs/v3.6.x>v3.6.x</option><option value=/docs/v3.5.x>v3.5.x</option><option value=/docs/v3.4.x>v3.4.x</option><option value=/docs/v3.3.x>v3.3.x</option><option value=/docs/v3.2.x>v3.2.x</option><option value=/docs/v3.1.x>v3.1.x</option><option value=/docs/v3.0.x>v3.0.x</option><option value=/docs/v2.15.x>v2.15.x</option><option value=/docs/v2.14.x>v2.14.x</option><option value=/docs/v2.13.x>v2.13.x</option><option value=/docs/v2.12.x>v2.12.x</option><option value=/docs/v2.11.x>v2.11.x</option><option value=/docs/v2.10.x>v2.10.x</option><option value=/docs/v2.9.x>v2.9.x</option><option value=/docs/v2.8.x>v2.8.x</option><option value=/docs/v2.7.x>v2.7.x</option><option value=/docs/v2.6.x>v2.6.x</option><option value=/docs/v2.5.x>v2.5.x</option><option value=/docs/v2.4.x>v2.4.x</option><option value=/docs/v2.3.x>v2.3.x</option><option value=/docs/v2.2.x>v2.2.x</option><option value=/docs/v2.1.x>v2.1.x</option><option value=/docs/v2.0.x>v2.0.x</option><option value=/docs/v1.14.x>v1.14.x</option><option value=/docs/v1.13.x>v1.13.x</option></select></div></div></div></li><div class=field><div class=control><div class=select><select onchange="if (this.value) window.location.href=this.value" style="border: none;"><option value=/docs/master/Guides>Guides</option><option value=/docs/master/Guides/Benchmarking>Benchmarking</option><option value=/docs/master/Guides/Contributing>Contributing</option><option value=/docs/master/Guides/Ecosystem>Ecosystem</option><option value=/docs/master/Guides/Fluent-Schema>Fluent-Schema</option><option selected value=/docs/master/Guides/Getting-Started>Getting-Started</option><option value=/docs/master/Guides/Migration-Guide-V3>Migration-Guide-V3</option><option value=/docs/master/Guides/Plugins-Guide>Plugins-Guide</option><option value=/docs/master/Guides/Recommendations>Recommendations</option><option value=/docs/master/Guides/Serverless>Serverless</option><option value=/docs/master/Guides/Style-Guide>Style-Guide</option><option value=/docs/master/Guides/Testing>Testing</option><option value=/docs/master/Guides/Write-Plugin>Write-Plugin</option><option value=/docs/master/Reference>Reference</option><option value=/docs/master/Reference/ContentTypeParser>ContentTypeParser</option><option value=/docs/master/Reference/Decorators>Decorators</option><option value=/docs/master/Reference/Encapsulation>Encapsulation</option><option value=/docs/master/Reference/Errors>Errors</option><option value=/docs/master/Reference/HTTP2>HTTP2</option><option value=/docs/master/Reference/Hooks>Hooks</option><option value=/docs/master/Reference/LTS>LTS</option><option value=/docs/master/Reference/Lifecycle>Lifecycle</option><option value=/docs/master/Reference/Logging>Logging</option><option value=/docs/master/Reference/Middleware>Middleware</option><option value=/docs/master/Reference/Plugins>Plugins</option><option value=/docs/master/Reference/Reply>Reply</option><option value=/docs/master/Reference/Request>Request</option><option value=/docs/master/Reference/Routes>Routes</option><option value=/docs/master/Reference/Server>Server</option><option value=/docs/master/Reference/TypeScript>TypeScript</option><option value=/docs/master/Reference/Validation-and-Serialization>Validation-and-Serialization</option></select></div></div></div></ul></nav><div id=doc-content class=content><h2 id=getting-started>Getting Started</h2><p>Hello! Thank you for checking out Fastify!</p><p>This document aims to be a gentle introduction to the framework and its features. It is an elementary preface with examples and links to other parts of the documentation.</p><p>Let&#39;s start!</p><h3 id=install>Install</h3><p><a id=install></a></p><p>Install with npm:</p><pre><code>npm i fastify --save
+</code></pre><p>Install with yarn:</p><pre><code>yarn add fastify
+</code></pre><h3 id=your-first-server>Your first server</h3><p><a id=first-server></a></p><p>Let&#39;s write our first server:</p><pre><code class=language-js>// Require the framework and instantiate it
+
+// ESM
+import Fastify from &#39;fastify&#39;
+const fastify = Fastify({
+  logger: true
+})
+// CommonJs
+const fastify = require(&#39;fastify&#39;)({
+  logger: true
+})
+
+// Declare a route
+fastify.get(&#39;/&#39;, function (request, reply) {
+  reply.send({ hello: &#39;world&#39; })
+})
+
+// Run the server!
+fastify.listen(3000, function (err, address) {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+  // Server is now listening on ${address}
+})
+</code></pre><p>Do you prefer to use <code>async/await</code>? Fastify supports it out-of-the-box.</p><p><em>(We also suggest using <a href=https://github.com/mcollina/make-promises-safe>make-promises-safe</a> to avoid file descriptor and memory leaks.)</em></p><pre><code class=language-js>// ESM
+import Fastify from &#39;fastify&#39;
+const fastify = Fastify({
+  logger: true
+})
+// CommonJs
+const fastify = require(&#39;fastify&#39;)({
+  logger: true
+})
+
+fastify.get(&#39;/&#39;, async (request, reply) =&gt; {
+  return { hello: &#39;world&#39; }
+})
+
+const start = async () =&gt; {
+  try {
+    await fastify.listen(3000)
+  } catch (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+}
+start()
+</code></pre><p>Awesome, that was easy.</p><p>Unfortunately, writing a complex application requires significantly more code than this example. A classic problem when you are building a new application is how to handle multiple files, asynchronous bootstrapping, and the architecture of your code.</p><p>Fastify offers an easy platform that helps to solve all of the problems outlined above, and more!</p><blockquote><h2 id=note>Note</h2><p>The above examples, and subsequent examples in this document, default to listening <em>only</em> on the localhost <code>127.0.0.1</code> interface. To listen on all available IPv4 interfaces the example should be modified to listen on <code>0.0.0.0</code> like so:</p><pre><code class=language-js>fastify.listen(3000, &#39;0.0.0.0&#39;, function (err, address) {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+  fastify.log.info(`server listening on ${address}`)
+})
+</code></pre><p>Similarly, specify <code>::1</code> to accept only local connections via IPv6. Or specify <code>::</code> to accept connections on all IPv6 addresses, and, if the operating system supports it, also on all IPv4 addresses.</p><p>When deploying to a Docker (or another type of) container using <code>0.0.0.0</code> or <code>::</code> would be the easiest method for exposing the application.</p></blockquote><h3 id=your-first-plugin>Your first plugin</h3><p><a id=first-plugin></a></p><p>As with JavaScript, where everything is an object, with Fastify everything is a plugin.</p><p>Before digging into it, let&#39;s see how it works!</p><p>Let&#39;s declare our basic server, but instead of declaring the route inside the entry point, we&#39;ll declare it in an external file (check out the <a href=../Reference/Routes.md>route declaration</a> docs).</p><pre><code class=language-js>// ESM
+import Fastify from &#39;fastify&#39;
+import firstRoute from &#39;./our-first-route&#39;
+const fastify = Fastify({
+  logger: true
+})
+
+fastify.register(firstRoute)
+
+fastify.listen(3000, function (err, address) {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+  // Server is now listening on ${address}
+})
+</code></pre><pre><code class=language-js>// CommonJs
+const fastify = require(&#39;fastify&#39;)({
+  logger: true
+})
+
+fastify.register(require(&#39;./our-first-route&#39;))
+
+fastify.listen(3000, function (err, address) {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+  // Server is now listening on ${address}
+})
+</code></pre><pre><code class=language-js>// our-first-route.js
+
+async function routes (fastify, options) {
+  fastify.get(&#39;/&#39;, async (request, reply) =&gt; {
+    return { hello: &#39;world&#39; }
+  })
+}
+
+module.exports = routes
+</code></pre><p>In this example, we used the <code>register</code> API, which is the core of the Fastify framework. It is the only way to add routes, plugins, et cetera.</p><p>At the beginning of this guide, we noted that Fastify provides a foundation that assists with asynchronous bootstrapping of your application. Why is this important?</p><p>Consider the scenario where a database connection is needed to handle data storage. The database connection needs to be available before the server is accepting connections. How do we address this problem?</p><p>A typical solution is to use a complex callback, or promises - a system that will mix the framework API with other libraries and the application code.</p><p>Fastify handles this internally, with minimum effort!</p><p>Let&#39;s rewrite the above example with a database connection.</p><p>First, install <code>fastify-plugin</code> and <code>fastify-mongodb</code>:</p><pre><code>npm i --save fastify-plugin fastify-mongodb
+</code></pre><p><strong>server.js</strong></p><pre><code class=language-js>// ESM
+import Fastify from &#39;fastify&#39;
+import dbConnector from &#39;./our-db-connector&#39;
+import firstRoute from &#39;./our-first-route&#39;
+
+const fastify = Fastify({
+  logger: true
+})
+fastify.register(dbConnector)
+fastify.register(firstRoute)
+
+fastify.listen(3000, function (err, address) {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+  // Server is now listening on ${address}
+})
+</code></pre><pre><code class=language-js>// CommonJs
+const fastify = require(&#39;fastify&#39;)({
+  logger: true
+})
+
+fastify.register(require(&#39;./our-db-connector&#39;))
+fastify.register(require(&#39;./our-first-route&#39;))
+
+fastify.listen(3000, function (err, address) {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+  // Server is now listening on ${address}
+})
+</code></pre><p><strong>our-db-connector.js</strong></p><pre><code class=language-js>// ESM
+import fastifyPlugin from &#39;fastify-plugin&#39;
+import fastifyMongo from &#39;fastify-mongodb&#39;
+
+async function dbConnector (fastify, options) {
+  fastify.register(fastifyMongo, {
+    url: &#39;mongodb://localhost:27017/test_database&#39;
+  })
+}
+
+// Wrapping a plugin function with fastify-plugin exposes the decorators
+// and hooks, declared inside the plugin to the parent scope.
+module.exports = fastifyPlugin(dbConnector)
+</code></pre><pre><code class=language-js>// CommonJs
+const fastifyPlugin = require(&#39;fastify-plugin&#39;)
+
+async function dbConnector (fastify, options) {
+  fastify.register(require(&#39;fastify-mongodb&#39;), {
+    url: &#39;mongodb://localhost:27017/test_database&#39;
+  })
+}
+
+// Wrapping a plugin function with fastify-plugin exposes the decorators
+// and hooks, declared inside the plugin to the parent scope.
+module.exports = fastifyPlugin(dbConnector)
+</code></pre><p><strong>our-first-route.js</strong></p><pre><code class=language-js>async function routes (fastify, options) {
+  const collection = fastify.mongo.db.collection(&#39;test_collection&#39;)
+
+  fastify.get(&#39;/&#39;, async (request, reply) =&gt; {
+    return { hello: &#39;world&#39; }
+  })
+
+  fastify.get(&#39;/animals&#39;, async (request, reply) =&gt; {
+    const result = await collection.find().toArray()
+    if (result.length === 0) {
+      throw new Error(&#39;No documents found&#39;)
+    }
+    return result
+  })
+
+  fastify.get(&#39;/animals/:animal&#39;, async (request, reply) =&gt; {
+    const result = await collection.findOne({ animal: request.params.animal })
+    if (!result) {
+      throw new Error(&#39;Invalid value&#39;)
+    }
+    return result
+  })
+
+  const animalBodyJsonSchema = {
+    type: &#39;object&#39;,
+    required: [&#39;animal&#39;],
+    properties: {
+      animal: { type: &#39;string&#39; },
+    },
+  }
+
+  const schema = {
+    body: animalBodyJsonSchema,
+  }
+
+  fastify.post(&#39;/animals&#39;, { schema }, async (request, reply) =&gt; {
+    // we can use the `request.body` object to get the data sent by the client
+    const result = await collection.insertOne({ animal: request.body.animal })
+    return result
+  })
+}
+
+module.exports = routes
+</code></pre><p>Wow, that was fast!</p><p>Let&#39;s recap what we have done here since we&#39;ve introduced some new concepts.</p><p>As you can see, we used <code>register</code> for both the database connector and the registration of the routes.</p><p>This is one of the best features of Fastify, it will load your plugins in the same order you declare them, and it will load the next plugin only once the current one has been loaded. In this way, we can register the database connector in the first plugin and use it in the second <em>(read <a href=../Reference/Plugins.md#handle-the-scope>here</a> to understand how to handle the scope of a plugin)</em>.</p><p>Plugin loading starts when you call <code>fastify.listen()</code>, <code>fastify.inject()</code> or <code>fastify.ready()</code></p><p>The MongoDB plugin uses the <code>decorate</code> API to add custom objects to the Fastify instance, making them available for use everywhere. Use of this API is encouraged to facilitate easy code reuse and to decrease code or logic duplication.</p><p>To dig deeper into how Fastify plugins work, how to develop new plugins, and for details on how to use the whole Fastify API to deal with the complexity of asynchronously bootstrapping an application, read <a href=/docs/master/Guides/Plugins-Guide>the hitchhiker&#39;s guide to plugins</a>.</p><h3 id=loading-order-of-your-plugins>Loading order of your plugins</h3><p><a id=plugin-loading-order></a></p><p>To guarantee consistent and predictable behavior of your application, we highly recommend to always load your code as shown below:</p><pre><code>└── plugins (from the Fastify ecosystem)
+└── your plugins (your custom plugins)
+└── decorators
+└── hooks
+└── your services
+</code></pre><p>In this way, you will always have access to all of the properties declared in the current scope.</p><p>As discussed previously, Fastify offers a solid encapsulation model, to help you build your application as single and independent services. If you want to register a plugin only for a subset of routes, you just have to replicate the above structure.</p><pre><code>└── plugins (from the Fastify ecosystem)
+└── your plugins (your custom plugins)
+└── decorators
+└── hooks
+└── your services
+    │
+    └──  service A
+    │     └── plugins (from the Fastify ecosystem)
+    │     └── your plugins (your custom plugins)
+    │     └── decorators
+    │     └── hooks
+    │     └── your services
+    │
+    └──  service B
+          └── plugins (from the Fastify ecosystem)
+          └── your plugins (your custom plugins)
+          └── decorators
+          └── hooks
+          └── your services
+</code></pre><h3 id=validate-your-data>Validate your data</h3><p><a id=validate-data></a></p><p>Data validation is extremely important and a core concept of the framework.</p><p>To validate incoming requests, Fastify uses <a href=https://json-schema.org/ >JSON Schema</a>.</p><p>(JTD schemas are loosely supported, but <code>jsonShorthand</code> must be disabled first)</p><p>Let&#39;s look at an example demonstrating validation for routes:</p><pre><code class=language-js>const opts = {
+  schema: {
+    body: {
+      type: &#39;object&#39;,
+      properties: {
+        someKey: { type: &#39;string&#39; },
+        someOtherKey: { type: &#39;number&#39; }
+      }
+    }
+  }
+}
+
+fastify.post(&#39;/&#39;, opts, async (request, reply) =&gt; {
+  return { hello: &#39;world&#39; }
+})
+</code></pre><p>This example shows how to pass an options object to the route, which accepts a <code>schema</code> key that contains all of the schemas for route, <code>body</code>, <code>querystring</code>, <code>params</code>, and <code>headers</code>.</p><p>Read <a href=../Reference/Validation-and-Serialization.md>Validation and Serialization</a> to learn more.</p><h3 id=serialize-your-data>Serialize your data</h3><p><a id=serialize-data></a></p><p>Fastify has first class support for JSON. It is extremely optimized to parse JSON bodies and to serialize JSON output.</p><p>To speed up JSON serialization (yes, it is slow!) use the <code>response</code> key of the schema option as shown in the following example:</p><pre><code class=language-js>const opts = {
+  schema: {
+    response: {
+      200: {
+        type: &#39;object&#39;,
+        properties: {
+          hello: { type: &#39;string&#39; }
+        }
+      }
+    }
+  }
+}
+
+fastify.get(&#39;/&#39;, opts, async (request, reply) =&gt; {
+  return { hello: &#39;world&#39; }
+})
+</code></pre><p>By specifying a schema as shown, you can speed up serialization by a factor of 2-3. This also helps to protect against leakage of potentially sensitive data, since Fastify will serialize only the data present in the response schema. Read <a href=../Reference/Validation-and-Serialization.md>Validation and Serialization</a> to learn more.</p><h3 id=parsing-request-payloads>Parsing request payloads</h3><p><a id=request-payload></a></p><p>Fastify parses <code>&#39;application/json&#39;</code> and <code>&#39;text/plain&#39;</code> request payloads natively, with the result accessible from the <a href=../Reference/Request.md>Fastify request</a> object at <code>request.body</code>.</p><p>The following example returns the parsed body of a request back to the client:</p><pre><code class=language-js>const opts = {}
+fastify.post(&#39;/&#39;, opts, async (request, reply) =&gt; {
+  return request.body
+})
+</code></pre><p>Read <a href=../Reference/ContentTypeParser.md>Content-Type Parser</a> to learn more about Fastify&#39;s default parsing functionality and how to support other content types.</p><h3 id=extend-your-server>Extend your server</h3><p><a id=extend-server></a></p><p>Fastify is built to be extremely extensible and minimal, we believe that a bare-bones framework is all that is necessary to make great applications possible.</p><p>In other words, Fastify is not a &quot;batteries included&quot; framework, and relies on an amazing <a href=/docs/master/Guides/Ecosystem>ecosystem</a>!</p><h3 id=test-your-server>Test your server</h3><p><a id=test-server></a></p><p>Fastify does not offer a testing framework, but we do recommend a way to write your tests that uses the features and architecture of Fastify.</p><p>Read the <a href=/docs/master/Guides/Testing>testing</a> documentation to learn more!</p><h3 id=run-your-server-from-cli>Run your server from CLI</h3><p><a id=cli></a></p><p>Fastify also has CLI integration thanks to <a href=https://github.com/fastify/fastify-cli>fastify-cli</a>.</p><p>First, install <code>fastify-cli</code>:</p><pre><code>npm i fastify-cli
+</code></pre><p>You can also install it globally with <code>-g</code>.</p><p>Then, add the following lines to <code>package.json</code>:</p><pre><code class=language-json>{
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;fastify start server.js&quot;
+  }
+}
+</code></pre><p>And create your server file(s):</p><pre><code class=language-js>// server.js
+&#39;use strict&#39;
+
+module.exports = async function (fastify, opts) {
+  fastify.get(&#39;/&#39;, async (request, reply) =&gt; {
+    return { hello: &#39;world&#39; }
+  })
+}
+</code></pre><p>Then run your server with:</p><pre><code class=language-bash>npm start
+</code></pre><h3 id=slides-and-videos>Slides and Videos</h3><p><a id=slides></a></p><ul><li><p>Slides</p><ul><li><a href=https://mcollina.github.io/take-your-http-server-to-ludicrous-speed>Take your HTTP server to ludicrous speed</a> by <a href=https://github.com/mcollina>@mcollina</a></li><li><a href=https://delvedor.github.io/What-if-I-told-you-that-HTTP-can-be-fast>What if I told you that HTTP can be fast</a> by <a href=https://github.com/delvedor>@delvedor</a></li></ul></li><li><p>Videos</p><ul><li><a href="https://www.youtube.com/watch?v=5z46jJZNe8k">Take your HTTP server to ludicrous speed</a> by <a href=https://github.com/mcollina>@mcollina</a></li><li><a href=https://www.webexpo.net/prague2017/talk/what-if-i-told-you-that-http-can-be-fast/ >What if I told you that HTTP can be fast</a> by <a href=https://github.com/delvedor>@delvedor</a></li></ul></li></ul></div><hr><nav class=level></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+  var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
+  var currentMenu = document.getElementById('doc-menu-section')
+  if (titles.length && currentMenu) {
+    var submenu = document.createElement('ul')
+    titles.forEach(el => {
+      var currentSubmenuItem = document.createElement('li')
+      var currentSubmenuLink = document.createElement('a')
+      currentSubmenuLink.href = '#' + el.id
+      currentSubmenuLink.title = el.textContent
+      currentSubmenuLink.append(document.createTextNode(el.textContent))
+      currentSubmenuItem.append(currentSubmenuLink)
+      submenu.append(currentSubmenuItem)
+    })
+    currentMenu.append(submenu)
+  }
+
+  // dynamically creates header anchor links
+  var headers = document.querySelectorAll('#doc-content h3, #doc-content h4')
+  headers.forEach(el => {
+    var currentAnchorLink = document.createElement('a')
+    currentAnchorLink.className = 'anchor'
+    currentAnchorLink.href = "#" + el.id
+    currentAnchorLink.append(document.createTextNode('¶'))
+    el.insertBefore(currentAnchorLink, el.firstChild);
+  })</script></main><footer class="grey is-primary footer"><div class=container><div class="content has-text-centered"><p><em>Found a typo or want to improve this page?</em> <a href=https://github.com/fastify/fastify/blob/master/docs/Getting-Started.md>Submit a PR on GitHub</a></p><p>Fastify, Copyright &copy; 2016-2021 <a href=https://openjsf.org/ target=_blank rel=noopener>OpenJS Foundation</a> and <a href=https://github.com/fastify/fastify#team target=_blank rel=noopener>The Fastify team</a>, Licensed under <a href=https://github.com/fastify/fastify/blob/master/LICENSE target=_blank rel=noopener>MIT</a></p><p><small>Icons by simpleicons.org</small></p></div></div></footer><script src=/js/main.a784d8baa3d1a953.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js integrity="sha512-s+tOYYcC3Jybgr9mVsdAxsRYlGNq4mlAurOrfNuGMQ/SCofNPu92tjE7YRZCsdEtWL1yGkqk15fU/ark206YTg==" crossorigin=anonymous></script><script>hljs.highlightAll();</script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js></script><script type=text/javascript>docsearch({
+        apiKey: 'f7c62ddab40e653f67a6e15be761d951',
+        indexName: 'fastify',
+        inputSelector: '#algolia-search-input',
+        algoliaOptions: { 'facetFilters': ["version:latest", "tags:docs"] },
+        debug: false // Set debug to true if you want to inspect the dropdown
+      });</script></body></html>
