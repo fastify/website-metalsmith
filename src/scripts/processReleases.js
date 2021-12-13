@@ -311,7 +311,15 @@ const extractPlugins = (pluginContent) => {
 }
 
 async function extractEcosystemFromFile (file) {
-  const data = await fs.readFile(file, 'utf8')
+  let data
+  try {
+    data = await fs.readFile(file, 'utf8')
+  } catch (e) {
+    if (e.code === 'ENOENT') {
+      const legacyEcosystemFile = file.replace('Guides', '')
+      data = await fs.readFile(legacyEcosystemFile, 'utf8')
+    }
+  }
 
   const content = data.toString()
   const corePluginsContent = content
@@ -335,7 +343,7 @@ async function createEcosystemDataFile (masterReleaseDownloadPath) {
   const destination = join(destFolder, 'data', 'ecosystem.yml')
   const files = await fs.readdir(versionFolder)
   const subfolder = files.find(file => file.match(/^fastify-/))
-  const ecosystemFile = join(versionFolder, subfolder, 'docs', 'Ecosystem.md')
+  const ecosystemFile = join(versionFolder, subfolder, 'docs', 'Guides', 'Ecosystem.md')
 
   const ecosystem = await extractEcosystemFromFile(ecosystemFile)
   await fs.writeFile(destination, dump(ecosystem), 'utf8')
