@@ -177,7 +177,7 @@ fastify.addHook(&#39;onRegister&#39;, (instance, opts) =&gt; {
   // the options of the new registered instance
   console.log(opts.prefix)
 })
-</code></pre><h2 id=scope>Scope</h2><p><a id=scope></a></p><p>Except for <a href=/docs/master/Reference/Hooks#onclose>onClose</a>, all hooks are encapsulated. This means that you can decide where your hooks should run by using <code>register</code> as explained in the <a href=../Guides/Plugins-Guide.md>plugins guide</a>. If you pass a function, that function is bound to the right Fastify context and from there you have full access to the Fastify API.</p><pre><code class=language-js>fastify.addHook(&#39;onRequest&#39;, function (request, reply, done) {
+</code></pre><h2 id=scope>Scope</h2><p><a id=scope></a></p><p>Except for <a href=/docs/master/Reference/Hooks#onclose>onClose</a>, all hooks are encapsulated. This means that you can decide where your hooks should run by using <code>register</code> as explained in the <a href=/docs/masterReference/../Guides/Plugins-Guide>plugins guide</a>. If you pass a function, that function is bound to the right Fastify context and from there you have full access to the Fastify API.</p><pre><code class=language-js>fastify.addHook(&#39;onRequest&#39;, function (request, reply, done) {
   const self = this // Fastify context
   done()
 })

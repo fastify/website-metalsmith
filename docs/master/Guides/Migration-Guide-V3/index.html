@@ -3,7 +3,7 @@ fastify.use(require(&#39;cors&#39;)());
 </code></pre><p><strong>v3:</strong></p><pre><code class=language-js>// Using the Express `cors` middleware in Fastify v3.
 await fastify.register(require(&#39;fastify-express&#39;));
 fastify.use(require(&#39;cors&#39;)());
-</code></pre><h3 id=changed-logging-serialization-2017>Changed logging serialization (<a href=https://github.com/fastify/fastify/pull/2017>#2017</a>)</h3><p>The logging <a href=../Reference/Logging.md>Serializers</a> have been updated to now Fastify <a href=../Reference/Request.md><code>Request</code></a> and <a href=../Reference/Reply.md><code>Reply</code></a> objects instead of native ones.</p><p>Any custom serializers must be updated if they rely upon <code>request</code> or <code>reply</code> properties that are present on the native objects but not the Fastify objects.</p><p><strong>v2:</strong></p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+</code></pre><h3 id=changed-logging-serialization-2017>Changed logging serialization (<a href=https://github.com/fastify/fastify/pull/2017>#2017</a>)</h3><p>The logging <a href=/docs/masterGuides/../Reference/Logging>Serializers</a> have been updated to now Fastify <a href=../Reference/Request.md><code>Request</code></a> and <a href=../Reference/Reply.md><code>Reply</code></a> objects instead of native ones.</p><p>Any custom serializers must be updated if they rely upon <code>request</code> or <code>reply</code> properties that are present on the native objects but not the Fastify objects.</p><p><strong>v2:</strong></p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   logger: {
     serializers: {
       res(res) {

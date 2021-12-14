@@ -89,7 +89,7 @@ fastify.addHook(&#39;preHandler&#39;, (request, reply, done) =&gt; {
 fastify.get(&#39;/happiness&#39;, (request, reply) =&gt; {
   reply.send({ happy: request.isHappy })
 })
-</code></pre><p>We have seen how to extend server functionality and how to handle the encapsulation system, but what if you need to add a function that must be executed every time when the server &quot;<a href=../Reference/Lifecycle.md>emits</a>&quot; an event?</p><h2 id=hooks>Hooks</h2><p><a id=hooks></a></p><p>You just built an amazing utility, but now you need to execute that for every request, this is what you will likely do:</p><pre><code class=language-js>fastify.decorate(&#39;util&#39;, (request, key, value) =&gt; { request[key] = value })
+</code></pre><p>We have seen how to extend server functionality and how to handle the encapsulation system, but what if you need to add a function that must be executed every time when the server &quot;<a href=/docs/masterGuides/../Reference/Lifecycle>emits</a>&quot; an event?</p><h2 id=hooks>Hooks</h2><p><a id=hooks></a></p><p>You just built an amazing utility, but now you need to execute that for every request, this is what you will likely do:</p><pre><code class=language-js>fastify.decorate(&#39;util&#39;, (request, key, value) =&gt; { request[key] = value })
 
 fastify.get(&#39;/plugin1&#39;, (request, reply) =&gt; {
   fastify.util(request, &#39;timestamp&#39;, new Date())
@@ -100,7 +100,7 @@ fastify.get(&#39;/plugin2&#39;, (request, reply) =&gt; {
   fastify.util(request, &#39;timestamp&#39;, new Date())
   reply.send(request)
 })
-</code></pre><p>I think we all agree that this is terrible. Repeated code, awful readability and it cannot scale.</p><p>So what can you do to avoid this annoying issue? Yes, you are right, use a <a href=../Reference/Hooks.md>hook</a>!</p><pre><code class=language-js>fastify.decorate(&#39;util&#39;, (request, key, value) =&gt; { request[key] = value })
+</code></pre><p>I think we all agree that this is terrible. Repeated code, awful readability and it cannot scale.</p><p>So what can you do to avoid this annoying issue? Yes, you are right, use a <a href=/docs/masterGuides/../Reference/Hooks>hook</a>!</p><pre><code class=language-js>fastify.decorate(&#39;util&#39;, (request, key, value) =&gt; { request[key] = value })
 
 fastify.addHook(&#39;preHandler&#39;, (request, reply, done) =&gt; {
   fastify.util(request, &#39;timestamp&#39;, new Date())
