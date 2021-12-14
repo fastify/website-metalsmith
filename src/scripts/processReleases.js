@@ -224,6 +224,8 @@ ${content}`
  * e.g. `latest`.
  */
 function remapLinks (content, item) {
+  /* Use https://regex101.com to test the regular expressions and learn what the do */
+
   /*
     Links remapping rules:
     /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/ -> /docs/[VERSION]
@@ -245,8 +247,13 @@ function remapLinks (content, item) {
   const hrefAbsoluteLinks = /href="https:\/\/github\.com\/fastify\/fastify\/blob\/master\/docs\/([\w\d.-]+)\.md/gi
   const absoluteLinks = /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/gi
   const docResourcesLink = /\(.\/?resources\/([a-zA-Z0-9\-_]+\..+)\)/gi
+
+  /* e.g. [foo](#bar) */
   const localAnchorLink = /\((#[a-z0-9\-_]+)\)/gi
-  const localReferenceLink = /(\[\w+\]:)\s?\(?(.\/?)?([\w-]+).md#?([\w-]+)?\)?/gi
+  /* e.g. [foo](./foo/bar.md#baz) */
+  const relativeDocLink = /(\[[\w\s()]+\]:?)\s?\(([\w-./]+)\.md(#[\w]+)?\)/gi
+  /* e.g. [foo]: ./foo/bar.md#baz */
+  const localReferenceLink = /(\[[\w\s()]+\]:?)\s?([\w-./]+).md(#[\w]+)?/gi
 
   /**
    * @param {string} match The full match from the regular expression,
@@ -272,15 +279,13 @@ function remapLinks (content, item) {
       const section = item.section !== '' ? item.section : ''
       return `(/docs/${item.version}/${section}/${item.name}${p1})`
     })
-    .replace(localReferenceLink, function (
-      match, // [GS]: (./Getting-Started.md#anchor)
-      p1, // [GS]:
-      p2, // ./ OPTIONAL
-      p3, // Getting-Started
-      p4 // anchor OPTIONAL
-    ) {
-      const section = item.section !== '' ? '/' + item.section + '/' : ''
-      return `${p1} ${p2 || '/docs' + item.version}${section}${p3}${p4 ? '#' + p4 : ''}`
+    .replace(relativeDocLink, function (match, p1, p2, p3) {
+      const section = item.section !== '' ? item.section : ''
+      return `${p1}(/docs/${item.version}${section}/${p2}${p3 ?? ''})`
+    })
+    .replace(localReferenceLink, function (match, p1, p2, p3) {
+      const section = item.section !== '' ? item.section : ''
+      return `${p1}(/docs/${item.version}${section}/${p2}${p3 ?? ''})`
     })
 }
 
