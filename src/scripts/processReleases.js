@@ -177,7 +177,7 @@ async function processDocFiles (docs, latestRelease) {
     // adds frontmatter
     content =
 `---
-title: ${item.name}
+title: ${item.name === 'index' ? item.section === '' ? 'Documentation' : item.section : item.name}
 layout: docs_page.html
 path: ${item.link}
 version: ${item.version}
@@ -242,7 +242,7 @@ function remapLinks (content, item) {
   const docInternalLinkRx = /\(\/docs\/[\w\d.-]+\/[\w\d-]+(.md)/gi
   const ecosystemLink = /\(Ecosystem\.md\)/gi
   const pluginsLink = /\(Plugins.md\)/gi
-  const relativeLinks = /\((.\/)?(([a-zA-Z0-9\-_]+).md(#[a-z0-9\-_]+)?)\)/gi
+  const relativeLinks = /\((.\/)?(([/\w-]+).md(#[\w-]+)?)\)/gi
   const relativeLinksWithLabel = /\('?(\.\/)([\w\d.-]+)(.md)'?\s+"([\w\d.-]+)"\)/gi
   const hrefAbsoluteLinks = /href="https:\/\/github\.com\/fastify\/fastify\/blob\/master\/docs\/([\w\d.-]+)\.md/gi
   const absoluteLinks = /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/gi
@@ -267,7 +267,11 @@ function remapLinks (content, item) {
     .replace(ecosystemLinkRx, (match) => '(/ecosystem)')
     .replace(ecosystemLink, (match) => '(/ecosystem)')
     .replace(pluginsLink, (match) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/Plugins)`)
-    .replace(relativeLinks, (match, ...parts) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${parts[2]}${parts[3] || ''})`)
+    .replace(relativeLinks, (match, ...parts) => {
+      return `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${parts[2]}${parts[3] || ''})`
+        // handle nested indexes to default to root
+        .replace(/index/ig, '')
+    })
     .replace(relativeLinksWithLabel, (match, ...parts) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${parts[1]} "${parts[3]}")`)
     .replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
     .replace(docResourcesLink, (match, p1) => `(/docs/${item.version}/resources/${p1})`)
