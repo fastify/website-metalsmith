@@ -177,7 +177,7 @@ async function processDocFiles (docs, latestRelease) {
     // adds frontmatter
     content =
 `---
-title: ${item.name}
+title: ${item.name === 'index' ? item.section === '' ? 'Documentation' : item.section : item.name}
 layout: docs_page.html
 path: ${item.link}
 version: ${item.version}
