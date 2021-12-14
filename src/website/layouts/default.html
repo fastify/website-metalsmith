@@ -18,15 +18,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js" integrity="sha512-s+tOYYcC3Jybgr9mVsdAxsRYlGNq4mlAurOrfNuGMQ/SCofNPu92tjE7YRZCsdEtWL1yGkqk15fU/ark206YTg==" crossorigin="anonymous"></script>
     <script>hljs.highlightAll();</script>
     {% block extraScripts %}{% endblock %}
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@3/dist/cdn/docsearch.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@alpha"></script>
     <script type="text/javascript">
       docsearch({
         appId: 'DMPMC33PLU',
         apiKey: '12d46b3bfeee6511031cfe00778f3e45',
         indexName: 'fastify',
         container: '#algolia-search-input',
-        algoliaOptions: { 'facetFilters': ["version:latest", "tags:docs"] },
-        debug: false // Set debug to true if you want to inspect the dropdown
+        algoliaOptions: { 'facetFilters': ["version:latest", "tags:docs"] }
       });
     </script>
   </body>
