@@ -239,19 +239,17 @@ function remapLinks (content, item) {
     [XXXX](./resources/YYYY.ZZZZ) -> [XXXX](/docs/[VERSION]/resources/YYYY.ZZZZ)
   */
   const ecosystemLinkRx = /\(\/docs\/[\w\d.-]+\/Ecosystem\.md\)/gi
-  const docInternalLinkRx = /\(\/docs\/[\w\d.-]+\/[\w\d-]+(.md)/gi
+  const docInternalLinkRx = /\(\/docs\/([\w\d.-]+)\/[\w\d-]+(.md)\)/gi
   const ecosystemLink = /\(Ecosystem\.md\)/gi
   const pluginsLink = /\(Plugins.md\)/gi
-  const relativeLinks = /\((.\/)?(([/\w-]+).md(#[\w-]+)?)\)/gi
-  const relativeLinksWithLabel = /\('?(\.\/)([\w\d.-]+)(.md)'?\s+"([\w\d.-]+)"\)/gi
   const hrefAbsoluteLinks = /href="https:\/\/github\.com\/fastify\/fastify\/blob\/master\/docs\/([\w\d.-]+)\.md/gi
   const absoluteLinks = /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/gi
-  const docResourcesLink = /\(.\/?resources\/([a-zA-Z0-9\-_]+\..+)\)/gi
-
-  /* e.g. [foo](#bar) */
-  const localAnchorLink = /\((#[a-z0-9\-_]+)\)/gi
   /* e.g. [foo](./foo/bar.md#baz) */
-  const relativeDocLink = /(\[[\w\s()]+\]:?)\s?\(([\w-./]+)\.md(#[\w]+)?\)/gi
+  const relativeLinks = /\(([..?/]+)(([\w/-]+\/?).md\/?(#[\w-]+)?)\)/gi
+  /* e.g. [foo](./foo/bar.md#baz "Example Label") */
+  const relativeLinksWithLabel = /\('?(\.\/)([\w\d.-]+)(.md)'?\s+"([\w\d.-]+)"\)/gi
+  /* e.g. (../resources/encapsulation_context.svg) */
+  const docResourcesLink = /\(..?\/?resources\/([a-zA-Z0-9\-_]+\..+)\)/gi
   /* e.g. [foo]: ./foo/bar.md#baz */
   const localReferenceLink = /(\[[\w\s()]+\]:?)\s?([\w-./]+).md(#[\w]+)?/gi
 
@@ -268,21 +266,17 @@ function remapLinks (content, item) {
     .replace(ecosystemLink, (match) => '(/ecosystem)')
     .replace(pluginsLink, (match) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/Plugins)`)
     .replace(relativeLinks, (match, ...parts) => {
-      return `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${parts[2]}${parts[3] || ''})`
+      return `(${(item.name.toLowerCase() === 'index') ? '' : '../'}${parts[0]}${parts[2]}${parts[3] || ''})`
         // handle nested indexes to default to root
         .replace(/index/ig, '')
     })
     .replace(relativeLinksWithLabel, (match, ...parts) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${parts[1]} "${parts[3]}")`)
-    .replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
+    .replace(docInternalLinkRx, (match, p1, p2) => {
+      return match
+        .replace(p1, `${item.version}/${p1}`)
+        .replace(p2, '')
+    })
     .replace(docResourcesLink, (match, p1) => `(/docs/${item.version}/resources/${p1})`)
-    .replace(localAnchorLink, function (match, p1) {
-      const section = item.section !== '' ? item.section : ''
-      return `(/docs/${item.version}/${section}/${item.name}${p1})`
-    })
-    .replace(relativeDocLink, function (match, p1, p2, p3) {
-      const section = item.section !== '' ? item.section : ''
-      return `${p1}(/docs/${item.version}${section}/${p2}${p3 ?? ''})`
-    })
     .replace(localReferenceLink, function (match, p1, p2, p3) {
       const section = item.section !== '' ? item.section : ''
       return `${p1}(/docs/${item.version}${section}/${p2}${p3 ?? ''})`
