@@ -242,15 +242,14 @@ function remapLinks (content, item) {
   const docInternalLinkRx = /\(\/docs\/([\w\d.-]+)\/[\w\d-]+(.md)\)/gi
   const ecosystemLink = /\(Ecosystem\.md\)/gi
   const pluginsLink = /\(Plugins.md\)/gi
-  /* e.g. [foo](./foo/bar.md#baz) */
-  const relativeLinks = /\(([..?/]+)(([\w/-]+\/?).md\/?(#[\w-]+)?)\)/gi
-  const relativeLinksWithLabel = /\('?(\.\/)([\w\d.-]+)(.md)'?\s+"([\w\d.-]+)"\)/gi
   const hrefAbsoluteLinks = /href="https:\/\/github\.com\/fastify\/fastify\/blob\/master\/docs\/([\w\d.-]+)\.md/gi
   const absoluteLinks = /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/gi
-  const docResourcesLink = /\(.\/?resources\/([a-zA-Z0-9\-_]+\..+)\)/gi
-
-  /* e.g. [foo](#bar) */
-  const localAnchorLink = /\((#[a-z0-9\-_]+)\)/gi
+  /* e.g. [foo](./foo/bar.md#baz) */
+  const relativeLinks = /\(([..?/]+)(([\w/-]+\/?).md\/?(#[\w-]+)?)\)/gi
+  /* e.g. [foo](./foo/bar.md#baz "Example Label") */
+  const relativeLinksWithLabel = /\('?(\.\/)([\w\d.-]+)(.md)'?\s+"([\w\d.-]+)"\)/gi
+  /* e.g. (../resources/encapsulation_context.svg) */
+  const docResourcesLink = /\(..?\/?resources\/([a-zA-Z0-9\-_]+\..+)\)/gi
   /* e.g. [foo]: ./foo/bar.md#baz */
   const localReferenceLink = /(\[[\w\s()]+\]:?)\s?([\w-./]+).md(#[\w]+)?/gi
 
