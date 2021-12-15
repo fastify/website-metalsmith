@@ -277,10 +277,6 @@ function remapLinks (content, item) {
         .replace(p2, '')
     })
     .replace(docResourcesLink, (match, p1) => `(/docs/${item.version}/resources/${p1})`)
-    .replace(localAnchorLink, function (match, p1) {
-      const section = item.section !== '' ? item.section : ''
-      return `(/docs/${item.version}/${section}/${item.name}${p1})`
-    })
     .replace(localReferenceLink, function (match, p1, p2, p3) {
       const section = item.section !== '' ? item.section : ''
       return `${p1}(/docs/${item.version}${section}/${p2}${p3 ?? ''})`
