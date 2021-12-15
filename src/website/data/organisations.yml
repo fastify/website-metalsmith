@@ -18,6 +18,10 @@
   image: "care.svg"
   link: "https://www.care.com/"
 
+- name: "Chatlayer by Sinch"
+  image: "chatlayer_by_sinch.svg"
+  link: "https://chatlayer.ai"
+
 - name: "ClearGlass"
   image: "clearglass.svg"
   link: "https://clearglass.com/"
