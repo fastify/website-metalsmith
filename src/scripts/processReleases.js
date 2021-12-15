@@ -273,7 +273,11 @@ function remapLinks (content, item) {
         .replace(/index/ig, '')
     })
     .replace(relativeLinksWithLabel, (match, ...parts) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${parts[1]} "${parts[3]}")`)
-    .replace(docInternalLinkRx, (match, p1) => match.replace(p1, ''))
+    .replace(docInternalLinkRx, (match, p1, p2) => {
+      return match
+        .replace(p1, `${item.version}/${p1}`)
+        .replace(p2, '')
+    })
     .replace(docResourcesLink, (match, p1) => `(/docs/${item.version}/resources/${p1})`)
     .replace(localAnchorLink, function (match, p1) {
       const section = item.section !== '' ? item.section : ''
