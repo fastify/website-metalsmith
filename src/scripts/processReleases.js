@@ -268,7 +268,7 @@ function remapLinks (content, item) {
     .replace(ecosystemLink, (match) => '(/ecosystem)')
     .replace(pluginsLink, (match) => `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/Plugins)`)
     .replace(relativeLinks, (match, ...parts) => {
-      return `(/docs/${item.version}${item.section !== '' ? '/' + item.section : ''}/${parts[2]}${parts[3] || ''})`
+      return `(${parts[0]}${parts[2]}${parts[3] || ''})`
         // handle nested indexes to default to root
         .replace(/index/ig, '')
     })
