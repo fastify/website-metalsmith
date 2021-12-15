@@ -242,7 +242,7 @@ function remapLinks (content, item) {
   const docInternalLinkRx = /\(\/docs\/([\w\d.-]+)\/[\w\d-]+(.md)\)/gi
   const ecosystemLink = /\(Ecosystem\.md\)/gi
   const pluginsLink = /\(Plugins.md\)/gi
-  const relativeLinks = /\((.\/)?(([/\w-]+).md(#[\w-]+)?)\)/gi
+  const relativeLinks = /\((..?\/)((.*)\.[\w-]+(#[\w-]+)?)\)/gi
   const relativeLinksWithLabel = /\('?(\.\/)([\w\d.-]+)(.md)'?\s+"([\w\d.-]+)"\)/gi
   const hrefAbsoluteLinks = /href="https:\/\/github\.com\/fastify\/fastify\/blob\/master\/docs\/([\w\d.-]+)\.md/gi
   const absoluteLinks = /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/gi
