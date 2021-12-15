@@ -26,7 +26,7 @@ const fastify = require(&#39;fastify&#39;)({
     stream: stream
   }
 })
-</code></pre><p><a name=logging-request-id></a></p><p>By default fastify adds an id to every request for easier tracking. If the &quot;request-id&quot; header is present its value is used, otherwise a new incremental id is generated. See Fastify Factory <a href=/docs/v2.6.x/Server#factory-request-id-header><code>requestIdHeader</code></a> and Fastify Factory <a href=/docs/v2.6.x/Server#gen-request-id><code>genReqId</code></a> for customization options.</p><p>The default logger is configured with a set of standard serializers that serialize objects with <code>req</code>, <code>res</code>, and <code>err</code> properties. This behavior can be customized by specifying custom serializers.</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+</code></pre><p><a name=logging-request-id></a></p><p>By default fastify adds an id to every request for easier tracking. If the &quot;request-id&quot; header is present its value is used, otherwise a new incremental id is generated. See Fastify Factory <a href=/docs/v2.6.x/Server.md#factory-request-id-header><code>requestIdHeader</code></a> and Fastify Factory <a href=/docs/v2.6.x/Server.md#gen-request-id><code>genReqId</code></a> for customization options.</p><p>The default logger is configured with a set of standard serializers that serialize objects with <code>req</code>, <code>res</code>, and <code>err</code> properties. This behavior can be customized by specifying custom serializers.</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   logger: {
     serializers: {
       req: function (req) {
@@ -76,7 +76,7 @@ fastify.get(&#39;/&#39;, function (request, reply) {
   request.log.info(&#39;includes request information, but is the same logger instance as `log`&#39;)
   reply.send({ hello: &#39;world&#39; })
 })
-</code></pre><p><em>The logger instance for the current request is available in every part of the <a href=/docs/v2.6.x/Lifecycle>lifecycle</a>.</em></p><h2 id=log-redaction>Log Redaction</h2><p><a href=https://getpino.io>Pino</a> supports low-overhead log redaction for obscuring values of specific properties in recorded logs. As an example, we might want to log all the HTTP headers minus the <code>Authorization</code> header for security concerns:</p><pre><code class=language-js>const fastify = Fastify({
+</code></pre><p><em>The logger instance for the current request is available in every part of the <a href=/docs/v2.6.x/v2.6.x/Lifecycle>lifecycle</a>.</em></p><h2 id=log-redaction>Log Redaction</h2><p><a href=https://getpino.io>Pino</a> supports low-overhead log redaction for obscuring values of specific properties in recorded logs. As an example, we might want to log all the HTTP headers minus the <code>Authorization</code> header for security concerns:</p><pre><code class=language-js>const fastify = Fastify({
   logger: {
     stream: stream,
     redact: [&#39;req.headers.authorization&#39;],

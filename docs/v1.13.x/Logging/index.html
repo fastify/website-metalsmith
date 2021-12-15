@@ -20,7 +20,7 @@ fastify.get(&#39;/&#39;, options, function (request, reply) {
   request.log.info(&#39;Some info about the current request&#39;)
   reply.send({ hello: &#39;world&#39; })
 })
-</code></pre><a name=logging-request-id><p>By default fastify adds an id to every request for easier tracking. If the &quot;request-id&quot; header is present its value is used, otherwise a new incremental id is generated. See Fastify Factory <a href=/docs/v1.13.x/Server#factory-request-id-header><code>requestIdHeader</code></a> options for customizing that header name. Additionally, <code>genReqId</code> option can be used for generating the request id by yourself. It will received the incoming request as a parameter.</p><pre><code class=language-js>let i = 0
+</code></pre><a name=logging-request-id><p>By default fastify adds an id to every request for easier tracking. If the &quot;request-id&quot; header is present its value is used, otherwise a new incremental id is generated. See Fastify Factory <a href=/docs/v1.13.x/Server.md#factory-request-id-header><code>requestIdHeader</code></a> options for customizing that header name. Additionally, <code>genReqId</code> option can be used for generating the request id by yourself. It will received the incoming request as a parameter.</p><pre><code class=language-js>let i = 0
 const fastify = require(&#39;fastify&#39;)({
   logger: {
     genReqId: function (req) { return i++ }
@@ -44,7 +44,7 @@ fastify.get(&#39;/&#39;, function (request, reply) {
   request.log.info(&#39;includes request information, but is the same logger instance as `log`&#39;)
   reply.send({ hello: &#39;world&#39; })
 })
-</code></pre><p><em>The logger instance for the current request is available in every part of the <a href=/docs/v1.13.x/Lifecycle>lifecycle</a>.</em></p></div><hr><nav class=level></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+</code></pre><p><em>The logger instance for the current request is available in every part of the <a href=/docs/v1.13.x/v1.13.x/Lifecycle>lifecycle</a>.</em></p></div><hr><nav class=level></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
   var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
   var currentMenu = document.getElementById('doc-menu-section')
   if (titles.length && currentMenu) {

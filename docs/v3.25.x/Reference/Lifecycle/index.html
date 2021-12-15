@@ -42,7 +42,7 @@
                                  reply sent ◀── JSON ─┴─ Error instance ──▶ onError Hook
                                                                                 │
                                                                                 └─▶ reply sent
-</code></pre><p>Note: <code>reply sent</code> means that the JSON payload will be serialized by:</p><ul><li>the <a href=/docs/v3.25.x/Reference/Server#setreplyserializer>reply serialized</a> if set</li><li>or by the <a href=/docs/v3.25.x/Reference/Server#setserializercompiler>serializer compiler</a> when a JSON schema has been set for the returning HTTP status code</li><li>or by the default <code>JSON.stringify</code> function</li></ul></div><hr><nav class=level></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+</code></pre><p>Note: <code>reply sent</code> means that the JSON payload will be serialized by:</p><ul><li>the <a href=.././Server#setreplyserializer>reply serialized</a> if set</li><li>or by the <a href=.././Server#setserializercompiler>serializer compiler</a> when a JSON schema has been set for the returning HTTP status code</li><li>or by the default <code>JSON.stringify</code> function</li></ul></div><hr><nav class=level></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
   var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
   var currentMenu = document.getElementById('doc-menu-section')
   if (titles.length && currentMenu) {

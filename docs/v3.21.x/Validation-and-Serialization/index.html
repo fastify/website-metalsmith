@@ -57,7 +57,7 @@ fastify.register((instance, opts, done) =&gt; {
   })
   done()
 })
-</code></pre><h3 id=validation>Validation</h3><p>The route validation internally relies upon <a href=https://www.npmjs.com/package/ajv/v/6.12.6>Ajv v6</a> which is a high-performance JSON Schema validator. Validating the input is very easy: just add the fields that you need inside the route schema, and you are done!</p><p>The supported validations are:</p><ul><li><code>body</code>: validates the body of the request if it is a POST, PUT, or PATCH method.</li><li><code>querystring</code> or <code>query</code>: validates the query string.</li><li><code>params</code>: validates the route params.</li><li><code>headers</code>: validates the request headers.</li></ul><p>All the validations can be a complete JSON Schema object (with a <code>type</code> property of <code>&#39;object&#39;</code> and a <code>&#39;properties&#39;</code> object containing parameters) or a simpler variation in which the <code>type</code> and <code>properties</code> attributes are forgone and the parameters are listed at the top level (see the example below).</p><blockquote><p>ℹ If you need to use the lastest version of Ajv (v8) you should read how to do it in the <a href=/docs/v3.21.x/Server#schema-controller><code>schemaController</code></a> section. It is explained the easier way to avoid to implement a custom validator.</p></blockquote><p>Example:</p><pre><code class=language-js>const bodyJsonSchema = {
+</code></pre><h3 id=validation>Validation</h3><p>The route validation internally relies upon <a href=https://www.npmjs.com/package/ajv/v/6.12.6>Ajv v6</a> which is a high-performance JSON Schema validator. Validating the input is very easy: just add the fields that you need inside the route schema, and you are done!</p><p>The supported validations are:</p><ul><li><code>body</code>: validates the body of the request if it is a POST, PUT, or PATCH method.</li><li><code>querystring</code> or <code>query</code>: validates the query string.</li><li><code>params</code>: validates the route params.</li><li><code>headers</code>: validates the request headers.</li></ul><p>All the validations can be a complete JSON Schema object (with a <code>type</code> property of <code>&#39;object&#39;</code> and a <code>&#39;properties&#39;</code> object containing parameters) or a simpler variation in which the <code>type</code> and <code>properties</code> attributes are forgone and the parameters are listed at the top level (see the example below).</p><blockquote><p>ℹ If you need to use the lastest version of Ajv (v8) you should read how to do it in the <a href=Server.md#schema-controller><code>schemaController</code></a> section. It is explained the easier way to avoid to implement a custom validator.</p></blockquote><p>Example:</p><pre><code class=language-js>const bodyJsonSchema = {
   type: &#39;object&#39;,
   required: [&#39;requiredKey&#39;],
   properties: {
@@ -118,7 +118,7 @@ const schema = {
 }
 
 fastify.post(&#39;/the/url&#39;, { schema }, handler)
-</code></pre><p><em>Note that Ajv will try to <a href=https://github.com/epoberezkin/ajv#coercing-data-types>coerce</a> the values to the types specified in your schema <code>type</code> keywords, both to pass the validation and to use the correctly typed data afterwards.</em></p><p>The Ajv default configuration in Fastify doesn&#39;t support coercing array parameters in querystring. However, Fastify allows <a href=/docs/v3.21.x/Server#ajv><code>customOptions</code></a> in Ajv instance. The <code>coerceTypes: &#39;array&#39;</code> will coerce one parameter to a single element in array. Example:</p><pre><code class=language-js>const opts = {
+</code></pre><p><em>Note that Ajv will try to <a href=https://github.com/epoberezkin/ajv#coercing-data-types>coerce</a> the values to the types specified in your schema <code>type</code> keywords, both to pass the validation and to use the correctly typed data afterwards.</em></p><p>The Ajv default configuration in Fastify doesn&#39;t support coercing array parameters in querystring. However, Fastify allows <a href=Server.md#ajv><code>customOptions</code></a> in Ajv instance. The <code>coerceTypes: &#39;array&#39;</code> will coerce one parameter to a single element in array. Example:</p><pre><code class=language-js>const opts = {
   schema: {
     querystring: {
       type: &#39;object&#39;,
@@ -188,7 +188,7 @@ server.setValidatorCompiler(req =&gt; {
     }
     return compiler.compile(req.schema)
 })
-</code></pre><p>For further information see <a href=https://ajv.js.org/coercion.html>here</a></p><p><a name=ajv-plugins></a></p><h4 id=ajv-plugins>Ajv Plugins</h4><p>You can provide a list of plugins you want to use with the default <code>ajv</code> instance.<br>Note that the plugin must be <strong>compatible with Ajv v6</strong>.</p><blockquote><p>Refer to <a href=/docs/v3.21.x/Server#ajv><code>ajv options</code></a> to check plugins format</p></blockquote><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+</code></pre><p>For further information see <a href=https://ajv.js.org/coercion.html>here</a></p><p><a name=ajv-plugins></a></p><h4 id=ajv-plugins>Ajv Plugins</h4><p>You can provide a list of plugins you want to use with the default <code>ajv</code> instance.<br>Note that the plugin must be <strong>compatible with Ajv v6</strong>.</p><blockquote><p>Refer to <a href=Server.md#ajv><code>ajv options</code></a> to check plugins format</p></blockquote><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   ajv: {
     plugins: [
       require(&#39;ajv-merge-patch&#39;)
@@ -247,7 +247,7 @@ fastify.post(&#39;/foo&#39;, {
   coerceTypes: true, // change data type of data to match type keyword
   nullable: true     // support keyword &quot;nullable&quot; from Open API 3 specification.
 }
-</code></pre><p>This baseline configuration can be modified by providing <a href=/docs/v3.21.x/Server#factory-ajv><code>ajv.customOptions</code></a> to your Fastify factory.</p><p>If you want to change or set additional config options, you will need to create your own instance and override the existing one like:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
+</code></pre><p>This baseline configuration can be modified by providing <a href=Server.md#factory-ajv><code>ajv.customOptions</code></a> to your Fastify factory.</p><p>If you want to change or set additional config options, you will need to create your own instance and override the existing one like:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
 const Ajv = require(&#39;ajv&#39;)
 const ajv = new Ajv({
   // the fastify defaults (if needed)
@@ -375,7 +375,7 @@ fastify.get(&#39;/user&#39;, {
     }
   }
 })
-</code></pre><p><em>If you need a custom serializer in a very specific part of your code, you can set one with <a href=/docs/v3.21.x/Reply#serializerfunc><code>reply.serializer(...)</code></a>.</em></p><h3 id=error-handling>Error Handling</h3><p>When schema validation fails for a request, Fastify will automatically return a status 400 response including the result from the validator in the payload. As an example, if you have the following schema for your route</p><pre><code class=language-js>const schema = {
+</code></pre><p><em>If you need a custom serializer in a very specific part of your code, you can set one with <a href=Reply.md#serializerfunc><code>reply.serializer(...)</code></a>.</em></p><h3 id=error-handling>Error Handling</h3><p>When schema validation fails for a request, Fastify will automatically return a status 400 response including the result from the validator in the payload. As an example, if you have the following schema for your route</p><pre><code class=language-js>const schema = {
   body: {
     type: &#39;object&#39;,
     properties: {

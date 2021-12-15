@@ -112,7 +112,7 @@ const schema = {
 }
 
 fastify.post(&#39;/the/url&#39;, { schema }, handler)
-</code></pre><p><em>Note that Ajv will try to <a href=https://github.com/epoberezkin/ajv#coercing-data-types>coerce</a> the values to the types specified in your schema <code>type</code> keywords, both to pass the validation and to use the correctly typed data afterwards.</em></p><p><a name=ajv-plugins></a></p><h4 id=ajv-plugins>Ajv Plugins</h4><p>You can provide a list of plugins you want to use with Ajv:</p><blockquote><p>Refer to <a href=/docs/v3.1.x/Server#factory-ajv><code>ajv options</code></a> to check plugins format</p></blockquote><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+</code></pre><p><em>Note that Ajv will try to <a href=https://github.com/epoberezkin/ajv#coercing-data-types>coerce</a> the values to the types specified in your schema <code>type</code> keywords, both to pass the validation and to use the correctly typed data afterwards.</em></p><p><a name=ajv-plugins></a></p><h4 id=ajv-plugins>Ajv Plugins</h4><p>You can provide a list of plugins you want to use with Ajv:</p><blockquote><p>Refer to <a href=.././Server#factory-ajv><code>ajv options</code></a> to check plugins format</p></blockquote><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   ajv: {
     plugins: [
       require(&#39;ajv-merge-patch&#39;)
@@ -171,7 +171,7 @@ fastify.post(&#39;/foo&#39;, {
   coerceTypes: true, // change data type of data to match type keyword
   nullable: true     // support keyword &quot;nullable&quot; from Open API 3 specification.
 }
-</code></pre><p>This baseline configuration can be modified by providing <a href=/docs/v3.1.x/Server#factory-ajv><code>ajv.customOptions</code></a> to your Fastify factory.</p><p>If you want to change or set additional config options, you will need to create your own instance and override the existing one like:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
+</code></pre><p>This baseline configuration can be modified by providing <a href=.././Server#factory-ajv><code>ajv.customOptions</code></a> to your Fastify factory.</p><p>If you want to change or set additional config options, you will need to create your own instance and override the existing one like:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
 const Ajv = require(&#39;ajv&#39;)
 const ajv = new Ajv({
   // the fastify defaults (if needed)
@@ -299,7 +299,7 @@ fastify.get(&#39;/user&#39;, {
     }
   }
 })
-</code></pre><p><em>If you need a custom serializer in a very specific part of your code, you can set one with <a href=/docs/v3.1.x/Reply#serializerfunc><code>reply.serializer(...)</code></a>.</em></p><h3 id=error-handling>Error Handling</h3><p>When schema validation fails for a request, Fastify will automatically return a status 400 response including the result from the validator in the payload. As an example, if you have the following schema for your route</p><pre><code class=language-js>const schema = {
+</code></pre><p><em>If you need a custom serializer in a very specific part of your code, you can set one with <a href=.././Reply#serializerfunc><code>reply.serializer(...)</code></a>.</em></p><h3 id=error-handling>Error Handling</h3><p>When schema validation fails for a request, Fastify will automatically return a status 400 response including the result from the validator in the payload. As an example, if you have the following schema for your route</p><pre><code class=language-js>const schema = {
   body: {
     type: &#39;object&#39;,
     properties: {
