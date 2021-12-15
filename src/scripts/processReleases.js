@@ -239,7 +239,7 @@ function remapLinks (content, item) {
     [XXXX](./resources/YYYY.ZZZZ) -> [XXXX](/docs/[VERSION]/resources/YYYY.ZZZZ)
   */
   const ecosystemLinkRx = /\(\/docs\/[\w\d.-]+\/Ecosystem\.md\)/gi
-  const docInternalLinkRx = /\(\/docs\/[\w\d.-]+\/[\w\d-]+(.md)/gi
+  const docInternalLinkRx = /\(\/docs\/([\w\d.-]+)\/[\w\d-]+(.md)\)/gi
   const ecosystemLink = /\(Ecosystem\.md\)/gi
   const pluginsLink = /\(Plugins.md\)/gi
   const relativeLinks = /\((.\/)?(([/\w-]+).md(#[\w-]+)?)\)/gi
