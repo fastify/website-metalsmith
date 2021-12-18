@@ -291,3 +291,29 @@ a img, a svg {
 code, pre {
   font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
 }
+
+// Algolia SearchBar
+.DocSearch {
+  width: 100%;
+  
+  &.DocSearch-Button{
+    margin: 0 !important;
+    border: 1px solid black;
+    border-radius: 0;
+    background-color: transparent;
+  }
+
+  &-Button-Keys {
+    display: none !important;
+  }
+
+  &:hover {
+    box-shadow: none !important;
+  }
+
+  &-Search-Icon {
+    transform: scale(.66);
+    transform-origin: center;
+    margin-right: 5px;
+  }
+}
