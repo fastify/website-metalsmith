@@ -1,4 +1,4 @@
 # A basic redirect rule
 [[redirects]]
-  from = "/docs/latest/Guides/Benchmarking/"
-  to = "/docs/latest/Benchmarking/"
+  from = "/docs/latest/Benchmarking/"
+  to = "/docs/latest/Guides/Benchmarking/"
