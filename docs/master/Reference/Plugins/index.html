@@ -61,14 +61,14 @@ async function plugin (fastify, opts) {
 
 export default plugin
 </code></pre><h3 id=create-a-plugin>Create a plugin</h3><p><a id=create-plugin></a></p><p>Creating a plugin is very easy, you just need to create a function that takes three parameters, the <code>fastify</code> instance, an <code>options</code> object, and the <code>done</code> callback.</p><p>Example:</p><pre><code class=language-js>module.exports = function (fastify, opts, done) {
-  fastify.decorate(&#39;utility&#39;, () =&gt; {})
+  fastify.decorate(&#39;utility&#39;, function () {})
 
   fastify.get(&#39;/&#39;, handler)
 
   done()
 }
 </code></pre><p>You can also use <code>register</code> inside another <code>register</code>:</p><pre><code class=language-js>module.exports = function (fastify, opts, done) {
-  fastify.decorate(&#39;utility&#39;, () =&gt; {})
+  fastify.decorate(&#39;utility&#39;, function () {})
 
   fastify.get(&#39;/&#39;, handler)
 
@@ -79,11 +79,11 @@ export default plugin
 </code></pre><p>Sometimes, you will need to know when the server is about to close, for example, because you must close a connection to a database. To know when this is going to happen, you can use the <a href=.././Hooks#on-close><code>&#39;onClose&#39;</code></a> hook.</p><p>Do not forget that <code>register</code> will always create a new Fastify scope, if you do not need that, read the following section.</p><h3 id=handle-the-scope>Handle the scope</h3><p><a id=handle-scope></a></p><p>If you are using <code>register</code> only for extending the functionality of the server with <a href=.././Decorators><code>decorate</code></a>, it is your responsibility to tell Fastify not to create a new scope. Otherwise, your changes will not be accessible by the user in the upper scope.</p><p>You have two ways to tell Fastify to avoid the creation of a new context:</p><ul><li>Use the <a href=https://github.com/fastify/fastify-plugin><code>fastify-plugin</code></a> module</li><li>Use the <code>&#39;skip-override&#39;</code> hidden property</li></ul><p>We recommend using the <code>fastify-plugin</code> module, because it solves this problem for you, and you can pass a version range of Fastify as a parameter that your plugin will support.</p><pre><code class=language-js>const fp = require(&#39;fastify-plugin&#39;)
 
 module.exports = fp(function (fastify, opts, done) {
-  fastify.decorate(&#39;utility&#39;, () =&gt; {})
+  fastify.decorate(&#39;utility&#39;, function () {})
   done()
 }, &#39;0.x&#39;)
 </code></pre><p>Check the <a href=https://github.com/fastify/fastify-plugin><code>fastify-plugin</code></a> documentation to learn more about how to use this module.</p><p>If you do not use the <code>fastify-plugin</code> module, you can use the <code>&#39;skip-override&#39;</code> hidden property, but we do not recommend it. If in the future the Fastify API changes it will be your responsibility to update the module, while if you use <code>fastify-plugin</code>, you can be sure about backward compatibility.</p><pre><code class=language-js>function yourPlugin (fastify, opts, done) {
-  fastify.decorate(&#39;utility&#39;, () =&gt; {})
+  fastify.decorate(&#39;utility&#39;, function () {})
   done()
 }
 yourPlugin[Symbol.for(&#39;skip-override&#39;)] = true
