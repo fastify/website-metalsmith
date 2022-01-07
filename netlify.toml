@@ -1,4 +1,41 @@
-# A basic redirect rule
+# This redirects support links pointing to previous documentation (articles, videos..)
+
+# Guides section
 [[redirects]]
   from = "/docs/latest/Benchmarking/"
-  to = "/docs/latest/Guides/Benchmarking/"
+  to = "/docs/latest/guides/benchmarking/"
+[[redirects]]
+  from = "/docs/latest/Contributing/"
+  to = "/docs/latest/guides/contributing/"
+[[redirects]]
+  from = "/docs/latest/Ecosystem/"
+  to = "/docs/latest/guides/ecosystem/"
+[[redirects]]
+  from = "/docs/latest/Fluent-Schema/"
+  to = "/docs/latest/guides/fluent-schema/"
+[[redirects]]
+  from = "/docs/latest/Getting-Started/"
+  to = "/docs/latest/guides/getting-started/"
+[[redirects]]
+  from = "/docs/latest/Migration-Guide-V3/"
+  to = "/docs/latest/guides/migration-guide-v3/"
+[[redirects]]
+  from = "/docs/latest/Plugins-Guide/"
+  to = "/docs/latest/guides/plugins-guide/"
+[[redirects]]
+  from = "/docs/latest/Recommendations/"
+  to = "/docs/latest/guides/recommendations/"
+[[redirects]]
+  from = "/docs/latest/Serverless/"
+  to = "/docs/latest/guides/serverless/"
+[[redirects]]
+  from = "/docs/latest/Style-Guide/"
+  to = "/docs/latest/guides/style-guide/"
+[[redirects]]
+  from = "/docs/latest/Testing/"
+  to = "/docs/latest/guides/testing/"
+[[redirects]]
+  from = "/docs/latest/Write-Plugin/"
+  to = "/docs/latest/guides/write-plugin/"
+
+# Reference section
