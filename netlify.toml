@@ -39,3 +39,54 @@
   to = "/docs/latest/guides/write-plugin/"
 
 # Reference section
+[[redirects]]
+  from = "/docs/latest/ContentTypeParser/"
+  to = "/docs/latest/reference/contenttypeparser/"
+[[redirects]]
+  from = "/docs/latest/Decorators/"
+  to = "/docs/latest/reference/decorators/"
+[[redirects]]
+  from = "/docs/latest/Encapsulation/"
+  to = "/docs/latest/reference/encapsulation/"
+[[redirects]]
+  from = "/docs/latest/Errors/"
+  to = "/docs/latest/reference/errors/"
+[[redirects]]
+  from = "/docs/latest/HTTP2/"
+  to = "/docs/latest/reference/http2/"
+[[redirects]]
+  from = "/docs/latest/Hooks/"
+  to = "/docs/latest/reference/hooks/"
+[[redirects]]
+  from = "/docs/latest/LTS/"
+  to = "/docs/latest/reference/lts/"
+[[redirects]]
+  from = "/docs/latest/Lifecycle/"
+  to = "/docs/latest/reference/lifecycle/"
+[[redirects]]
+  from = "/docs/latest/Logging/"
+  to = "/docs/latest/reference/logging/"
+[[redirects]]
+  from = "/docs/latest/Middleware/"
+  to = "/docs/latest/reference/middleware/"
+[[redirects]]
+  from = "/docs/latest/Plugins/"
+  to = "/docs/latest/reference/plugins/"
+[[redirects]]
+  from = "/docs/latest/Reply/"
+  to = "/docs/latest/reference/reply/"
+[[redirects]]
+  from = "/docs/latest/Request/"
+  to = "/docs/latest/reference/request/"
+[[redirects]]
+  from = "/docs/latest/Routes/"
+  to = "/docs/latest/reference/routes/"
+[[redirects]]
+  from = "/docs/latest/Server/"
+  to = "/docs/latest/reference/server/"
+[[redirects]]
+  from = "/docs/latest/TypeScript/"
+  to = "/docs/latest/reference/typescript/"
+[[redirects]]
+  from = "/docs/latest/Validation-and-Serialization/"
+  to = "/docs/latest/reference/validation-and-serialization/"
