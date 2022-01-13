@@ -57,6 +57,10 @@
 - name: "Find a Discord"
   image: "findadiscord.svg"
   link: "https://findadiscord.com"
+
+- name: "Flash Benefícios"
+  image: "flashapp.svg"
+  link: "https://www.flashapp.com.br"
   
 - name: "Future Foundry"
   image: "future-foundry.svg"
