@@ -2,7 +2,7 @@
   &#39;foo&#39;: &#39;bar&#39;,
   &#39;baz&#39;: &#39;qux&#39;
 }
-</code></pre><p>This operation will add to the request headers the new values that can be read calling <code>request.headers.bar</code>. Moreover, you can still access the standard request&#39;s headers with the <code>request.raw.headers</code> property.</p><pre><code class=language-js>fastify.post(&#39;/:params&#39;, options, function (request, reply) {
+</code></pre><p>This operation will add to the request headers the new values that can be read calling <code>request.headers.bar</code>. Moreover, you can still access the standard request&#39;s headers with the <code>request.raw.headers</code> property.</p><blockquote><p>Note: For performance reason on <code>not found</code> route, you may see that we will add an extra property <code>Symbol(&#39;fastify.RequestAcceptVersion&#39;)</code> on the headers.</p></blockquote><pre><code class=language-js>fastify.post(&#39;/:params&#39;, options, function (request, reply) {
   console.log(request.body)
   console.log(request.query)
   console.log(request.params)
