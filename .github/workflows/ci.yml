@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: ['*']
+    branches: ["*"]
 
 jobs:
   build:
@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: Install Dependencies
         run: npm ci
@@ -30,10 +30,8 @@ jobs:
 
       # Sets the branch name as environment variable
       - uses: nelonoel/branch-name@v1.0.1
-      - uses: jsmrcaga/action-netlify-deploy@master
-        with:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      - name: Publish
+        uses: netlify/actions/build@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          # TODO check if head is passed correctly
-          NETLIFY_DEPLOY_TO_PROD: ${{ env.BRANCH_NAME == env.GITHUB_HEAD_REF }}
-          deploy_alias: ${{ env.BRANCH_NAME }}
