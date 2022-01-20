@@ -12,7 +12,6 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x]
-        os: [ubuntu-latest]
 
     steps:
       - uses: actions/checkout@v2
@@ -28,10 +27,36 @@ jobs:
       - name: Test
         run: npm test
 
-      # Sets the branch name as environment variable
-      - uses: nelonoel/branch-name@v1.0.1
       - name: Publish
         uses: netlify/actions/build@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: Waiting for Netlify Preview
+        id: deployment
+        uses: jakepartusch/wait-for-netlify-action@v1.3
+        with:
+          site_name: "fastify-website"
+
+      # Check lighthouse indicators for main page
+      - name: Audit Preview
+        id: lighthouse_audit
+        uses: treosh/lighthouse-ci-action@v8
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+        with:
+          urls: ${{ steps.deployment.outputs.url }}
+          configPath: ".github/workflows/lighthouse/.lighthouserc.json"
+
+  automerge:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - uses: fastify/github-action-merge-dependabot@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          target: minor
