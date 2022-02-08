@@ -149,6 +149,14 @@ start()
         <p>and you can test it with:</p>
         <pre><code class="shell">curl http://localhost:3000</code></pre>
 
+        <h2>Using CLI</h2>
+
+        <p>Get fastify-cli with NPM:</p>
+        <pre><code class="shell">npm install --global fastify-cli</code></pre>
+
+        <p>Then scaffold a new project with:</p>
+        <pre><code class="shell">fastify generate myproject</code></pre>
+
         <h2>Request/Response validation and hooks</h2>
 
         <p>Of course, Fastify can do much more than this.</p>
@@ -383,7 +391,7 @@ start()</code></pre>
                     <p class="title is-5">{{ member.name }}</p>
                     <p class="subtitle is-6 contributor-links">
                     {% for label, link in member.links %}
-                      <a href="{{ link }}" target="_blank" rel="noopener" title="Check out {{member.name}}'s {{label}} profile">{{svgicons[label] | safe}}</a>	
+                      <a href="{{ link }}" target="_blank" rel="noopener" title="Check out {{member.name}}'s {{label}} profile">{{svgicons[label] | safe}}</a>
                     {% endfor %}
                     </p>
                   </div>
