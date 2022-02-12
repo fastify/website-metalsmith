@@ -317,3 +317,66 @@ code, pre {
     margin-right: 5px;
   }
 }
+
+// TEMPORAL BANNER
+
+.banner {
+  overflow: hidden;
+
+  & > .container {
+    padding: 3rem 1.5rem;
+    position: relative;
+
+    @include mobile {
+      padding: 2rem 1.5rem;
+    }
+  }
+
+  &-text {
+    font-size: 2rem;
+    font-weight: 500;
+
+    @include mobile {
+      font-size: 1.5rem;
+    }
+  }
+
+  &-header {
+    color: #000;
+    span {
+      font-style: italic;
+    }
+  }
+
+  &-description {
+    font-weight: 400;
+    font-size: 0.66em;
+  }
+
+  &-image {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    left: -40%;
+
+    @include mobile {
+      left: -33%;
+    }
+
+    & > img {
+      object-fit: contain;
+      width: 100%;
+      height: 100%;
+      opacity: 0.15;
+      transform-origin: center;
+      transform: scale(2);
+
+      @include widescreen {
+        transform: scale(2.5);
+      }
+    }
+  }
+}
