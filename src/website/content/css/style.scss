@@ -222,6 +222,34 @@ a img, a svg {
   padding-bottom: 0;
 }
 
+.sticky-container {
+  position: relative;
+  
+  &>.sticky {
+    top:0;
+    position: sticky;
+
+    /**
+     * We add this scroll behavior to prevent part of the overflowing TOC from being hidden when
+     * scrolling down. If we didn't, user would have to scroll to top or bottom to access it.
+    */
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 100vh;
+
+    /**
+     * Customize the resulting scrollbar to prevent the user from losing focus to the content
+    */
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+     
+    &::-webkit-scrollbar-thumb {
+      background-color: darkgrey;
+    }
+  }
+}
+
 #openjs-logo {
   padding: 2em 0 1em 0;
   width: 60%;
