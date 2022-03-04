@@ -61,6 +61,10 @@
 - name: "Flash Benefícios"
   image: "flashapp.svg"
   link: "https://www.flashapp.com.br"
+
+- name: "Flux QR"
+  image: "fluxqr.svg"
+  link: "https://www.fluxqr.com"
   
 - name: "Future Foundry"
   image: "future-foundry.svg"
