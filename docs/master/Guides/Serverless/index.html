@@ -8,7 +8,7 @@ function init() {
 
 if (require.main === module) {
   // called directly i.e. &quot;node app&quot;
-  init().listen(3000, (err) =&gt; {
+  init().listen({ port: 3000 }, (err) =&gt; {
     if (err) console.error(err);
     console.log(&#39;server listening on 3000&#39;);
   });
@@ -99,11 +99,11 @@ async function start() {
   const port = process.env.PORT || 3000
 
   // You must listen on all IPV4 addresses in Cloud Run
-  const address = IS_GOOGLE_CLOUD_RUN ? &quot;0.0.0.0&quot; : undefined
+  const host = IS_GOOGLE_CLOUD_RUN ? &quot;0.0.0.0&quot; : undefined
 
   try {
     const server = build()
-    const address = await server.listen(port, address)
+    const address = await server.listen({ port, host })
     console.log(`Listening on ${address}`)
   } catch (err) {
     console.error(err)

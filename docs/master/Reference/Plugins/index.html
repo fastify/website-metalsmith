@@ -33,7 +33,7 @@ fastify.ready(err =&gt; console.log(err))
 
 // `listen` is a special ready,
 // so it behaves in the same way
-fastify.listen(3000, (err, address) =&gt; {
+fastify.listen({ port: 3000 }, (err, address) =&gt; {
   if (err) console.log(err)
 })
 </code></pre><h3 id=asyncawait>async/await</h3><p><a id=async-await></a></p><p><em>async/await</em> is supported by <code>after</code>, <code>ready</code> and <code>listen</code>, as well as <code>fastify</code> being a <a href=https://promisesaplus.com/ >Thenable</a>.</p><pre><code class=language-js>await fastify.register(require(&#39;my-plugin&#39;))
@@ -42,14 +42,14 @@ await fastify.after()
 
 await fastify.ready()
 
-await fastify.listen(3000)
+await fastify.listen({ port: 3000 })
 </code></pre><h4 id=esm-support>ESM support</h4><p><a id=esm-support></a></p><p>ESM is supported as well from <a href=https://nodejs.org/api/esm.html>Node.js <code>v13.3.0</code></a> and above!</p><pre><code class=language-js>// main.mjs
 import Fastify from &#39;fastify&#39;
 const fastify = Fastify()
 
 fastify.register(import(&#39;./plugin.mjs&#39;))
 
-fastify.listen(3000, console.log)
+fastify.listen({ port: 3000 }, console.log)
 
 
 // plugin.mjs

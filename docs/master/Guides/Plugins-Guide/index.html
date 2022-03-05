@@ -173,7 +173,7 @@ const fastify = Fastify()
 
 ///...
 
-fastify.listen(3000, (err, address) =&gt; {
+fastify.listen({ port: 3000 }, (err, address) =&gt; {
   if (err) {
     fastify.log.error(err)
     process.exit(1)

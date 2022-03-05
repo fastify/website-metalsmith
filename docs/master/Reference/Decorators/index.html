@@ -88,7 +88,7 @@ server.decorateReply(&#39;view&#39;, function (template, args) {
   // Another rendering engine
 })
 
-server.listen(3000)
+server.listen({ port: 3000 })
 </code></pre><p>But this will not:</p><pre><code class=language-js>const server = require(&#39;fastify&#39;)()
 
 server.decorateReply(&#39;view&#39;, function (template, args) {
@@ -108,7 +108,7 @@ server.register(async function (server, opts) {
   })
 }, { prefix: &#39;/bar&#39; })
 
-server.listen(3000)
+server.listen({ port: 3000 })
 </code></pre><h3 id=getters-and-setters>Getters and Setters</h3><p><a id=getters-setters></a></p><p>Decorators accept special &quot;getter/setter&quot; objects. These objects have functions named <code>getter</code> and <code>setter</code> (though the <code>setter</code> function is optional). This allows defining properties via decorators, for example:</p><pre><code class=language-js>fastify.decorate(&#39;foo&#39;, {
   getter () {
     return &#39;a getter&#39;

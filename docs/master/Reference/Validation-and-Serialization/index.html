@@ -136,7 +136,7 @@ fastify.get(&#39;/&#39;, opts, (request, reply) =&gt; {
   reply.send({ params: request.query }) // echo the querystring
 })
 
-fastify.listen(3000, (err) =&gt; {
+fastify.listen({ port: 3000 }, (err) =&gt; {
   if (err) throw err
 })
 </code></pre><pre><code class=language-sh>curl -X GET &quot;http://localhost:3000/?ids=1
@@ -175,7 +175,7 @@ server.setValidatorCompiler(req =&gt; {
     }
     return compiler.compile(req.schema)
 })
-</code></pre><p>For further information see <a href=https://ajv.js.org/coercion.html>here</a></p><h4 id=ajv-plugins>Ajv Plugins</h4><p><a id=ajv-plugins></a></p><p>You can provide a list of plugins you want to use with the default <code>ajv</code> instance.<br>Note that the plugin must be <strong>compatible with the Ajv version shipped within Fastify</strong>.</p><blockquote><p>Refer to <a href=.././Server#ajv><code>ajv options</code></a> to check plugins format</p></blockquote><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+</code></pre><p>For further information see <a href=https://ajv.js.org/coercion.html>here</a></p><h4 id=ajv-plugins>Ajv Plugins</h4><p><a id=ajv-plugins></a></p><p>You can provide a list of plugins you want to use with the default <code>ajv</code> instance. Note that the plugin must be <strong>compatible with the Ajv version shipped within Fastify</strong>.</p><blockquote><p>Refer to <a href=.././Server#ajv><code>ajv options</code></a> to check plugins format</p></blockquote><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   ajv: {
     plugins: [
       require(&#39;ajv-merge-patch&#39;)

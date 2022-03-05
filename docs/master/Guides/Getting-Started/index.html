@@ -18,7 +18,7 @@ fastify.get(&#39;/&#39;, function (request, reply) {
 })
 
 // Run the server!
-fastify.listen(3000, function (err, address) {
+fastify.listen({ port: 3000 }, function (err, address) {
   if (err) {
     fastify.log.error(err)
     process.exit(1)
@@ -41,14 +41,14 @@ fastify.get(&#39;/&#39;, async (request, reply) =&gt; {
 
 const start = async () =&gt; {
   try {
-    await fastify.listen(3000)
+    await fastify.listen({ port: 3000 })
   } catch (err) {
     fastify.log.error(err)
     process.exit(1)
   }
 }
 start()
-</code></pre><p>Awesome, that was easy.</p><p>Unfortunately, writing a complex application requires significantly more code than this example. A classic problem when you are building a new application is how to handle multiple files, asynchronous bootstrapping, and the architecture of your code.</p><p>Fastify offers an easy platform that helps to solve all of the problems outlined above, and more!</p><blockquote><h2 id=note>Note</h2><p>The above examples, and subsequent examples in this document, default to listening <em>only</em> on the localhost <code>127.0.0.1</code> interface. To listen on all available IPv4 interfaces the example should be modified to listen on <code>0.0.0.0</code> like so:</p><pre><code class=language-js>fastify.listen(3000, &#39;0.0.0.0&#39;, function (err, address) {
+</code></pre><p>Awesome, that was easy.</p><p>Unfortunately, writing a complex application requires significantly more code than this example. A classic problem when you are building a new application is how to handle multiple files, asynchronous bootstrapping, and the architecture of your code.</p><p>Fastify offers an easy platform that helps to solve all of the problems outlined above, and more!</p><blockquote><h2 id=note>Note</h2><p>The above examples, and subsequent examples in this document, default to listening <em>only</em> on the localhost <code>127.0.0.1</code> interface. To listen on all available IPv4 interfaces the example should be modified to listen on <code>0.0.0.0</code> like so:</p><pre><code class=language-js>fastify.listen({ port: 3000, host: &#39;0.0.0.0&#39; }, function (err, address) {
   if (err) {
     fastify.log.error(err)
     process.exit(1)
@@ -64,7 +64,7 @@ const fastify = Fastify({
 
 fastify.register(firstRoute)
 
-fastify.listen(3000, function (err, address) {
+fastify.listen({ port: 3000 }, function (err, address) {
   if (err) {
     fastify.log.error(err)
     process.exit(1)
@@ -78,7 +78,7 @@ const fastify = require(&#39;fastify&#39;)({
 
 fastify.register(require(&#39;./our-first-route&#39;))
 
-fastify.listen(3000, function (err, address) {
+fastify.listen({ port: 3000 }, function (err, address) {
   if (err) {
     fastify.log.error(err)
     process.exit(1)
@@ -106,7 +106,7 @@ const fastify = Fastify({
 fastify.register(dbConnector)
 fastify.register(firstRoute)
 
-fastify.listen(3000, function (err, address) {
+fastify.listen({ port: 3000 }, function (err, address) {
   if (err) {
     fastify.log.error(err)
     process.exit(1)
@@ -121,7 +121,7 @@ const fastify = require(&#39;fastify&#39;)({
 fastify.register(require(&#39;./our-db-connector&#39;))
 fastify.register(require(&#39;./our-first-route&#39;))
 
-fastify.listen(3000, function (err, address) {
+fastify.listen({ port: 3000 }, function (err, address) {
   if (err) {
     fastify.log.error(err)
     process.exit(1)

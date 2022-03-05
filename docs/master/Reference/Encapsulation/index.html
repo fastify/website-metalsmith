@@ -55,7 +55,7 @@ fastify.register(async function publicContext (childServer) {
   })
 })
 
-fastify.listen(8000)
+fastify.listen({ port: 8000 })
 </code></pre><p>The above server example shows all of the encapsulation concepts outlined in the original diagram:</p><ol><li>Each <em>child context</em> (<code>authenticatedContext</code>, <code>publicContext</code>, and <code>grandchildContext</code>) has access to the <code>answer</code> request decorator defined in the <em>root context</em>.</li><li>Only the <code>authenticatedContext</code> has access to the <code>fastify-bearer-auth</code> plugin.</li><li>Both the <code>publicContext</code> and <code>grandchildContext</code> have access to the <code>foo</code> request decorator.</li><li>Only the <code>grandchildContext</code> has access to the <code>bar</code> request decorator.</li></ol><p>To see this, start the server and issue requests:</p><pre><code class=language-sh># curl -H &#39;authorization: Bearer abc123&#39; http://127.0.0.1:8000/one
 {&quot;answer&quot;:42}
 # curl http://127.0.0.1:8000/two
@@ -105,7 +105,7 @@ fastify.register(async function publicContext (childServer) {
   }
 })
 
-fastify.listen(8000)
+fastify.listen({ port: 8000 })
 </code></pre><p>Restarting the server and re-issuing the requests for <code>/two</code> and <code>/three</code>:</p><pre><code class=language-sh># curl http://127.0.0.1:8000/two
 {&quot;answer&quot;:42,&quot;foo&quot;:&quot;foo&quot;,&quot;bar&quot;:&quot;bar&quot;}
 # curl http://127.0.0.1:8000/three

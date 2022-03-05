@@ -16,7 +16,7 @@ server.get(&#39;/ping&#39;, async (request, reply) =&gt; {
   return &#39;pong\n&#39;
 })
 
-server.listen(8080, (err, address) =&gt; {
+server.listen({ port: 8080 }, (err, address) =&gt; {
   if (err) {
     console.error(err)
     process.exit(1)
@@ -169,7 +169,7 @@ interface IHeaders {
      }
    })
 
-   server.listen(8080, (err, address) =&gt; {
+   server.listen({ port: 8080 }, (err, address) =&gt; {
      if (err) {
        console.error(err)
        process.exit(0)
@@ -324,27 +324,27 @@ module.exports = async function (fastify, { optionA, optionB }) {
 </code></pre><h2 id=api-type-system-documentation>API Type System Documentation</h2><p>This section is a detailed account of all the types available to you in Fastify version 3.x</p><p>All <code>http</code>, <code>https</code>, and <code>http2</code> types are inferred from <code>@types/node</code></p><p><a href=#generics>Generics</a> are documented by their default value as well as their constraint value(s). Read these articles for more information on TypeScript generics.</p><ul><li><a href=https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-3.html#generic-parameter-defaults>Generic Parameter Default</a></li><li><a href=https://www.typescriptlang.org/docs/handbook/generics.html#generic-constraints>Generic Constraints</a></li></ul><h4 id=how-to-import>How to import</h4><p>The Fastify API is powered by the <code>fastify()</code> method. In JavaScript you would import it using <code>const fastify = require(&#39;fastify&#39;)</code>. In TypeScript it is recommended to use the <code>import/from</code> syntax instead so types can be resolved. There are a couple supported import methods with the Fastify type system.</p><ol><li><p><code>import fastify from &#39;fastify&#39;</code></p><ul><li><p>Types are resolved but not accessible using dot notation</p></li><li><p>Example:</p><pre><code class=language-typescript>import fastify from &#39;fastify&#39;
 
 const f = fastify()
-f.listen(8080, () =&gt; { console.log(&#39;running&#39;) })
+f.listen({ port: 8080 }, () =&gt; { console.log(&#39;running&#39;) })
 </code></pre></li><li><p>Gain access to types with destructuring:</p><pre><code class=language-typescript>import fastify, { FastifyInstance } from &#39;fastify&#39;
 
 const f: FastifyInstance = fastify()
-f.listen(8080, () =&gt; { console.log(&#39;running&#39;) })
+f.listen({ port: 8080 }, () =&gt; { console.log(&#39;running&#39;) })
 </code></pre></li><li><p>Destructuring also works for the main API method:</p><pre><code class=language-typescript>import { fastify, FastifyInstance } from &#39;fastify&#39;
 
 const f: FastifyInstance = fastify()
-f.listen(8080, () =&gt; { console.log(&#39;running&#39;) })
+f.listen({ port: 8080 }, () =&gt; { console.log(&#39;running&#39;) })
 </code></pre></li></ul></li><li><p><code>import * as Fastify from &#39;fastify&#39;</code></p><ul><li><p>Types are resolved and accessible using dot notation</p></li><li><p>Calling the main Fastify API method requires a slightly different syntax (see example)</p></li><li><p>Example:</p><pre><code class=language-typescript>import * as Fastify from &#39;fastify&#39;
 
 const f: Fastify.FastifyInstance = Fastify.fastify()
-f.listen(8080, () =&gt; { console.log(&#39;running&#39;) })
+f.listen({ port: 8080 }, () =&gt; { console.log(&#39;running&#39;) })
 </code></pre></li></ul></li><li><p><code>const fastify = require(&#39;fastify&#39;)</code></p><ul><li><p>This syntax is valid and will import fastify as expected; however, types will <strong>not</strong> be resolved</p></li><li><p>Example:</p><pre><code class=language-typescript>const fastify = require(&#39;fastify&#39;)
 
 const f = fastify()
-f.listen(8080, () =&gt; { console.log(&#39;running&#39;) })
+f.listen({ port: 8080 }, () =&gt; { console.log(&#39;running&#39;) })
 </code></pre></li><li><p>Destructuring is supported and will resolve types properly</p><pre><code class=language-typescript>const { fastify } = require(&#39;fastify&#39;)
 
 const f = fastify()
-f.listen(8080, () =&gt; { console.log(&#39;running&#39;) })
+f.listen({ port: 8080 }, () =&gt; { console.log(&#39;running&#39;) })
 </code></pre></li></ul></li></ol><h4 id=generics>Generics</h4><p>Many type definitions share the same generic parameters; they are all documented, in detail, within this section.</p><p>Most definitions depend on <code>@node/types</code> modules <code>http</code>, <code>https</code>, and <code>http2</code></p><h5 id=rawserver>RawServer</h5><p>Underlying Node.js server type</p><p>Default: <code>http.Server</code></p><p>Constraints: <code>http.Server</code>, <code>https.Server</code>, <code>http2.Http2Server</code>, <code>http2.Http2SecureServer</code></p><p>Enforces generic parameters: <a href=#rawrequest><code>RawRequest</code></a>, <a href=#rawreply><code>RawReply</code></a></p><h5 id=rawrequest>RawRequest</h5><p>Underlying Node.js request type</p><p>Default: <a href=#fastifyrawrequestdefaultexpressionrawserver><code>RawRequestDefaultExpression</code></a></p><p>Constraints: <code>http.IncomingMessage</code>, <code>http2.Http2ServerRequest</code></p><p>Enforced by: <a href=#rawserver><code>RawServer</code></a></p><h5 id=rawreply>RawReply</h5><p>Underlying Node.js response type</p><p>Default: <a href=#fastifyrawreplydefaultexpression><code>RawReplyDefaultExpression</code></a></p><p>Constraints: <code>http.ServerResponse</code>, <code>http2.Http2ServerResponse</code></p><p>Enforced by: <a href=#rawserver><code>RawServer</code></a></p><h5 id=logger>Logger</h5><p>Fastify logging utility</p><p>Default: <a href=#fastifyfastifyloggeroptions><code>FastifyLoggerOptions</code></a></p><p>Enforced by: <a href=#rawserver><code>RawServer</code></a></p><h5 id=rawbody>RawBody</h5><p>A generic parameter for the content-type-parser methods.</p><p>Constraints: <code>string | Buffer</code></p><hr><h4 id=fastify>Fastify</h4><h5 id=fastifyrawserver-rawrequest-rawreply-loggeropts-fastifyserveroptions-fastifyinstance>fastify&lt;<a href=#rawserver>RawServer</a>, <a href=#rawrequest>RawRequest</a>, <a href=#rawreply>RawReply</a>, <a href=#logger>Logger</a>&gt;(opts?: <a href=#fastifyfastifyserveroptions-rawserver-logger>FastifyServerOptions</a>): <a href=#fastifyfastifyinstance>FastifyInstance</a></h5><p><a href=https://github.com/fastify/fastify/blob/main/fastify.d.ts#L19>src</a></p><p>The main Fastify API method. By default creates an HTTP server. Utilizing discriminant unions and overload methods, the type system will automatically infer which type of server (http, https, or http2) is being created purely based on the options based to the method (see the examples below for more information). It also supports an extensive generic type system to allow the user to extend the underlying Node.js Server, Request, and Reply objects. Additionally, the <code>Logger</code> generic exists for custom log types. See the examples and generic breakdown below for more information.</p><h6 id=example-1-standard-http-server>Example 1: Standard HTTP server</h6><p>No need to specify the <code>Server</code> generic as the type system defaults to HTTP.</p><pre><code class=language-typescript>import fastify from &#39;fastify&#39;
 
 const server = fastify()
@@ -362,7 +362,7 @@ server.get(&#39;/&#39;, async function (request, reply) {
   return { hello: &#39;world&#39; }
 })
 
-server.listen(8080, (err, address) =&gt; {
+server.listen({ port: 8080 }, (err, address) =&gt; {
   if (err) {
     console.error(err)
     process.exit(0)

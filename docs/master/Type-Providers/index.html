@@ -159,7 +159,7 @@ const server = Fastify({
 
 registerRoutes(server)
 
-server.listen(3000)
+server.listen({ port: 3000 })
 </code></pre><pre><code class=language-ts>// routes.ts
 import { Type } from &#39;@sinclair/typebox&#39;
 import {

@@ -90,7 +90,7 @@ const fastify = require(&#39;fastify&#39;)()
 fastify.register(require(&#39;./routes/v1/users&#39;), { prefix: &#39;/v1&#39; })
 fastify.register(require(&#39;./routes/v2/users&#39;), { prefix: &#39;/v2&#39; })
 
-fastify.listen(3000)
+fastify.listen({ port: 3000 })
 </code></pre><pre><code class=language-js>// routes/v1/users.js
 module.exports = function (fastify, opts, done) {
   fastify.get(&#39;/user&#39;, handler_v1)
@@ -107,7 +107,7 @@ const fastify = require(&#39;fastify&#39;)({ logger: true })
 fastify.register(require(&#39;./routes/user&#39;), { logLevel: &#39;warn&#39; })
 fastify.register(require(&#39;./routes/events&#39;), { logLevel: &#39;debug&#39; })
 
-fastify.listen(3000)
+fastify.listen({ port: 3000 })
 </code></pre><p>Or you can directly pass it to a route:</p><pre><code class=language-js>fastify.get(&#39;/&#39;, { logLevel: &#39;warn&#39; }, (request, reply) =&gt; {
   reply.send({ hello: &#39;world&#39; })
 })
@@ -124,7 +124,7 @@ fastify.register(require(&#39;./routes/events&#39;), {
   }
 })
 
-fastify.listen(3000)
+fastify.listen({ port: 3000 })
 </code></pre><p>You can inherit serializers by context:</p><pre><code class=language-js>const fastify = Fastify({
   logger: {
     level: &#39;info&#39;,
@@ -157,7 +157,7 @@ async function context1 (fastify, opts) {
   })
 }
 
-fastify.listen(3000)
+fastify.listen({ port: 3000 })
 </code></pre><h3 id=config>Config</h3><p><a id=routes-config></a></p><p>Registering a new handler, you can pass a configuration object to it and retrieve it in the handler.</p><pre><code class=language-js>// server.js
 const fastify = require(&#39;fastify&#39;)()
 
@@ -168,7 +168,7 @@ function handler (req, reply) {
 fastify.get(&#39;/en&#39;, { config: { output: &#39;hello world!&#39; } }, handler)
 fastify.get(&#39;/it&#39;, { config: { output: &#39;ciao mondo!&#39; } }, handler)
 
-fastify.listen(3000)
+fastify.listen({ port: 3000 })
 </code></pre><h3 id=constraints>Constraints</h3><p><a id=constraints></a></p><p>Fastify supports constraining routes to match only certain requests based on some property of the request, like the <code>Host</code> header, or any other value via <a href=https://github.com/delvedor/find-my-way><code>find-my-way</code></a> constraints. Constraints are specified in the <code>constraints</code> property of the route options. Fastify has two built-in constraints ready for use: the <code>version</code> constraint and the <code>host</code> constraint, and you can add your own custom constraint strategies to inspect other parts of a request to decide if a route should be executed for a request.</p><h4 id=version-constraints>Version Constraints</h4><p>You can provide a <code>version</code> key in the <code>constraints</code> option to a route. Versioned routes allow you to declare multiple handlers for the same HTTP route path, which will then be matched according to each request&#39;s <code>Accept-Version</code> header. The <code>Accept-Version</code> header value should follow the <a href=http://semver.org/ >semver</a> specification, and routes should be declared with exact semver versions for matching.</p><p>Fastify will require a request <code>Accept-Version</code> header to be set if the route has a version set, and will prefer a versioned route to a non-versioned route for the same path. Advanced version ranges and pre-releases currently are not supported.</p><p><em>Be aware that using this feature will cause a degradation of the overall performances of the router.</em></p><pre><code class=language-js>fastify.route({
   method: &#39;GET&#39;,
   url: &#39;/&#39;,
