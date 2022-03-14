@@ -130,6 +130,10 @@
   image: "microsoft.svg"
   link: "https://docs.microsoft.com"
 
+- name: "Monitr"
+  image: "monitr.svg"
+  link: "https://monitr.be"
+
 - name: "Mr Porter"
   image: "mrp.svg"
   link: "https://www.mrporter.com"
