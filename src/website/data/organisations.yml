@@ -5,7 +5,7 @@
 - name: "aasaam"
   image: "aasaam.svg"
   link: "https://aasaam.com/"
-  
+
 - name: "AmeriSave Mortgage Corporation"
   image: "amerisave.svg"
   link: "https://www.amerisave.com"
@@ -40,20 +40,20 @@
 
 - name: "evilfactorylabs"
   image: "evilfactorylabs.svg"
-  link: "https://evilfactorylabs.org/"  
+  link: "https://evilfactorylabs.org/"
 
 - name: "Elo7"
   image: "elo7.svg"
   link: "https://www.elo7.com.br"
-  
+
 - name: "Discord Bots Catalog"
   image: "discordbotscatalog.svg"
   link: "https://top-bots.xyz"
-  
+
 - name: "fabfitfun"
   image: "fabfitfun.svg"
   link: "https://fabfitfun.com/"
-  
+
 - name: "Find a Discord"
   image: "findadiscord.svg"
   link: "https://findadiscord.com"
@@ -65,7 +65,7 @@
 - name: "Flux QR"
   image: "fluxqr.svg"
   link: "https://www.fluxqr.com"
-  
+
 - name: "Future Foundry"
   image: "future-foundry.svg"
   link: "https://futurefoundry.co"
@@ -106,10 +106,6 @@
   image: "immobiliarelabs.svg"
   link: "https://labs.immobiliare.it"
 
-- name: "Knock"
-  image: "knock.svg"
-  link: "https://www.knock.com"
-
 - name: "localistars"
   image: "localistars.svg"
   link: "https://localistars.com"
@@ -140,7 +136,7 @@
 
 - name: "MV Labs"
   image: "mvlabs.svg"
-  link: "https://www.mvlabs.it"  
+  link: "https://www.mvlabs.it"
 
 - name: "Nearform"
   image: "nearform.svg"
@@ -172,7 +168,7 @@
 
 - name: "Satiurn"
   image: "satiurn.svg"
-  link: "https://www.satiurn.com/"  
+  link: "https://www.satiurn.com/"
 
 - name: "Seznam.cz"
   image: "seznam.cz.svg"
