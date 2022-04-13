@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/fastify/website#readme",
   "dependencies": {
-    "async": "^3.2.0",
+    "async": "^3.2.2",
     "axios": "^0.21.1",
     "clean-css": "^5.0.1",
     "clone": "^2.1.2",
