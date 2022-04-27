@@ -57,7 +57,7 @@ fastify.get(&#39;/example/:userId/:secretToken&#39;, (request, reply) =&gt; {})
 
 // wildcard
 fastify.get(&#39;/example/*&#39;, (request, reply) =&gt; {})
-</code></pre><p>Regular expression routes are supported as well, but pay attention, RegExp are very expensive in term of performance!</p><pre><code class=language-js>// parametric with regexp
+</code></pre><p>Regular expression routes are supported as well, but be aware that you have to escape slashes. Take note that RegExp is also very expensive in terms of performance!</p><pre><code class=language-js>// parametric with regexp
 fastify.get(&#39;/example/:file(^\\d+).png&#39;, (request, reply) =&gt; {})
 </code></pre><p>It is possible to define more than one parameter within the same couple of slash (&quot;/&quot;). Such as:</p><pre><code class=language-js>fastify.get(&#39;/example/near/:lat-:lng/radius/:r&#39;, (request, reply) =&gt; {})
 </code></pre><p><em>Remember in this case to use the dash (&quot;-&quot;) as parameters separator.</em></p><p>Finally it is possible to have multiple parameters with RegExp.</p><pre><code class=language-js>fastify.get(&#39;/example/at/:hour(^\\d{2})h:minute(^\\d{2})m&#39;, (request, reply) =&gt; {})
