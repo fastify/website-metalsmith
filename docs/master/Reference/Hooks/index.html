@@ -110,7 +110,7 @@ fastify.addHook(&#39;preHandler&#39;, async (request, reply) =&gt; {
 })
 
 fastify.addHook(&#39;preHandler&#39;, async (request, reply) =&gt; {
-  // the fastify-static plugin will send a file asynchronously,
+  // the @fastify/static plugin will send a file asynchronously,
   // so we should return reply
   reply.sendFile(&#39;myfile&#39;)
   return reply

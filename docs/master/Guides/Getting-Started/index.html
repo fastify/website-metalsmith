@@ -94,7 +94,7 @@ async function routes (fastify, options) {
 }
 
 module.exports = routes
-</code></pre><p>In this example, we used the <code>register</code> API, which is the core of the Fastify framework. It is the only way to add routes, plugins, et cetera.</p><p>At the beginning of this guide, we noted that Fastify provides a foundation that assists with asynchronous bootstrapping of your application. Why is this important?</p><p>Consider the scenario where a database connection is needed to handle data storage. The database connection needs to be available before the server is accepting connections. How do we address this problem?</p><p>A typical solution is to use a complex callback, or promises - a system that will mix the framework API with other libraries and the application code.</p><p>Fastify handles this internally, with minimum effort!</p><p>Let&#39;s rewrite the above example with a database connection.</p><p>First, install <code>fastify-plugin</code> and <code>fastify-mongodb</code>:</p><pre><code>npm i --save fastify-plugin fastify-mongodb
+</code></pre><p>In this example, we used the <code>register</code> API, which is the core of the Fastify framework. It is the only way to add routes, plugins, et cetera.</p><p>At the beginning of this guide, we noted that Fastify provides a foundation that assists with asynchronous bootstrapping of your application. Why is this important?</p><p>Consider the scenario where a database connection is needed to handle data storage. The database connection needs to be available before the server is accepting connections. How do we address this problem?</p><p>A typical solution is to use a complex callback, or promises - a system that will mix the framework API with other libraries and the application code.</p><p>Fastify handles this internally, with minimum effort!</p><p>Let&#39;s rewrite the above example with a database connection.</p><p>First, install <code>fastify-plugin</code> and <code>@fastify/mongodb</code>:</p><pre><code>npm i --save fastify-plugin @fastify/mongodb
 </code></pre><p><strong>server.js</strong></p><pre><code class=language-js>// ESM
 import Fastify from &#39;fastify&#39;
 import dbConnector from &#39;./our-db-connector&#39;
@@ -130,7 +130,7 @@ fastify.listen({ port: 3000 }, function (err, address) {
 })
 </code></pre><p><strong>our-db-connector.js</strong></p><pre><code class=language-js>// ESM
 import fastifyPlugin from &#39;fastify-plugin&#39;
-import fastifyMongo from &#39;fastify-mongodb&#39;
+import fastifyMongo from &#39;@fastify/mongodb&#39;
 
 async function dbConnector (fastify, options) {
   fastify.register(fastifyMongo, {
@@ -145,7 +145,7 @@ module.exports = fastifyPlugin(dbConnector)
 const fastifyPlugin = require(&#39;fastify-plugin&#39;)
 
 async function dbConnector (fastify, options) {
-  fastify.register(require(&#39;fastify-mongodb&#39;), {
+  fastify.register(require(&#39;@fastify/mongodb&#39;), {
     url: &#39;mongodb://localhost:27017/test_database&#39;
   })
 }
