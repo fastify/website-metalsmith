@@ -30,7 +30,7 @@ exports.handler = proxy;
 // exports.handler = (event, context) =&gt; proxy(event, context);
 // or
 // exports.handler = async (event, context) =&gt; proxy(event, context);
-</code></pre><p>We just require <a href=https://github.com/fastify/aws-lambda-fastify>aws-lambda-fastify</a> (make sure you install the dependency <code>npm i --save aws-lambda-fastify</code>) and our <a href=#appjs><code>app.js</code></a> file and call the exported <code>awsLambdaFastify</code> function with the <code>app</code> as the only parameter. The resulting <code>proxy</code> function has the correct signature to be used as a lambda <code>handler</code> function. This way all the incoming events (API Gateway requests) are passed to the <code>proxy</code> function of <a href=https://github.com/fastify/aws-lambda-fastify>aws-lambda-fastify</a>.</p><h3 id=example>Example</h3><p>An example deployable with <a href=https://claudiajs.com/tutorials/serverless-express.html>claudia.js</a> can be found <a href=https://github.com/claudiajs/example-projects/tree/master/fastify-app-lambda>here</a>.</p><h3 id=considerations>Considerations</h3><ul><li>API Gateway does not support streams yet, so you are not able to handle <a href=../../Reference/Reply#streams>streams</a>.</li><li>API Gateway has a timeout of 29 seconds, so it is important to provide a reply during this time.</li></ul><h2 id=google-cloud-functions>Google Cloud Functions</h2><h3 id=creation-of-fastify-instance>Creation of Fastify instance</h3><pre><code class=language-js>const fastify = require(&quot;fastify&quot;)({
+</code></pre><p>We just require <a href=https://github.com/fastify/aws-lambda-fastify>aws-lambda-fastify</a> (make sure you install the dependency <code>npm i aws-lambda-fastify</code>) and our <a href=#appjs><code>app.js</code></a> file and call the exported <code>awsLambdaFastify</code> function with the <code>app</code> as the only parameter. The resulting <code>proxy</code> function has the correct signature to be used as a lambda <code>handler</code> function. This way all the incoming events (API Gateway requests) are passed to the <code>proxy</code> function of <a href=https://github.com/fastify/aws-lambda-fastify>aws-lambda-fastify</a>.</p><h3 id=example>Example</h3><p>An example deployable with <a href=https://claudiajs.com/tutorials/serverless-express.html>claudia.js</a> can be found <a href=https://github.com/claudiajs/example-projects/tree/master/fastify-app-lambda>here</a>.</p><h3 id=considerations>Considerations</h3><ul><li>API Gateway does not support streams yet, so you are not able to handle <a href=../../Reference/Reply#streams>streams</a>.</li><li>API Gateway has a timeout of 29 seconds, so it is important to provide a reply during this time.</li></ul><h2 id=google-cloud-functions>Google Cloud Functions</h2><h3 id=creation-of-fastify-instance>Creation of Fastify instance</h3><pre><code class=language-js>const fastify = require(&quot;fastify&quot;)({
   logger: true // you can also define the level passing an object configuration to logger: {level: &#39;debug&#39;}
 });
 </code></pre><h3 id=add-custom-contenttypeparser-to-fastify-instance>Add Custom <code>contentTypeParser</code> to Fastify instance</h3><p>As explained <a href=https://github.com/fastify/fastify/issues/946#issuecomment-766319521>in issue #946</a>, since the Google Cloud Functions platform parses the body of the request before it arrives at the Fastify instance, troubling the body request in case of <code>POST</code> and <code>PATCH</code> methods, you need to add a custom <a href=../../Reference/ContentTypeParser><code>Content-Type Parser</code></a> to mitigate this behavior.</p><pre><code class=language-js>fastify.addContentTypeParser(&#39;application/json&#39;, {}, (req, body, done) =&gt; {
@@ -73,7 +73,7 @@ exports.handler = proxy;
 
 export.fastifyFunction = fastifyFunction;
 </code></pre><h3 id=local-test>Local test</h3><p>Install <a href=https://github.com/GoogleCloudPlatform/functions-framework-nodejs>Google Functions Framework for Node.js</a>.</p><p>You can install it globally:</p><pre><code class=language-bash>npm i -g @google-cloud/functions-framework
-</code></pre><p>Or as a development library:</p><pre><code class=language-bash>npm i --save-dev @google-cloud/functions-framework
+</code></pre><p>Or as a development library:</p><pre><code class=language-bash>npm i -D @google-cloud/functions-framework
 </code></pre><p>Then you can run your function locally with Functions Framework:</p><pre><code class=language-bash>npx @google-cloud/functions-framework --target=fastifyFunction
 </code></pre><p>Or add this command to your <code>package.json</code> scripts:</p><pre><code class=language-json>&quot;scripts&quot;: {
 ...
@@ -129,7 +129,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install production dependencies.
-RUN npm install --only=production
+RUN npm i --production
 
 # Copy local code to the container image.
 COPY . .
