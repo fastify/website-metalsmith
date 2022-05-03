@@ -22,7 +22,7 @@ defaults
   option        dontlognull
   retries       3
   option redispatch
-  # The following option make haproxy close connections to backend servers
+  # The following option makes haproxy close connections to backend servers
   # instead of keeping them open. This can alleviate unexpected connection
   # reset errors in the Node process.
   option http-server-close
@@ -216,7 +216,7 @@ server {
     proxy_pass http://fastify_app;
   }
 }
-</code></pre><h2 id=kubernetes>Kubernetes</h2><p><a id=kubernetes></a></p><p>The <code>readinessProbe</code> uses <a href=https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes>(by default</a>) the pod IP as the hostname. Fastify listens on <code>127.0.0.1</code> by default. The probe will not be able to reach the application in this case. In order to make it work, the application must listen on <code>0.0.0.0</code> or specify a custom hostname in the <code>readinessProbe.httpGet</code> spec, as per the following example:</p><pre><code class=language-yaml>readinessProbe:
+</code></pre><h2 id=kubernetes>Kubernetes</h2><p><a id=kubernetes></a></p><p>The <code>readinessProbe</code> uses <a href=https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes>(by default</a>) the pod IP as the hostname. Fastify listens on <code>127.0.0.1</code> by default. The probe will not be able to reach the application in this case. To make it work, the application must listen on <code>0.0.0.0</code> or specify a custom hostname in the <code>readinessProbe.httpGet</code> spec, as per the following example:</p><pre><code class=language-yaml>readinessProbe:
     httpGet:
         path: /health
         port: 4000

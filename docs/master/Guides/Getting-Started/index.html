@@ -235,7 +235,7 @@ module.exports = routes
 fastify.post(&#39;/&#39;, opts, async (request, reply) =&gt; {
   return { hello: &#39;world&#39; }
 })
-</code></pre><p>This example shows how to pass an options object to the route, which accepts a <code>schema</code> key that contains all of the schemas for route, <code>body</code>, <code>querystring</code>, <code>params</code>, and <code>headers</code>.</p><p>Read <a href=../../Reference/Validation-and-Serialization>Validation and Serialization</a> to learn more.</p><h3 id=serialize-your-data>Serialize your data</h3><p><a id=serialize-data></a></p><p>Fastify has first class support for JSON. It is extremely optimized to parse JSON bodies and to serialize JSON output.</p><p>To speed up JSON serialization (yes, it is slow!) use the <code>response</code> key of the schema option as shown in the following example:</p><pre><code class=language-js>const opts = {
+</code></pre><p>This example shows how to pass an options object to the route, which accepts a <code>schema</code> key that contains all of the schemas for route, <code>body</code>, <code>querystring</code>, <code>params</code>, and <code>headers</code>.</p><p>Read <a href=../../Reference/Validation-and-Serialization>Validation and Serialization</a> to learn more.</p><h3 id=serialize-your-data>Serialize your data</h3><p><a id=serialize-data></a></p><p>Fastify has first-class support for JSON. It is extremely optimized to parse JSON bodies and serialize JSON output.</p><p>To speed up JSON serialization (yes, it is slow!) use the <code>response</code> key of the schema option as shown in the following example:</p><pre><code class=language-js>const opts = {
   schema: {
     response: {
       200: {
