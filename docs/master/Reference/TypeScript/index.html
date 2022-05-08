@@ -139,7 +139,7 @@ interface IHeaders {
      //  or if using async
      //  preValidation: async (request, reply) =&gt; {
      //    const { username, password } = request.query
-     //    return username !== &quot;admin&quot; ? new Error(&quot;Must be admin&quot;) : undefined;
+     //    if (username !== &quot;admin&quot;) throw new Error(&quot;Must be admin&quot;);
      //  }
    }, async (request, reply) =&gt; {
      const customerHeader = request.headers[&#39;h-Custom&#39;]
