@@ -39,6 +39,9 @@ fastify.get(&#39;/&#39;, async (request, reply) =&gt; {
   return { hello: &#39;world&#39; }
 })
 
+/**
+ * Run the server!
+ */
 const start = async () =&gt; {
   try {
     await fastify.listen({ port: 3000 })
@@ -58,6 +61,9 @@ start()
 </code></pre><p>Similarly, specify <code>::1</code> to accept only local connections via IPv6. Or specify <code>::</code> to accept connections on all IPv6 addresses, and, if the operating system supports it, also on all IPv4 addresses.</p><p>When deploying to a Docker (or another type of) container using <code>0.0.0.0</code> or <code>::</code> would be the easiest method for exposing the application.</p></blockquote><h3 id=your-first-plugin>Your first plugin</h3><p><a id=first-plugin></a></p><p>As with JavaScript, where everything is an object, with Fastify everything is a plugin.</p><p>Before digging into it, let&#39;s see how it works!</p><p>Let&#39;s declare our basic server, but instead of declaring the route inside the entry point, we&#39;ll declare it in an external file (check out the <a href=../../Reference/Routes>route declaration</a> docs).</p><pre><code class=language-js>// ESM
 import Fastify from &#39;fastify&#39;
 import firstRoute from &#39;./our-first-route&#39;
+/**
+ * @type {import(&#39;fastify&#39;).FastifyInstance} Instance of Fastify
+ */
 const fastify = Fastify({
   logger: true
 })
@@ -72,6 +78,9 @@ fastify.listen({ port: 3000 }, function (err, address) {
   // Server is now listening on ${address}
 })
 </code></pre><pre><code class=language-js>// CommonJs
+/**
+ * @type {import(&#39;fastify&#39;).FastifyInstance} Instance of Fastify
+ */
 const fastify = require(&#39;fastify&#39;)({
   logger: true
 })
@@ -87,6 +96,11 @@ fastify.listen({ port: 3000 }, function (err, address) {
 })
 </code></pre><pre><code class=language-js>// our-first-route.js
 
+/**
+ * Encapsulates the routes
+ * @param {FastifyInstance} fastify  Encapsulated Fastify Instance
+ * @param {Object} options plugin options, refer to https://www.fastify.io/docs/latest/Reference/Plugins/#plugin-options
+ */
 async function routes (fastify, options) {
   fastify.get(&#39;/&#39;, async (request, reply) =&gt; {
     return { hello: &#39;world&#39; }
@@ -100,6 +114,9 @@ import Fastify from &#39;fastify&#39;
 import dbConnector from &#39;./our-db-connector&#39;
 import firstRoute from &#39;./our-first-route&#39;
 
+/**
+ * @type {import(&#39;fastify&#39;).FastifyInstance} Instance of Fastify
+ */
 const fastify = Fastify({
   logger: true
 })
@@ -114,6 +131,9 @@ fastify.listen({ port: 3000 }, function (err, address) {
   // Server is now listening on ${address}
 })
 </code></pre><pre><code class=language-js>// CommonJs
+/**
+ * @type {import(&#39;fastify&#39;).FastifyInstance} Instance of Fastify
+ */
 const fastify = require(&#39;fastify&#39;)({
   logger: true
 })
@@ -132,6 +152,10 @@ fastify.listen({ port: 3000 }, function (err, address) {
 import fastifyPlugin from &#39;fastify-plugin&#39;
 import fastifyMongo from &#39;@fastify/mongodb&#39;
 
+/**
+ * @param {FastifyInstance} fastify
+ * @param {Object} options
+ */
 async function dbConnector (fastify, options) {
   fastify.register(fastifyMongo, {
     url: &#39;mongodb://localhost:27017/test_database&#39;
@@ -142,8 +166,17 @@ async function dbConnector (fastify, options) {
 // and hooks, declared inside the plugin to the parent scope.
 module.exports = fastifyPlugin(dbConnector)
 </code></pre><pre><code class=language-js>// CommonJs
+/**
+ * @type {import(&#39;fastify-plugin&#39;).FastifyPlugin}
+ */
 const fastifyPlugin = require(&#39;fastify-plugin&#39;)
 
+
+/**
+ * Connects to a MongoDB database
+ * @param {FastifyInstance} fastify Encapsulated Fastify Instance
+ * @param {Object} options plugin options, refer to https://www.fastify.io/docs/latest/Reference/Plugins/#plugin-options
+ */
 async function dbConnector (fastify, options) {
   fastify.register(require(&#39;@fastify/mongodb&#39;), {
     url: &#39;mongodb://localhost:27017/test_database&#39;
@@ -153,7 +186,12 @@ async function dbConnector (fastify, options) {
 // Wrapping a plugin function with fastify-plugin exposes the decorators
 // and hooks, declared inside the plugin to the parent scope.
 module.exports = fastifyPlugin(dbConnector)
-</code></pre><p><strong>our-first-route.js</strong></p><pre><code class=language-js>async function routes (fastify, options) {
+</code></pre><p><strong>our-first-route.js</strong></p><pre><code class=language-js>/**
+ * A plugin that provide encapsulated routes 
+ * @param {FastifyInstance} fastify encapsulated fastify instance
+ * @param {Object} options plugin options, refer to https://www.fastify.io/docs/latest/Reference/Plugins/#plugin-options
+ */
+async function routes (fastify, options) {
   const collection = fastify.mongo.db.collection(&#39;test_collection&#39;)
 
   fastify.get(&#39;/&#39;, async (request, reply) =&gt; {
@@ -220,7 +258,11 @@ module.exports = routes
           └── decorators
           └── hooks
           └── your services
-</code></pre><h3 id=validate-your-data>Validate your data</h3><p><a id=validate-data></a></p><p>Data validation is extremely important and a core concept of the framework.</p><p>To validate incoming requests, Fastify uses <a href=https://json-schema.org/ >JSON Schema</a>.</p><p>(JTD schemas are loosely supported, but <code>jsonShorthand</code> must be disabled first)</p><p>Let&#39;s look at an example demonstrating validation for routes:</p><pre><code class=language-js>const opts = {
+</code></pre><h3 id=validate-your-data>Validate your data</h3><p><a id=validate-data></a></p><p>Data validation is extremely important and a core concept of the framework.</p><p>To validate incoming requests, Fastify uses <a href=https://json-schema.org/ >JSON Schema</a>.</p><p>(JTD schemas are loosely supported, but <code>jsonShorthand</code> must be disabled first)</p><p>Let&#39;s look at an example demonstrating validation for routes:</p><pre><code class=language-js>/** 
+ * @type {import(&#39;fastify&#39;).RouteShorthandOptions}
+ * @const
+ */
+const opts = {
   schema: {
     body: {
       type: &#39;object&#39;,
@@ -235,7 +277,11 @@ module.exports = routes
 fastify.post(&#39;/&#39;, opts, async (request, reply) =&gt; {
   return { hello: &#39;world&#39; }
 })
-</code></pre><p>This example shows how to pass an options object to the route, which accepts a <code>schema</code> key that contains all of the schemas for route, <code>body</code>, <code>querystring</code>, <code>params</code>, and <code>headers</code>.</p><p>Read <a href=../../Reference/Validation-and-Serialization>Validation and Serialization</a> to learn more.</p><h3 id=serialize-your-data>Serialize your data</h3><p><a id=serialize-data></a></p><p>Fastify has first-class support for JSON. It is extremely optimized to parse JSON bodies and serialize JSON output.</p><p>To speed up JSON serialization (yes, it is slow!) use the <code>response</code> key of the schema option as shown in the following example:</p><pre><code class=language-js>const opts = {
+</code></pre><p>This example shows how to pass an options object to the route, which accepts a <code>schema</code> key that contains all of the schemas for route, <code>body</code>, <code>querystring</code>, <code>params</code>, and <code>headers</code>.</p><p>Read <a href=../../Reference/Validation-and-Serialization>Validation and Serialization</a> to learn more.</p><h3 id=serialize-your-data>Serialize your data</h3><p><a id=serialize-data></a></p><p>Fastify has first-class support for JSON. It is extremely optimized to parse JSON bodies and serialize JSON output.</p><p>To speed up JSON serialization (yes, it is slow!) use the <code>response</code> key of the schema option as shown in the following example:</p><pre><code class=language-js>/** 
+ * @type {import(&#39;fastify&#39;).RouteShorthandOptions}
+ * @const
+ */
+const opts = {
   schema: {
     response: {
       200: {
@@ -251,7 +297,10 @@ fastify.post(&#39;/&#39;, opts, async (request, reply) =&gt; {
 fastify.get(&#39;/&#39;, opts, async (request, reply) =&gt; {
   return { hello: &#39;world&#39; }
 })
-</code></pre><p>By specifying a schema as shown, you can speed up serialization by a factor of 2-3. This also helps to protect against leakage of potentially sensitive data, since Fastify will serialize only the data present in the response schema. Read <a href=../../Reference/Validation-and-Serialization>Validation and Serialization</a> to learn more.</p><h3 id=parsing-request-payloads>Parsing request payloads</h3><p><a id=request-payload></a></p><p>Fastify parses <code>&#39;application/json&#39;</code> and <code>&#39;text/plain&#39;</code> request payloads natively, with the result accessible from the <a href=../../Reference/Request>Fastify request</a> object at <code>request.body</code>.</p><p>The following example returns the parsed body of a request back to the client:</p><pre><code class=language-js>const opts = {}
+</code></pre><p>By specifying a schema as shown, you can speed up serialization by a factor of 2-3. This also helps to protect against leakage of potentially sensitive data, since Fastify will serialize only the data present in the response schema. Read <a href=../../Reference/Validation-and-Serialization>Validation and Serialization</a> to learn more.</p><h3 id=parsing-request-payloads>Parsing request payloads</h3><p><a id=request-payload></a></p><p>Fastify parses <code>&#39;application/json&#39;</code> and <code>&#39;text/plain&#39;</code> request payloads natively, with the result accessible from the <a href=../../Reference/Request>Fastify request</a> object at <code>request.body</code>.</p><p>The following example returns the parsed body of a request back to the client:</p><pre><code class=language-js>/**
+ * @type {import(&#39;fastify&#39;).RouteShorthandOptions}
+ */
+const opts = {}
 fastify.post(&#39;/&#39;, opts, async (request, reply) =&gt; {
   return request.body
 })
