@@ -235,7 +235,7 @@ a img, a svg {
     */
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: 100vh;
+    max-height: var(--TOC-height);
 
     /**
      * Customize the resulting scrollbar to prevent the user from losing focus to the content
