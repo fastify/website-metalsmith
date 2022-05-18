@@ -21,7 +21,7 @@
     <div class="columns">
 
       <div class="column is-3 is-hidden-mobile sticky-container">
-        <aside class="menu sticky">
+        <aside class="menu sticky" id='toc'>
           {% for name, section in data.docs.toc[version] %}
             {% if not name=='' %}
               <p class="menu-label">
@@ -162,6 +162,25 @@
     currentAnchorLink.href = "#" + el.id
     currentAnchorLink.append(document.createTextNode('¶'))
     el.insertBefore(currentAnchorLink, el.firstChild);
+  })
+</script>
+<script>
+  const contentLoaded = document.addEventListener('DOMContentLoaded', setTOCHeight)
+  const resize = window.addEventListener('resize', setTOCHeight)
+
+  function setTOCHeight() {
+    const docHeight = window.innerHeight
+    const tocSidebar = document.querySelector('#toc') || 0
+
+    const tocHeight = docHeight - tocSidebar.getBoundingClientRect().top
+
+    document.documentElement.style
+      .setProperty('--TOC-height', `${tocHeight}px`)
+  }
+
+  window.addEventListener('beforeunload', () => {
+    document.removeEventListener(contentLoaded)
+    window.removeEventListener(resize)
   })
 </script>
 {% endblock %}
