@@ -107,12 +107,10 @@ const fastify = require(&#39;fastify&#39;)({
 })
 </code></pre><p>Note, if you only want the keys (and not the values) to be case insensitive we recommend using a custom parser to convert only the keys to lowercase.</p><h3 id=exposeheadroutes><code>exposeHeadRoutes</code></h3><p><a id=exposeHeadRoutes></a></p><p>Automatically creates a sibling <code>HEAD</code> route for each <code>GET</code> route defined. If you want a custom <code>HEAD</code> handler without disabling this option, make sure to define it before the <code>GET</code> route.</p><ul><li>Default: <code>true</code></li></ul><h3 id=constraints><code>constraints</code></h3><p><a id=constraints></a></p><p>Fastify&#39;s built in route constraints are provided by <code>find-my-way</code>, which allow constraining routes by <code>version</code> or <code>host</code>. You are able to add new constraint strategies, or override the built in strategies by providing a <code>constraints</code> object with strategies for <code>find-my-way</code>. You can find more information on constraint strategies in the <a href=https://github.com/delvedor/find-my-way>find-my-way</a> documentation.</p><pre><code class=language-js>const customVersionStrategy = {
   storage: function () {
-    let versions = {}
+    const versions = {}
     return {
       get: (version) =&gt; { return versions[version] || null },
-      set: (version, store) =&gt; { versions[version] = store },
-      del: (version) =&gt; { delete versions[version] },
-      empty: () =&gt; { versions = {} }
+      set: (version, store) =&gt; { versions[version] = store }
     }
   },
   deriveVersion: (req, ctx) =&gt; {
