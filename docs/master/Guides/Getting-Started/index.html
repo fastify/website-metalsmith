@@ -25,7 +25,7 @@ fastify.listen({ port: 3000 }, function (err, address) {
   }
   // Server is now listening on ${address}
 })
-</code></pre><p>Do you prefer to use <code>async/await</code>? Fastify supports it out-of-the-box.</p><p><em>(We also suggest using <a href=https://github.com/mcollina/make-promises-safe>make-promises-safe</a> to avoid file descriptor and memory leaks.)</em></p><pre><code class=language-js>// ESM
+</code></pre><p>Do you prefer to use <code>async/await</code>? Fastify supports it out-of-the-box.</p><pre><code class=language-js>// ESM
 import Fastify from &#39;fastify&#39;
 const fastify = Fastify({
   logger: true
@@ -187,7 +187,7 @@ async function dbConnector (fastify, options) {
 // and hooks, declared inside the plugin to the parent scope.
 module.exports = fastifyPlugin(dbConnector)
 </code></pre><p><strong>our-first-route.js</strong></p><pre><code class=language-js>/**
- * A plugin that provide encapsulated routes 
+ * A plugin that provide encapsulated routes
  * @param {FastifyInstance} fastify encapsulated fastify instance
  * @param {Object} options plugin options, refer to https://www.fastify.io/docs/latest/Reference/Plugins/#plugin-options
  */
@@ -258,7 +258,7 @@ module.exports = routes
           └── decorators
           └── hooks
           └── your services
-</code></pre><h3 id=validate-your-data>Validate your data</h3><p><a id=validate-data></a></p><p>Data validation is extremely important and a core concept of the framework.</p><p>To validate incoming requests, Fastify uses <a href=https://json-schema.org/ >JSON Schema</a>.</p><p>(JTD schemas are loosely supported, but <code>jsonShorthand</code> must be disabled first)</p><p>Let&#39;s look at an example demonstrating validation for routes:</p><pre><code class=language-js>/** 
+</code></pre><h3 id=validate-your-data>Validate your data</h3><p><a id=validate-data></a></p><p>Data validation is extremely important and a core concept of the framework.</p><p>To validate incoming requests, Fastify uses <a href=https://json-schema.org/ >JSON Schema</a>.</p><p>(JTD schemas are loosely supported, but <code>jsonShorthand</code> must be disabled first)</p><p>Let&#39;s look at an example demonstrating validation for routes:</p><pre><code class=language-js>/**
  * @type {import(&#39;fastify&#39;).RouteShorthandOptions}
  * @const
  */
@@ -277,7 +277,7 @@ const opts = {
 fastify.post(&#39;/&#39;, opts, async (request, reply) =&gt; {
   return { hello: &#39;world&#39; }
 })
-</code></pre><p>This example shows how to pass an options object to the route, which accepts a <code>schema</code> key that contains all of the schemas for route, <code>body</code>, <code>querystring</code>, <code>params</code>, and <code>headers</code>.</p><p>Read <a href=../../Reference/Validation-and-Serialization>Validation and Serialization</a> to learn more.</p><h3 id=serialize-your-data>Serialize your data</h3><p><a id=serialize-data></a></p><p>Fastify has first-class support for JSON. It is extremely optimized to parse JSON bodies and serialize JSON output.</p><p>To speed up JSON serialization (yes, it is slow!) use the <code>response</code> key of the schema option as shown in the following example:</p><pre><code class=language-js>/** 
+</code></pre><p>This example shows how to pass an options object to the route, which accepts a <code>schema</code> key that contains all of the schemas for route, <code>body</code>, <code>querystring</code>, <code>params</code>, and <code>headers</code>.</p><p>Read <a href=../../Reference/Validation-and-Serialization>Validation and Serialization</a> to learn more.</p><h3 id=serialize-your-data>Serialize your data</h3><p><a id=serialize-data></a></p><p>Fastify has first-class support for JSON. It is extremely optimized to parse JSON bodies and serialize JSON output.</p><p>To speed up JSON serialization (yes, it is slow!) use the <code>response</code> key of the schema option as shown in the following example:</p><pre><code class=language-js>/**
  * @type {import(&#39;fastify&#39;).RouteShorthandOptions}
  * @const
  */
