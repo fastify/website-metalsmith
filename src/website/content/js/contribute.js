@@ -1,6 +1,6 @@
 (function () {
   const { Component, h, render } = window.preact
-  const dataURL = 'https://gh-issue-finder.glentiki.now.sh/api/findIssues?org=fastify'
+  const dataURL = 'https://goodfirstissue.fastify.io/api/find-issues?org=fastify'
 
   const Spinner = () => h('div', { className: 'spinner' })
   const ErrorBox = (props) => h('article', { className: 'message is-danger' },
