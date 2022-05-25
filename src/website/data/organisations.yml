@@ -194,6 +194,10 @@
   image: "uniq.svg"
   link: "https://www.uniq.id/"
 
+- name: "UrbanPiper"
+  image: "urbanpiper.svg"
+  link: "https://urbanpiper.com"
+
 - name: "Vectra"
   image: "vectra.svg"
   link: "https://vectra.ai"
