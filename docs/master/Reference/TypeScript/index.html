@@ -8,7 +8,7 @@ npm i -D typescript @types/node
  }
 }
 </code></pre></li><li><p>Initialize a TypeScript configuration file:</p><pre><code class=language-bash>npx tsc --init
-</code></pre><p>or use one of the <a href=https://github.com/tsconfig/bases#node-10-tsconfigjson>recommended ones</a>.</p></li></ol><p><em>Note: Set <code>target</code> property in <code>tsconfig.json</code> to <code>es2017</code> or greater to avoid <a href=https://github.com/fastify/fastify/issues/3284>FastifyDeprecation</a> warning.</em></p><ol start=4><li><p>Create an <code>index.ts</code> file - this will contain the server code</p></li><li><p>Add the following code block to your file:</p><pre><code class=language-typescript>import fastify from &#39;fastify&#39;
+</code></pre><p>or use one of the <a href=https://github.com/tsconfig/bases#node-14-tsconfigjson>recommended ones</a>.</p></li></ol><p><em>Note: Set <code>target</code> property in <code>tsconfig.json</code> to <code>es2017</code> or greater to avoid <a href=https://github.com/fastify/fastify/issues/3284>FastifyDeprecation</a> warning.</em></p><ol start=4><li><p>Create an <code>index.ts</code> file - this will contain the server code</p></li><li><p>Add the following code block to your file:</p><pre><code class=language-typescript>import fastify from &#39;fastify&#39;
 
 const server = fastify()
 
