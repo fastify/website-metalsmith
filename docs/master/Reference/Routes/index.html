@@ -130,7 +130,34 @@ module.exports = function (fastify, opts, done) {
   fastify.get(&#39;/user&#39;, handler_v2)
   done()
 }
-</code></pre><p>Fastify will not complain because you are using the same name for two different routes, because at compilation time it will handle the prefix automatically <em>(this also means that the performance will not be affected at all!)</em>.</p><p>Now your clients will have access to the following routes:</p><ul><li><code>/v1/user</code></li><li><code>/v2/user</code></li></ul><p>You can do this as many times as you want, it also works for nested <code>register</code>, and route parameters are supported as well. Be aware that if you use <a href=https://github.com/fastify/fastify-plugin><code>fastify-plugin</code></a> this option will not work.</p><h4 id=handling-of--route-inside-prefixed-plugins>Handling of / route inside prefixed plugins</h4><p>The <code>/</code> route has different behavior depending on if the prefix ends with <code>/</code> or not. As an example, if we consider a prefix <code>/something/</code>, adding a <code>/</code> route will only match <code>/something/</code>. If we consider a prefix <code>/something</code>, adding a <code>/</code> route will match both <code>/something</code> and <code>/something/</code>.</p><p>See the <code>prefixTrailingSlash</code> route option above to change this behavior.</p><h3 id=custom-log-level>Custom Log Level</h3><p><a id=custom-log-level></a></p><p>You might need different log levels in your routes; Fastify achieves this in a very straightforward way.</p><p>You just need to pass the option <code>logLevel</code> to the plugin option or the route option with the <a href=https://github.com/pinojs/pino/blob/master/docs/api.md#level-string>value</a> that you need.</p><p>Be aware that if you set the <code>logLevel</code> at plugin level, also the <a href=.././Server#setnotfoundhandler><code>setNotFoundHandler</code></a> and <a href=.././Server#seterrorhandler><code>setErrorHandler</code></a> will be affected.</p><pre><code class=language-js>// server.js
+</code></pre><p>Fastify will not complain because you are using the same name for two different routes, because at compilation time it will handle the prefix automatically <em>(this also means that the performance will not be affected at all!)</em>.</p><p>Now your clients will have access to the following routes:</p><ul><li><code>/v1/user</code></li><li><code>/v2/user</code></li></ul><p>You can do this as many times as you want, it also works for nested <code>register</code>, and route parameters are supported as well.</p><p>In case you want to use prefix for all of your routes, you can put them inside a plugin:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
+
+const route = {
+    method: &#39;POST&#39;,
+    url: &#39;/login&#39;,
+    handler: () =&gt; {},
+    schema: {}, 
+}
+
+fastify.register(function(app, _, done) {
+  app.get(&#39;/users&#39;, () =&gt; {})
+  app.route(route)
+
+  done()
+}, { prefix: &#39;/v1&#39; }) // global route prefix
+
+await fastify.listen({ port: 0 })
+</code></pre><h3 id=route-prefixing-and-fastify-plugin>Route Prefixing and fastify-plugin</h3><p><a id=fastify-plugin></a></p><p>Be aware that if you use <a href=https://github.com/fastify/fastify-plugin><code>fastify-plugin</code></a> for wrapping your routes, this option will not work. You can still make it work by wrapping a plugin in a plugin, e. g.:</p><pre><code class=language-js>const fp = require(&#39;fastify-plugin&#39;)
+const routes = require(&#39;./lib/routes&#39;)
+
+module.exports = fp(async function (app, opts) {
+  app.register(routes, {
+    prefix: &#39;/v1&#39;,
+  })
+}, {
+  name: &#39;my-routes&#39;
+})
+</code></pre><h4 id=handling-of--route-inside-prefixed-plugins>Handling of / route inside prefixed plugins</h4><p>The <code>/</code> route has different behavior depending on if the prefix ends with <code>/</code> or not. As an example, if we consider a prefix <code>/something/</code>, adding a <code>/</code> route will only match <code>/something/</code>. If we consider a prefix <code>/something</code>, adding a <code>/</code> route will match both <code>/something</code> and <code>/something/</code>.</p><p>See the <code>prefixTrailingSlash</code> route option above to change this behavior.</p><h3 id=custom-log-level>Custom Log Level</h3><p><a id=custom-log-level></a></p><p>You might need different log levels in your routes; Fastify achieves this in a very straightforward way.</p><p>You just need to pass the option <code>logLevel</code> to the plugin option or the route option with the <a href=https://github.com/pinojs/pino/blob/master/docs/api.md#level-string>value</a> that you need.</p><p>Be aware that if you set the <code>logLevel</code> at plugin level, also the <a href=.././Server#setnotfoundhandler><code>setNotFoundHandler</code></a> and <a href=.././Server#seterrorhandler><code>setErrorHandler</code></a> will be affected.</p><pre><code class=language-js>// server.js
 const fastify = require(&#39;fastify&#39;)({ logger: true })
 
 fastify.register(require(&#39;./routes/user&#39;), { logLevel: &#39;warn&#39; })
