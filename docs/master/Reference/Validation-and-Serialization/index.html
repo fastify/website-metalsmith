@@ -280,7 +280,8 @@ fastify.post(&#39;/the/url&#39;, {
   },
   validatorCompiler: ({ schema, method, url, httpPart }) =&gt; {
     return function (data) {
-      // with option strict = false, yup `validateSync` function returns the coerced value if validation was successful, or throws if validation failed
+      // with option strict = false, yup `validateSync` function returns the
+      // coerced value if validation was successful, or throws if validation failed
       try {
         const result = schema.validateSync(data, yupOptions)
         return { value: result }
@@ -333,9 +334,9 @@ fastify.post(&#39;/the/url&#39;, { schema }, handler)
     default: {
       type: &#39;object&#39;,
       properties: {
-        error: { 
-          type: &#39;boolean&#39;, 
-          default: true 
+        error: {
+          type: &#39;boolean&#39;,
+          default: true
         }
       }
     },
@@ -415,7 +416,8 @@ fastify.setSchemaErrorFormatter(function (errors, dataVar) {
   ajv: {
     customOptions: {
       jsonPointers: true,
-      allErrors: true // Warning: Enabling this option may lead to this security issue https://www.cvedetails.com/cve/CVE-2020-8192/
+      // Warning: Enabling this option may lead to this security issue https://www.cvedetails.com/cve/CVE-2020-8192/
+      allErrors: true
     },
     plugins: [
       require(&#39;ajv-errors&#39;)

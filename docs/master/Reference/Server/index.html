@@ -172,7 +172,11 @@ const body = JSON.stringify({
 this.log.trace({ err }, &#39;client error&#39;)
 
 if (socket.writable) {
-  socket.end(`HTTP/1.1 400 Bad Request\r\nContent-Length: ${body.length}\r\nContent-Type: application/json\r\n\r\n${body}`)
+  socket.end([
+    &#39;HTTP/1.1 400 Bad Request&#39;,
+    `Content-Length: ${body.length}`,
+    `Content-Type: application/json\r\n\r\n${body}`
+  ].join(&#39;\r\n&#39;))
 }
 }
 </code></pre></li></ul><p><em>Note: <code>clientErrorHandler</code> operates with raw socket. The handler is expected to return a properly formed HTTP response that includes a status line, HTTP headers and a message body. Before attempting to write the socket, the handler should check if the socket is still writable as it may have already been destroyed.</em></p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
@@ -188,7 +192,11 @@ if (socket.writable) {
     this.log.trace({ err }, &#39;client error&#39;)
 
     // the handler is responsible for generating a valid HTTP response
-    socket.end(`HTTP/1.1 400 Bad Request\r\nContent-Length: ${body.length}\r\nContent-Type: application/json\r\n\r\n${body}`)
+    socket.end([
+      &#39;HTTP/1.1 400 Bad Request&#39;,
+      `Content-Length: ${body.length}`,
+      `Content-Type: application/json\r\n\r\n${body}`
+    ].join(&#39;\r\n&#39;))
   }
 })
 </code></pre><h3 id=rewriteurl><code>rewriteUrl</code></h3><p><a id=rewrite-url></a></p><p>Set a sync callback function that must return a string that allows rewriting URLs.</p><blockquote><p>Rewriting a URL will modify the <code>url</code> property of the <code>req</code> object</p></blockquote><pre><code class=language-js>function rewriteUrl (req) { // req is the Node.js HTTP request
@@ -318,7 +326,8 @@ fastify.ready(() =&gt; {
     /**
      * This factory is called whenever `fastify.register()` is called.
      * It may receive as input the schemas of the parent context if some schemas have been added.
-     * @param {object} parentSchemas these schemas will be returned by the `getSchemas()` method function of the returned `bucket`.
+     * @param {object} parentSchemas these schemas will be returned by the
+     * `getSchemas()` method function of the returned `bucket`.
      */
     bucket: function factory (parentSchemas) {
       return {
@@ -353,7 +362,8 @@ fastify.ready(() =&gt; {
        * It may be called whenever `fastify.register()` is called only if new schemas have been added to the
        * encapsulation context.
        * It may receive as input the schemas of the parent context if some schemas have been added.
-       * @param {object} externalSchemas these schemas will be returned by the `bucket.getSchemas()`. Needed to resolve the external references $ref.
+       * @param {object} externalSchemas these schemas will be returned by the
+       * `bucket.getSchemas()`. Needed to resolve the external references $ref.
        * @param {object} ajvServerOption the server `ajv` options to build your compilers accordingly
        */
       buildValidator: function factory (externalSchemas, ajvServerOption) {
@@ -370,8 +380,10 @@ fastify.ready(() =&gt; {
        * It may be called whenever `fastify.register()` is called only if new schemas have been added to the
        * encapsulation context.
        * It may receive as input the schemas of the parent context if some schemas have been added.
-       * @param {object} externalSchemas these schemas will be returned by the `bucket.getSchemas()`. Needed to resolve the external references $ref.
-       * @param {object} serializerOptsServerOption the server `serializerOpts` options to build your compilers accordingly
+       * @param {object} externalSchemas these schemas will be returned by the
+       * `bucket.getSchemas()`. Needed to resolve the external references $ref.
+       * @param {object} serializerOptsServerOption the server `serializerOpts`
+       * options to build your compilers accordingly
        */
       buildSerializer: function factory (externalSchemas, serializerOptsServerOption) {
         // This factory function must return a schema serializer compiler.
@@ -493,7 +505,11 @@ fastify.ready(() =&gt; {
   //     │   └── bar
   //     └── baz
 })
-</code></pre><h4 id=addcontenttypeparser>addContentTypeParser</h4><p><a id=addContentTypeParser></a></p><p><code>fastify.addContentTypeParser(content-type, options, parser)</code> is used to pass custom parser for a given content type. Useful for adding parsers for custom content types, e.g. <code>text/json, application/vnd.oasis.opendocument.text</code>. <code>content-type</code> can be a string, string array or RegExp.</p><pre><code class=language-js>// The two arguments passed to getDefaultJsonParser are for ProtoType poisoning and Constructor Poisoning configuration respectively. The possible values are &#39;ignore&#39;, &#39;remove&#39;, &#39;error&#39;. ignore  skips all validations and it is similar to calling JSON.parse() directly. See the [`secure-json-parse` documentation](https://github.com/fastify/secure-json-parse#api) for more information.
+</code></pre><h4 id=addcontenttypeparser>addContentTypeParser</h4><p><a id=addContentTypeParser></a></p><p><code>fastify.addContentTypeParser(content-type, options, parser)</code> is used to pass custom parser for a given content type. Useful for adding parsers for custom content types, e.g. <code>text/json, application/vnd.oasis.opendocument.text</code>. <code>content-type</code> can be a string, string array or RegExp.</p><pre><code class=language-js>// The two arguments passed to getDefaultJsonParser are for ProtoType poisoning
+// and Constructor Poisoning configuration respectively. The possible values are
+// &#39;ignore&#39;, &#39;remove&#39;, &#39;error&#39;. ignore  skips all validations and it is similar
+// to calling JSON.parse() directly. See the
+// [`secure-json-parse` documentation](https://github.com/fastify/secure-json-parse#api) for more information.
 
 fastify.addContentTypeParser(&#39;text/json&#39;, { asString: true }, fastify.getDefaultJsonParser(&#39;ignore&#39;, &#39;ignore&#39;))
 </code></pre><h4 id=hascontenttypeparser>hasContentTypeParser</h4><p><a id=hasContentTypeParser></a></p><p><code>fastify.hasContentTypeParser(contentType)</code> is used to check whether there is a content type parser in the current context for the specified content type.</p><pre><code class=language-js>fastify.hasContentTypeParser(&#39;text/json&#39;)

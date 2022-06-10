@@ -83,7 +83,9 @@ export.fastifyFunction = fastifyFunction;
 </code></pre><p>and run it with <code>npm run dev</code>.</p><h3 id=deploy>Deploy</h3><pre><code class=language-bash>gcloud functions deploy fastifyFunction \
 --runtime nodejs14 --trigger-http --region $GOOGLE_REGION --allow-unauthenticated
 </code></pre><h4 id=read-logs>Read logs</h4><pre><code class=language-bash>gcloud functions logs read
-</code></pre><h4 id=example-request-to-hello-endpoint>Example request to <code>/hello</code> endpoint</h4><pre><code class=language-bash>curl -X POST https://$GOOGLE_REGION-$GOOGLE_PROJECT.cloudfunctions.net/me -H &quot;Content-Type: application/json&quot; -d &#39;{ &quot;name&quot;: &quot;Fastify&quot; }&#39;
+</code></pre><h4 id=example-request-to-hello-endpoint>Example request to <code>/hello</code> endpoint</h4><pre><code class=language-bash>curl -X POST https://$GOOGLE_REGION-$GOOGLE_PROJECT.cloudfunctions.net/me \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#39;{ &quot;name&quot;: &quot;Fastify&quot; }&#39;
 {&quot;message&quot;:&quot;Hello Fastify!&quot;}
 </code></pre><h3 id=references>References</h3><ul><li><a href=https://cloud.google.com/functions/docs/quickstart-nodejs>Google Cloud Functions - Node.js Quickstart</a></li></ul><h2 id=google-cloud-run>Google Cloud Run</h2><p>Unlike AWS Lambda or Google Cloud Functions, Google Cloud Run is a serverless <strong>container</strong> environment. Its primary purpose is to provide an infrastructure-abstracted environment to run arbitrary containers. As a result, Fastify can be deployed to Google Cloud Run with little-to-no code changes from the way you would write your Fastify app normally.</p><p><em>Follow the steps below to deploy to Google Cloud Run if you are already familiar with gcloud or just follow their <a href=https://cloud.google.com/run/docs/quickstarts/build-and-deploy>quickstart</a></em>.</p><h3 id=adjust-fastify-server>Adjust Fastify server</h3><p>In order for Fastify to properly listen for requests within the container, be sure to set the correct port and address:</p><pre><code class=language-js>function build() {
   const fastify = Fastify({ trustProxy: true })

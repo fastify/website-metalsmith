@@ -31,7 +31,8 @@ fastify.addContentTypeParser(&#39;text/json&#39;, { parseAs: &#39;string&#39; },
 fastify.addContentTypeParser(&#39;application/vnd.custom+xml&#39;, (request, body, done) =&gt; {} )
 fastify.addContentTypeParser(&#39;application/vnd.custom&#39;, (request, body, done) =&gt; {} )
 
-// Here the desired behavior is achieved because fastify first tries to match the `application/vnd.custom+xml` content type parser
+// Here the desired behavior is achieved because fastify first tries to match the
+// `application/vnd.custom+xml` content type parser
 fastify.addContentTypeParser(&#39;application/vnd.custom&#39;, (request, body, done) =&gt; {} )
 fastify.addContentTypeParser(&#39;application/vnd.custom+xml&#39;, (request, body, done) =&gt; {} )
 </code></pre><p>Besides the <code>addContentTypeParser</code> API there are further APIs that can be used. These are <code>hasContentTypeParser</code>, <code>removeContentTypeParser</code> and <code>removeAllContentTypeParsers</code>.</p><h4 id=hascontenttypeparser>hasContentTypeParser</h4><p>You can use the <code>hasContentTypeParser</code> API to find if a specific content type parser already exists.</p><pre><code class=language-js>if (!fastify.hasContentTypeParser(&#39;application/jsoff&#39;)){
