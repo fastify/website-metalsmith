@@ -10,6 +10,10 @@
   image: "amerisave.svg"
   link: "https://www.amerisave.com"
 
+- name: "bestgameprice.net"
+  image: "bestgameprice.svg"
+  link: "https://www.bestgameprice.net/"
+
 - name: "car2go"
   image: "car2go.svg"
   link: "https://www.car2go.com"
@@ -45,6 +49,10 @@
 - name: "Elo7"
   image: "elo7.svg"
   link: "https://www.elo7.com.br"
+
+- name: "enucuzoyun.com"
+  image: "enucuzoyun.svg"
+  link: "https://www.enucuzoyun.com/"
 
 - name: "Discord Bots Catalog"
   image: "discordbotscatalog.svg"
