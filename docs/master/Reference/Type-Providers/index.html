@@ -24,7 +24,8 @@ server.get(&#39;/route&#39;, {
     const { foo, bar } = request.query // type safe!
 })
 </code></pre><h3 id=typebox>TypeBox</h3><p>The following sets up a TypeBox Type Provider</p><pre><code class=language-bash>$ npm i @fastify/type-provider-typebox
-</code></pre><pre><code class=language-typescript>import { TypeBoxTypeProvider, Type } from &#39;@fastify/type-provider-typebox&#39;
+</code></pre><pre><code class=language-typescript>import { TypeBoxTypeProvider } from &#39;@fastify/type-provider-typebox&#39;
+import { Type } from &#39;@sinclair/typebox&#39;
 
 import fastify from &#39;fastify&#39;
 
