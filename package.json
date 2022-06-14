@@ -41,7 +41,6 @@
   "dependencies": {
     "async": "^3.2.2",
     "axios": "^0.21.2",
-    "clean-css": "^5.0.1",
     "clone": "^2.1.2",
     "compare-versions": "^3.6.0",
     "debug": "^4.3.1",
@@ -81,9 +80,9 @@
     "eslint-plugin-standard": "^5.0.0",
     "gh-pages": "^3.2.3",
     "glob": "^7.1.6",
+    "js-yaml": "^4.1.0",
     "live-server": "^1.2.1",
     "node-sass": "^6.0.0",
-    "xml2js": "^0.4.23",
-    "js-yaml": "^4.1.0"
+    "xml2js": "^0.4.23"
   }
 }
