@@ -13,7 +13,7 @@ fastify.get(&#39;/user/:id&#39;, function(req, reply) {
   )
 })
 
-fastify.listen(3000, err =&gt; {
+fastify.listen({ port: 3000 }, err =&gt; {
   if (err) throw err
   console.log(`server listening on ${fastify.server.address().port}`)
 })
@@ -32,7 +32,7 @@ fastify.get(&#39;/user/:id&#39;, function (req, reply) {
   )
 })
 
-fastify.listen(3000, err =&gt; {
+fastify.listen({ port: 3000 }, err =&gt; {
   if (err) throw err
   console.log(`server listening on ${fastify.server.address().port}`)
 })
@@ -58,7 +58,7 @@ fastify.post(&#39;/foo&#39;, function (req, reply) {
   })
 })
 
-fastify.listen(3000, err =&gt; {
+fastify.listen({ port: 3000 }, err =&gt; {
   if (err) throw err
   console.log(`server listening on ${fastify.server.address().port}`)
 })
@@ -91,7 +91,7 @@ fastify.get(&#39;/user/:id&#39;, function (req, reply) {
   })
 })
 
-fastify.listen(3000, err =&gt; {
+fastify.listen({ port: 3000 }, err =&gt; {
   if (err) throw err
 })
 </code></pre><h3 id=leveldb><a href=https://github.com/fastify/fastify-leveldb>LevelDB</a></h3><p>Install the plugin by running <code>npm i @fastify/leveldb</code></p><p><em>Usage:</em></p><pre><code class=language-javascript>const fastify = require(&#39;fastify&#39;)()
@@ -111,7 +111,7 @@ fastify.post(&#39;/foo&#39;, async function (req, reply) {
   return { status: &#39;ok&#39; }
 })
 
-fastify.listen(3000, err =&gt; {
+fastify.listen({ port: 3000 }, err =&gt; {
   if (err) throw err
   console.log(`server listening on ${fastify.server.address().port}`)
 })
