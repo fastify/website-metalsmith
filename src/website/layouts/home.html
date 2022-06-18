@@ -116,7 +116,7 @@ fastify.get('/', (request, reply) => {
 })
 
 // Run the server!
-fastify.listen(3000, (err) => {
+fastify.listen({ port: 3000 }, (err) => {
   if (err) {
     fastify.log.error(err)
     process.exit(1)
@@ -133,7 +133,7 @@ fastify.get('/', async (request, reply) => {
 // Run the server!
 const start = async () => {
   try {
-    await fastify.listen(3000)
+    await fastify.listen({ port: 3000 })
   } catch (err) {
     fastify.log.error(err)
     process.exit(1)
@@ -200,7 +200,7 @@ fastify.route({
   }
 })
 
-fastify.listen(3000, (err) => {
+fastify.listen({ port: 3000 }, (err) => {
   if (err) {
     fastify.log.error(err)
     process.exit(1)
@@ -237,7 +237,7 @@ fastify.route({
 
 const start = async () => {
   try {
-    await fastify.listen(3000)
+    await fastify.listen({ port: 3000 })
   } catch (err) {
     fastify.log.error(err)
     process.exit(1)
@@ -286,7 +286,7 @@ server.get('/ping', opts, (request, reply) => {
   reply.send({ pong: 'it worked!' })
 })
 
-server.listen(3000, (err) => {
+server.listen({ port: 3000 }, (err) => {
   if (err) {
     server.log.error(err)
     process.exit(1)
@@ -322,7 +322,7 @@ server.get('/ping', opts, async (request, reply) => {
 
 const start = async () => {
   try {
-    await server.listen(3000)
+    await server.listen({ port: 3000 })
 
     const address = server.server.address()
     const port = typeof address === 'string' ? address : address?.port
