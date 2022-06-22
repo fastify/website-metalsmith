@@ -209,3 +209,7 @@
 - name: "Yeovil District Hospital NHS Foundation Trust"
   image: "ydhnhsft.svg"
   link: "https://yeovilhospital.co.uk"
+
+- name: "Jochen Schweizer"
+  image: "jochen-schweizer.svg"
+  link: "https://www.jochen-schweizer.de/"
