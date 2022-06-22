@@ -110,6 +110,10 @@
   image: "immobiliarelabs.svg"
   link: "https://labs.immobiliare.it"
 
+- name: "Jochen Schweizer"
+  image: "jochen-schweizer.svg"
+  link: "https://www.jochen-schweizer.de/"
+
 - name: "localistars"
   image: "localistars.svg"
   link: "https://localistars.com"
