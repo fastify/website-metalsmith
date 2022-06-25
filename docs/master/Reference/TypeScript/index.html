@@ -55,38 +55,45 @@ interface IHeaders {
   // do something with request data
   return `logged in!`
 })
-</code></pre></li><li><p>Build and run and query with the <code>username</code> query string option set to anything other than <code>admin</code>. The API should now return a HTTP 500 error <code>{&quot;statusCode&quot;:500,&quot;error&quot;:&quot;Internal Server Error&quot;,&quot;message&quot;:&quot;Must be admin&quot;}</code></p></li></ol><p>🎉 Good work, now you can define interfaces for each route and have strictly typed request and reply instances. Other parts of the Fastify type system rely on generic properties. Make sure to reference the detailed type system documentation below to learn more about what is available.</p><h3 id=json-schema>JSON Schema</h3><p>To validate your requests and responses you can use JSON Schema files. If you didn&#39;t know already, defining schemas for your Fastify routes can increase their throughput! Check out the <a href=.././Validation-and-Serialization>Validation and Serialization</a> documentation for more info.</p><p>Also it has the advantage to use the defined type within your handlers (including pre-validation, etc.).</p><p>Here are some options how to achieve this.</p><h4 id=fastify-type-providers>Fastify Type Providers</h4><p>Fastify offers two packages wrapping <code>json-schema-to-ts</code> and <code>typebox</code>:</p><ul><li><code>@fastify/type-provider-json-schema-to-ts</code></li><li><code>@fastify/type-provider-typebox</code></li></ul><p>They simplify schema validation setup and you can read more about them in <a href=.././Type-Providers>Type Providers</a> page.</p><p>Below is how to setup schema validation using vanilla <code>typebox</code> and <code>json-schema-to-ts</code> packages.</p><h4 id=typebox>typebox</h4><p>A useful library for building types and a schema at once is <a href=https://www.npmjs.com/package/@sinclair/typebox>typebox</a>. With typebox you define your schema within your code and use them directly as types or schemas as you need them.</p><p>When you want to use it for validation of some payload in a fastify route you can do it as follows:</p><ol><li><p>Install <code>typebox</code> in your project.</p><pre><code class=language-bash> npm i @sinclair/typebox
+</code></pre></li><li><p>Build and run and query with the <code>username</code> query string option set to anything other than <code>admin</code>. The API should now return a HTTP 500 error <code>{&quot;statusCode&quot;:500,&quot;error&quot;:&quot;Internal Server Error&quot;,&quot;message&quot;:&quot;Must be admin&quot;}</code></p></li></ol><p>🎉 Good work, now you can define interfaces for each route and have strictly typed request and reply instances. Other parts of the Fastify type system rely on generic properties. Make sure to reference the detailed type system documentation below to learn more about what is available.</p><h3 id=json-schema>JSON Schema</h3><p>To validate your requests and responses you can use JSON Schema files. If you didn&#39;t know already, defining schemas for your Fastify routes can increase their throughput! Check out the <a href=.././Validation-and-Serialization>Validation and Serialization</a> documentation for more info.</p><p>Also it has the advantage to use the defined type within your handlers (including pre-validation, etc.).</p><p>Here are some options how to achieve this.</p><h4 id=fastify-type-providers>Fastify Type Providers</h4><p>Fastify offers two packages wrapping <code>json-schema-to-ts</code> and <code>typebox</code>:</p><ul><li><code>@fastify/type-provider-json-schema-to-ts</code></li><li><code>@fastify/type-provider-typebox</code></li></ul><p>They simplify schema validation setup and you can read more about them in <a href=.././Type-Providers>Type Providers</a> page.</p><p>Below is how to setup schema validation using vanilla <code>typebox</code> and <code>json-schema-to-ts</code> packages.</p><h4 id=typebox>typebox</h4><p>A useful library for building types and a schema at once is <a href=https://www.npmjs.com/package/@sinclair/typebox>typebox</a> along with <a href=https://github.com/fastify/fastify-type-provider-typebox>fastify-type-provider-typebox</a>. With typebox you define your schema within your code and use them directly as types or schemas as you need them.</p><p>When you want to use it for validation of some payload in a fastify route you can do it as follows:</p><ol><li><p>Install <code>typebox</code> and <code>fastify-type-provider-typebox</code> in your project.</p><pre><code class=language-bash> npm i @sinclair/typebox @fastify/type-provider-typebox
 </code></pre></li><li><p>Define the schema you need with <code>Type</code> and create the respective type with <code>Static</code>.</p><pre><code class=language-typescript> import { Static, Type } from &#39;@sinclair/typebox&#39;
 
- const User = Type.Object({
+ export const User = Type.Object({
    name: Type.String(),
-   mail: Type.Optional(Type.String({ format: &quot;email&quot; })),
- });
- type UserType = Static&lt;typeof User&gt;;
-</code></pre></li><li><p>Use the defined type and schema during the definition of your route</p><pre><code class=language-typescript> const app = fastify();
+   mail: Type.Optional(Type.String({ format: &#39;email&#39; })),
+ })
 
- app.post&lt;{ Body: UserType; Reply: UserType }&gt;(
-   &quot;/&quot;,
+ export type UserType = Static&lt;typeof User&gt;
+</code></pre></li><li><p>Use the defined type and schema during the definition of your route</p><pre><code class=language-typescript> import Fastify from &#39;fastify&#39;
+ import { TypeBoxTypeProvider } from &#39;@fastify/type-provider-typebox&#39;
+ // ...
+
+ const fastify = Fastify().withTypeProvider&lt;TypeBoxTypeProvider&gt;()
+
+ app.post&lt;{ Body: UserType, Reply: UserType }&gt;(
+   &#39;/&#39;,
    {
      schema: {
        body: User,
        response: {
-         200: User,
+         200: User
        },
      },
    },
    (request, reply) =&gt; {
-     const { body: user } = request;
-     /* user has type
-     * const user: StaticProperties&lt;{
-     *  name: TString;
-     *  mail: TOptional&lt;TString&gt;;
-     * }&gt;
-     */
-     //...
-     reply.status(200).send(user);
+     // The `name` and `mail` types are automatically inferred
+     const { name, mail } = request.body;
+     reply.status(200).send({ name, mail });
    }
- );
+ )
+</code></pre><p><strong>Note</strong> For Ajv version 7 and above is required to use the <code>ajvTypeBoxPlugin</code>:</p><pre><code class=language-typescript> import Fastify from &#39;fastify&#39;
+ import { ajvTypeBoxPlugin, TypeBoxTypeProvider } from &#39;@fastify/type-provider-typebox&#39;
+
+ const fastify = Fastify({
+   ajv: {
+     plugins: [ajvTypeBoxPlugin]
+   }
+ }).withTypeProvider&lt;TypeBoxTypeProvider&gt;()
 </code></pre></li></ol><h4 id=schemas-in-json-files>Schemas in JSON Files</h4><p>In the last example we used interfaces to define the types for the request querystring and headers. Many users will already be using JSON Schemas to define these properties, and luckily there is a way to transform existing JSON Schemas into TypeScript interfaces!</p><ol><li><p>If you did not complete the &#39;Getting Started&#39; example, go back and follow steps 1-4 first.</p></li><li><p>Install the <code>json-schema-to-typescript</code> module:</p><pre><code class=language-bash>npm i -D json-schema-to-typescript
 </code></pre></li><li><p>Create a new folder called <code>schemas</code> and add two files <code>headers.json</code> and <code>querystring.json</code>. Copy and paste the following schema definitions into the respective files:</p><pre><code class=language-json>{
   &quot;title&quot;: &quot;Headers Schema&quot;,
