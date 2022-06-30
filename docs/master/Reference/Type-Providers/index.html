@@ -29,14 +29,7 @@ import { Type } from &#39;@sinclair/typebox&#39;
 
 import fastify from &#39;fastify&#39;
 
-const server = fastify({
-    ajv: {
-        customOptions: {
-            strict: &#39;log&#39;,
-            keywords: [&#39;kind&#39;, &#39;modifier&#39;],
-        },
-    },
-}).withTypeProvider&lt;TypeBoxTypeProvider&gt;()
+const server = fastify().withTypeProvider&lt;TypeBoxTypeProvider&gt;()
 
 server.get(&#39;/route&#39;, {
     schema: {
@@ -51,7 +44,7 @@ server.get(&#39;/route&#39;, {
 
     const { foo, bar } = request.query // type safe!
 })
-</code></pre><p>TypeBox uses the properties <code>kind</code> and <code>modifier</code> internally. These properties are not strictly valid JSON schema which will cause <code>AJV@7</code> and newer versions to throw an invalid schema error. To remove the error it&#39;s either necessary to omit the properties by using <a href=https://github.com/sinclairzx81/typebox#strict><code>Type.Strict()</code></a> or use the AJV options for adding custom keywords.</p><p>See also the <a href=https://github.com/sinclairzx81/typebox#validation>TypeBox documentation</a> on how to set up AJV to work with TypeBox.</p><h3 id=scoped-type-provider>Scoped Type-Provider</h3><p>The provider types don&#39;t propagate globally. In encapsulated usage, one can remap the context to use one or more providers (for example, <code>typebox</code> and <code>json-schema-to-ts</code> can be used in the same application).</p><p>Example:</p><pre><code class=language-ts>import Fastify from &#39;fastify&#39;
+</code></pre><p>See also the <a href=https://github.com/sinclairzx81/typebox#validation>TypeBox documentation</a> on how to set up AJV to work with TypeBox.</p><h3 id=scoped-type-provider>Scoped Type-Provider</h3><p>The provider types don&#39;t propagate globally. In encapsulated usage, one can remap the context to use one or more providers (for example, <code>typebox</code> and <code>json-schema-to-ts</code> can be used in the same application).</p><p>Example:</p><pre><code class=language-ts>import Fastify from &#39;fastify&#39;
 import { TypeBoxTypeProvider } from &#39;@fastify/type-provider-typebox&#39;
 import { JsonSchemaToTsProvider } from &#39;@fastify/type-provider-json-schema-to-ts&#39;
 import { Type } from &#39;@sinclair/typebox&#39;
