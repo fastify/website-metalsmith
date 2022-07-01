@@ -110,10 +110,26 @@ function sanitizePath (path) {
   return path.replace(/\\/g, '/')
 }
 
+// clone an array and shuffle the items by the Fisher-Yates shuffle algorithm
+// @see https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+function shuffle (array) {
+  const result = array.slice()
+  const len = result.length
+  let tmp
+  let rndPos = 0
+  for (let i = 0; i < len; ++i) {
+    tmp = result[rndPos = i + Math.floor(Math.random() * (len - i))]
+    result[rndPos] = result[i]
+    result[i] = tmp
+  }
+  return result
+}
+
 module.exports = {
   copyDir,
   fileExists,
   hashContent,
   sanitizePath,
-  getFiles
+  getFiles,
+  shuffle
 }
