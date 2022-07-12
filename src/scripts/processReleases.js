@@ -245,7 +245,7 @@ function remapLinks (content, item) {
   const hrefAbsoluteLinks = /href="https:\/\/github\.com\/fastify\/fastify\/blob\/master\/docs\/([\w\d.-]+)\.md/gi
   const absoluteLinks = /https:\/\/github.com\/fastify\/fastify\/blob\/master\/docs/gi
   /* e.g. [foo](./foo/bar.md#baz) */
-  const relativeLinks = /\(([..?/]+)(([\w/-]+\/?).md\/?(#[\w-]+)?)\)/gi
+  const relativeLinks = /\(([.?/]+)(([\w/-]+\/?).md\/?(#[\w-]+)?)\)/gi
   /* e.g. [foo](./foo/bar.md#baz "Example Label") */
   const relativeLinksWithLabel = /\('?(\.\/)([\w\d.-]+)(.md)'?\s+"([\w\d.-]+)"\)/gi
   /* e.g. (../resources/encapsulation_context.svg) */
