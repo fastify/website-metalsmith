@@ -83,7 +83,7 @@ const fastify = require(&#39;fastify&#39;)({
   }
   done()
 })
-</code></pre><p><em>Any logger other than Pino will ignore this option.</em></p><p>You can also supply your own logger instance. Instead of passing configuration options, pass the instance. The logger you supply must conform to the Pino interface; that is, it must have the following methods: <code>info</code>, <code>error</code>, <code>debug</code>, <code>fatal</code>, <code>warn</code>, <code>trace</code>, <code>child</code>.</p><p>Example:</p><pre><code class=language-js>const log = require(&#39;pino&#39;)({ level: &#39;info&#39; })
+</code></pre><p><em>Any logger other than Pino will ignore this option.</em></p><p>You can also supply your own logger instance. Instead of passing configuration options, pass the instance. The logger you supply must conform to the Pino interface; that is, it must have the following methods: <code>info</code>, <code>error</code>, <code>debug</code>, <code>fatal</code>, <code>warn</code>, <code>trace</code>, <code>silent</code>, <code>child</code> and a string property <code>level</code>.</p><p>Example:</p><pre><code class=language-js>const log = require(&#39;pino&#39;)({ level: &#39;info&#39; })
 const fastify = require(&#39;fastify&#39;)({ logger: log })
 
 log.info(&#39;does not have request information&#39;)
