@@ -158,6 +158,10 @@
   image: "nucleode.svg"
   link: "https://www.nucleode.com"
 
+- name: "Papion"
+  image: "papion.svg"
+  link: "https://papion.it"
+
 - name: "Quero Educação"
   image: "quero-educacao.svg"
   link: "https://sobre.quero.com/"
