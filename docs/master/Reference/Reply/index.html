@@ -227,7 +227,8 @@ fastify.get(&#39;/streams&#39;, function (request, reply) {
     .type(&#39;text/plain&#39;)
     .send(&#39;a custom not found&#39;)
 })
-</code></pre><h4 id=type-of-the-final-payload>Type of the final payload</h4><p><a id=payload-type></a></p><p>The type of the sent payload (after serialization and going through any <a href=.././Hooks#onsend><code>onSend</code> hooks</a>) must be one of the following types, otherwise, an error will be thrown:</p><ul><li><code>string</code></li><li><code>Buffer</code></li><li><code>stream</code></li><li><code>undefined</code></li><li><code>null</code></li></ul><h4 id=async-await-and-promises>Async-Await and Promises</h4><p><a id=async-await-promise></a></p><p>Fastify natively handles promises and supports async-await.</p><p><em>Note that in the following examples we are not using reply.send.</em></p><pre><code class=language-js>const delay = promisify(setTimeout)
+</code></pre><h4 id=type-of-the-final-payload>Type of the final payload</h4><p><a id=payload-type></a></p><p>The type of the sent payload (after serialization and going through any <a href=.././Hooks#onsend><code>onSend</code> hooks</a>) must be one of the following types, otherwise, an error will be thrown:</p><ul><li><code>string</code></li><li><code>Buffer</code></li><li><code>stream</code></li><li><code>undefined</code></li><li><code>null</code></li></ul><h4 id=async-await-and-promises>Async-Await and Promises</h4><p><a id=async-await-promise></a></p><p>Fastify natively handles promises and supports async-await.</p><p><em>Note that in the following examples we are not using reply.send.</em></p><pre><code class=language-js>const { promisify } = require(&#39;util&#39;)
+const delay = promisify(setTimeout)
 
 fastify.get(&#39;/promises&#39;, options, function (request, reply) {
  return delay(200).then(() =&gt; { return { hello: &#39;world&#39; }})
