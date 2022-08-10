@@ -244,7 +244,7 @@ fastify.inject({
   // { hello: &#39;world&#39; }
 })
 </code></pre><blockquote><h2 id=⚠--security-notice>⚠ Security Notice</h2><p>Remember to set a <a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Vary><code>Vary</code></a> header in your responses with the value you are using for defining the versioning (e.g.: <code>&#39;Accept-Version&#39;</code>), to prevent cache poisoning attacks. You can also configure this as part of your Proxy/CDN.</p><pre><code class=language-js>const append = require(&#39;vary&#39;).append
-fastify.addHook(&#39;onSend&#39;, async (req, reply) =&gt; {
+fastify.addHook(&#39;onSend&#39;, (req, reply, payload, done) =&gt; {
   if (req.headers[&#39;accept-version&#39;]) { // or the custom header you are using
     let value = reply.getHeader(&#39;Vary&#39;) || &#39;&#39;
     const header = Array.isArray(value) ? value.join(&#39;, &#39;) : String(value)
@@ -252,6 +252,7 @@ fastify.addHook(&#39;onSend&#39;, async (req, reply) =&gt; {
       reply.header(&#39;Vary&#39;, value)
     }
   }
+ done()
 })
 </code></pre></blockquote><p>If you declare multiple versions with the same major or minor, Fastify will always choose the highest compatible with the <code>Accept-Version</code> header value.</p><p>If the request will not have the <code>Accept-Version</code> header, a 404 error will be returned.</p><p>It is possible to define a custom version matching logic. This can be done through the <a href=.././Server#constraints><code>constraints</code></a> configuration when creating a Fastify server instance.</p><h4 id=host-constraints>Host Constraints</h4><p>You can provide a <code>host</code> key in the <code>constraints</code> route option for to limit that route to only be matched for certain values of the request <code>Host</code> header. <code>host</code> constraint values can be specified as strings for exact matches or RegExps for arbitrary host matching.</p><pre><code class=language-js>fastify.route({
   method: &#39;GET&#39;,
