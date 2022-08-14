@@ -141,7 +141,7 @@ fastify.listen({ port: 3000 }, (err) =&gt; {
 })
 </code></pre><pre><code class=language-sh>curl -X GET &quot;http://localhost:3000/?ids=1
 
-{&quot;params&quot;:{&quot;hello&quot;:[&quot;1&quot;]}}
+{&quot;params&quot;:{&quot;ids&quot;:[&quot;1&quot;]}}
 </code></pre><p>You can also specify a custom schema validator for each parameter type (body, querystring, params, headers).</p><p>For example, the following code disable type coercion only for the <code>body</code> parameters, changing the ajv default options:</p><pre><code class=language-js>const schemaCompilers = {
   body: new Ajv({
     removeAdditional: false,
