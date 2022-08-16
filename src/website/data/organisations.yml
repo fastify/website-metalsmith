@@ -210,6 +210,10 @@
   image: "urbanpiper.svg"
   link: "https://urbanpiper.com"
 
+- name: "Webiny"
+  image: "webiny.svg"
+  link: "https://www.webiny.com"
+
 - name: "Vectra"
   image: "vectra.svg"
   link: "https://vectra.ai"
