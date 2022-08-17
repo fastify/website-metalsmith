@@ -1,0 +1,640 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Server</title><meta name=description content="Fast and low overhead web framework, for Node.js"><link rel=apple-touch-icon sizes=57x57 href=/images/apple-icon-57x57.ed24c0a19503e080.png><link rel=apple-touch-icon sizes=60x60 href=/images/apple-icon-60x60.60c285c424d50738.png><link rel=apple-touch-icon sizes=72x72 href=/images/apple-icon-72x72.e49b27cfe1ab1461.png><link rel=apple-touch-icon sizes=76x76 href=/images/apple-icon-76x76.752f43fc91b8c1f7.png><link rel=apple-touch-icon sizes=114x114 href=/images/apple-icon-114x114.61739fa1d5a7059a.png><link rel=apple-touch-icon sizes=120x120 href=/images/apple-icon-120x120.7c25de37c5ce2ec1.png><link rel=apple-touch-icon sizes=144x144 href=/images/apple-icon-144x144.04d88fb27bd92cbe.png><link rel=apple-touch-icon sizes=152x152 href=/images/apple-icon-152x152.9364781175671626.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-icon-180x180.67579100928bfcd2.png><link rel=icon type=image/png sizes=192x192 href=/images/android-icon-192x192.37eb7f1ae3853740.png><link rel=icon type=image/png sizes=32x32 href=/images/favicon-32x32.1e22f0e774bc3cce.png><link rel=icon type=image/png sizes=96x96 href=/images/favicon-96x96.7e8a68b1b80c1799.png><link rel=icon type=image/png sizes=16x16 href=/images/favicon-16x16.e534ce05cb727f1a.png><link rel=manifest href=/manifest.json><meta name=msapplication-TileColor content=#ffffff><meta name=msapplication-TileImage content=/images/ms-icon-144x144.png><meta name=theme-color content=#ffffff><meta property=og:url content=https://www.fastify.io/docs/v4.5.x/Reference/Server><meta property=og:type content=website><meta property=og:title content=Server><meta property=og:description content="Fast and low overhead web framework, for Node.js"><meta property=og:image content=https://www.fastify.io/images/fastify-fb-share-image.07b6e6860853c758.png><meta name=twitter:card content=summary_large_image><meta name=twitter:site content=@fastifyjs><meta name=twitter:creator content=@fastifyjs><meta name=twitter:title content=Server><meta name=twitter:description content="Fast and low overhead web framework, for Node.js"><meta name=twitter:image content=https://www.fastify.io/images/fastify-twitter-share-image.cd9f217b360af3e2.png><link rel=stylesheet href=/css/style.5319a09ba5476762.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css integrity="sha512-kZqGbhf9JTB4bVJ0G8HCkqmaPcRgo88F0dneK30yku5Y/dep7CZfCnNml2Je/sY4lBoqoksXz4PtVXS4GHSUzQ==" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@docsearch/css@alpha><meta name=robots content="noindex, nofollow"></head><body><nav id=main-navbar class=navbar><div class=navbar-brand><a class=navbar-item href=/ ><img src=/images/fastify-logo-menu.d13f8da7a965c800.png alt="Fastify: Fast and low overhead web framework, for Node.js" height=28> </a><a class="navbar-item is-hidden-desktop" href=https://github.com/fastify/fastify target=_blank rel=noopener><span class=icon style="color: #333;"><i class="fa fa-github"></i></span></a><div class="navbar-burger burger" data-target=mobileMenu><span></span> <span></span> <span></span></div></div><div class=navbar-menu id=mobileMenu><div class=navbar-start><a class=navbar-item href=/ >Home</a> <a class=navbar-item href=/docs/latest>Docs</a> <a class=navbar-item href=/ecosystem>Ecosystem</a> <a class=navbar-item href=/benchmarks>Benchmarks</a> <a class=navbar-item href=/contribute>Contribute</a> <a class=navbar-item href=https://medium.com/@fastifyjs/ >Blog</a> <a class=navbar-item href=https://github.com/fastify/help>Help</a></div><div class=navbar-end><span id=algolia-search-input class="control has-icons-left navbar-item"></span> <a class=navbar-item href=https://github.com/fastify/fastify target=_blank rel=noopener><span class="fa fa-github"></span>&nbsp;GitHub </a><a class=navbar-item href=https://twitter.com/fastifyjs target=_blank rel=noopener><span class="fa fa-twitter"></span>&nbsp;Twitter</a></div></div></nav><main class=page-content aria-label=Content><section class="hero is-primary" style="background-image: url(/images/bg-pattern-dark.3f8cda863b3bbf52.png)"><div class=hero-body><div class=container><h1 class=title>Documentation (v4.5.0)</h1></div></div></section><section class=section><div class=container><div class=columns><div class="column is-3 is-hidden-mobile sticky-container"><aside class="menu sticky" id=toc><ul class=menu-list></ul><p class=menu-label><a href=/docs/v4.5.x/Guides>Guides</a></p><ul class=menu-list><li style="text-transform: capitalize"><a title=Benchmarking href=/docs/v4.5.x/Guides/Benchmarking>Benchmarking</a></li><li style="text-transform: capitalize"><a title=Contributing href=/docs/v4.5.x/Guides/Contributing>Contributing</a></li><li style="text-transform: capitalize"><a title=Database href=/docs/v4.5.x/Guides/Database>Database</a></li><li style="text-transform: capitalize"><a title=Delay-Accepting-Requests href=/docs/v4.5.x/Guides/Delay-Accepting-Requests>Delay-Accepting-Requests</a></li><li style="text-transform: capitalize"><a title=Ecosystem href=/docs/v4.5.x/Guides/Ecosystem>Ecosystem</a></li><li style="text-transform: capitalize"><a title=Fluent-Schema href=/docs/v4.5.x/Guides/Fluent-Schema>Fluent-Schema</a></li><li style="text-transform: capitalize"><a title=Getting-Started href=/docs/v4.5.x/Guides/Getting-Started>Getting-Started</a></li><li style="text-transform: capitalize"><a title=Migration-Guide-V3 href=/docs/v4.5.x/Guides/Migration-Guide-V3>Migration-Guide-V3</a></li><li style="text-transform: capitalize"><a title=Migration-Guide-V4 href=/docs/v4.5.x/Guides/Migration-Guide-V4>Migration-Guide-V4</a></li><li style="text-transform: capitalize"><a title=Plugins-Guide href=/docs/v4.5.x/Guides/Plugins-Guide>Plugins-Guide</a></li><li style="text-transform: capitalize"><a title=Prototype-Poisoning href=/docs/v4.5.x/Guides/Prototype-Poisoning>Prototype-Poisoning</a></li><li style="text-transform: capitalize"><a title=Recommendations href=/docs/v4.5.x/Guides/Recommendations>Recommendations</a></li><li style="text-transform: capitalize"><a title=Serverless href=/docs/v4.5.x/Guides/Serverless>Serverless</a></li><li style="text-transform: capitalize"><a title=Style-Guide href=/docs/v4.5.x/Guides/Style-Guide>Style-Guide</a></li><li style="text-transform: capitalize"><a title=Testing href=/docs/v4.5.x/Guides/Testing>Testing</a></li><li style="text-transform: capitalize"><a title=Write-Plugin href=/docs/v4.5.x/Guides/Write-Plugin>Write-Plugin</a></li></ul><p class=menu-label><a href=/docs/v4.5.x/Reference>Reference</a></p><ul class=menu-list><li style="text-transform: capitalize"><a title=ContentTypeParser href=/docs/v4.5.x/Reference/ContentTypeParser>ContentTypeParser</a></li><li style="text-transform: capitalize"><a title=Decorators href=/docs/v4.5.x/Reference/Decorators>Decorators</a></li><li style="text-transform: capitalize"><a title=Encapsulation href=/docs/v4.5.x/Reference/Encapsulation>Encapsulation</a></li><li style="text-transform: capitalize"><a title=Errors href=/docs/v4.5.x/Reference/Errors>Errors</a></li><li style="text-transform: capitalize"><a title=HTTP2 href=/docs/v4.5.x/Reference/HTTP2>HTTP2</a></li><li style="text-transform: capitalize"><a title=Hooks href=/docs/v4.5.x/Reference/Hooks>Hooks</a></li><li style="text-transform: capitalize"><a title=LTS href=/docs/v4.5.x/Reference/LTS>LTS</a></li><li style="text-transform: capitalize"><a title=Lifecycle href=/docs/v4.5.x/Reference/Lifecycle>Lifecycle</a></li><li style="text-transform: capitalize"><a title=Logging href=/docs/v4.5.x/Reference/Logging>Logging</a></li><li style="text-transform: capitalize"><a title=Middleware href=/docs/v4.5.x/Reference/Middleware>Middleware</a></li><li style="text-transform: capitalize"><a title=Plugins href=/docs/v4.5.x/Reference/Plugins>Plugins</a></li><li style="text-transform: capitalize"><a title=Reply href=/docs/v4.5.x/Reference/Reply>Reply</a></li><li style="text-transform: capitalize"><a title=Request href=/docs/v4.5.x/Reference/Request>Request</a></li><li style="text-transform: capitalize"><a title=Routes href=/docs/v4.5.x/Reference/Routes>Routes</a></li><li style="text-transform: capitalize" id=doc-menu-section><a title=Server class=is-active href=/docs/v4.5.x/Reference/Server>Server</a></li><li style="text-transform: capitalize"><a title=Type-Providers href=/docs/v4.5.x/Reference/Type-Providers>Type-Providers</a></li><li style="text-transform: capitalize"><a title=TypeScript href=/docs/v4.5.x/Reference/TypeScript>TypeScript</a></li><li style="text-transform: capitalize"><a title=Validation-and-Serialization href=/docs/v4.5.x/Reference/Validation-and-Serialization>Validation-and-Serialization</a></li></ul><div class=content style="margin: .8em; border-top: 1px solid #ccc; padding: .8em 0 0 0">Docs version<div class=field><div class=control><div class=select><select onchange="if (this.value) window.location.href=this.value"><option value=/docs/latest>latest</option><option value=/docs/master>master</option><option selected value=/docs/v4.5.x>v4.5.x</option><option value=/docs/v4.4.x>v4.4.x</option><option value=/docs/v4.3.x>v4.3.x</option><option value=/docs/v4.2.x>v4.2.x</option><option value=/docs/v4.1.x>v4.1.x</option><option value=/docs/v4.0.x>v4.0.x</option><option value=/docs/v3.29.x>v3.29.x</option><option value=/docs/v3.28.x>v3.28.x</option><option value=/docs/v3.27.x>v3.27.x</option><option value=/docs/v3.26.x>v3.26.x</option><option value=/docs/v3.25.x>v3.25.x</option><option value=/docs/v3.24.x>v3.24.x</option><option value=/docs/v3.23.x>v3.23.x</option><option value=/docs/v3.22.x>v3.22.x</option><option value=/docs/v3.21.x>v3.21.x</option><option value=/docs/v3.20.x>v3.20.x</option><option value=/docs/v3.19.x>v3.19.x</option><option value=/docs/v3.18.x>v3.18.x</option><option value=/docs/v3.17.x>v3.17.x</option><option value=/docs/v3.16.x>v3.16.x</option><option value=/docs/v3.15.x>v3.15.x</option><option value=/docs/v3.14.x>v3.14.x</option><option value=/docs/v3.13.x>v3.13.x</option><option value=/docs/v3.12.x>v3.12.x</option><option value=/docs/v3.11.x>v3.11.x</option><option value=/docs/v3.10.x>v3.10.x</option><option value=/docs/v3.9.x>v3.9.x</option><option value=/docs/v3.8.x>v3.8.x</option><option value=/docs/v3.7.x>v3.7.x</option><option value=/docs/v3.6.x>v3.6.x</option><option value=/docs/v3.5.x>v3.5.x</option><option value=/docs/v3.4.x>v3.4.x</option><option value=/docs/v3.3.x>v3.3.x</option><option value=/docs/v3.2.x>v3.2.x</option><option value=/docs/v3.1.x>v3.1.x</option><option value=/docs/v3.0.x>v3.0.x</option><option value=/docs/v2.15.x>v2.15.x</option><option value=/docs/v2.14.x>v2.14.x</option><option value=/docs/v2.13.x>v2.13.x</option><option value=/docs/v2.12.x>v2.12.x</option><option value=/docs/v2.11.x>v2.11.x</option><option value=/docs/v2.10.x>v2.10.x</option><option value=/docs/v2.9.x>v2.9.x</option><option value=/docs/v2.8.x>v2.8.x</option><option value=/docs/v2.7.x>v2.7.x</option><option value=/docs/v2.6.x>v2.6.x</option><option value=/docs/v2.5.x>v2.5.x</option><option value=/docs/v2.4.x>v2.4.x</option><option value=/docs/v2.3.x>v2.3.x</option><option value=/docs/v2.2.x>v2.2.x</option><option value=/docs/v2.1.x>v2.1.x</option><option value=/docs/v2.0.x>v2.0.x</option><option value=/docs/v1.14.x>v1.14.x</option><option value=/docs/v1.13.x>v1.13.x</option></select></div></div></div></div></aside></div><div class="column is-9"><nav class=breadcrumb><ul><li><a href=/ style="padding-left: 0">Fastify</a></li><li><a href=/docs/v4.5.x>Documentation</a></li><li><div class=field><div class=control><div class=select><select onchange="if (this.value) window.location.href=this.value" style="border: none;"><option value=/docs/latest>latest</option><option value=/docs/master>master</option><option selected value=/docs/v4.5.x>v4.5.x</option><option value=/docs/v4.4.x>v4.4.x</option><option value=/docs/v4.3.x>v4.3.x</option><option value=/docs/v4.2.x>v4.2.x</option><option value=/docs/v4.1.x>v4.1.x</option><option value=/docs/v4.0.x>v4.0.x</option><option value=/docs/v3.29.x>v3.29.x</option><option value=/docs/v3.28.x>v3.28.x</option><option value=/docs/v3.27.x>v3.27.x</option><option value=/docs/v3.26.x>v3.26.x</option><option value=/docs/v3.25.x>v3.25.x</option><option value=/docs/v3.24.x>v3.24.x</option><option value=/docs/v3.23.x>v3.23.x</option><option value=/docs/v3.22.x>v3.22.x</option><option value=/docs/v3.21.x>v3.21.x</option><option value=/docs/v3.20.x>v3.20.x</option><option value=/docs/v3.19.x>v3.19.x</option><option value=/docs/v3.18.x>v3.18.x</option><option value=/docs/v3.17.x>v3.17.x</option><option value=/docs/v3.16.x>v3.16.x</option><option value=/docs/v3.15.x>v3.15.x</option><option value=/docs/v3.14.x>v3.14.x</option><option value=/docs/v3.13.x>v3.13.x</option><option value=/docs/v3.12.x>v3.12.x</option><option value=/docs/v3.11.x>v3.11.x</option><option value=/docs/v3.10.x>v3.10.x</option><option value=/docs/v3.9.x>v3.9.x</option><option value=/docs/v3.8.x>v3.8.x</option><option value=/docs/v3.7.x>v3.7.x</option><option value=/docs/v3.6.x>v3.6.x</option><option value=/docs/v3.5.x>v3.5.x</option><option value=/docs/v3.4.x>v3.4.x</option><option value=/docs/v3.3.x>v3.3.x</option><option value=/docs/v3.2.x>v3.2.x</option><option value=/docs/v3.1.x>v3.1.x</option><option value=/docs/v3.0.x>v3.0.x</option><option value=/docs/v2.15.x>v2.15.x</option><option value=/docs/v2.14.x>v2.14.x</option><option value=/docs/v2.13.x>v2.13.x</option><option value=/docs/v2.12.x>v2.12.x</option><option value=/docs/v2.11.x>v2.11.x</option><option value=/docs/v2.10.x>v2.10.x</option><option value=/docs/v2.9.x>v2.9.x</option><option value=/docs/v2.8.x>v2.8.x</option><option value=/docs/v2.7.x>v2.7.x</option><option value=/docs/v2.6.x>v2.6.x</option><option value=/docs/v2.5.x>v2.5.x</option><option value=/docs/v2.4.x>v2.4.x</option><option value=/docs/v2.3.x>v2.3.x</option><option value=/docs/v2.2.x>v2.2.x</option><option value=/docs/v2.1.x>v2.1.x</option><option value=/docs/v2.0.x>v2.0.x</option><option value=/docs/v1.14.x>v1.14.x</option><option value=/docs/v1.13.x>v1.13.x</option></select></div></div></div></li><div class=field><div class=control><div class=select><select onchange="if (this.value) window.location.href=this.value" style="border: none;"><option value=/docs/v4.5.x>Documentation</option><option value=/docs/v4.5.x/Guides>Guides</option><option value=/docs/v4.5.x/Guides/Benchmarking>Benchmarking</option><option value=/docs/v4.5.x/Guides/Contributing>Contributing</option><option value=/docs/v4.5.x/Guides/Database>Database</option><option value=/docs/v4.5.x/Guides/Delay-Accepting-Requests>Delay-Accepting-Requests</option><option value=/docs/v4.5.x/Guides/Ecosystem>Ecosystem</option><option value=/docs/v4.5.x/Guides/Fluent-Schema>Fluent-Schema</option><option value=/docs/v4.5.x/Guides/Getting-Started>Getting-Started</option><option value=/docs/v4.5.x/Guides/Migration-Guide-V3>Migration-Guide-V3</option><option value=/docs/v4.5.x/Guides/Migration-Guide-V4>Migration-Guide-V4</option><option value=/docs/v4.5.x/Guides/Plugins-Guide>Plugins-Guide</option><option value=/docs/v4.5.x/Guides/Prototype-Poisoning>Prototype-Poisoning</option><option value=/docs/v4.5.x/Guides/Recommendations>Recommendations</option><option value=/docs/v4.5.x/Guides/Serverless>Serverless</option><option value=/docs/v4.5.x/Guides/Style-Guide>Style-Guide</option><option value=/docs/v4.5.x/Guides/Testing>Testing</option><option value=/docs/v4.5.x/Guides/Write-Plugin>Write-Plugin</option><option value=/docs/v4.5.x/Reference>Reference</option><option value=/docs/v4.5.x/Reference/ContentTypeParser>ContentTypeParser</option><option value=/docs/v4.5.x/Reference/Decorators>Decorators</option><option value=/docs/v4.5.x/Reference/Encapsulation>Encapsulation</option><option value=/docs/v4.5.x/Reference/Errors>Errors</option><option value=/docs/v4.5.x/Reference/HTTP2>HTTP2</option><option value=/docs/v4.5.x/Reference/Hooks>Hooks</option><option value=/docs/v4.5.x/Reference/LTS>LTS</option><option value=/docs/v4.5.x/Reference/Lifecycle>Lifecycle</option><option value=/docs/v4.5.x/Reference/Logging>Logging</option><option value=/docs/v4.5.x/Reference/Middleware>Middleware</option><option value=/docs/v4.5.x/Reference/Plugins>Plugins</option><option value=/docs/v4.5.x/Reference/Reply>Reply</option><option value=/docs/v4.5.x/Reference/Request>Request</option><option value=/docs/v4.5.x/Reference/Routes>Routes</option><option selected value=/docs/v4.5.x/Reference/Server>Server</option><option value=/docs/v4.5.x/Reference/Type-Providers>Type-Providers</option><option value=/docs/v4.5.x/Reference/TypeScript>TypeScript</option><option value=/docs/v4.5.x/Reference/Validation-and-Serialization>Validation-and-Serialization</option></select></div></div></div></ul></nav><div id=doc-content class=content><h2 id=factory>Factory</h2><p><a id=factory></a></p><p>The Fastify module exports a factory function that is used to create new <code><b>Fastify server</b></code> instances. This factory function accepts an options object which is used to customize the resulting instance. This document describes the properties available in that options object.</p><ul><li><a href=#factory>Factory</a><ul><li><a href=#http2><code>http2</code></a></li><li><a href=#https><code>https</code></a></li><li><a href=#connectiontimeout><code>connectionTimeout</code></a></li><li><a href=#keepalivetimeout><code>keepAliveTimeout</code></a></li><li><a href=#forcecloseconnections><code>forceCloseConnections</code></a></li><li><a href=#maxrequestspersocket><code>maxRequestsPerSocket</code></a></li><li><a href=#requesttimeout><code>requestTimeout</code></a></li><li><a href=#ignoretrailingslash><code>ignoreTrailingSlash</code></a></li><li><a href=#ignoreduplicateslashes><code>ignoreDuplicateSlashes</code></a></li><li><a href=#maxparamlength><code>maxParamLength</code></a></li><li><a href=#bodylimit><code>bodyLimit</code></a></li><li><a href=#onprotopoisoning><code>onProtoPoisoning</code></a></li><li><a href=#onconstructorpoisoning><code>onConstructorPoisoning</code></a></li><li><a href=#logger><code>logger</code></a></li><li><a href=#disablerequestlogging><code>disableRequestLogging</code></a></li><li><a href=#serverfactory><code>serverFactory</code></a></li><li><a href=#jsonshorthand><code>jsonShorthand</code></a></li><li><a href=#casesensitive><code>caseSensitive</code></a></li><li><a href=#allowunsaferegex><code>allowUnsafeRegex</code></a></li><li><a href=#requestidheader><code>requestIdHeader</code></a></li><li><a href=#requestidloglabel><code>requestIdLogLabel</code></a></li><li><a href=#genreqid><code>genReqId</code></a></li><li><a href=#trustproxy><code>trustProxy</code></a></li><li><a href=#plugintimeout><code>pluginTimeout</code></a></li><li><a href=#querystringparser><code>querystringParser</code></a></li><li><a href=#exposeheadroutes><code>exposeHeadRoutes</code></a></li><li><a href=#constraints><code>constraints</code></a></li><li><a href=#return503onclosing><code>return503OnClosing</code></a></li><li><a href=#ajv><code>ajv</code></a></li><li><a href=#serializeropts><code>serializerOpts</code></a></li><li><a href=#http2sessiontimeout><code>http2SessionTimeout</code></a></li><li><a href=#frameworkerrors><code>frameworkErrors</code></a></li><li><a href=#clienterrorhandler><code>clientErrorHandler</code></a></li><li><a href=#rewriteurl><code>rewriteUrl</code></a></li></ul></li><li><a href=#instance>Instance</a><ul><li><a href=#server-methods>Server Methods</a><ul><li><a href=#server>server</a></li><li><a href=#after>after</a></li><li><a href=#ready>ready</a></li><li><a href=#listen>listen</a></li><li><a href=#addresses>addresses</a></li><li><a href=#getdefaultroute>getDefaultRoute</a></li><li><a href=#setdefaultroute>setDefaultRoute</a></li><li><a href=#routing>routing</a></li><li><a href=#route>route</a></li><li><a href=#close>close</a></li><li><a href=#decorate>decorate*</a></li><li><a href=#register>register</a></li><li><a href=#addhook>addHook</a></li><li><a href=#prefix>prefix</a></li><li><a href=#pluginname>pluginName</a></li><li><a href=#hasplugin>hasPlugin</a></li><li><a href=#log>log</a></li><li><a href=#version>version</a></li><li><a href=#inject>inject</a></li><li><a href=#addschema>addSchema</a></li><li><a href=#getschemas>getSchemas</a></li><li><a href=#getschema>getSchema</a></li><li><a href=#setreplyserializer>setReplySerializer</a></li><li><a href=#setvalidatorcompiler>setValidatorCompiler</a></li><li><a href=#setschemaerrorformatter>setSchemaErrorFormatter</a></li><li><a href=#setserializercompiler>setSerializerCompiler</a></li><li><a href=#validatorcompiler>validatorCompiler</a></li><li><a href=#serializercompiler>serializerCompiler</a></li><li><a href=#schemaerrorformatter>schemaErrorFormatter</a></li><li><a href=#schemacontroller>schemaController</a></li><li><a href=#setnotfoundhandler>setNotFoundHandler</a></li><li><a href=#seterrorhandler>setErrorHandler</a></li><li><a href=#addconstraintstrategy>addConstraintStrategy</a></li><li><a href=#hasconstraintstrategy>hasConstraintStrategy</a></li><li><a href=#printroutes>printRoutes</a></li><li><a href=#printplugins>printPlugins</a></li><li><a href=#addcontenttypeparser>addContentTypeParser</a></li><li><a href=#hascontenttypeparser>hasContentTypeParser</a></li><li><a href=#removecontenttypeparser>removeContentTypeParser</a></li><li><a href=#removeallcontenttypeparsers>removeAllContentTypeParsers</a></li><li><a href=#getdefaultjsonparser>getDefaultJsonParser</a></li><li><a href=#defaulttextparser>defaultTextParser</a></li><li><a href=#errorhandler>errorHandler</a></li><li><a href=#initialconfig>initialConfig</a></li></ul></li></ul></li></ul><h3 id=http2><code>http2</code></h3><p><a id=factory-http2></a></p><p>If <code>true</code> Node.js core&#39;s <a href=https://nodejs.org/dist/latest-v14.x/docs/api/http2.html>HTTP/2</a> module is used for binding the socket.</p><ul><li>Default: <code>false</code></li></ul><h3 id=https><code>https</code></h3><p><a id=factory-https></a></p><p>An object used to configure the server&#39;s listening socket for TLS. The options are the same as the Node.js core <a href=https://nodejs.org/dist/latest-v14.x/docs/api/https.html#https_https_createserver_options_requestlistener><code>createServer</code> method</a>. When this property is <code>null</code>, the socket will not be configured for TLS.</p><p>This option also applies when the <a href=#factory-http2><code>http2</code></a> option is set.</p><ul><li>Default: <code>null</code></li></ul><h3 id=connectiontimeout><code>connectionTimeout</code></h3><p><a id=factory-connection-timeout></a></p><p>Defines the server timeout in milliseconds. See documentation for <a href=https://nodejs.org/api/http.html#http_server_timeout><code>server.timeout</code> property</a> to understand the effect of this option. When <code>serverFactory</code> option is specified, this option is ignored.</p><ul><li>Default: <code>0</code> (no timeout)</li></ul><h3 id=keepalivetimeout><code>keepAliveTimeout</code></h3><p><a id=factory-keep-alive-timeout></a></p><p>Defines the server keep-alive timeout in milliseconds. See documentation for <a href=https://nodejs.org/api/http.html#http_server_keepalivetimeout><code>server.keepAliveTimeout</code> property</a> to understand the effect of this option. This option only applies when HTTP/1 is in use. Also, when <code>serverFactory</code> option is specified, this option is ignored.</p><ul><li>Default: <code>72000</code> (72 seconds)</li></ul><h3 id=forcecloseconnections><code>forceCloseConnections</code></h3><p><a id=forcecloseconnections></a></p><p>When set to <code>true</code>, upon <a href=#close><code>close</code></a> the server will iterate the current persistent connections and <a href=https://nodejs.org/dist/latest-v16.x/docs/api/net.html#socketdestroyerror>destroy their sockets</a>.</p><blockquote><p>Important: connections are not inspected to determine if requests have been completed.</p></blockquote><p>Fastify will prefer the HTTP server&#39;s <a href=https://nodejs.org/dist/latest-v18.x/docs/api/http.html#servercloseallconnections><code>closeAllConnections</code></a> method if supported, otherwise it will use internal connection tracking.</p><p>When set to <code>&quot;idle&quot;</code>, upon <a href=#close><code>close</code></a> the server will iterate the current persistent connections which are not sending a request or waiting for a response and destroy their sockets. The value is supported only if the HTTP server supports the <a href=https://nodejs.org/dist/latest-v18.x/docs/api/http.html#servercloseidleconnections><code>closeIdleConnections</code></a> method, otherwise attempting to set it will throw an exception.</p><ul><li>Default: <code>&quot;idle&quot;</code> if the HTTP server allows it, <code>false</code> otherwise</li></ul><h3 id=maxrequestspersocket><code>maxRequestsPerSocket</code></h3><p><a id=factory-max-requests-per-socket></a></p><p>Defines the maximum number of requests socket can handle before closing keep alive connection. See documentation for <a href=https://nodejs.org/dist/latest/docs/api/http.html#http_server_maxrequestspersocket><code>server.maxRequestsPerSocket</code> property</a> to understand the effect of this option. This option only applies when HTTP/1.1 is in use. Also, when <code>serverFactory</code> option is specified, this option is ignored.</p><blockquote><p>At the time of this writing, only node version greater or equal to 16.10.0 support this option. Check the Node.js documentation for availability in the version you are running.</p></blockquote><ul><li>Default: <code>0</code> (no limit)</li></ul><h3 id=requesttimeout><code>requestTimeout</code></h3><p><a id=factory-request-timeout></a></p><p>Defines the maximum number of milliseconds for receiving the entire request from the client. <a href=https://nodejs.org/dist/latest/docs/api/http.html#http_server_requesttimeout><code>server.requestTimeout</code> property</a> to understand the effect of this option. Also, when <code>serverFactory</code> option is specified, this option is ignored. It must be set to a non-zero value (e.g. 120 seconds) to protect against potential Denial-of-Service attacks in case the server is deployed without a reverse proxy in front.</p><blockquote><p>At the time of this writing, only node version greater or equal to 14.11.0 support this option. Check the Node.js documentation for availability in the version you are running.</p></blockquote><ul><li>Default: <code>0</code> (no limit)</li></ul><h3 id=ignoretrailingslash><code>ignoreTrailingSlash</code></h3><p><a id=factory-ignore-slash></a></p><p>Fastify uses <a href=https://github.com/delvedor/find-my-way>find-my-way</a> to handle routing. By default, Fastify is set to take into account the trailing slashes. Paths like <code>/foo</code> and <code>/foo/</code> will be treated as different paths. If you want to change this, set this flag to <code>true</code>. That way, both <code>/foo</code> and <code>/foo/</code> will point to the same route. This option applies to <em>all</em> route registrations for the resulting server instance.</p><ul><li>Default: <code>false</code></li></ul><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+  ignoreTrailingSlash: true
+})
+
+// registers both &quot;/foo&quot; and &quot;/foo/&quot;
+fastify.get(&#39;/foo/&#39;, function (req, reply) {
+  reply.send(&#39;foo&#39;)
+})
+
+// registers both &quot;/bar&quot; and &quot;/bar/&quot;
+fastify.get(&#39;/bar&#39;, function (req, reply) {
+  reply.send(&#39;bar&#39;)
+})
+</code></pre><h3 id=ignoreduplicateslashes><code>ignoreDuplicateSlashes</code></h3><p><a id=factory-ignore-duplicate-slashes></a></p><p>Fastify uses <a href=https://github.com/delvedor/find-my-way>find-my-way</a> to handle routing. You can use <code>ignoreDuplicateSlashes</code> option to remove duplicate slashes from the path. It removes duplicate slashes in the route path and in the request URL. This option applies to <em>all</em> route registrations for the resulting server instance.</p><p>Note that when <code>ignoreTrailingSlash</code> and <code>ignoreDuplicateSlashes</code> are both set to true, Fastify will remove duplicate slashes, and then trailing slashes, meaning //a//b//c// will be converted to /a/b/c.</p><ul><li>Default: <code>false</code></li></ul><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+  ignoreDuplicateSlashes: true
+})
+
+// registers &quot;/foo/bar/&quot;
+fastify.get(&#39;///foo//bar//&#39;, function (req, reply) {
+  reply.send(&#39;foo&#39;)
+})
+</code></pre><h3 id=maxparamlength><code>maxParamLength</code></h3><p><a id=factory-max-param-length></a></p><p>You can set a custom length for parameters in parametric (standard, regex, and multi) routes by using <code>maxParamLength</code> option; the default value is 100 characters.</p><p>This can be useful especially if you have a regex-based route, protecting you against <a href=https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS>DoS attacks</a>.</p><p><em>If the maximum length limit is reached, the not found route will be invoked.</em></p><h3 id=bodylimit><code>bodyLimit</code></h3><p><a id=factory-body-limit></a></p><p>Defines the maximum payload, in bytes, the server is allowed to accept.</p><ul><li>Default: <code>1048576</code> (1MiB)</li></ul><h3 id=onprotopoisoning><code>onProtoPoisoning</code></h3><p><a id=factory-on-proto-poisoning></a></p><p>Defines what action the framework must take when parsing a JSON object with <code>__proto__</code>. This functionality is provided by <a href=https://github.com/fastify/secure-json-parse>secure-json-parse</a>. See <a href=../../Guides/Prototype-Poisoning>Prototype Poisoning</a> for more details about prototype poisoning attacks.</p><p>Possible values are <code>&#39;error&#39;</code>, <code>&#39;remove&#39;</code> and <code>&#39;ignore&#39;</code>.</p><ul><li>Default: <code>&#39;error&#39;</code></li></ul><h3 id=onconstructorpoisoning><code>onConstructorPoisoning</code></h3><p><a id=factory-on-constructor-poisoning></a></p><p>Defines what action the framework must take when parsing a JSON object with <code>constructor</code>. This functionality is provided by <a href=https://github.com/fastify/secure-json-parse>secure-json-parse</a>. See <a href=../../Guides/Prototype-Poisoning>Prototype Poisoning</a> for more details about prototype poisoning attacks.</p><p>Possible values are <code>&#39;error&#39;</code>, <code>&#39;remove&#39;</code> and <code>&#39;ignore&#39;</code>.</p><ul><li>Default: <code>&#39;error&#39;</code></li></ul><h3 id=logger><code>logger</code></h3><p><a id=factory-logger></a></p><p>Fastify includes built-in logging via the <a href=https://getpino.io/ >Pino</a> logger. This property is used to configure the internal logger instance.</p><p>The possible values this property may have are:</p><ul><li><p>Default: <code>false</code>. The logger is disabled. All logging methods will point to a null logger <a href=https://npm.im/abstract-logging>abstract-logging</a> instance.</p></li><li><p><code>pinoInstance</code>: a previously instantiated instance of Pino. The internal logger will point to this instance.</p></li><li><p><code>object</code>: a standard Pino <a href=https://github.com/pinojs/pino/blob/c77d8ec5ce/docs/API.md#constructor>options object</a>. This will be passed directly to the Pino constructor. If the following properties are not present on the object, they will be added accordingly:</p><ul><li><code>level</code>: the minimum logging level. If not set, it will be set to <code>&#39;info&#39;</code>.</li><li><code>serializers</code>: a hash of serialization functions. By default, serializers are added for <code>req</code> (incoming request objects), <code>res</code> (outgoing response objects), and <code>err</code> (standard <code>Error</code> objects). When a log method receives an object with any of these properties then the respective serializer will be used for that property. For example:<pre><code class=language-js>  fastify.get(&#39;/foo&#39;, function (req, res) {
+    req.log.info({req}) // log the serialized request object
+    res.send(&#39;foo&#39;)
+  })
+</code></pre>Any user-supplied serializer will override the default serializer of the corresponding property.</li></ul></li><li><p><code>loggerInstance</code>: a custom logger instance. The logger must conform to the Pino interface by having the following methods: <code>info</code>, <code>error</code>, <code>debug</code>, <code>fatal</code>, <code>warn</code>, <code>trace</code>, <code>child</code>. For example:</p><pre><code class=language-js>const pino = require(&#39;pino&#39;)();
+
+const customLogger = {
+  info: function (o, ...n) {},
+  warn: function (o, ...n) {},
+  error: function (o, ...n) {},
+  fatal: function (o, ...n) {},
+  trace: function (o, ...n) {},
+  debug: function (o, ...n) {},
+  child: function() {
+    const child = Object.create(this);
+    child.pino = pino.child(...arguments);
+    return child;
+  },
+};
+
+const fastify = require(&#39;fastify&#39;)({logger: customLogger});
+</code></pre></li></ul><h3 id=disablerequestlogging><code>disableRequestLogging</code></h3><p><a id=factory-disable-request-logging></a></p><p>By default, when logging is enabled, Fastify will issue an <code>info</code> level log message when a request is received and when the response for that request has been sent. By setting this option to <code>true</code>, these log messages will be disabled. This allows for more flexible request start and end logging by attaching custom <code>onRequest</code> and <code>onResponse</code> hooks.</p><ul><li>Default: <code>false</code></li></ul><pre><code class=language-js>// Examples of hooks to replicate the disabled functionality.
+fastify.addHook(&#39;onRequest&#39;, (req, reply, done) =&gt; {
+  req.log.info({ url: req.raw.url, id: req.id }, &#39;received request&#39;)
+  done()
+})
+
+fastify.addHook(&#39;onResponse&#39;, (req, reply, done) =&gt; {
+  req.log.info({ url: req.raw.originalUrl, statusCode: reply.raw.statusCode }, &#39;request completed&#39;)
+  done()
+})
+</code></pre><p>Please note that this setting will also disable an error log written by the default <code>onResponse</code> hook on reply callback errors.</p><h3 id=serverfactory><code>serverFactory</code></h3><p><a id=custom-http-server></a></p><p>You can pass a custom HTTP server to Fastify by using the <code>serverFactory</code> option.</p><p><code>serverFactory</code> is a function that takes a <code>handler</code> parameter, which takes the <code>request</code> and <code>response</code> objects as parameters, and an options object, which is the same you have passed to Fastify.</p><pre><code class=language-js>const serverFactory = (handler, opts) =&gt; {
+  const server = http.createServer((req, res) =&gt; {
+    handler(req, res)
+  })
+
+  return server
+}
+
+const fastify = Fastify({ serverFactory })
+
+fastify.get(&#39;/&#39;, (req, reply) =&gt; {
+  reply.send({ hello: &#39;world&#39; })
+})
+
+fastify.listen({ port: 3000 })
+</code></pre><p>Internally Fastify uses the API of Node core HTTP server, so if you are using a custom server you must be sure to have the same API exposed. If not, you can enhance the server instance inside the <code>serverFactory</code> function before the <code>return</code> statement.</p><h3 id=jsonshorthand><code>jsonShorthand</code></h3><p><a id=schema-json-shorthand></a></p><ul><li>Default: <code>true</code></li></ul><p>Internally, and by default, Fastify will automatically infer the root properties of JSON Schemas if it does not find valid root properties according to the JSON Schema spec. If you wish to implement your own schema validation compiler, for example: to parse schemas as JTD instead of JSON Schema, then you can explicitly set this option to <code>false</code> to make sure the schemas you receive are unmodified and are not being treated internally as JSON Schema.</p><pre><code class=language-js>const AjvJTD = require(&#39;ajv/dist/jtd&#39;/* only valid for AJV v7+ */)
+const ajv = new AjvJTD({
+  // This would let you throw at start for invalid JTD schema objects
+  allErrors: process.env.NODE_ENV === &#39;development&#39;
+})
+const fastify = Fastify({ jsonShorthand: false })
+fastify.setValidatorCompiler(({ schema }) =&gt; {
+  return ajv.compile(schema)
+})
+fastify.post(&#39;/&#39;, {
+  schema: {
+    body: {
+      properties: {
+        foo: { type: &#39;uint8&#39; }
+      }
+    }
+  },
+  handler (req, reply) { reply.send({ ok: 1 }) }
+})
+</code></pre><p><strong>Note: Fastify does not currently throw on invalid schemas, so if you turn this off in an existing project, you need to be careful that none of your existing schemas become invalid as a result, since they will be treated as a catch-all.</strong></p><h3 id=casesensitive><code>caseSensitive</code></h3><p><a id=factory-case-sensitive></a></p><p>By default, value equal to <code>true</code>, routes are registered as case sensitive. That is, <code>/foo</code> is not equivalent to <code>/Foo</code>. When set to <code>false</code>, routes are registered in a fashion such that <code>/foo</code> is equivalent to <code>/Foo</code> which is equivalent to <code>/FOO</code>.</p><p>By setting <code>caseSensitive</code> to <code>false</code>, all paths will be matched as lowercase, but the route parameters or wildcards will maintain their original letter casing.</p><pre><code class=language-js>fastify.get(&#39;/user/:username&#39;, (request, reply) =&gt; {
+  // Given the URL: /USER/NodeJS
+  console.log(request.params.username) // -&gt; &#39;NodeJS&#39;
+})
+</code></pre><p>Please note that setting this option to <code>false</code> goes against <a href=https://tools.ietf.org/html/rfc3986#section-6.2.2.1>RFC3986</a>.</p><p>Also note, this setting will not affect query strings. If you want to change the way query strings are handled take a look at <a href=#querystringparser><code>querystringParser</code></a>.</p><h3 id=allowunsaferegex><code>allowUnsafeRegex</code></h3><p><a id=factory-allow-unsafe-regex></a></p><p>The allowUnsafeRegex setting is false by default, so routes only allow safe regular expressions. To use unsafe expressions, set allowUnsafeRegex to true.</p><pre><code class=language-js>fastify.get(&#39;/user/:id(^([0-9]+){4}$)&#39;, (request, reply) =&gt; {
+  // Throws an error without allowUnsafeRegex = true
+})
+</code></pre><p>Under the hood: <a href=https://github.com/delvedor/find-my-way>FindMyWay</a> More info about safe regexp: <a href=https://www.npmjs.com/package/safe-regex2>Safe-regex2</a></p><h3 id=requestidheader><code>requestIdHeader</code></h3><p><a id=factory-request-id-header></a></p><p>The header name used to set the request-id. See <a href=.././Logging#logging-request-id>the request-id</a> section. Setting <code>requestIdHeader</code> to <code>false</code> will always use <a href=#genreqid>genReqId</a></p><ul><li>Default: <code>&#39;request-id&#39;</code></li></ul><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+  requestIdHeader: &#39;x-custom-id&#39;, // -&gt; use &#39;X-Custom-Id&#39; header if available
+  //requestIdHeader: false, // -&gt; always use genReqId
+})
+</code></pre><h3 id=requestidloglabel><code>requestIdLogLabel</code></h3><p><a id=factory-request-id-log-label></a></p><p>Defines the label used for the request identifier when logging the request.</p><ul><li>Default: <code>&#39;reqId&#39;</code></li></ul><h3 id=genreqid><code>genReqId</code></h3><p><a id=factory-gen-request-id></a></p><p>Function for generating the request-id. It will receive the incoming request as a parameter. This function is expected to be error-free.</p><ul><li>Default: <code>value of &#39;request-id&#39; header if provided or monotonically increasing integers</code></li></ul><p>Especially in distributed systems, you may want to override the default ID generation behavior as shown below. For generating <code>UUID</code>s you may want to check out <a href=https://github.com/mcollina/hyperid>hyperid</a></p><pre><code class=language-js>let i = 0
+const fastify = require(&#39;fastify&#39;)({
+  genReqId: function (req) { return i++ }
+})
+</code></pre><p><strong>Note: genReqId will <em>not</em> be called if the header set in <code><a href=#requestidheader>requestIdHeader</a></code> is available (defaults to &#39;request-id&#39;).</strong></p><h3 id=trustproxy><code>trustProxy</code></h3><p><a id=factory-trust-proxy></a></p><p>By enabling the <code>trustProxy</code> option, Fastify will know that it is sitting behind a proxy and that the <code>X-Forwarded-*</code> header fields may be trusted, which otherwise may be easily spoofed.</p><pre><code class=language-js>const fastify = Fastify({ trustProxy: true })
+</code></pre><ul><li>Default: <code>false</code></li><li><code>true/false</code>: Trust all proxies (<code>true</code>) or do not trust any proxies (<code>false</code>).</li><li><code>string</code>: Trust only given IP/CIDR (e.g. <code>&#39;127.0.0.1&#39;</code>). May be a list of comma separated values (e.g. <code>&#39;127.0.0.1,192.168.1.1/24&#39;</code>).</li><li><code>Array&lt;string&gt;</code>: Trust only given IP/CIDR list (e.g. <code>[&#39;127.0.0.1&#39;]</code>).</li><li><code>number</code>: Trust the nth hop from the front-facing proxy server as the client.</li><li><code>Function</code>: Custom trust function that takes <code>address</code> as first arg<pre><code class=language-js>  function myTrustFn(address, hop) {
+    return address === &#39;1.2.3.4&#39; || hop === 1
+  }
+</code></pre></li></ul><p>For more examples, refer to the <a href=https://www.npmjs.com/package/proxy-addr><code>proxy-addr</code></a> package.</p><p>You may access the <code>ip</code>, <code>ips</code>, <code>hostname</code> and <code>protocol</code> values on the <a href=.././Request><code>request</code></a> object.</p><pre><code class=language-js>fastify.get(&#39;/&#39;, (request, reply) =&gt; {
+  console.log(request.ip)
+  console.log(request.ips)
+  console.log(request.hostname)
+  console.log(request.protocol)
+})
+</code></pre><p><strong>Note: if a request contains multiple <code>x-forwarded-host</code> or <code>x-forwarded-proto</code> headers, it is only the last one that is used to derive <code>request.hostname</code> and <code>request.protocol</code></strong></p><h3 id=plugintimeout><code>pluginTimeout</code></h3><p><a id=plugin-timeout></a></p><p>The maximum amount of time in <em>milliseconds</em> in which a plugin can load. If not, <a href=#ready><code>ready</code></a> will complete with an <code>Error</code> with code <code>&#39;ERR_AVVIO_PLUGIN_TIMEOUT&#39;</code>. When set to <code>0</code>, disables this check. This controls <a href=https://www.npmjs.com/package/avvio>avvio</a> &#39;s <code>timeout</code> parameter.</p><ul><li>Default: <code>10000</code></li></ul><h3 id=querystringparser><code>querystringParser</code></h3><p><a id=factory-querystring-parser></a></p><p>The default query string parser that Fastify uses is the Node.js&#39;s core <code>querystring</code> module.</p><p>You can change this default setting by passing the option <code>querystringParser</code> and use a custom one, such as <a href=https://www.npmjs.com/package/qs><code>qs</code></a>.</p><pre><code class=language-js>const qs = require(&#39;qs&#39;)
+const fastify = require(&#39;fastify&#39;)({
+  querystringParser: str =&gt; qs.parse(str)
+})
+</code></pre><p>You can also use Fastify&#39;s default parser but change some handling behaviour, like the example below for case insensitive keys and values:</p><pre><code class=language-js>const querystring = require(&#39;querystring&#39;)
+const fastify = require(&#39;fastify&#39;)({
+  querystringParser: str =&gt; querystring.parse(str.toLowerCase())
+})
+</code></pre><p>Note, if you only want the keys (and not the values) to be case insensitive we recommend using a custom parser to convert only the keys to lowercase.</p><h3 id=exposeheadroutes><code>exposeHeadRoutes</code></h3><p><a id=exposeHeadRoutes></a></p><p>Automatically creates a sibling <code>HEAD</code> route for each <code>GET</code> route defined. If you want a custom <code>HEAD</code> handler without disabling this option, make sure to define it before the <code>GET</code> route.</p><ul><li>Default: <code>true</code></li></ul><h3 id=constraints><code>constraints</code></h3><p><a id=constraints></a></p><p>Fastify&#39;s built in route constraints are provided by <code>find-my-way</code>, which allow constraining routes by <code>version</code> or <code>host</code>. You are able to add new constraint strategies, or override the built in strategies by providing a <code>constraints</code> object with strategies for <code>find-my-way</code>. You can find more information on constraint strategies in the <a href=https://github.com/delvedor/find-my-way>find-my-way</a> documentation.</p><pre><code class=language-js>const customVersionStrategy = {
+  storage: function () {
+    const versions = {}
+    return {
+      get: (version) =&gt; { return versions[version] || null },
+      set: (version, store) =&gt; { versions[version] = store }
+    }
+  },
+  deriveVersion: (req, ctx) =&gt; {
+    return req.headers[&#39;accept&#39;]
+  }
+}
+
+const fastify = require(&#39;fastify&#39;)({
+  constraints: {
+    version: customVersionStrategy
+  }
+})
+</code></pre><h3 id=return503onclosing><code>return503OnClosing</code></h3><p><a id=factory-return-503-on-closing></a></p><p>Returns 503 after calling <code>close</code> server method. If <code>false</code>, the server routes the incoming request as usual.</p><ul><li>Default: <code>true</code></li></ul><h3 id=ajv><code>ajv</code></h3><p><a id=factory-ajv></a></p><p>Configure the Ajv v8 instance used by Fastify without providing a custom one. The default configuration is explained in the <a href=Validation-and-Serialization.md#schema-validator>#schema-validator</a> section.</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+  ajv: {
+    customOptions: {
+      removeAdditional: &#39;all&#39; // Refer to [ajv options](https://ajv.js.org/#options)
+    },
+    plugins: [
+      require(&#39;ajv-merge-patch&#39;),
+      [require(&#39;ajv-keywords&#39;), &#39;instanceof&#39;]
+      // Usage: [plugin, pluginOptions] - Plugin with options
+      // Usage: plugin - Plugin without options
+    ]
+  }
+})
+</code></pre><h3 id=serializeropts><code>serializerOpts</code></h3><p><a id=serializer-opts></a></p><p>Customize the options of the default <a href=https://github.com/fastify/fast-json-stringify#options><code>fast-json-stringify</code></a> instance that serialize the response&#39;s payload:</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+  serializerOpts: {
+    rounding: &#39;ceil&#39;
+  }
+})
+</code></pre><h3 id=http2sessiontimeout><code>http2SessionTimeout</code></h3><p><a id=http2-session-timeout></a></p><p>Set a default <a href=https://nodejs.org/api/http2.html#http2_http2session_settimeout_msecs_callback>timeout</a> to every incoming HTTP/2 session. The session will be closed on the timeout. Default: <code>72000</code> ms.</p><p>Note that this is needed to offer the graceful &quot;close&quot; experience when using HTTP/2. The low default has been chosen to mitigate denial of service attacks. When the server is behind a load balancer or can scale automatically this value can be increased to fit the use case. Node core defaults this to <code>0</code>. `</p><h3 id=frameworkerrors><code>frameworkErrors</code></h3><p><a id=framework-errors></a></p><ul><li>Default: <code>null</code></li></ul><p>Fastify provides default error handlers for the most common use cases. It is possible to override one or more of those handlers with custom code using this option.</p><p><em>Note: Only <code>FST_ERR_BAD_URL</code> is implemented at the moment.</em></p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+  frameworkErrors: function (error, req, res) {
+    if (error instanceof FST_ERR_BAD_URL) {
+      res.code(400)
+      return res.send(&quot;Provided url is not valid&quot;)
+    } else {
+      res.send(err)
+    }
+  }
+})
+</code></pre><h3 id=clienterrorhandler><code>clientErrorHandler</code></h3><p><a id=client-error-handler></a></p><p>Set a <a href=https://nodejs.org/api/http.html#http_event_clienterror>clientErrorHandler</a> that listens to <code>error</code> events emitted by client connections and responds with a <code>400</code>.</p><p>It is possible to override the default <code>clientErrorHandler</code> using this option.</p><ul><li><p>Default:</p><pre><code class=language-js>function defaultClientErrorHandler (err, socket) {
+if (err.code === &#39;ECONNRESET&#39;) {
+  return
+}
+
+const body = JSON.stringify({
+  error: http.STATUS_CODES[&#39;400&#39;],
+  message: &#39;Client Error&#39;,
+  statusCode: 400
+})
+this.log.trace({ err }, &#39;client error&#39;)
+
+if (socket.writable) {
+  socket.end([
+    &#39;HTTP/1.1 400 Bad Request&#39;,
+    `Content-Length: ${body.length}`,
+    `Content-Type: application/json\r\n\r\n${body}`
+  ].join(&#39;\r\n&#39;))
+}
+}
+</code></pre></li></ul><p><em>Note: <code>clientErrorHandler</code> operates with raw socket. The handler is expected to return a properly formed HTTP response that includes a status line, HTTP headers and a message body. Before attempting to write the socket, the handler should check if the socket is still writable as it may have already been destroyed.</em></p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
+  clientErrorHandler: function (err, socket) {
+    const body = JSON.stringify({
+      error: {
+        message: &#39;Client error&#39;,
+        code: &#39;400&#39;
+      }
+    })
+
+    // `this` is bound to fastify instance
+    this.log.trace({ err }, &#39;client error&#39;)
+
+    // the handler is responsible for generating a valid HTTP response
+    socket.end([
+      &#39;HTTP/1.1 400 Bad Request&#39;,
+      `Content-Length: ${body.length}`,
+      `Content-Type: application/json\r\n\r\n${body}`
+    ].join(&#39;\r\n&#39;))
+  }
+})
+</code></pre><h3 id=rewriteurl><code>rewriteUrl</code></h3><p><a id=rewrite-url></a></p><p>Set a sync callback function that must return a string that allows rewriting URLs.</p><blockquote><p>Rewriting a URL will modify the <code>url</code> property of the <code>req</code> object</p></blockquote><pre><code class=language-js>function rewriteUrl (req) { // req is the Node.js HTTP request
+  return req.url === &#39;/hi&#39; ? &#39;/hello&#39; : req.url;
+}
+</code></pre><p>Note that <code>rewriteUrl</code> is called <em>before</em> routing, it is not encapsulated and it is an instance-wide configuration.</p><h2 id=instance>Instance</h2><h3 id=server-methods>Server Methods</h3><h4 id=server>server</h4><p><a id=server></a></p><p><code>fastify.server</code>: The Node core <a href=https://nodejs.org/api/http.html#http_class_http_server>server</a> object as returned by the <a href=#factory><strong><code>Fastify factory function</code></strong></a>.</p><h4 id=after>after</h4><p><a id=after></a></p><p>Invoked when the current plugin and all the plugins that have been registered within it have finished loading. It is always executed before the method <code>fastify.ready</code>.</p><pre><code class=language-js>fastify
+  .register((instance, opts, done) =&gt; {
+    console.log(&#39;Current plugin&#39;)
+    done()
+  })
+  .after(err =&gt; {
+    console.log(&#39;After current plugin&#39;)
+  })
+  .register((instance, opts, done) =&gt; {
+    console.log(&#39;Next plugin&#39;)
+    done()
+  })
+  .ready(err =&gt; {
+    console.log(&#39;Everything has been loaded&#39;)
+  })
+</code></pre><p>In case <code>after()</code> is called without a function, it returns a <code>Promise</code>:</p><pre><code class=language-js>fastify.register(async (instance, opts) =&gt; {
+  console.log(&#39;Current plugin&#39;)
+})
+
+await fastify.after()
+console.log(&#39;After current plugin&#39;)
+
+fastify.register(async (instance, opts) =&gt; {
+  console.log(&#39;Next plugin&#39;)
+})
+
+await fastify.ready()
+
+console.log(&#39;Everything has been loaded&#39;)
+</code></pre><h4 id=ready>ready</h4><p><a id=ready></a></p><p>Function called when all the plugins have been loaded. It takes an error parameter if something went wrong.</p><pre><code class=language-js>fastify.ready(err =&gt; {
+  if (err) throw err
+})
+</code></pre><p>If it is called without any arguments, it will return a <code>Promise</code>:</p><pre><code class=language-js>fastify.ready().then(() =&gt; {
+  console.log(&#39;successfully booted!&#39;)
+}, (err) =&gt; {
+  console.log(&#39;an error happened&#39;, err)
+})
+</code></pre><h4 id=listen>listen</h4><p><a id=listen></a></p><p>Starts the server and internally waits for the <code>.ready()</code> event. The signature is <code>.listen([options][, callback])</code>. Both the <code>options</code> object and the <code>callback</code> parameters follow the <a href=https://nodejs.org/api/net.html#serverlistenoptions-callback>Node.js core</a> parameter definitions.</p><p>By default, the server will listen on the address(es) resolved by <code>localhost</code> when no specific host is provided. If listening on any available interface is desired, then specifying <code>0.0.0.0</code> for the address will listen on all IPv4 addresses. The following table details the possible values for <code>host</code> when targeting <code>localhost</code>, and what the result of those values for <code>host</code> will be.</p><table><thead><tr><th>Host</th><th>IPv4</th><th>IPv6</th></tr></thead><tbody><tr><td><code>::</code></td><td>✅<sup>*</sup></td><td>✅</td></tr><tr><td><code>::</code> + <a href=https://nodejs.org/api/net.html#serverlistenoptions-callback><code>ipv6Only</code></a></td><td>🚫</td><td>✅</td></tr><tr><td><code>0.0.0.0</code></td><td>✅</td><td>🚫</td></tr><tr><td><code>localhost</code></td><td>✅</td><td>✅</td></tr><tr><td><code>127.0.0.1</code></td><td>✅</td><td>🚫</td></tr><tr><td><code>::1</code></td><td>🚫</td><td>✅</td></tr></tbody></table><p><sup>*</sup> Using <code>::</code> for the address will listen on all IPv6 addresses and, depending on OS, may also listen on <a href=https://nodejs.org/api/net.html#serverlistenport-host-backlog-callback>all IPv4 addresses</a>.</p><p>Be careful when deciding to listen on all interfaces; it comes with inherent <a href=https://web.archive.org/web/20170831174611/https://snyk.io/blog/mongodb-hack-and-secure-defaults/ >security risks</a>.</p><p>The default is to listen on <code>port: 0</code> (which picks the first available open port) and <code>host: &#39;localhost&#39;</code>:</p><pre><code class=language-js>fastify.listen((err, address) =&gt; {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+})
+</code></pre><p>Specifying an address is also supported:</p><pre><code class=language-js>fastify.listen({ port: 3000, host: &#39;127.0.0.1&#39; }, (err, address) =&gt; {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+})
+</code></pre><p>If no callback is provided a Promise is returned:</p><pre><code class=language-js>fastify.listen({ port: 3000 })
+  .then((address) =&gt; console.log(`server listening on ${address}`))
+  .catch(err =&gt; {
+    console.log(&#39;Error starting server:&#39;, err)
+    process.exit(1)
+  })
+</code></pre><p>When deploying to a Docker, and potentially other, containers, it is advisable to listen on <code>0.0.0.0</code> because they do not default to exposing mapped ports to <code>localhost</code>:</p><pre><code class=language-js>fastify.listen({ port: 3000, host: &#39;0.0.0.0&#39; }, (err, address) =&gt; {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+})
+</code></pre><p>If the <code>port</code> is omitted (or is set to zero), a random available port is automatically chosen (available via <code>fastify.server.address().port</code>).</p><p>The default options of listen are:</p><pre><code class=language-js>fastify.listen({
+  port: 0,
+  host: &#39;localhost&#39;,
+  exclusive: false,
+  readableAll: false,
+  writableAll: false,
+  ipv6Only: false
+}, (err) =&gt; {})
+</code></pre><h4 id=addresses>addresses</h4><p><a id=addresses></a></p><p>This method returns an array of addresses that the server is listening on. If you call it before <code>listen()</code> is called or after the <code>close()</code> function, it will return an empty array.</p><pre><code class=language-js>await fastify.listen({ port: 8080 })
+const addresses = fastify.addresses()
+// [
+//   { port: 8080, family: &#39;IPv6&#39;, address: &#39;::1&#39; },
+//   { port: 8080, family: &#39;IPv4&#39;, address: &#39;127.0.0.1&#39; }
+// ]
+</code></pre><p>Note that the array contains the <code>fastify.server.address()</code> too.</p><h4 id=getdefaultroute>getDefaultRoute</h4><p><a id=getDefaultRoute></a></p><p>The <code>defaultRoute</code> handler handles requests that do not match any URL specified by your Fastify application. This defaults to the 404 handler, but can be overridden with <a href=#setdefaultroute>setDefaultRoute</a>. Method to get the <code>defaultRoute</code> for the server:</p><pre><code class=language-js>const defaultRoute = fastify.getDefaultRoute()
+</code></pre><h4 id=setdefaultroute>setDefaultRoute</h4><p><a id=setDefaultRoute></a></p><p><strong>Note</strong>: The default 404 handler, or one set using <code>setNotFoundHandler</code>, will never trigger if the default route is overridden. Use <a href=#setnotfoundhandler>setNotFoundHandler</a> if you want to customize 404 handling instead. Method to set the <code>defaultRoute</code> for the server:</p><pre><code class=language-js>const defaultRoute = function (req, res) {
+  res.end(&#39;hello world&#39;)
+}
+
+fastify.setDefaultRoute(defaultRoute)
+</code></pre><h4 id=routing>routing</h4><p><a id=routing></a></p><p>Method to access the <code>lookup</code> method of the internal router and match the request to the appropriate handler:</p><pre><code class=language-js>fastify.routing(req, res)
+</code></pre><h4 id=route>route</h4><p><a id=route></a></p><p>Method to add routes to the server, it also has shorthand functions, check <a href=.././Routes>here</a>.</p><h4 id=close>close</h4><p><a id=close></a></p><p><code>fastify.close(callback)</code>: call this function to close the server instance and run the <a href=.././Hooks#on-close><code>&#39;onClose&#39;</code></a> hook.</p><p>Calling <code>close</code> will also cause the server to respond to every new incoming request with a <code>503</code> error and destroy that request. See <a href=#factory-return-503-on-closing><code>return503OnClosing</code> flags</a> for changing this behavior.</p><p>If it is called without any arguments, it will return a Promise:</p><pre><code class=language-js>fastify.close().then(() =&gt; {
+  console.log(&#39;successfully closed!&#39;)
+}, (err) =&gt; {
+  console.log(&#39;an error happened&#39;, err)
+})
+</code></pre><h4 id=decorate>decorate*</h4><p><a id=decorate></a></p><p>Function useful if you need to decorate the fastify instance, Reply or Request, check <a href=.././Decorators>here</a>.</p><h4 id=register>register</h4><p><a id=register></a></p><p>Fastify allows the user to extend its functionality with plugins. A plugin can be a set of routes, a server decorator, or whatever, check <a href=.././Plugins>here</a>.</p><h4 id=addhook>addHook</h4><p><a id=addHook></a></p><p>Function to add a specific hook in the lifecycle of Fastify, check <a href=.././Hooks>here</a>.</p><h4 id=prefix>prefix</h4><p><a id=prefix></a></p><p>The full path that will be prefixed to a route.</p><p>Example:</p><pre><code class=language-js>fastify.register(function (instance, opts, done) {
+  instance.get(&#39;/foo&#39;, function (request, reply) {
+    // Will log &quot;prefix: /v1&quot;
+    request.log.info(&#39;prefix: %s&#39;, instance.prefix)
+    reply.send({ prefix: instance.prefix })
+  })
+
+  instance.register(function (instance, opts, done) {
+    instance.get(&#39;/bar&#39;, function (request, reply) {
+      // Will log &quot;prefix: /v1/v2&quot;
+      request.log.info(&#39;prefix: %s&#39;, instance.prefix)
+      reply.send({ prefix: instance.prefix })
+    })
+
+    done()
+  }, { prefix: &#39;/v2&#39; })
+
+  done()
+}, { prefix: &#39;/v1&#39; })
+</code></pre><h4 id=pluginname>pluginName</h4><p><a id=pluginName></a></p><p>Name of the current plugin. The root plugin is called <code>&#39;fastify&#39;</code>. There are different ways to define a name (in order).</p><ol><li>If you use <a href=https://github.com/fastify/fastify-plugin>fastify-plugin</a> the metadata <code>name</code> is used.</li><li>If the exported plugin has the <code>Symbol.for(&#39;fastify.display-name&#39;)</code> property, then the value of that property is used. Example: <code>pluginFn[Symbol.for(&#39;fastify.display-name&#39;)] = &quot;Custom Name&quot;</code></li><li>If you <code>module.exports</code> a plugin the filename is used.</li><li>If you use a regular <a href=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions#Defining_functions>function declaration</a> the function name is used.</li></ol><p><em>Fallback</em>: The first two lines of your plugin will represent the plugin name. Newlines are replaced by <code>--</code>. This will help to identify the root cause when you deal with many plugins.</p><p>Important: If you have to deal with nested plugins, the name differs with the usage of the <a href=https://github.com/fastify/fastify-plugin>fastify-plugin</a> because no new scope is created and therefore we have no place to attach contextual data. In that case, the plugin name will represent the boot order of all involved plugins in the format of <code>fastify -&gt; plugin-A -&gt; plugin-B</code>.</p><h4 id=hasplugin>hasPlugin</h4><p><a id=hasPlugin></a></p><p>Method to check if a specific plugin has been registered. Relies on the plugin metadata name. Returns <code>true</code> if the plugin is registered. Otherwise, returns <code>false</code>.</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)()
+fastify.register(require(&#39;@fastify/cookie&#39;), {
+  secret: &#39;my-secret&#39;,
+  parseOptions: {}
+})
+
+fastify.ready(() =&gt; {
+  fastify.hasPlugin(&#39;@fastify/cookie&#39;) // true
+})
+</code></pre><h4 id=log>log</h4><p><a id=log></a></p><p>The logger instance, check <a href=.././Logging>here</a>.</p><h4 id=version>version</h4><p><a id=version></a></p><p>Fastify version of the instance. Used for plugin support. See <a href=.././Plugins#handle-the-scope>Plugins</a> for information on how the version is used by plugins.</p><h4 id=inject>inject</h4><p><a id=inject></a></p><p>Fake HTTP injection (for testing purposes) <a href=../../Guides/Testing#benefits-of-using-fastifyinject>here</a>.</p><h4 id=addschema>addSchema</h4><p><a id=add-schema></a></p><p><code>fastify.addSchema(schemaObj)</code>, adds a JSON schema to the Fastify instance. This allows you to reuse it everywhere in your application just by using the standard <code>$ref</code> keyword.</p><p>To learn more, read the <a href=.././Validation-and-Serialization>Validation and Serialization</a> documentation.</p><h4 id=getschemas>getSchemas</h4><p><a id=get-schemas></a></p><p><code>fastify.getSchemas()</code>, returns a hash of all schemas added via <code>.addSchema</code>. The keys of the hash are the <code>$id</code>s of the JSON Schema provided.</p><h4 id=getschema>getSchema</h4><p><a id=get-schema></a></p><p><code>fastify.getSchema(id)</code>, return the JSON schema added with <code>.addSchema</code> and the matching <code>id</code>. It returns <code>undefined</code> if it is not found.</p><h4 id=setreplyserializer>setReplySerializer</h4><p><a id=set-reply-serializer></a></p><p>Set the reply serializer for all the routes. This will be used as default if a <a href=.././Reply#serializerfunc>Reply.serializer(func)</a> has not been set. The handler is fully encapsulated, so different plugins can set different error handlers. Note: the function parameter is called only for status <code>2xx</code>. Check out the <a href=#seterrorhandler><code>setErrorHandler</code></a> for errors.</p><pre><code class=language-js>fastify.setReplySerializer(function (payload, statusCode){
+  // serialize the payload with a sync function
+  return `my serialized ${statusCode} content: ${payload}`
+})
+</code></pre><h4 id=setvalidatorcompiler>setValidatorCompiler</h4><p><a id=set-validator-compiler></a></p><p>Set the schema validator compiler for all routes. See <a href=.././Validation-and-Serialization#schema-validator>#schema-validator</a>.</p><h4 id=setschemaerrorformatter>setSchemaErrorFormatter</h4><p><a id=set-schema-error-formatter></a></p><p>Set the schema error formatter for all routes. See <a href=.././Validation-and-Serialization#schemaerrorformatter>#error-handling</a>.</p><h4 id=setserializercompiler>setSerializerCompiler</h4><p><a id=set-serializer-resolver></a></p><p>Set the schema serializer compiler for all routes. See <a href=.././Validation-and-Serialization#schema-serializer>#schema-serializer</a>. <strong>Note:</strong> <a href=#set-reply-serializer><code>setReplySerializer</code></a> has priority if set!</p><h4 id=validatorcompiler>validatorCompiler</h4><p><a id=validator-compiler></a></p><p>This property can be used to get the schema validator. If not set, it will be <code>null</code> until the server starts, then it will be a function with the signature <code>function ({ schema, method, url, httpPart })</code> that returns the input <code>schema</code> compiled to a function for validating data. The input <code>schema</code> can access all the shared schemas added with <a href=#add-schema><code>.addSchema</code></a> function.</p><h4 id=serializercompiler>serializerCompiler</h4><p><a id=serializer-compiler></a></p><p>This property can be used to get the schema serializer. If not set, it will be <code>null</code> until the server starts, then it will be a function with the signature <code>function ({ schema, method, url, httpPart })</code> that returns the input <code>schema</code> compiled to a function for validating data. The input <code>schema</code> can access all the shared schemas added with <a href=#add-schema><code>.addSchema</code></a> function.</p><h4 id=schemaerrorformatter>schemaErrorFormatter</h4><p><a id=schema-error-formatter></a></p><p>This property can be used to set a function to format errors that happen while the <code>validationCompiler</code> fails to validate the schema. See <a href=.././Validation-and-Serialization#schemaerrorformatter>#error-handling</a>.</p><h4 id=schemacontroller>schemaController</h4><p><a id=schema-controller></a></p><p>This property can be used to fully manage:</p><ul><li><code>bucket</code>: where the schemas of your application will be stored</li><li><code>compilersFactory</code>: what module must compile the JSON schemas</li></ul><p>It can be useful when your schemas are stored in another data structure that is unknown to Fastify. See <a href=https://github.com/fastify/fastify/issues/2446>issue #2446</a> for an example of what this property helps to resolve.</p><p>Another use case is to tweak all the schemas processing. Doing so it is possible to use Ajv v8 JTD or Standalone feature. To use such as JTD or the Standalone mode, refers to the <a href=https://github.com/fastify/ajv-compiler#usage><code>@fastify/ajv-compiler</code> documentation</a>.</p><pre><code class=language-js>const fastify = Fastify({
+  schemaController: {
+    /**
+     * This factory is called whenever `fastify.register()` is called.
+     * It may receive as input the schemas of the parent context if some schemas have been added.
+     * @param {object} parentSchemas these schemas will be returned by the
+     * `getSchemas()` method function of the returned `bucket`.
+     */
+    bucket: function factory (parentSchemas) {
+      return {
+        add (inputSchema) {
+          // This function must store the schema added by the user.
+          // This function is invoked when `fastify.addSchema()` is called.
+        },
+        getSchema (schema$id) {
+          // This function must return the raw schema requested by the `schema$id`.
+          // This function is invoked when `fastify.getSchema(id)` is called.
+          return aSchema
+        },
+        getSchemas () {
+          // This function must return all the schemas referenced by the routes schemas&#39; $ref
+          // It must return a JSON where the property is the schema `$id` and the value is the raw JSON Schema.
+          const allTheSchemaStored = {
+            &#39;schema$id1&#39;: schema1,
+            &#39;schema$id2&#39;: schema2
+          }
+          return allTheSchemaStored
+        }
+      }
+    },
+
+    /**
+     * The compilers factory let you fully control the validator and serializer
+     * in the Fastify&#39;s lifecycle, providing the encapsulation to your compilers.
+     */
+    compilersFactory: {
+      /**
+       * This factory is called whenever a new validator instance is needed.
+       * It may be called whenever `fastify.register()` is called only if new schemas have been added to the
+       * encapsulation context.
+       * It may receive as input the schemas of the parent context if some schemas have been added.
+       * @param {object} externalSchemas these schemas will be returned by the
+       * `bucket.getSchemas()`. Needed to resolve the external references $ref.
+       * @param {object} ajvServerOption the server `ajv` options to build your compilers accordingly
+       */
+      buildValidator: function factory (externalSchemas, ajvServerOption) {
+        // This factory function must return a schema validator compiler.
+        // See [#schema-validator](.././Validation-and-Serialization#schema-validator) for details.
+        const yourAjvInstance = new Ajv(ajvServerOption.customOptions)
+        return function validatorCompiler ({ schema, method, url, httpPart }) {
+          return yourAjvInstance.compile(schema)
+        }
+      },
+
+      /**
+       * This factory is called whenever a new serializer instance is needed.
+       * It may be called whenever `fastify.register()` is called only if new schemas have been added to the
+       * encapsulation context.
+       * It may receive as input the schemas of the parent context if some schemas have been added.
+       * @param {object} externalSchemas these schemas will be returned by the
+       * `bucket.getSchemas()`. Needed to resolve the external references $ref.
+       * @param {object} serializerOptsServerOption the server `serializerOpts`
+       * options to build your compilers accordingly
+       */
+      buildSerializer: function factory (externalSchemas, serializerOptsServerOption) {
+        // This factory function must return a schema serializer compiler.
+        // See [#schema-serializer](.././Validation-and-Serialization#schema-serializer) for details.
+        return function serializerCompiler ({ schema, method, url, httpStatus }) {
+          return data =&gt; JSON.stringify(data)
+        }
+      }
+    }
+  }
+});
+</code></pre><h4 id=setnotfoundhandler>setNotFoundHandler</h4><p><a id=set-not-found-handler></a></p><p><code>fastify.setNotFoundHandler(handler(request, reply))</code>: set the 404 handler. This call is encapsulated by prefix, so different plugins can set different not found handlers if a different <a href=.././Plugins#route-prefixing-option><code>prefix</code> option</a> is passed to <code>fastify.register()</code>. The handler is treated as a regular route handler so requests will go through the full <a href=.././Lifecycle#lifecycle>Fastify lifecycle</a>. <em>async-await</em> is supported as well.</p><p>You can also register <a href=.././Hooks#route-hooks><code>preValidation</code></a> and <a href=.././Hooks#route-hooks><code>preHandler</code></a> hooks for the 404 handler.</p><p><em>Note: The <code>preValidation</code> hook registered using this method will run for a route that Fastify does not recognize and <strong>not</strong> when a route handler manually calls <a href=.././Reply#call-not-found><code>reply.callNotFound</code></a></em>. In which case, only preHandler will be run.</p><pre><code class=language-js>fastify.setNotFoundHandler({
+  preValidation: (req, reply, done) =&gt; {
+    // your code
+    done()
+  },
+  preHandler: (req, reply, done) =&gt; {
+    // your code
+    done()
+  }
+}, function (request, reply) {
+    // Default not found handler with preValidation and preHandler hooks
+})
+
+fastify.register(function (instance, options, done) {
+  instance.setNotFoundHandler(function (request, reply) {
+    // Handle not found request without preValidation and preHandler hooks
+    // to URLs that begin with &#39;/v1&#39;
+  })
+  done()
+}, { prefix: &#39;/v1&#39; })
+</code></pre><p>Fastify calls setNotFoundHandler to add a default 404 handler at startup before plugins are registered. If you would like to augment the behavior of the default 404 handler, for example with plugins, you can call setNotFoundHandler with no arguments <code>fastify.setNotFoundHandler()</code> within the context of these registered plugins.</p><h4 id=seterrorhandler>setErrorHandler</h4><p><a id=set-error-handler></a></p><p><code>fastify.setErrorHandler(handler(error, request, reply))</code>: Set a function that will be called whenever an error happens. The handler is bound to the Fastify instance and is fully encapsulated, so different plugins can set different error handlers. <em>async-await</em> is supported as well.</p><p><em>Note: If the error <code>statusCode</code> is less than 400, Fastify will automatically set it at 500 before calling the error handler.</em></p><p><em>Also note</em> that <code>setErrorHandler</code> will <strong><em>not</em></strong> catch any error inside an <code>onResponse</code> hook because the response has already been sent to the client.</p><pre><code class=language-js>fastify.setErrorHandler(function (error, request, reply) {
+  // Log error
+  this.log.error(error)
+  // Send error response
+  reply.status(409).send({ ok: false })
+})
+</code></pre><p>Fastify is provided with a default function that is called if no error handler is set. It can be accessed using <code>fastify.errorHandler</code> and it logs the error with respect to its <code>statusCode</code>.</p><pre><code class=language-js>var statusCode = error.statusCode
+if (statusCode &gt;= 500) {
+  log.error(error)
+} else if (statusCode &gt;= 400) {
+  log.info(error)
+} else {
+  log.error(error)
+}
+</code></pre><h4 id=addconstraintstrategy>addConstraintStrategy</h4><p><a id=addConstraintStrategy></a></p><p>Function to add a custom constraint strategy. To register a new type of constraint, you must add a new constraint strategy that knows how to match values to handlers, and that knows how to get the constraint value from a request.</p><p>Add a custom constraint strategy using the <code>fastify.addConstraintStrategy</code> method:</p><pre><code class=language-js>const customResponseTypeStrategy = {
+  // strategy name for referencing in the route handler `constraints` options
+  name: &#39;accept&#39;,
+  // storage factory for storing routes in the find-my-way route tree
+  storage: function () {
+    let handlers = {}
+    return {
+      get: (type) =&gt; { return handlers[type] || null },
+      set: (type, store) =&gt; { handlers[type] = store }
+    }
+  },
+  // function to get the value of the constraint from each incoming request
+  deriveConstraint: (req, ctx) =&gt; {
+    return req.headers[&#39;accept&#39;]
+  },
+  // optional flag marking if handlers without constraints can match requests that have a value for this constraint
+  mustMatchWhenDerived: true
+}
+
+const router = Fastify();
+router.addConstraintStrategy(customResponseTypeStrategy);
+</code></pre><h4 id=hasconstraintstrategy>hasConstraintStrategy</h4><p><a id=hasConstraintStrategy></a></p><p>The <code>fastify.hasConstraintStrategy(strategyName)</code> checks if there already exists a custom constraint strategy with the same name.</p><h4 id=printroutes>printRoutes</h4><p><a id=print-routes></a></p><p><code>fastify.printRoutes()</code>: Prints the representation of the internal radix tree used by the router, useful for debugging. Alternatively, <code>fastify.printRoutes({ commonPrefix: false })</code> can be used to print the flattened routes tree.</p><p><em>Remember to call it inside or after a <code>ready</code> call.</em></p><pre><code class=language-js>fastify.get(&#39;/test&#39;, () =&gt; {})
+fastify.get(&#39;/test/hello&#39;, () =&gt; {})
+fastify.get(&#39;/hello/world&#39;, () =&gt; {})
+fastify.get(&#39;/helicopter&#39;, () =&gt; {})
+
+fastify.ready(() =&gt; {
+  console.log(fastify.printRoutes())
+  // └── /
+  //     ├── test (GET)
+  //     │   └── /hello (GET)
+  //     └── hel
+  //         ├── lo/world (GET)
+  //         └── licopter (GET)
+
+  console.log(fastify.printRoutes({ commonPrefix: false }))
+  // └── / (-)
+  //     ├── test (GET)
+  //     │   └── /hello (GET)
+  //     ├── hello/world (GET)
+  //     └── helicopter (GET)
+
+})
+</code></pre><p><code>fastify.printRoutes({ includeMeta: (true | []) })</code> will display properties from the <code>route.store</code> object for each displayed route. This can be an <code>array</code> of keys (e.g. <code>[&#39;onRequest&#39;, Symbol(&#39;key&#39;)]</code>), or <code>true</code> to display all properties. A shorthand option, <code>fastify.printRoutes({ includeHooks: true })</code> will include all <a href=.././Hooks>hooks</a>.</p><pre><code class=language-js>  console.log(fastify.printRoutes({ includeHooks: true, includeMeta: [&#39;metaProperty&#39;] }))
+  // └── /
+  //     ├── test (GET)
+  //     │   • (onRequest) [&quot;anonymous()&quot;,&quot;namedFunction()&quot;]
+  //     │   • (metaProperty) &quot;value&quot;
+  //     │   └── /hello (GET)
+  //     └── hel
+  //         ├── lo/world (GET)
+  //         │   • (onTimeout) [&quot;anonymous()&quot;]
+  //         └── licopter (GET)
+
+  console.log(fastify.printRoutes({ includeHooks: true }))
+  // └── /
+  //     ├── test (GET)
+  //     │   • (onRequest) [&quot;anonymous()&quot;,&quot;namedFunction()&quot;]
+  //     │   └── /hello (GET)
+  //     └── hel
+  //         ├── lo/world (GET)
+  //         │   • (onTimeout) [&quot;anonymous()&quot;]
+  //         └── licopter (GET)
+</code></pre><h4 id=printplugins>printPlugins</h4><p><a id=print-plugins></a></p><p><code>fastify.printPlugins()</code>: Prints the representation of the internal plugin tree used by the avvio, useful for debugging require order issues.</p><p><em>Remember to call it inside or after a <code>ready</code> call.</em></p><pre><code class=language-js>fastify.register(async function foo (instance) {
+  instance.register(async function bar () {})
+})
+fastify.register(async function baz () {})
+
+fastify.ready(() =&gt; {
+  console.error(fastify.printPlugins())
+  // will output the following to stderr:
+  // └── root
+  //     ├── foo
+  //     │   └── bar
+  //     └── baz
+})
+</code></pre><h4 id=addcontenttypeparser>addContentTypeParser</h4><p><a id=addContentTypeParser></a></p><p><code>fastify.addContentTypeParser(content-type, options, parser)</code> is used to pass custom parser for a given content type. Useful for adding parsers for custom content types, e.g. <code>text/json, application/vnd.oasis.opendocument.text</code>. <code>content-type</code> can be a string, string array or RegExp.</p><pre><code class=language-js>// The two arguments passed to getDefaultJsonParser are for ProtoType poisoning
+// and Constructor Poisoning configuration respectively. The possible values are
+// &#39;ignore&#39;, &#39;remove&#39;, &#39;error&#39;. ignore  skips all validations and it is similar
+// to calling JSON.parse() directly. See the
+// [`secure-json-parse` documentation](https://github.com/fastify/secure-json-parse#api) for more information.
+
+fastify.addContentTypeParser(&#39;text/json&#39;, { asString: true }, fastify.getDefaultJsonParser(&#39;ignore&#39;, &#39;ignore&#39;))
+</code></pre><h4 id=hascontenttypeparser>hasContentTypeParser</h4><p><a id=hasContentTypeParser></a></p><p><code>fastify.hasContentTypeParser(contentType)</code> is used to check whether there is a content type parser in the current context for the specified content type.</p><pre><code class=language-js>fastify.hasContentTypeParser(&#39;text/json&#39;)
+
+fastify.hasContentTypeParser(/^.+\/json$/)
+</code></pre><h4 id=removecontenttypeparser>removeContentTypeParser</h4><p><a id=removeContentTypeParser></a></p><p><code>fastify.removeContentTypeParser(contentType)</code> is used to remove content type parsers in the current context. This method allows for example to remove the both built-in parsers for <code>application/json</code> and <code>text/plain</code>.</p><pre><code class=language-js>fastify.removeContentTypeParser(&#39;application/json&#39;)
+
+fastify.removeContentTypeParser([&#39;application/json&#39;, &#39;text/plain&#39;])
+</code></pre><h4 id=removeallcontenttypeparsers>removeAllContentTypeParsers</h4><p><a id=removeAllContentTypeParsers></a></p><p>The <code>fastify.removeAllContentTypeParsers()</code> method allows all content type parsers in the current context to be removed. A use case of this method is the implementation of catch-all content type parser. Before adding this parser with <code>fastify.addContentTypeParser()</code> one could call the <code>removeAllContentTypeParsers</code> method.</p><p>For more details about the usage of the different content type parser APIs see <a href=.././ContentTypeParser#usage>here</a>.</p><h4 id=getdefaultjsonparser>getDefaultJsonParser</h4><p><a id=getDefaultJsonParser></a></p><p><code>fastify.getDefaultJsonParser(onProtoPoisoning, onConstructorPoisoning)</code> takes two arguments. First argument is ProtoType poisoning configuration and second argument is constructor poisoning configuration. See the <a href=https://github.com/fastify/secure-json-parse#api><code>secure-json-parse</code> documentation</a> for more information.</p><h4 id=defaulttextparser>defaultTextParser</h4><p><a id=defaultTextParser></a></p><p><code>fastify.defaultTextParser()</code> can be used to parse content as plain text.</p><pre><code class=language-js>fastify.addContentTypeParser(&#39;text/json&#39;, { asString: true }, fastify.defaultTextParser())
+</code></pre><h4 id=errorhandler>errorHandler</h4><p><a id=errorHandler></a></p><p><code>fastify.errorHandler</code> can be used to handle errors using fastify&#39;s default error handler.</p><pre><code class=language-js>fastify.get(&#39;/&#39;, {
+  errorHandler: (error, request, reply) =&gt; {
+    if (error.code === &#39;SOMETHING_SPECIFIC&#39;) {
+      reply.send({ custom: &#39;response&#39; })
+      return
+    }
+
+    fastify.errorHandler(error, request, response)
+  }
+}, handler)
+</code></pre><h4 id=initialconfig>initialConfig</h4><p><a id=initial-config></a></p><p><code>fastify.initialConfig</code>: Exposes a frozen read-only object registering the initial options passed down by the user to the Fastify instance.</p><p>Currently the properties that can be exposed are:</p><ul><li>connectionTimeout</li><li>keepAliveTimeout</li><li>bodyLimit</li><li>caseSensitive</li><li>allowUnsafeRegex</li><li>http2</li><li>https (it will return <code>false</code>/<code>true</code> or <code>{ allowHTTP1: true/false }</code> if explicitly passed)</li><li>ignoreTrailingSlash</li><li>disableRequestLogging</li><li>maxParamLength</li><li>onProtoPoisoning</li><li>onConstructorPoisoning</li><li>pluginTimeout</li><li>requestIdHeader</li><li>requestIdLogLabel</li><li>http2SessionTimeout</li></ul><pre><code class=language-js>const { readFileSync } = require(&#39;fs&#39;)
+const Fastify = require(&#39;fastify&#39;)
+
+const fastify = Fastify({
+  https: {
+    allowHTTP1: true,
+    key: readFileSync(&#39;./fastify.key&#39;),
+    cert: readFileSync(&#39;./fastify.cert&#39;)
+  },
+  logger: { level: &#39;trace&#39;},
+  ignoreTrailingSlash: true,
+  maxParamLength: 200,
+  caseSensitive: true,
+  trustProxy: &#39;127.0.0.1,192.168.1.1/24&#39;,
+})
+
+console.log(fastify.initialConfig)
+/*
+will log :
+{
+  caseSensitive: true,
+  https: { allowHTTP1: true },
+  ignoreTrailingSlash: true,
+  maxParamLength: 200
+}
+*/
+
+fastify.register(async (instance, opts) =&gt; {
+  instance.get(&#39;/&#39;, async (request, reply) =&gt; {
+    return instance.initialConfig
+    /*
+    will return :
+    {
+      caseSensitive: true,
+      https: { allowHTTP1: true },
+      ignoreTrailingSlash: true,
+      maxParamLength: 200
+    }
+    */
+  })
+
+  instance.get(&#39;/error&#39;, async (request, reply) =&gt; {
+    // will throw an error because initialConfig is read-only
+    // and can not be modified
+    instance.initialConfig.https.allowHTTP1 = false
+
+    return instance.initialConfig
+  })
+})
+
+// Start listening.
+fastify.listen({ port: 3000 }, (err) =&gt; {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+})
+</code></pre></div><hr><nav class=level></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+  var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
+  var currentMenu = document.getElementById('doc-menu-section')
+  if (titles.length && currentMenu) {
+    var submenu = document.createElement('ul')
+    titles.forEach(el => {
+      var currentSubmenuItem = document.createElement('li')
+      var currentSubmenuLink = document.createElement('a')
+      currentSubmenuLink.href = '#' + el.id
+      currentSubmenuLink.title = el.textContent
+      currentSubmenuLink.append(document.createTextNode(el.textContent))
+      currentSubmenuItem.append(currentSubmenuLink)
+      submenu.append(currentSubmenuItem)
+    })
+    currentMenu.append(submenu)
+  }
+
+  // dynamically creates header anchor links
+  var headers = document.querySelectorAll('#doc-content h3, #doc-content h4')
+  headers.forEach(el => {
+    var currentAnchorLink = document.createElement('a')
+    currentAnchorLink.className = 'anchor'
+    currentAnchorLink.href = "#" + el.id
+    currentAnchorLink.append(document.createTextNode('¶'))
+    el.insertBefore(currentAnchorLink, el.firstChild);
+  })</script><script>const contentLoaded = document.addEventListener('DOMContentLoaded', setTOCHeight)
+  const resize = window.addEventListener('resize', setTOCHeight)
+
+  function setTOCHeight() {
+    const docHeight = window.innerHeight
+    const tocSidebar = document.querySelector('#toc') || 0
+
+    const tocHeight = docHeight - tocSidebar.getBoundingClientRect().top
+
+    document.documentElement.style
+      .setProperty('--TOC-height', `${tocHeight}px`)
+  }
+
+  window.addEventListener('beforeunload', () => {
+    document.removeEventListener(contentLoaded)
+    window.removeEventListener(resize)
+  })</script></main><footer class="grey is-primary footer"><div class=container><div class="content has-text-centered"><p>Fastify, Copyright &copy; 2016-2022 <a href=https://openjsf.org/ target=_blank rel=noopener>OpenJS Foundation</a> and <a href=https://github.com/fastify/fastify#team target=_blank rel=noopener>The Fastify team</a>, Licensed under <a href=https://github.com/fastify/fastify/blob/master/LICENSE target=_blank rel=noopener>MIT</a></p><a href=https://www.netlify.com><img src=https://www.netlify.com/img/global/badges/netlify-color-accent.svg alt="Deploys by Netlify"></a><p><small>Icons by simpleicons.org</small></p></div></div></footer><script src=/js/main.1e1d476db6c0b326.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js integrity="sha512-s+tOYYcC3Jybgr9mVsdAxsRYlGNq4mlAurOrfNuGMQ/SCofNPu92tjE7YRZCsdEtWL1yGkqk15fU/ark206YTg==" crossorigin=anonymous></script><script>hljs.highlightAll();</script><script src=https://cdn.jsdelivr.net/npm/@docsearch/js@alpha></script><script type=text/javascript>docsearch({
+        appId: 'DMPMC33PLU',
+        apiKey: '12d46b3bfeee6511031cfe00778f3e45',
+        indexName: 'fastify',
+        container: '#algolia-search-input',
+        algoliaOptions: { 'facetFilters': ["version:latest", "tags:docs"] }
+      });</script></body></html>
