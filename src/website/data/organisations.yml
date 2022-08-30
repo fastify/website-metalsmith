@@ -114,6 +114,10 @@
   image: "jochen-schweizer.svg"
   link: "https://www.jochen-schweizer.de/"
 
+- name: "Job Pair"
+  image: "jobpair.svg"
+  link: "https://job-pair.com"
+
 - name: "localistars"
   image: "localistars.svg"
   link: "https://localistars.com"
