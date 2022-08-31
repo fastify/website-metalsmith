@@ -42,7 +42,7 @@
     "async": "^3.2.4",
     "axios": "^0.27.2",
     "clone": "^2.1.2",
-    "compare-versions": "^3.6.0",
+    "compare-versions": "^5.0.1",
     "debug": "^4.3.4",
     "js-yaml": "^4.1.0",
     "marked": "^4.1.0",
