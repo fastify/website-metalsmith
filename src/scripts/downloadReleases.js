@@ -7,7 +7,7 @@ const finished = promisify(require('stream').finished)
 const axios = require('axios')
 const unzip = require('unzip-stream')
 const parseLinkHeader = require('parse-link-header')
-const compareVersions = require('compare-versions')
+const { compareVersions, validate, compare } = require('compare-versions')
 const { fileExists } = require('./utils')
 
 const repository = process.argv[2] || 'fastify/fastify'
@@ -72,7 +72,7 @@ async function main () {
     // removes draft releases and pre-releases
     .filter((release) => !release.draft && !release.prerelease)
     // removes releases with invalid names (e.g. 0.2.0 did not have a release name)
-    .filter((release) => compareVersions.validate(release.name))
+    .filter((release) => validate(release.name))
     // sorts releases by name descendant
     .sort((a, b) => compareVersions(a.name, b.name) * -1)
     // creates version map and label per every release
@@ -91,7 +91,7 @@ async function main () {
     })
     // removes release prior to a given release
     .filter(({ name, version }) => {
-      const skip = compareVersions.compare(name, minRelease, '<')
+      const skip = compare(name, minRelease, '<')
       if (skip) {
         console.log(`Ignoring "${name}" as it's older than minimum version "${minRelease}"`)
       }
