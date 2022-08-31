@@ -282,7 +282,7 @@ const addresses = fastify.addresses()
 //   { port: 8080, family: &#39;IPv4&#39;, address: &#39;127.0.0.1&#39; }
 // ]
 </code></pre><p>Note that the array contains the <code>fastify.server.address()</code> too.</p><h4 id=getdefaultroute>getDefaultRoute</h4><p><a id=getDefaultRoute></a></p><p>The <code>defaultRoute</code> handler handles requests that do not match any URL specified by your Fastify application. This defaults to the 404 handler, but can be overridden with <a href=#setdefaultroute>setDefaultRoute</a>. Method to get the <code>defaultRoute</code> for the server:</p><pre><code class=language-js>const defaultRoute = fastify.getDefaultRoute()
-</code></pre><h4 id=setdefaultroute>setDefaultRoute</h4><p><a id=setDefaultRoute></a></p><p><strong>Note</strong>: The default 404 handler, or one set using <code>setNotFoundHandler</code>, will never trigger if the default route is overridden. Use <a href=#setnotfoundhandler>setNotFoundHandler</a> if you want to customize 404 handling instead. Method to set the <code>defaultRoute</code> for the server:</p><pre><code class=language-js>const defaultRoute = function (req, res) {
+</code></pre><h4 id=setdefaultroute>setDefaultRoute</h4><p><a id=setDefaultRoute></a></p><p><strong>Note</strong>: The default 404 handler, or one set using <code>setNotFoundHandler</code>, will never trigger if the default route is overridden. This sets the handler for the Fastify application, not just the current instance context. Use <a href=#setnotfoundhandler>setNotFoundHandler</a> if you want to customize 404 handling instead. Method to set the <code>defaultRoute</code> for the server:</p><pre><code class=language-js>const defaultRoute = function (req, res) {
   res.end(&#39;hello world&#39;)
 }
 
