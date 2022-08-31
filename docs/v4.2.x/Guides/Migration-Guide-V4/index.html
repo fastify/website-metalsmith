@@ -7,7 +7,7 @@ fastify.register(async fastify =&gt; {
     console.log(err.message) // &#39;kaboom&#39;
     throw new Error(&#39;caught&#39;)
   })
-
+  
   fastify.get(&#39;/encapsulated&#39;, async () =&gt; {
     throw new Error(&#39;kaboom&#39;)
   })

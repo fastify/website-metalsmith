@@ -106,7 +106,7 @@ function buildFastify () {
   fastify.get(&#39;/&#39;, function (request, reply) {
     reply.send({ hello: &#39;world&#39; })
   })
-
+  
   return fastify
 }
 
@@ -116,9 +116,9 @@ const buildFastify = require(&#39;./app&#39;)
 
 tap.test(&#39;GET `/` route&#39;, t =&gt; {
   t.plan(4)
-
+  
   const fastify = buildFastify()
-
+  
   // At the end of your tests it is highly recommended to call `.close()`
   // to ensure that all connections to external services get closed.
   t.tearDown(() =&gt; fastify.close())
@@ -139,14 +139,14 @@ const buildFastify = require(&#39;./app&#39;)
 
 tap.test(&#39;GET `/` route&#39;, t =&gt; {
   t.plan(5)
-
+  
   const fastify = buildFastify()
-
+  
   t.tearDown(() =&gt; fastify.close())
-
+  
   fastify.listen(0, (err) =&gt; {
     t.error(err)
-
+    
     request({
       method: &#39;GET&#39;,
       url: &#39;http://localhost:&#39; + fastify.server.address().port
@@ -166,18 +166,18 @@ tap.test(&#39;GET `/` route&#39;, async (t) =&gt; {
   const fastify = buildFastify()
 
   t.tearDown(() =&gt; fastify.close())
-
+  
   await fastify.ready()
-
+  
   const response = await supertest(fastify.server)
     .get(&#39;/&#39;)
     .expect(200)
     .expect(&#39;Content-Type&#39;, &#39;application/json; charset=utf-8&#39;)
   t.deepEqual(response.body, { hello: &#39;world&#39; })
 })
-</code></pre><h3 id=how-to-inspect-tap-tests>How to inspect tap tests</h3><ol><li>Isolate your test by passing the <code>{only: true}</code> option<pre><code class=language-javascript>test(&#39;should ...&#39;, {only: true}, t =&gt; ...)
-</code></pre></li><li>Run <code>tap</code> using <code>npx</code><pre><code class=language-bash>&gt; npx tap -O -T --node-arg=--inspect-brk test/&lt;test-file.test.js&gt;
-</code></pre></li></ol><ul><li><code>-O</code> specifies to run tests with the <code>only</code> option enabled</li><li><code>-T</code> specifies not to timeout (while you&#39;re debugging)</li><li><code>--node-arg=--inspect-brk</code> will launch the node debugger</li></ul><ol start=3><li>In VS Code, create and launch a <code>Node.js: Attach</code> debug configuration. No modification should be necessary.</li></ol><p>Now you should be able to step through your test file (and the rest of <code>fastify</code>) in your code editor.</p></div><hr><nav class=level></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+</code></pre><h3 id=how-to-inspect-tap-tests>How to inspect tap tests</h3><ol><li>Isolate your test by passing the <code>{only: true}</code> option</li></ol><pre><code class=language-javascript>test(&#39;should ...&#39;, {only: true}, t =&gt; ...)
+</code></pre><ol start=2><li>Run <code>tap</code> using <code>npx</code></li></ol><pre><code class=language-bash>&gt; npx tap -O -T --node-arg=--inspect-brk test/&lt;test-file.test.js&gt;
+</code></pre><ul><li><code>-O</code> specifies to run tests with the <code>only</code> option enabled</li><li><code>-T</code> specifies not to timeout (while you&#39;re debugging)</li><li><code>--node-arg=--inspect-brk</code> will launch the node debugger</li></ul><ol start=3><li>In VS Code, create and launch a <code>Node.js: Attach</code> debug configuration. No modification should be necessary.</li></ol><p>Now you should be able to step through your test file (and the rest of <code>fastify</code>) in your code editor.</p></div><hr><nav class=level></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
   var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
   var currentMenu = document.getElementById('doc-menu-section')
   if (titles.length && currentMenu) {

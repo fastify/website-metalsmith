@@ -72,7 +72,7 @@ fastify.register(require(&#39;@fastify/mongodb&#39;), {
   // force to close the mongodb connection when app stopped
   // the default value is false
   forceClose: true,
-
+  
   url: &#39;mongodb://mongo/mydb&#39;
 })
 
@@ -197,7 +197,7 @@ async function migrate() {
     console.error(error)
     process.exitCode = 1
   }
-
+  
   await client.end()
 }
 
