@@ -92,14 +92,7 @@ fastify.register(pluginWithTypebox)
 import { TypeBoxTypeProvider } from &#39;@fastify/type-provider-typebox&#39;
 import { Type } from &#39;@sinclair/typebox&#39;
 
-const server = Fastify({
-    ajv: {
-        customOptions: {
-            strict: &#39;log&#39;,
-            keywords: [&#39;kind&#39;, &#39;modifier&#39;],
-        },
-    },
-}).withTypeProvider&lt;TypeBoxTypeProvider&gt;()
+const server = Fastify().withTypeProvider&lt;TypeBoxTypeProvider&gt;()
 
 server.register(plugin1) // wrong
 server.register(plugin2) // correct
@@ -142,14 +135,7 @@ import Fastify from &#39;fastify&#39;
 import { TypeBoxTypeProvider } from &#39;@fastify/type-provider-typebox&#39;
 import { registerRoutes } from &#39;./routes&#39;
 
-const server = Fastify({
-    ajv: {
-        customOptions: {
-            strict: &#39;log&#39;,
-            keywords: [&#39;kind&#39;, &#39;modifier&#39;],
-        },
-    },
-}).withTypeProvider&lt;TypeBoxTypeProvider&gt;()
+const server = Fastify().withTypeProvider&lt;TypeBoxTypeProvider&gt;()
 
 registerRoutes(server)
 
