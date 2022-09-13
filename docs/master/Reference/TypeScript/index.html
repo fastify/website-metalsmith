@@ -86,14 +86,6 @@ app.post&lt;{ Body: UserType, Reply: UserType }&gt;(
     reply.status(200).send({ name, mail });
   }
 )
-</code></pre><p><strong>Note</strong> For Ajv version 7 and above is required to use the <code>ajvTypeBoxPlugin</code>:</p><pre><code class=language-typescript>import Fastify from &#39;fastify&#39;
-import { ajvTypeBoxPlugin, TypeBoxTypeProvider } from &#39;@fastify/type-provider-typebox&#39;
-
-const fastify = Fastify({
-  ajv: {
-    plugins: [ajvTypeBoxPlugin]
-  }
-}).withTypeProvider&lt;TypeBoxTypeProvider&gt;()
 </code></pre></li></ol><h4 id=schemas-in-json-files>Schemas in JSON Files</h4><p>In the last example we used interfaces to define the types for the request querystring and headers. Many users will already be using JSON Schemas to define these properties, and luckily there is a way to transform existing JSON Schemas into TypeScript interfaces!</p><ol><li><p>If you did not complete the &#39;Getting Started&#39; example, go back and follow steps 1-4 first.</p></li><li><p>Install the <code>json-schema-to-typescript</code> module:</p><pre><code class=language-bash>npm i -D json-schema-to-typescript
 </code></pre></li><li><p>Create a new folder called <code>schemas</code> and add two files <code>headers.json</code> and <code>querystring.json</code>. Copy and paste the following schema definitions into the respective files:</p><pre><code class=language-json>{
   &quot;title&quot;: &quot;Headers Schema&quot;,
