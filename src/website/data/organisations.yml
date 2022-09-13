@@ -225,3 +225,7 @@
 - name: "Yeovil District Hospital NHS Foundation Trust"
   image: "ydhnhsft.svg"
   link: "https://yeovilhospital.co.uk"
+
+- name: "CorsairM360"
+  image: "corsairm360.svg"
+  link: "https://corsairm360.com"
