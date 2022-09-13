@@ -8,7 +8,7 @@ npm i -D typescript @types/node
   }
 }
 </code></pre><ol start=3><li>Initialize a TypeScript configuration file:</li></ol><pre><code class=language-bash>npx tsc --init
-</code></pre><p>or use one of the <a href=https://github.com/tsconfig/bases#node-14-tsconfigjson>recommended ones</a>.</p><p><em>Note: Set <code>target</code> property in <code>tsconfig.json</code> to <code>es2017</code> or greater to avoid <a href=https://github.com/fastify/fastify/issues/3284>FastifyDeprecation</a> warning.</em></p><ol start=4><li>Create an <code>index.ts</code> file - this will contain the server code</li><li>Add the following code block to your file:<pre><code class=language-typescript>import fastify from &#39;fastify&#39;
+</code></pre><p>or use one of the <a href=https://github.com/tsconfig/bases#node-14-tsconfigjson>recommended ones</a>.</p><p><em>Note: Set <code>target</code> property in <code>tsconfig.json</code> to <code>es2017</code> or greater to avoid <a href=https://github.com/fastify/fastify/issues/3284>FastifyDeprecation</a> warning.</em></p><p><em>Note 2: Avoid using <code>&quot;moduleResolution&quot;: &quot;NodeNext&quot;</code> in tsconfig.json with <code>&quot;type&quot;: &quot;module&quot;</code> in package.json. This combination is currently not supported by fastify typing system. <a href=https://github.com/fastify/fastify/issues/4241>ts(2349)</a> warning.</em></p><ol start=4><li>Create an <code>index.ts</code> file - this will contain the server code</li><li>Add the following code block to your file:<pre><code class=language-typescript>import fastify from &#39;fastify&#39;
 
 const server = fastify()
 
