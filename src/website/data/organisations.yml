@@ -42,6 +42,10 @@
   image: "compressor.svg"
   link: "https://compressor.io"
 
+- name: "CorsairM360"
+  image: "corsairm360.svg"
+  link: "https://corsairm360.com"
+
 - name: "evilfactorylabs"
   image: "evilfactorylabs.svg"
   link: "https://evilfactorylabs.org/"
@@ -225,7 +229,3 @@
 - name: "Yeovil District Hospital NHS Foundation Trust"
   image: "ydhnhsft.svg"
   link: "https://yeovilhospital.co.uk"
-
-- name: "CorsairM360"
-  image: "corsairm360.svg"
-  link: "https://corsairm360.com"
