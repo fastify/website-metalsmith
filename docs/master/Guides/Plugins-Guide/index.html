@@ -132,7 +132,40 @@ fastify.get(&#39;/plugin2&#39;, (request, reply) =&gt; {
 fastify.get(&#39;/plugin2&#39;, (request, reply) =&gt; {
   reply.send(request)
 })
-</code></pre><p>Now your hook will run just for the first route!</p><p>As you probably noticed by now, <code>request</code> and <code>reply</code> are not the standard Nodejs <em>request</em> and <em>response</em> objects, but Fastify&#39;s objects.</p><h2 id=how-to-handle-encapsulation-and-distribution>How to handle encapsulation and distribution</h2><p><a id=distribution></a></p><p>Perfect, now you know (almost) all of the tools that you can use to extend Fastify. Nevertheless, chances are that you came across one big issue: how is distribution handled?</p><p>The preferred way to distribute a utility is to wrap all your code inside a <code>register</code>. Using this, your plugin can support asynchronous bootstrapping <em>(since <code>decorate</code> is a synchronous API)</em>, in the case of a database connection for example.</p><p><em>Wait, what? Didn&#39;t you tell me that <code>register</code> creates an encapsulation and that the stuff I create inside will not be available outside?</em></p><p>Yes, I said that. However, what I didn&#39;t tell you is that you can tell Fastify to avoid this behavior with the <a href=https://github.com/fastify/fastify-plugin><code>fastify-plugin</code></a> module.</p><pre><code class=language-js>const fp = require(&#39;fastify-plugin&#39;)
+</code></pre><p>Now your hook will run just for the first route!</p><p>An alternative approach is to make use of the <a href=../../Reference/Hooks#onroute>onRoute hook</a> to customize application routes dynamically from inside the plugin. Every time a new route is registered, you can read and modify the route options. For example, based on a <a href=../../Reference/Routes#routes-options>route config option</a>:</p><pre><code class=language-js>fastify.register((instance, opts, done) =&gt; {
+  instance.decorate(&#39;util&#39;, (request, key, value) =&gt; { request[key] = value })
+  
+  function handler(request, reply, done) {
+    instance.util(request, &#39;timestamp&#39;, new Date())
+    done()
+  }
+
+  instance.addHook(&#39;onRoute&#39;, (routeOptions) =&gt; {
+    if (routeOptions.config &amp;&amp; routeOptions.config.useUtil === true) {
+      // set or add our handler to the route preHandler hook
+      if (!routeOptions.preHandler) {
+        routeOptions.preHandler = [handler]
+        return
+      }
+      if (Array.isArray(routeOptions.preHandler)) {
+        routeOptions.preHandler.push(handler)
+        return
+      }
+      routeOptions.preHandler = [routeOptions.preHandler, handler]
+    }
+  })
+
+  fastify.get(&#39;/plugin1&#39;, {config: {useUtil: true}}, (request, reply) =&gt; {
+    reply.send(request)
+  })
+
+  fastify.get(&#39;/plugin2&#39;, (request, reply) =&gt; {
+    reply.send(request)
+  })
+
+  done()
+})
+</code></pre><p>This variant becomes extremely useful if you plan to distribute your plugin, as described in the next section.</p><p>As you probably noticed by now, <code>request</code> and <code>reply</code> are not the standard Nodejs <em>request</em> and <em>response</em> objects, but Fastify&#39;s objects.</p><h2 id=how-to-handle-encapsulation-and-distribution>How to handle encapsulation and distribution</h2><p><a id=distribution></a></p><p>Perfect, now you know (almost) all of the tools that you can use to extend Fastify. Nevertheless, chances are that you came across one big issue: how is distribution handled?</p><p>The preferred way to distribute a utility is to wrap all your code inside a <code>register</code>. Using this, your plugin can support asynchronous bootstrapping <em>(since <code>decorate</code> is a synchronous API)</em>, in the case of a database connection for example.</p><p><em>Wait, what? Didn&#39;t you tell me that <code>register</code> creates an encapsulation and that the stuff I create inside will not be available outside?</em></p><p>Yes, I said that. However, what I didn&#39;t tell you is that you can tell Fastify to avoid this behavior with the <a href=https://github.com/fastify/fastify-plugin><code>fastify-plugin</code></a> module.</p><pre><code class=language-js>const fp = require(&#39;fastify-plugin&#39;)
 const dbClient = require(&#39;db-client&#39;)
 
 function dbPlugin (fastify, opts, done) {
