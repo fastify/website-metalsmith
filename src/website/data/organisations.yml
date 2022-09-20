@@ -94,6 +94,10 @@
   image: "gumlet.svg"
   link: "https://www.gumlet.com"
 
+- name: "HarperDB"
+  image: "harperdb.svg"
+  link: "https://harperdb.io/"
+
 - name: "heply"
   image: "heply.svg"
   link: "https://heply.it/"
