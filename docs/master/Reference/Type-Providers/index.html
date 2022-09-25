@@ -144,7 +144,7 @@ server.listen({ port: 3000 })
 import { Type } from &#39;@sinclair/typebox&#39;
 import {
   FastifyInstance,
-  FastifyLoggerInstance,
+  FastifyBaseLogger,
   RawReplyDefaultExpression,
   RawRequestDefaultExpression,
   RawServerDefault
@@ -155,7 +155,7 @@ type FastifyTypebox = FastifyInstance&lt;
   RawServerDefault,
   RawRequestDefaultExpression&lt;RawServerDefault&gt;,
   RawReplyDefaultExpression&lt;RawServerDefault&gt;,
-  FastifyLoggerInstance,
+  FastifyBaseLogger,
   TypeBoxTypeProvider
 &gt;;
 
