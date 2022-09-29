@@ -137,6 +137,10 @@
 - name: "locize"
   image: "locize.svg"
   link: "https://locize.com"
+  
+- name: "MarsX"
+  image: "mars_logo.svg"
+  link: "https://www.marsx.dev"
 
 - name: "MIA Platform"
   image: "mia-platform.svg"
