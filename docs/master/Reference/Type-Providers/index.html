@@ -88,7 +88,7 @@ function pluginWithJsonSchema(fastify: FastifyInstance, _opts, done): void {
 
 fastify.register(pluginWithJsonSchema)
 fastify.register(pluginWithTypebox)
-</code></pre><p>It&#39;s also important to mention that once the types don&#39;t propagate globally, <em>currently</em> is not possible to avoid multiple registrations on routes when dealing with several scopes, see bellow:</p><pre><code class=language-ts>import Fastify from &#39;fastify&#39;
+</code></pre><p>It&#39;s also important to mention that once the types don&#39;t propagate globally, <em>currently</em> is not possible to avoid multiple registrations on routes when dealing with several scopes, see below:</p><pre><code class=language-ts>import Fastify from &#39;fastify&#39;
 import { TypeBoxTypeProvider } from &#39;@fastify/type-provider-typebox&#39;
 import { Type } from &#39;@sinclair/typebox&#39;
 
