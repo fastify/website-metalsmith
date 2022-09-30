@@ -21,7 +21,7 @@
 					{% for organization in data.organisations | shuffle %}
 						<li>
 							<a href="{{ organization.link }}" target="_blank" rel="noopener" rel="nofollow">
-								<img src="/{{ hashes['images/organisations/' + organization.image] }}" alt="{{ organization.name }} is using Fastify"/>
+								<img height="60" width="160" src="/{{ hashes['images/organisations/' + organization.image] }}" alt="{{ organization.name }} is using Fastify" loading="lazy" decoding="async" />
 							</a>
 						</li>
 					{% endfor %}
