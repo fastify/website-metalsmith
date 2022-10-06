@@ -135,30 +135,56 @@ tap.test(&#39;GET `/` route&#39;, t =&gt; {
     t.same(response.json(), { hello: &#39;world&#39; })
   })
 })
-</code></pre><h3 id=testing-with-a-running-server>Testing with a running server</h3><p>Fastify can also be tested after starting the server with <code>fastify.listen()</code> or after initializing routes and plugins with <code>fastify.ready()</code>.</p><h4 id=example>Example:</h4><p>Uses <strong>app.js</strong> from the previous example.</p><p><strong>test-listen.js</strong> (testing with <a href=https://www.npmjs.com/package/request><code>Request</code></a>)</p><pre><code class=language-js>const tap = require(&#39;tap&#39;)
-const request = require(&#39;request&#39;)
+</code></pre><h3 id=testing-with-a-running-server>Testing with a running server</h3><p>Fastify can also be tested after starting the server with <code>fastify.listen()</code> or after initializing routes and plugins with <code>fastify.ready()</code>.</p><h4 id=example>Example:</h4><p>Uses <strong>app.js</strong> from the previous example.</p><p><strong>test-listen.js</strong> (testing with <a href=https://www.npmjs.com/package/undici><code>undici</code></a>)</p><pre><code class=language-js>const tap = require(&#39;tap&#39;)
+const { Client } = require(&#39;undici&#39;)
 const buildFastify = require(&#39;./app&#39;)
 
-tap.test(&#39;GET `/` route&#39;, t =&gt; {
-  t.plan(5)
+tap.test(&#39;should work with undici&#39;, async t =&gt; {
+  t.plan(2)
+
+  const fastify = buildFastify()
+
+  await fastify.listen()
+
+   const client = new Client(
+    &#39;http://localhost:&#39; + fastify.server.address().port, {
+      keepAliveTimeout: 10,
+      keepAliveMaxTimeout: 10
+    } 
+  )
+
+  t.teardown(() =&gt; {
+    fastify.close()
+    client.close()
+  })
+
+  const response = await client.request({ method: &#39;GET&#39;, path: &#39;/&#39; })
+
+  t.equal(await response.body.text(), &#39;{&quot;hello&quot;:&quot;world&quot;}&#39;)
+  t.equal(response.statusCode, 200)
+})
+</code></pre><p>Alternatively, starting with Node.js 18, <a href=https://nodejs.org/docs/latest-v18.x/api/globals.html#fetch><code>fetch</code></a> may be used without requiring any extra dependencies:</p><p><strong>test-listen.js</strong></p><pre><code class=language-js>const tap = require(&#39;tap&#39;)
+const buildFastify = require(&#39;./app&#39;)
+
+tap.test(&#39;should work with fetch&#39;, async t =&gt; {
+  t.plan(3)
 
   const fastify = buildFastify()
 
   t.teardown(() =&gt; fastify.close())
 
-  fastify.listen({ port: 0 }, (err) =&gt; {
-    t.error(err)
+  await fastify.listen()
+  
+  const response = await fetch(
+    &#39;http://localhost:&#39; + fastify.server.address().port
+  )
 
-    request({
-      method: &#39;GET&#39;,
-      url: &#39;http://localhost:&#39; + fastify.server.address().port
-    }, (err, response, body) =&gt; {
-      t.error(err)
-      t.equal(response.statusCode, 200)
-      t.equal(response.headers[&#39;content-type&#39;], &#39;application/json; charset=utf-8&#39;)
-      t.same(JSON.parse(body), { hello: &#39;world&#39; })
-    })
-  })
+  t.equal(response.status, 200)
+  t.equal(
+    response.headers.get(&#39;content-type&#39;),
+    &#39;application/json; charset=utf-8&#39;
+  )
+  t.has(await response.json(), { hello: &#39;world&#39; })
 })
 </code></pre><p><strong>test-ready.js</strong> (testing with <a href=https://www.npmjs.com/package/supertest><code>SuperTest</code></a>)</p><pre><code class=language-js>const tap = require(&#39;tap&#39;)
 const supertest = require(&#39;supertest&#39;)
