@@ -290,7 +290,41 @@ fastify.inject({
     reply.send(&#39;hello world from &#39; + request.headers.host)
   }
 })
-</code></pre><h3 id=⚠--http-version-check>⚠ HTTP version check</h3><p>Fastify will check the HTTP version of every request, based on configuration options (<a href=.././Server#http2>http2</a>, <a href=.././Server#https>https</a>, and <a href=.././Server#serverfactory>serverFactory</a>), to determine if it matches one or all of the &gt; following versions: <code>2.0</code>, <code>1.1</code>, and <code>1.0</code>. If Fastify receives a different HTTP version in the request it will return a <code>505 HTTP Version Not Supported</code> error.</p><table><thead><tr><th align=center></th><th align=center>2.0</th><th align=center>1.1</th><th align=center>1.0</th><th align=center>skip</th></tr></thead><tbody><tr><td align=center>http2</td><td align=center>✓</td><td align=center></td><td align=center></td><td align=center></td></tr><tr><td align=center>http2 + https</td><td align=center>✓</td><td align=center></td><td align=center></td><td align=center></td></tr><tr><td align=center>http2 + https.allowHTTP1</td><td align=center>✓</td><td align=center>✓</td><td align=center>✓</td><td align=center></td></tr><tr><td align=center>https</td><td align=center></td><td align=center>✓</td><td align=center>✓</td><td align=center></td></tr><tr><td align=center>http</td><td align=center></td><td align=center>✓</td><td align=center>✓</td><td align=center></td></tr><tr><td align=center>serverFactory</td><td align=center></td><td align=center></td><td align=center></td><td align=center>✓</td></tr></tbody></table><p>Note: The internal HTTP version check will be removed in the future when Node implements <a href=https://github.com/nodejs/node/issues/43115>this feature</a>.</p></div><hr><nav class=level></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
+</code></pre><h4 id=asynchronous-custom-constraints>Asynchronous Custom Constraints</h4><p>You can provide your custom constraints and the <code>constraint</code> criteria can be fetched from other source, for example <code>database</code>. Usage of asynchronous custom constraint should place at the last resort since it impacts the router performance.</p><pre><code class=language-js>function databaseOperation(field, done) {
+  done(null, field)
+}
+
+const secret = {
+  // strategy name for referencing in the route handler `constraints` options
+  name: &#39;secret&#39;,
+  // storage factory for storing routes in the find-my-way route tree
+  storage: function () {
+    let handlers = {}
+    return {
+      get: (type) =&gt; { return handlers[type] || null },
+      set: (type, store) =&gt; { handlers[type] = store }
+    }
+  },
+  // function to get the value of the constraint from each incoming request
+  deriveConstraint: (req, ctx, done) =&gt; {
+    databaseOperation(req.headers[&#39;secret&#39;], done)
+  },
+  // optional flag marking if handlers without constraints can match requests that have a value for this constraint
+  mustMatchWhenDerived: true
+}
+</code></pre><blockquote><h2 id=⚠--security-notice-1>⚠ Security Notice</h2><p>When using with asynchronous constraint. It is highly recommend never return error inside the callback. If the error is not preventable, it is recommended to provide a custom <code>frameworkErrors</code> handler to deal with it. Otherwise, you route selection may break or expose sensitive information to attackers.</p><pre><code class=language-js>const Fastify = require(&#39;fastify&#39;)
+
+const fastify = Fastify({
+  frameworkErrors: function(err, res, res) {
+    if(err instanceof Fastify.errorCodes.FST_ERR_ASYNC_CONSTRAINT) {
+      res.code(400)
+      return res.send(&quot;Invalid header provided&quot;)
+    } else {
+      res.send(err)
+    }
+  }
+})
+</code></pre></blockquote><h3 id=⚠--http-version-check>⚠ HTTP version check</h3><p>Fastify will check the HTTP version of every request, based on configuration options (<a href=.././Server#http2>http2</a>, <a href=.././Server#https>https</a>, and <a href=.././Server#serverfactory>serverFactory</a>), to determine if it matches one or all of the &gt; following versions: <code>2.0</code>, <code>1.1</code>, and <code>1.0</code>. If Fastify receives a different HTTP version in the request it will return a <code>505 HTTP Version Not Supported</code> error.</p><table><thead><tr><th align=center></th><th align=center>2.0</th><th align=center>1.1</th><th align=center>1.0</th><th align=center>skip</th></tr></thead><tbody><tr><td align=center>http2</td><td align=center>✓</td><td align=center></td><td align=center></td><td align=center></td></tr><tr><td align=center>http2 + https</td><td align=center>✓</td><td align=center></td><td align=center></td><td align=center></td></tr><tr><td align=center>http2 + https.allowHTTP1</td><td align=center>✓</td><td align=center>✓</td><td align=center>✓</td><td align=center></td></tr><tr><td align=center>https</td><td align=center></td><td align=center>✓</td><td align=center>✓</td><td align=center></td></tr><tr><td align=center>http</td><td align=center></td><td align=center>✓</td><td align=center>✓</td><td align=center></td></tr><tr><td align=center>serverFactory</td><td align=center></td><td align=center></td><td align=center></td><td align=center>✓</td></tr></tbody></table><p>Note: The internal HTTP version check will be removed in the future when Node implements <a href=https://github.com/nodejs/node/issues/43115>this feature</a>.</p></div><hr><nav class=level></nav></div></div></div></section><script>// dynamically creates a submenu for the current section based on the content headers
   var titles = document.querySelectorAll('#doc-content h3, #doc-content h4')
   var currentMenu = document.getElementById('doc-menu-section')
   if (titles.length && currentMenu) {
