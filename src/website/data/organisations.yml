@@ -98,9 +98,9 @@
   image: "harperdb.svg"
   link: "https://harperdb.io/"
 
-- name: "heply"
-  image: "heply.svg"
-  link: "https://heply.it/"
+- name: "Beliven"
+  image: "beliven.svg"
+  link: "https://beliven.com/"
 
 - name: "Habit"
   image: "habit.svg"
@@ -137,7 +137,7 @@
 - name: "locize"
   image: "locize.svg"
   link: "https://locize.com"
-  
+
 - name: "MarsX"
   image: "marsx.svg"
   link: "https://www.marsx.dev"
