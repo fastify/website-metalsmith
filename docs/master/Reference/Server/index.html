@@ -404,7 +404,7 @@ fastify.ready(() =&gt; {
       buildSerializer: function factory (externalSchemas, serializerOptsServerOption) {
         // This factory function must return a schema serializer compiler.
         // See [#schema-serializer](.././Validation-and-Serialization#schema-serializer) for details.
-        return function serializerCompiler ({ schema, method, url, httpStatus }) {
+        return function serializerCompiler ({ schema, method, url, httpStatus, contentType }) {
           return data =&gt; JSON.stringify(data)
         }
       }

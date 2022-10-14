@@ -359,7 +359,41 @@ fastify.post(&#39;/the/url&#39;, { schema }, handler)
 }
 
 fastify.post(&#39;/the/url&#39;, { schema }, handler)
-</code></pre><h4 id=serializer-compiler>Serializer Compiler</h4><p><a id=schema-serializer></a></p><p>The <code>serializerCompiler</code> is a function that returns a function that must return a string from an input object. When you define a response JSON Schema, you can change the default serialization method by providing a function to serialize every route where you do.</p><pre><code class=language-js>fastify.setSerializerCompiler(({ schema, method, url, httpStatus }) =&gt; {
+</code></pre><p>You can even have a specific response schema for different content types. For example:</p><pre><code class=language-js>const schema = {
+      response: {
+        200: {
+          description: &#39;Response schema that support different content types&#39;
+          content: {
+            &#39;application/json&#39;: {
+              schema: {
+                name: { type: &#39;string&#39; },
+                image: { type: &#39;string&#39; },
+                address: { type: &#39;string&#39; }
+              }
+            },
+            &#39;application/vnd.v1+json&#39;: {
+              schema: {
+                type: &#39;array&#39;,
+                items: { $ref: &#39;test&#39; }
+              }
+            }
+          }
+        },
+        &#39;3xx&#39;: {
+          content: {
+            &#39;application/vnd.v2+json&#39;: {
+              schema: {
+                fullName: { type: &#39;string&#39; },
+                phone: { type: &#39;string&#39; }
+              }
+            }
+          }
+        }
+      }
+    }
+
+fastify.post(&#39;/url&#39;, { schema }, handler)
+</code></pre><h4 id=serializer-compiler>Serializer Compiler</h4><p><a id=schema-serializer></a></p><p>The <code>serializerCompiler</code> is a function that returns a function that must return a string from an input object. When you define a response JSON Schema, you can change the default serialization method by providing a function to serialize every route where you do.</p><pre><code class=language-js>fastify.setSerializerCompiler(({ schema, method, url, httpStatus, contentType }) =&gt; {
   return data =&gt; JSON.stringify(data)
 })
 
