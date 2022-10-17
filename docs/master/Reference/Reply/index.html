@@ -201,9 +201,10 @@ reply
 </code></pre><h4 id=strings>Strings</h4><p><a id=send-string></a></p><p>If you pass a string to <code>send</code> without a <code>Content-Type</code>, it will be sent as <code>text/plain; charset=utf-8</code>. If you set the <code>Content-Type</code> header and pass a string to <code>send</code>, it will be serialized with the custom serializer if one is set, otherwise, it will be sent unmodified (unless the <code>Content-Type</code> header is set to <code>application/json; charset=utf-8</code>, in which case it will be JSON-serialized like an object — see the section above).</p><pre><code class=language-js>fastify.get(&#39;/json&#39;, options, function (request, reply) {
   reply.send(&#39;plain string&#39;)
 })
-</code></pre><h4 id=streams>Streams</h4><p><a id=send-streams></a></p><p><em>send</em> can also handle streams out of the box. If you are sending a stream and you have not set a <code>&#39;Content-Type&#39;</code> header, <em>send</em> will set it at <code>&#39;application/octet-stream&#39;</code>.</p><pre><code class=language-js>fastify.get(&#39;/streams&#39;, function (request, reply) {
+</code></pre><h4 id=streams>Streams</h4><p><a id=send-streams></a></p><p><em>send</em> can also handle streams by setting the <code>&#39;Content-Type&#39;</code> header to <code>&#39;application/octet-stream&#39;</code>.</p><pre><code class=language-js>fastify.get(&#39;/streams&#39;, function (request, reply) {
   const fs = require(&#39;fs&#39;)
   const stream = fs.createReadStream(&#39;some-file&#39;, &#39;utf8&#39;)
+  reply.header(&#39;Content-Type&#39;, &#39;application/octet-stream&#39;)
   reply.send(stream)
 })
 </code></pre><h4 id=buffers>Buffers</h4><p><a id=send-buffers></a></p><p>If you are sending a buffer and you have not set a <code>&#39;Content-Type&#39;</code> header, <em>send</em> will set it to <code>&#39;application/octet-stream&#39;</code>.</p><pre><code class=language-js>const fs = require(&#39;fs&#39;)
