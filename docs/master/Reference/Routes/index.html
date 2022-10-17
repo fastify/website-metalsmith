@@ -290,7 +290,7 @@ fastify.inject({
     reply.send(&#39;hello world from &#39; + request.headers.host)
   }
 })
-</code></pre><h4 id=asynchronous-custom-constraints>Asynchronous Custom Constraints</h4><p>You can provide your custom constraints and the <code>constraint</code> criteria can be fetched from other source, for example <code>database</code>. Usage of asynchronous custom constraint should place at the last resort since it impacts the router performance.</p><pre><code class=language-js>function databaseOperation(field, done) {
+</code></pre><h4 id=asynchronous-custom-constraints>Asynchronous Custom Constraints</h4><p>Custom constraints can be provided and the <code>constraint</code> criteria can be fetched from another source such as <code>database</code>. The use of asynchronous custom constraints should be a last resort as it impacts router performance.</p><pre><code class=language-js>function databaseOperation(field, done) {
   done(null, field)
 }
 
