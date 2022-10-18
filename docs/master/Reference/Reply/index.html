@@ -144,7 +144,7 @@ newSchema.properties.foo.type = &#39;integer&#39;
 const newSerialize = reply.compileSerializationSchema(newSchema)
 
 console.log(newSerialize === serialize) // false
-</code></pre><h3 id=serializeinputdata-schema--httpstatus-httpstatus-contenttype>.serializeInput(data, [schema | httpStatus], [httpStatus], [contentType])</h3><p><a id=serializeinput></a></p><p>This function will serialize the input data based on the provided schema, or http status code. If both provided, the <code>httpStatus</code> will take presedence.</p><p>If there is not a serialization function for a given <code>schema</code>, a new serialization function will be compiled forwarding the <code>httpStatus</code>, and the <code>contentType</code> if provided.</p><pre><code class=language-js>reply
+</code></pre><h3 id=serializeinputdata-schema--httpstatus-httpstatus-contenttype>.serializeInput(data, [schema | httpStatus], [httpStatus], [contentType])</h3><p><a id=serializeinput></a></p><p>This function will serialize the input data based on the provided schema or HTTP status code. If both are provided the <code>httpStatus</code> will take precedence.</p><p>If there is not a serialization function for a given <code>schema</code> a new serialization function will be compiled, forwarding the <code>httpStatus</code> and <code>contentType</code> if provided.</p><pre><code class=language-js>reply
   .serializeInput({ foo: &#39;bar&#39;}, {  
     type: &#39;object&#39;, 
     properties: { 
