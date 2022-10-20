@@ -10,6 +10,10 @@
   image: "amerisave.svg"
   link: "https://www.amerisave.com"
 
+- name: "Beliven"
+  image: "beliven.svg"
+  link: "https://beliven.com/"
+
 - name: "bestgameprice.net"
   image: "bestgameprice.svg"
   link: "https://www.bestgameprice.net/"
@@ -97,10 +101,6 @@
 - name: "HarperDB"
   image: "harperdb.svg"
   link: "https://harperdb.io/"
-
-- name: "Beliven"
-  image: "beliven.svg"
-  link: "https://beliven.com/"
 
 - name: "Habit"
   image: "habit.svg"
