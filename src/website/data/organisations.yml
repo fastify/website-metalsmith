@@ -10,6 +10,10 @@
   image: "amerisave.svg"
   link: "https://www.amerisave.com"
 
+- name: "Beliven"
+  image: "beliven.svg"
+  link: "https://beliven.com/"
+
 - name: "bestgameprice.net"
   image: "bestgameprice.svg"
   link: "https://www.bestgameprice.net/"
@@ -98,10 +102,6 @@
   image: "harperdb.svg"
   link: "https://harperdb.io/"
 
-- name: "heply"
-  image: "heply.svg"
-  link: "https://heply.it/"
-
 - name: "Habit"
   image: "habit.svg"
   link: "https://habit.global/"
@@ -137,7 +137,7 @@
 - name: "locize"
   image: "locize.svg"
   link: "https://locize.com"
-  
+
 - name: "MarsX"
   image: "marsx.svg"
   link: "https://www.marsx.dev"
