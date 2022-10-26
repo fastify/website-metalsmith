@@ -178,6 +178,10 @@
   image: "papion.svg"
   link: "https://papion.it"
 
+- name: "Platformatic"
+  image: "platformatic.svg"
+  link: "https://platformatic.dev"
+
 - name: "Quero Educação"
   image: "quero-educacao.svg"
   link: "https://sobre.quero.com/"
