@@ -33,7 +33,7 @@ reply.getHeaders() // { &#39;x-foo&#39;: &#39;foo&#39;, &#39;x-bar&#39;: &#39;ba
 </code></pre><h3 id=removeheaderkey>.removeHeader(key)</h3><p><a id=getHeader></a></p><p>Remove the value of a previously set header.</p><pre><code class=language-js>reply.header(&#39;x-foo&#39;, &#39;foo&#39;)
 reply.removeHeader(&#39;x-foo&#39;)
 reply.getHeader(&#39;x-foo&#39;) // undefined
-</code></pre><h3 id=hasheaderkey>.hasHeader(key)</h3><p><a id=hasHeader></a></p><p>Returns a boolean indicating if the specified header has been set.</p><h3 id=trailerkey-function>.trailer(key, function)</h3><p><a id=trailer></a></p><p>Sets a response trailer. Trailer is usually used when you need a header that requires heavy resources to be sent after the <code>data</code>, for example, <code>Server-Timing</code> and <code>Etag</code>. It can ensure the client receives the response data as soon as possible.</p><p><em>Note: The header <code>Transfer-Encoding: chunked</code> will be added once you use the trailer. It is a hard requirement for using trailer in Node.js.</em></p><p><em>Note: Currently, the computation function only supports synchronous function. That means <code>async-await</code> and <code>promise</code> are not supported.</em></p><pre><code class=language-js>reply.trailer(&#39;server-timing&#39;, function() {
+</code></pre><h3 id=hasheaderkey>.hasHeader(key)</h3><p><a id=hasHeader></a></p><p>Returns a boolean indicating if the specified header has been set.</p><h3 id=trailerkey-function>.trailer(key, function)</h3><p><a id=trailer></a></p><p>Sets a response trailer. Trailer is usually used when you need a header that requires heavy resources to be sent after the <code>data</code>, for example, <code>Server-Timing</code> and <code>Etag</code>. It can ensure the client receives the response data as soon as possible.</p><p><em>Note: The header <code>Transfer-Encoding: chunked</code> will be added once you use the trailer. It is a hard requirement for using trailer in Node.js.</em></p><p><em>Note: Any error passed to <code>done</code> callback will be ignored. If you interested in the error, you can turn on <code>debug</code> level logging.</em></p><pre><code class=language-js>reply.trailer(&#39;server-timing&#39;, function() {
   return &#39;db;dur=53, app;dur=47.2&#39;
 })
 
@@ -41,7 +41,15 @@ const { createHash } = require(&#39;crypto&#39;)
 // trailer function also recieve two argument
 // @param {object} reply fastify reply
 // @param {string|Buffer|null} payload payload that already sent, note that it will be null when stream is sent
-reply.trailer(&#39;content-md5&#39;, function(reply, payload) {
+// @param {function} done callback to set trailer value
+reply.trailer(&#39;content-md5&#39;, function(reply, payload, done) {
+  const hash = createHash(&#39;md5&#39;)
+  hash.update(payload)
+  done(null, hash.disgest(&#39;hex&#39;))
+})
+
+// when you prefer async-await
+reply.trailer(&#39;content-md5&#39;, async function(reply, payload) {
   const hash = createHash(&#39;md5&#39;)
   hash.update(payload)
   return hash.disgest(&#39;hex&#39;)
