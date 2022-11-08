@@ -36,7 +36,13 @@ console.log(fastify.conf.db)
 </code></pre><p>The decorated <a href=.././Server>Fastify server</a> is bound to <code>this</code> in route <a href=.././Routes>route</a> handlers:</p><pre><code class=language-js>fastify.decorate(&#39;db&#39;, new DbConnection())
 
 fastify.get(&#39;/&#39;, async function (request, reply) {
-  reply({hello: await this.db.query(&#39;world&#39;)})
+  // using return
+  return { hello: await this.db.query(&#39;world&#39;) }
+  
+  // or
+  // using reply.send()
+  reply.send({ hello: await this.db.query(&#39;world&#39;) })
+  await reply
 })
 </code></pre><p>The <code>dependencies</code> parameter is an optional list of decorators that the decorator being defined relies upon. This list is simply a list of string names of other decorators. In the following example, the &quot;utility&quot; decorator depends upon &quot;greet&quot; and &quot;hi&quot; decorators:</p><pre><code class=language-js>async function greetDecorator (fastify, opts) {
   fastify.decorate(&#39;greet&#39;, () =&gt; {
