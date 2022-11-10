@@ -138,7 +138,7 @@ const fastify = require(&#39;fastify&#39;)({
 </code></pre><h3 id=return503onclosing><code>return503OnClosing</code></h3><p><a id=factory-return-503-on-closing></a></p><p>Returns 503 after calling <code>close</code> server method. If <code>false</code>, the server routes the incoming request as usual.</p><ul><li>Default: <code>true</code></li></ul><h3 id=ajv><code>ajv</code></h3><p><a id=factory-ajv></a></p><p>Configure the Ajv v8 instance used by Fastify without providing a custom one. The default configuration is explained in the <a href=.././Validation-and-Serialization#schema-validator>#schema-validator</a> section.</p><pre><code class=language-js>const fastify = require(&#39;fastify&#39;)({
   ajv: {
     customOptions: {
-      removeAdditional: &#39;all&#39; // Refer to [ajv options](https://ajv.js.org/#options)
+      removeAdditional: &#39;all&#39; // Refer to [ajv options](https://ajv.js.org/options.html#removeadditional)
     },
     plugins: [
       require(&#39;ajv-merge-patch&#39;),
