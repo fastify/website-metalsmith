@@ -17,13 +17,6 @@
 
 - name: Collaborators
   people:
-  - name: Ethan Arrowood
-    sortname: Arrowood Ethan
-    picture: "https://avatars3.githubusercontent.com/u/16144158?s=460&v=4"
-    links:
-      github: https://github.com/Ethan-Arrowood
-      npm: https://www.npmjs.com/~ethan_arrowood
-      twitter: https://twitter.com/arrowoodtech
   - name: David Clements
     sortname: Clements David
     picture: "https://avatars1.githubusercontent.com/u/1190716?s=460&v=4"
@@ -121,6 +114,13 @@
 
 - name: Past Collaborators
   people:
+  - name: Ethan Arrowood
+    sortname: Arrowood Ethan
+    picture: "https://avatars3.githubusercontent.com/u/16144158?s=460&v=4"
+    links:
+      github: https://github.com/Ethan-Arrowood
+      npm: https://www.npmjs.com/~ethan_arrowood
+      twitter: https://twitter.com/arrowoodtech
   - name: Çağatay Çalı
     sortname: Çalı Çağatay
     picture: "https://avatars1.githubusercontent.com/u/9213230?v=4&s=460"
