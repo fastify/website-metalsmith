@@ -189,7 +189,11 @@
 - name: "Radity"
   image: "radity.svg"
   link: "https://www.radity.com"
-
+  
+- name: "RemoteScout"
+  image: "remotescout.svg"
+  link: "https://remotescout.ch"
+  
 - name: "retraced"
   image: "retraced.svg"
   link: "https://retraced.co"
@@ -241,7 +245,3 @@
 - name: "Yeovil District Hospital NHS Foundation Trust"
   image: "ydhnhsft.svg"
   link: "https://yeovilhospital.co.uk"
-  
-- name: "RemoteScout"
-  image: "remotescout.svg"
-  link: "https://remotescout.ch"
