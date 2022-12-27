@@ -215,11 +215,24 @@ reply
   reply.header(&#39;Content-Type&#39;, &#39;application/octet-stream&#39;)
   reply.send(stream)
 })
+</code></pre><p>When using async-await you will need to return or await the reply object:</p><pre><code class=language-js>fastify.get(&#39;/streams&#39;, async function (request, reply) {
+  const fs = require(&#39;fs&#39;)
+  const stream = fs.createReadStream(&#39;some-file&#39;, &#39;utf8&#39;)
+  reply.header(&#39;Content-Type&#39;, &#39;application/octet-stream&#39;)
+  return reply.send(stream)
+})
 </code></pre><h4 id=buffers>Buffers</h4><p><a id=send-buffers></a></p><p>If you are sending a buffer and you have not set a <code>&#39;Content-Type&#39;</code> header, <em>send</em> will set it to <code>&#39;application/octet-stream&#39;</code>.</p><pre><code class=language-js>const fs = require(&#39;fs&#39;)
 fastify.get(&#39;/streams&#39;, function (request, reply) {
   fs.readFile(&#39;some-file&#39;, (err, fileBuffer) =&gt; {
     reply.send(err || fileBuffer)
   })
+})
+</code></pre><p>When using async-await you will need to return or await the reply object:</p><pre><code class=language-js>const fs = require(&#39;fs&#39;)
+fastify.get(&#39;/streams&#39;, async function (request, reply) {
+  fs.readFile(&#39;some-file&#39;, (err, fileBuffer) =&gt; {
+    reply.send(err || fileBuffer)
+  })
+  return reply
 })
 </code></pre><h4 id=errors>Errors</h4><p><a id=errors></a></p><p>If you pass to <em>send</em> an object that is an instance of <em>Error</em>, Fastify will automatically create an error structured as the following:</p><pre><code class=language-js>{
   error: String        // the HTTP error message
