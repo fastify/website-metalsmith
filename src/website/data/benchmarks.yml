@@ -4,25 +4,25 @@ frameworks:
     tag: fastify
     requests_sec: 55748
     repository: https://github.com/fastify/fastify
-    test: https://github.com/fastify/benchmarks/blob/master/benchmarks/fastify.js
+    test: https://github.com/fastify/benchmarks/blob/master/benchmarks/fastify.cjs
     best: true
   - name: Koa
     tag: koa
     requests_sec: 38584
     repository: https://github.com/koajs/koa
-    test: https://github.com/fastify/benchmarks/blob/master/benchmarks/koa.js
+    test: https://github.com/fastify/benchmarks/blob/master/benchmarks/koa.cjs
   - name: Express
     tag: express
     requests_sec: 11859
     repository: https://github.com/expressjs/express
-    test: https://github.com/fastify/benchmarks/blob/master/benchmarks/express.js
+    test: https://github.com/fastify/benchmarks/blob/master/benchmarks/express.cjs
   - name: Restify
     tag: restify
     requests_sec: 35874
     repository: https://github.com/restify/node-restify
-    test: https://github.com/fastify/benchmarks/blob/master/benchmarks/restify.js
+    test: https://github.com/fastify/benchmarks/blob/master/benchmarks/restify.cjs
   - name: Hapi
     tag: hapi
     requests_sec: 29672
     repository: https://github.com/hapijs/hapi
-    test: https://github.com/fastify/benchmarks/blob/master/benchmarks/hapi.js
+    test: https://github.com/fastify/benchmarks/blob/master/benchmarks/hapi.cjs
