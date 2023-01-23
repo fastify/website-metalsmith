@@ -226,6 +226,10 @@
   image: "theoutnet.svg"
   link: "https://theoutnet.com/"
 
+- name: "Turmitech"
+  image: "turmitech.svg"
+  link: "https://turmitech.com/"
+
 - name: "Unhandled"
   image: "unhandled.svg"
   link: "https://unhandled.net"
