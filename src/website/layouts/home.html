@@ -178,7 +178,11 @@ fastify.route({
   schema: {
     // request needs to have a querystring with a `name` parameter
     querystring: {
-      name: { type: 'string' }
+      type: 'object',
+      properties: {
+          name: { type: 'string'}
+      },
+      required: ['name'],
     },
     // the response needs to be an object with an `hello` property of type 'string'
     response: {
@@ -214,7 +218,11 @@ fastify.route({
   schema: {
     // request needs to have a querystring with a `name` parameter
     querystring: {
-      name: { type: 'string' }
+      type: 'object',
+      properties: {
+          name: { type: 'string'}
+      },
+      required: ['name'],
     },
     // the response needs to be an object with an `hello` property of type 'string'
     response: {
