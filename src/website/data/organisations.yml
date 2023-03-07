@@ -178,6 +178,10 @@
   image: "nucleode.svg"
   link: "https://www.nucleode.com"
 
+- name: "oneclick"
+  image: "oneclick.svg"
+  link: "https://oneclick-cloud.com/"
+
 - name: "Papion"
   image: "papion.svg"
   link: "https://papion.it"
