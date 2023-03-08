@@ -108,7 +108,16 @@
             </div>
           </div>
           <pre class="no-async swappable-async-await-code"><code class="javascript">// Require the framework and instantiate it
-const fastify = require('fastify')({ logger: true })
+
+// ESM
+import Fastify from 'fastify'
+const fastify = Fastify({
+  logger: true
+})
+// CommonJs
+const fastify = require('fastify')({
+  logger: true
+})
 
 // Declare a route
 fastify.get('/', (request, reply) => {
@@ -123,7 +132,16 @@ fastify.listen({ port: 3000 }, (err) => {
   }
 })</code></pre>
           <pre class="async swappable-async-await-code"><code class="javascript">// Require the framework and instantiate it
-const fastify = require('fastify')({ logger: true })
+
+// ESM
+import Fastify from 'fastify'
+const fastify = Fastify({
+  logger: true
+})
+// CommonJs
+const fastify = require('fastify')({
+  logger: true
+})
 
 // Declare a route
 fastify.get('/', async (request, reply) => {
@@ -170,7 +188,16 @@ start()
               <label for="async-await-swap-2"></label>
             </div>
           </div>
-          <pre class="no-async swappable-async-await-code"><code class="javascript">const fastify = require('fastify')({ logger: true })
+          <pre class="no-async swappable-async-await-code"><code class="javascript">
+// ESM
+import Fastify from 'fastify'
+const fastify = Fastify({
+  logger: true
+})
+// CommonJs
+const fastify = require('fastify')({
+  logger: true
+})
 
 fastify.route({
   method: 'GET',
@@ -210,7 +237,16 @@ fastify.listen({ port: 3000 }, (err) => {
     process.exit(1)
   }
 })</code></pre>
-          <pre class="async swappable-async-await-code"><code class="javascript">const fastify = require('fastify')({ logger: true })
+          <pre class="async swappable-async-await-code"><code class="javascript">
+// ESM
+import Fastify from 'fastify'
+const fastify = Fastify({
+  logger: true
+})
+// CommonJs
+const fastify = require('fastify')({
+  logger: true
+})
 
 fastify.route({
   method: 'GET',
