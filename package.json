@@ -82,6 +82,6 @@
     "live-server": "^1.2.2",
     "node-sass": "^7.0.1",
     "standard": "^17.0.0",
-    "xml2js": "^0.4.23"
+    "xml2js": "^0.5.0"
   }
 }
