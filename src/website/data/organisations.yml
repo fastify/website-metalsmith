@@ -224,7 +224,7 @@
 
 - name: "Stillio"
   image: "stillio.svg"
-  link: "https://stillio.com"
+  link: "https://www.stillio.com"
 
 - name: "Swiss Dev Jobs"
   image: "swissdev-javascript-jobs-200-200.svg"
