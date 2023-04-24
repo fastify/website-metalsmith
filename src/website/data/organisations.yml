@@ -9,7 +9,11 @@
 - name: "AmeriSave Mortgage Corporation"
   image: "amerisave.svg"
   link: "https://www.amerisave.com"
-
+  
+- name: "AppAdaptive GmbH"
+  image: "appadaptive.svg"
+  link: "https://appadaptive.de"
+  
 - name: "Beliven"
   image: "beliven.svg"
   link: "https://beliven.com/"
