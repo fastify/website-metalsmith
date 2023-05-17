@@ -261,3 +261,7 @@
 - name: "Vectra"
   image: "vectra.svg"
   link: "https://vectra.ai"
+  
+- name: "Kutumb"
+  image: "kutumb.svg"
+  link: "https://kutumb.app"
