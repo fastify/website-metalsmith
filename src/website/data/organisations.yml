@@ -46,6 +46,10 @@
   image: "codecks.svg"
   link: "https://www.codecks.io/"
 
+- name: "Codequest"
+  image: "codequest.svg"
+  link: "https://codequest.com/"
+
 - name: "Commons Host"
   image: "commonshost.svg"
   link: "https://commons.host"
