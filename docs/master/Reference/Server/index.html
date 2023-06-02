@@ -206,8 +206,16 @@ const fastify = require(&#39;fastify&#39;)({
     ].join(&#39;\r\n&#39;))
   }
 })
-</code></pre><h3 id=rewriteurl><code>rewriteUrl</code></h3><p><a id=rewrite-url></a></p><p>Set a sync callback function that must return a string that allows rewriting URLs.</p><blockquote><p>Rewriting a URL will modify the <code>url</code> property of the <code>req</code> object</p></blockquote><pre><code class=language-js>function rewriteUrl (req) { // req is the Node.js HTTP request
-  return req.url === &#39;/hi&#39; ? &#39;/hello&#39; : req.url;
+</code></pre><h3 id=rewriteurl><code>rewriteUrl</code></h3><p><a id=rewrite-url></a></p><p>Set a sync callback function that must return a string that allows rewriting URLs.</p><blockquote><p>Rewriting a URL will modify the <code>url</code> property of the <code>req</code> object</p></blockquote><pre><code class=language-js>// @param {object} req The raw Node.js HTTP request, not the `FastifyRequest` object.
+// @this Fastify The root Fastify instance (not an encapsulated instance).
+// @returns {string} The path that the request should be mapped to.
+function rewriteUrl (req) { 
+  if (req.url === &#39;/hi&#39;) {
+    this.log.debug({ originalUrl: req.url, url: &#39;/hello&#39; }, &#39;rewrite url&#39;);
+    return &#39;/hello&#39;
+  } else {
+    return req.url;
+  }
 }
 </code></pre><p>Note that <code>rewriteUrl</code> is called <em>before</em> routing, it is not encapsulated and it is an instance-wide configuration.</p><h2 id=instance>Instance</h2><h3 id=server-methods>Server Methods</h3><h4 id=server>server</h4><p><a id=server></a></p><p><code>fastify.server</code>: The Node core <a href=https://nodejs.org/api/http.html#http_class_http_server>server</a> object as returned by the <a href=#factory><strong><code>Fastify factory function</code></strong></a>.</p><h4 id=after>after</h4><p><a id=after></a></p><p>Invoked when the current plugin and all the plugins that have been registered within it have finished loading. It is always executed before the method <code>fastify.ready</code>.</p><pre><code class=language-js>fastify
   .register((instance, opts, done) =&gt; {
