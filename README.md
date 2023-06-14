@@ -68,6 +68,14 @@ Everyone is very welcome to contribute to this project.
 You can contribute just by submitting bugs or suggesting improvements by
 [opening an issue](/../../issues) or by [sending a pull request](/../../pulls).
 
+## FAQ
+
+  1. **Why is the public Fastify site not running on Fastify when you are promoting it?**
+  Well, good question, but think twice: it is serving plain static files only. And we are honest while foundation money is precious. That said, NGINX is good enough, until you have API calls ...
+  2. **When should I not use Fastify?**
+  Take a step back. Know your problems first. Compare these with our advantages + disadavantages.
+  99. **But, I have more questions?**
+  Sure. Just think twice, then submit a [new issue](https://github.com/fastify/website/issues) and formulate well. We will reply :)
 
 ## License
 Licensed under [MIT License](LICENSE). © [OpenJS Foundation](https://openjsf.org/) and [The Fastify team](https://github.com/fastify/fastify#team).
