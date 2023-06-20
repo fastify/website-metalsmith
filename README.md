@@ -1,5 +1,9 @@
 # fastify-website
 
+> **WARNING**:  
+> This repository was the previous home of the Fastify website till June 2023.  
+> The new home is now [`fastify/website-next`](https://github.com/fastify/website-next/)
+
 [![CircleCI](https://circleci.com/gh/fastify/website.svg?style=shield)](https://circleci.com/gh/fastify/website)
 
 This project is used to build the website for [fastify web framework](https://github.com/fastify/fastify) and publish it online.
