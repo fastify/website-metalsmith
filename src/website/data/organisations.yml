@@ -206,6 +206,10 @@
   image: "quero-educacao.svg"
   link: "https://sobre.quero.com/"
 
+- name: "Qwik Framework"
+  image: "qwik.svg"
+  link: "https://qwik.builder.io/"
+
 - name: "Radity"
   image: "radity.svg"
   link: "https://www.radity.com"
