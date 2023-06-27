@@ -165,6 +165,7 @@
 - name: "Microsoft"
   image: "microsoft.svg"
   link: "https://docs.microsoft.com"
+  pinned: true
 
 - name: "Monitr"
   image: "monitr.svg"
